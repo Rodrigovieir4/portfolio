@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+@import '@portfolio/config-tailwind/theme.css';
+
+/*
+ * O Tailwind v4 varre apenas o pacote em que roda. Os componentes de
+ * @portfolio/ui e @portfolio/gl vivem fora daqui, entao precisam ser
+ * declarados como fonte de classes — sem isso, as utilitarias usadas apenas
+ * pelo design system somem no build de producao.
+ */
+@source '../../../../packages/ui/src';
+@source '../../../../packages/gl/src';
+
+/* -------------------------------------------------------------------------- */
+/* Base                                                                       */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    /* Compensa a barra de rolagem para o layout nao pular ao abrir um modal. */
+    scrollbar-gutter: stable;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /*
+   * Quem pediu menos movimento no sistema recebe menos movimento em tudo,
+   * inclusive no que vier de biblioteca de terceiros. As transicoes ficam
+   * quase instantaneas em vez de zeradas, porque duracao zero cancela o
+   * evento transitionend e quebra codigo que espera por ele.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    background-color: var(--color-void);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-signal);
+    color: var(--color-void);
+  }
+
+  /* Foco visivel apenas para navegacao por teclado, nunca no clique de mouse. */
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 999px;
+    border: 2px solid var(--color-void);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-line-strong);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Utilitarias do projeto                                                     */
+/* -------------------------------------------------------------------------- */
+
+@utility container-content {
+  width: 100%;
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  @media (width >= 64rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@utility container-wide {
+  width: 100%;
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  @media (width >= 64rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Texto com o gradiente de acento, usado nos titulos de maior peso. */
+@utility text-gradient {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-ink) 0%,
+    var(--color-ink) 42%,
+    var(--color-signal) 72%,
+    var(--color-plasma) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/*
+ * Borda em gradiente. Nao existe border-image que respeite border-radius de
+ * forma confiavel, entao a borda e pintada como fundo em duas camadas e
+ * recortada pela mascara, deixando so a moldura visivel.
+ */
+@utility border-gradient {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg, var(--color-signal), transparent 42%, var(--color-plasma));
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+}
+
+/* Malha de fundo que da escala espacial as secoes escuras. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+@utility section-spacing {
+  padding-block: clamp(5rem, 3rem + 9vw, 11rem);
+}

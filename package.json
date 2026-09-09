@@ -1,0 +1,36 @@
+{
+  "name": "portfolio-rodrigovsousa",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Portfolio profissional de Rodrigo Vieira de Sousa — monorepo Turborepo",
+  "author": "Rodrigo Vieira de Sousa <contato.rodrigovsousa@gmail.com>",
+  "license": "MIT",
+  "packageManager": "pnpm@10.24.0",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint -- --fix",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css,glsl}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css,glsl}\"",
+    "check": "turbo run lint typecheck build",
+    "clean": "turbo run clean && rimraf node_modules .turbo",
+    "assets:importar": "node scripts/importar-assets.mjs"
+  },
+  "devDependencies": {
+    "@portfolio/config-eslint": "workspace:*",
+    "@portfolio/config-typescript": "workspace:*",
+    "prettier": "catalog:tooling",
+    "prettier-plugin-tailwindcss": "catalog:tooling",
+    "rimraf": "catalog:tooling",
+    "turbo": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  }
+}

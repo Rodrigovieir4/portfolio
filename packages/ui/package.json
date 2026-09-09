@@ -1,0 +1,39 @@
+{
+  "name": "@portfolio/ui",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf .turbo node_modules"
+  },
+  "dependencies": {
+    "@portfolio/config-tailwind": "workspace:*",
+    "class-variance-authority": "catalog:styling",
+    "clsx": "catalog:styling",
+    "lenis": "catalog:motion",
+    "lucide-react": "catalog:styling",
+    "motion": "catalog:motion",
+    "tailwind-merge": "catalog:styling"
+  },
+  "devDependencies": {
+    "@portfolio/config-eslint": "workspace:*",
+    "@portfolio/config-typescript": "workspace:*",
+    "@types/react": "catalog:react",
+    "@types/react-dom": "catalog:react",
+    "eslint": "catalog:tooling",
+    "react": "catalog:react",
+    "rimraf": "catalog:tooling",
+    "typescript": "catalog:tooling"
+  },
+  "peerDependencies": {
+    "react": "catalog:react",
+    "react-dom": "catalog:react"
+  }
+}

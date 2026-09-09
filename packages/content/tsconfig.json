@@ -1,0 +1,5 @@
+{
+  "extends": "@portfolio/config-typescript/base.json",
+  "include": ["src/**/*.ts", "*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

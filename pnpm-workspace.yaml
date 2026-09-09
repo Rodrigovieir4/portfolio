@@ -1,0 +1,58 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Catalogo central de versoes. Um unico lugar para subir dependencia em todo
+# o monorepo, sem risco de duas copias de React ou de three no bundle final.
+#
+# Notas de compatibilidade travadas em 2026-09-09:
+#   - typescript fica em 5.9.x porque typescript-eslint@8 declara peer
+#     "typescript >=4.8.4 <6.1.0" e nao aceita o compilador nativo 7.x.
+#   - three fica em 0.185.x porque @types/three nao publicou 0.186.
+catalogs:
+  react:
+    react: 19.2.8
+    react-dom: 19.2.8
+    "@types/react": 19.2.18
+    "@types/react-dom": 19.2.7
+
+  next:
+    next: 16.3.4
+    next-intl: 4.14.2
+    eslint-config-next: 16.3.4
+
+  gl:
+    three: 0.185.1
+    "@types/three": 0.185.4
+    "@react-three/fiber": 9.7.0
+    "@react-three/drei": 10.7.8
+    "@react-three/postprocessing": 3.1.1
+    postprocessing: 6.39.4
+
+  motion:
+    motion: 13.2.0
+    lenis: 1.3.26
+
+  styling:
+    tailwindcss: 4.3.3
+    "@tailwindcss/postcss": 4.3.3
+    clsx: 2.1.1
+    tailwind-merge: 3.6.0
+    class-variance-authority: 0.7.1
+    lucide-react: 1.43.0
+
+  tooling:
+    typescript: 5.9.3
+    eslint: 9.39.5
+    typescript-eslint: 8.70.0
+    "@eslint/js": 9.39.5
+    eslint-plugin-react-hooks: 7.1.1
+    eslint-plugin-react: 7.37.5
+    eslint-config-prettier: 10.1.8
+    prettier: 3.9.6
+    prettier-plugin-tailwindcss: 0.8.1
+    turbo: 2.10.12
+    rimraf: 6.1.3
+    "@types/node": 26.5.0
+    zod: 4.5.4
+    vitest: 5.0.0

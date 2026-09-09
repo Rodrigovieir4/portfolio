@@ -1,0 +1,17 @@
+{
+  "name": "@portfolio/config-tailwind",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "exports": {
+    "./theme.css": "./theme.css",
+    "./tokens": "./tokens.ts"
+  },
+  "files": [
+    "theme.css",
+    "tokens.ts"
+  ],
+  "dependencies": {
+    "tailwindcss": "catalog:styling"
+  }
+}

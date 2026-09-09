@@ -1,0 +1,39 @@
+# dependencias
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# turbo
+.turbo/
+
+# ambiente
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# editores
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# testes
+coverage/
+
+# vercel
+.vercel/
+
+# cache de lint
+.eslintcache

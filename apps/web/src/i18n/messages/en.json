@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Rodrigo Vieira de Sousa — Full-Stack Developer",
+    "description": "Portfolio of Rodrigo Vieira de Sousa. Full-stack developer in Java, Spring Boot, Python and React. From youth football to production deploys.",
+    "ogAlt": "Portfolio of Rodrigo Vieira de Sousa"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Stack",
+    "journey": "Journey",
+    "projects": "Projects",
+    "certificates": "Certificates",
+    "contact": "Contact",
+    "menu": "Menu",
+    "close": "Close menu",
+    "changeLanguage": "Change language",
+    "skipToContent": "Skip to content"
+  },
+  "hero": {
+    "scrollHint": "scroll to explore",
+    "ctaProjects": "See projects",
+    "ctaContact": "Get in touch",
+    "resume": "Download résumé",
+    "basedIn": "São Paulo, Brazil"
+  },
+  "about": {
+    "eyebrow": "who is on the other side",
+    "title": "From the pitch to the terminal.",
+    "statsTitle": "In numbers"
+  },
+  "skills": {
+    "eyebrow": "what I build with",
+    "title": "The stack, no padding.",
+    "description": "What I actually use, grouped by layer. The level says how much road each tool has with me, not how much tutorial.",
+    "levelLabel": "Level",
+    "levels": {
+      "1": "learning",
+      "2": "basic",
+      "3": "productive",
+      "4": "solid",
+      "5": "reference"
+    },
+    "languagesTitle": "Languages",
+    "languageLevels": {
+      "nativo": "Native",
+      "fluente": "Fluent",
+      "avancado": "Advanced",
+      "intermediario": "Intermediate",
+      "basico": "Basic"
+    }
+  },
+  "journey": {
+    "eyebrow": "how I got here",
+    "title": "A path that did not start in code.",
+    "description": "Years of training, competition and reading the game before the first line. None of it was left behind. It only changed field.",
+    "present": "present",
+    "kinds": {
+      "work": "Experience",
+      "education": "Education",
+      "athletics": "Sport",
+      "project": "Projects",
+      "certification": "Certification"
+    }
+  },
+  "projects": {
+    "eyebrow": "what I have built",
+    "title": "Projects that left the editor.",
+    "description": "Each one solved a real problem and taught me something no tutorial does. Open source, so you can go read it.",
+    "viewProject": "View project",
+    "viewAll": "View all projects",
+    "backToProjects": "Back to projects",
+    "repo": "Source",
+    "demo": "Live site",
+    "article": "Write-up",
+    "roleLabel": "My role",
+    "stackLabel": "Stack",
+    "highlightsLabel": "Highlights",
+    "status": {
+      "live": "live",
+      "wip": "in progress",
+      "archived": "archived",
+      "private": "private"
+    }
+  },
+  "certificates": {
+    "eyebrow": "what I have studied",
+    "title": "Certificates and education.",
+    "description": "A degree in progress, technical courses and a language certification. Every file opens as a PDF.",
+    "open": "Open certificate",
+    "categories": {
+      "academico": "Academic",
+      "idioma": "Language",
+      "curso": "Course",
+      "cloud": "Cloud",
+      "outro": "Other"
+    }
+  },
+  "contact": {
+    "eyebrow": "next step",
+    "title": "Let us build something.",
+    "description": "I am open to opportunities, freelance work and a good conversation about architecture. I reply within one business day.",
+    "copyEmail": "Copy email",
+    "copied": "Copied",
+    "emailCta": "Send an email"
+  },
+  "footer": {
+    "builtWith": "Built with Next.js, Three.js and Turborepo.",
+    "sourceCode": "Source code",
+    "rights": "All rights reserved.",
+    "backToTop": "Back to top"
+  },
+  "notFound": {
+    "title": "This page does not exist.",
+    "description": "The link may have moved. Head back to the start and pick it up from there.",
+    "back": "Go to the start"
+  }
+}

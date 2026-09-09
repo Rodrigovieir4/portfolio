@@ -1,0 +1,23 @@
+{
+  "name": "@portfolio/config-eslint",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js",
+    "./next": "./next.js"
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:tooling",
+    "eslint-config-next": "catalog:next",
+    "eslint-config-prettier": "catalog:tooling",
+    "eslint-plugin-react": "catalog:tooling",
+    "eslint-plugin-react-hooks": "catalog:tooling",
+    "typescript-eslint": "catalog:tooling"
+  },
+  "devDependencies": {
+    "eslint": "catalog:tooling"
+  }
+}

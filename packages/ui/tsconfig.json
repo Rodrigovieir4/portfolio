@@ -1,0 +1,5 @@
+{
+  "extends": "@portfolio/config-typescript/react-library.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx", "*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

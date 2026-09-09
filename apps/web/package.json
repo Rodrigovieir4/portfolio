@@ -1,0 +1,39 @@
+{
+  "name": "@portfolio/web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf .next .turbo node_modules"
+  },
+  "dependencies": {
+    "@portfolio/config-tailwind": "workspace:*",
+    "@portfolio/content": "workspace:*",
+    "@portfolio/gl": "workspace:*",
+    "@portfolio/ui": "workspace:*",
+    "lucide-react": "catalog:styling",
+    "motion": "catalog:motion",
+    "next": "catalog:next",
+    "next-intl": "catalog:next",
+    "react": "catalog:react",
+    "react-dom": "catalog:react"
+  },
+  "devDependencies": {
+    "@portfolio/config-eslint": "workspace:*",
+    "@portfolio/config-typescript": "workspace:*",
+    "@tailwindcss/postcss": "catalog:styling",
+    "@types/node": "catalog:tooling",
+    "@types/react": "catalog:react",
+    "@types/react-dom": "catalog:react",
+    "eslint": "catalog:tooling",
+    "eslint-config-next": "catalog:next",
+    "rimraf": "catalog:tooling",
+    "tailwindcss": "catalog:styling",
+    "typescript": "catalog:tooling"
+  }
+}

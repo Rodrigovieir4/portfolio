@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "title": "Rodrigo Vieira de Sousa — Desarrollador Full-Stack",
+    "description": "Portfolio de Rodrigo Vieira de Sousa. Desarrollador full-stack en Java, Spring Boot, Python y React. Del fútbol de base al deploy en producción.",
+    "ogAlt": "Portfolio de Rodrigo Vieira de Sousa"
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "skills": "Stack",
+    "journey": "Trayectoria",
+    "projects": "Proyectos",
+    "certificates": "Certificados",
+    "contact": "Contacto",
+    "menu": "Menú",
+    "close": "Cerrar menú",
+    "changeLanguage": "Cambiar idioma",
+    "skipToContent": "Saltar al contenido"
+  },
+  "hero": {
+    "scrollHint": "desplázate para explorar",
+    "ctaProjects": "Ver proyectos",
+    "ctaContact": "Hablar conmigo",
+    "resume": "Descargar currículum",
+    "basedIn": "São Paulo, Brasil"
+  },
+  "about": {
+    "eyebrow": "quién está del otro lado",
+    "title": "De la cancha a la terminal.",
+    "statsTitle": "En números"
+  },
+  "skills": {
+    "eyebrow": "con qué construyo",
+    "title": "El stack, sin adornos.",
+    "description": "Lo que uso de verdad, agrupado por capa. El nivel dice cuánto camino tiene cada herramienta conmigo, no cuánto tutorial.",
+    "levelLabel": "Nivel",
+    "levels": {
+      "1": "estudiando",
+      "2": "básico",
+      "3": "productivo",
+      "4": "sólido",
+      "5": "referencia"
+    },
+    "languagesTitle": "Idiomas",
+    "languageLevels": {
+      "nativo": "Nativo",
+      "fluente": "Fluido",
+      "avancado": "Avanzado",
+      "intermediario": "Intermedio",
+      "basico": "Básico"
+    }
+  },
+  "journey": {
+    "eyebrow": "cómo llegué aquí",
+    "title": "Un camino que no empezó en el código.",
+    "description": "Años de entrenamiento, competencia y lectura de juego antes de la primera línea. Nada de eso quedó atrás, solo cambió de campo.",
+    "present": "hoy",
+    "kinds": {
+      "work": "Experiencia",
+      "education": "Formación",
+      "athletics": "Deporte",
+      "project": "Proyectos",
+      "certification": "Certificación"
+    }
+  },
+  "projects": {
+    "eyebrow": "lo que he construido",
+    "title": "Proyectos que salieron del editor.",
+    "description": "Cada uno resolvió un problema real y me enseñó algo que ningún tutorial enseña. Código abierto, se puede abrir y revisar.",
+    "viewProject": "Ver proyecto",
+    "viewAll": "Ver todos los proyectos",
+    "backToProjects": "Volver a los proyectos",
+    "repo": "Código",
+    "demo": "Ver en vivo",
+    "article": "Artículo",
+    "roleLabel": "Mi rol",
+    "stackLabel": "Stack",
+    "highlightsLabel": "Destacados",
+    "status": {
+      "live": "en vivo",
+      "wip": "en construcción",
+      "archived": "archivado",
+      "private": "privado"
+    }
+  },
+  "certificates": {
+    "eyebrow": "lo que he estudiado",
+    "title": "Certificados y formación.",
+    "description": "Carrera en curso, cursos técnicos y certificación de idioma. Todos los archivos abren en PDF.",
+    "open": "Abrir certificado",
+    "categories": {
+      "academico": "Académico",
+      "idioma": "Idioma",
+      "curso": "Curso",
+      "cloud": "Cloud",
+      "outro": "Otro"
+    }
+  },
+  "contact": {
+    "eyebrow": "siguiente paso",
+    "title": "Vamos a construir algo.",
+    "description": "Estoy abierto a oportunidades, proyectos freelance y buena conversación sobre arquitectura. Respondo en un día hábil.",
+    "copyEmail": "Copiar correo",
+    "copied": "Copiado",
+    "emailCta": "Enviar correo"
+  },
+  "footer": {
+    "builtWith": "Construido con Next.js, Three.js y Turborepo.",
+    "sourceCode": "Código fuente",
+    "rights": "Todos los derechos reservados.",
+    "backToTop": "Volver arriba"
+  },
+  "notFound": {
+    "title": "Esta página no existe.",
+    "description": "El enlace puede haber cambiado de lugar. Vuelve al inicio y sigue desde ahí.",
+    "back": "Ir al inicio"
+  }
+}
