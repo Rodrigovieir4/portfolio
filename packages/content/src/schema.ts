@@ -3,15 +3,15 @@ import { z } from 'zod';
 import { LOCALES } from './locale';
 
 /**
- * Schemas de conteudo.
+ * Schemas de conteúdo.
  *
- * Cada arquivo em src/data e validado contra estes schemas no momento em que o
- * modulo carrega. Se voce digitar uma data invalida ou esquecer a traducao em
- * espanhol, o build do Next quebra com a mensagem exata do campo — em vez de o
- * portfolio subir com um buraco.
+ * Cada arquivo em src/data é validado contra estes schemas no momento em que o
+ * módulo carrega. Se você digitar uma data inválida ou esquecer a tradução em
+ * espanhol, o build do Next quebra com a mensagem exata do campo, em vez de o
+ * portfólio subir com um buraco.
  */
 
-/** Constroi o validador de um campo de texto em todos os idiomas. */
+/** Constrói o validador de um campo de texto em todos os idiomas. */
 const localized = <T extends z.ZodTypeAny>(inner: T) =>
   z.object(
     Object.fromEntries(LOCALES.map((locale) => [locale, inner])) as Record<
@@ -20,10 +20,10 @@ const localized = <T extends z.ZodTypeAny>(inner: T) =>
     >,
   );
 
-export const localizedString = localized(z.string().min(1, 'texto nao pode ser vazio'));
+export const localizedString = localized(z.string().min(1, 'texto não pode ser vazio'));
 export const localizedList = localized(z.array(z.string().min(1)).min(1));
 
-/** Data no formato AAAA-MM. Precisao de mes basta para curriculo. */
+/** Data no formato AAAA-MM. Precisão de mês basta para currículo. */
 export const yearMonth = z
   .string()
   .regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'use o formato AAAA-MM, por exemplo 2024-03');
@@ -94,7 +94,7 @@ export const projectSchema = z.object({
     article: z.string().url().optional(),
   }),
   cover: z.string().optional(),
-  /** Cor de acento usada na cena WebGL do card. */
+  /** Cor de acento usada no brilho do card. */
   accent: z.enum(['signal', 'plasma', 'ember', 'cyan']).default('signal'),
 });
 
@@ -110,7 +110,7 @@ export const experienceSchema = z
       .optional(),
     mode: z.enum(['remoto', 'hibrido', 'presencial']).optional(),
     start: yearMonth,
-    /** null significa "ate hoje". */
+    /** null significa "até hoje". */
     end: yearMonth.nullable(),
     location: z.string().optional(),
     summary: localizedString,
@@ -118,7 +118,7 @@ export const experienceSchema = z
     stack: z.array(z.string()).default([]),
   })
   .refine((value) => value.end === null || value.end >= value.start, {
-    message: 'a data final nao pode ser anterior a inicial',
+    message: 'a data final não pode ser anterior à inicial',
     path: ['end'],
   });
 
@@ -150,7 +150,7 @@ export type Certification = z.infer<typeof certificationSchema>;
 export type Language = z.infer<typeof languageSchema>;
 
 /**
- * Valida uma colecao e enriquece o erro com o nome do arquivo de origem,
+ * Valida uma coleção e enriquece o erro com o nome do arquivo de origem,
  * para a mensagem de build apontar direto para onde corrigir.
  */
 export function parseCollection<T extends z.ZodTypeAny>(
@@ -164,7 +164,7 @@ export function parseCollection<T extends z.ZodTypeAny>(
       const issues = result.error.issues
         .map((issue) => `  - ${issue.path.join('.') || '(raiz)'}: ${issue.message}`)
         .join('\n');
-      throw new Error(`Conteudo invalido em ${source}, item ${index}:\n${issues}`);
+      throw new Error(`Conteúdo inválido em ${source}, item ${index}:\n${issues}`);
     }
     return result.data;
   });

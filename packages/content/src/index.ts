@@ -1,8 +1,8 @@
 /**
- * Ponto unico de entrada do conteudo.
+ * Ponto único de entrada do conteúdo.
  *
  * O app Next importa somente daqui. Assim, mudar o formato interno de um
- * arquivo de dados nao vaza para dentro dos componentes.
+ * arquivo de dados não vaza para dentro dos componentes.
  */
 
 export * from './locale';

@@ -3,8 +3,8 @@ import { profileSchema, type Profile } from '../schema';
 /**
  * Identidade e contato.
  *
- * Este e o unico arquivo que praticamente nunca muda. Tudo que e visivel no
- * topo do site — nome, frase de efeito, bio e redes — sai daqui.
+ * Este é o único arquivo que praticamente nunca muda. Tudo que aparece no topo
+ * do site — nome, frase de efeito, bio e redes — sai daqui.
  */
 const raw = {
   name: 'Rodrigo Vieira de Sousa',
@@ -24,24 +24,24 @@ const raw = {
 
   bio: {
     pt: [
-      'Comecei no gramado e nos servidores de jogo competitivo. Foram anos aprendendo que resultado nao nasce de talento solto: nasce de repeticao, leitura de jogo e ajuste fino sob pressao.',
+      'Comecei no gramado e nos servidores de jogo competitivo. Foram anos aprendendo que resultado não nasce de talento solto: nasce de repetição, leitura de jogo e ajuste fino sob pressão.',
       'Hoje aplico exatamente isso construindo software. Trabalho com Java e Spring Boot no backend, React no frontend, e Docker e AWS na hora de entregar.',
-      'Estudo Analise e Desenvolvimento de Sistemas na Universidade Sao Judas Tadeu e trato cada projeto como temporada: metrica clara, ciclo curto e evolucao que da para medir.',
+      'Estudo Análise e Desenvolvimento de Sistemas na Universidade São Judas Tadeu e trato cada projeto como temporada: métrica clara, ciclo curto e evolução que dá para medir.',
     ],
     en: [
       'I started on the pitch and on competitive gaming servers. Those years taught me that results never come from raw talent alone. They come from repetition, reading the game, and fine-tuning under pressure.',
       'I apply exactly that to building software today. I work with Java and Spring Boot on the backend, React on the frontend, and Docker and AWS when it is time to ship.',
-      'I study Systems Analysis and Development at Universidade Sao Judas Tadeu, and I treat every project like a season: clear metrics, short cycles, and progress you can actually measure.',
+      'I study Systems Analysis and Development at Universidade São Judas Tadeu, and I treat every project like a season: clear metrics, short cycles, and progress you can actually measure.',
     ],
     es: [
-      'Empece en la cancha y en los servidores de juego competitivo. Fueron anos aprendiendo que el resultado no nace del talento suelto: nace de la repeticion, la lectura de juego y el ajuste fino bajo presion.',
+      'Empecé en la cancha y en los servidores de juego competitivo. Fueron años aprendiendo que el resultado no nace del talento suelto: nace de la repetición, la lectura de juego y el ajuste fino bajo presión.',
       'Hoy aplico exactamente eso construyendo software. Trabajo con Java y Spring Boot en el backend, React en el frontend, y Docker y AWS a la hora de entregar.',
-      'Estudio Analisis y Desarrollo de Sistemas en la Universidade Sao Judas Tadeu y trato cada proyecto como una temporada: metrica clara, ciclo corto y evolucion medible.',
+      'Estudio Análisis y Desarrollo de Sistemas en la Universidade São Judas Tadeu y trato cada proyecto como una temporada: métrica clara, ciclo corto y evolución medible.',
     ],
   },
 
   location: {
-    city: 'Sao Paulo',
+    city: 'São Paulo',
     state: 'SP',
     country: 'Brasil',
     timezone: 'America/Sao_Paulo',
@@ -51,8 +51,8 @@ const raw = {
   phone: '+5511970421998',
   avatar: '/images/rodrigo.png',
 
-  // Por enquanto so existe o curriculo em portugues, entao os tres idiomas
-  // apontam para ele. Assim ninguem cai num link quebrado. Ao gerar as versoes
+  // Por enquanto só existe o currículo em português, então os três idiomas
+  // apontam para ele. Assim ninguém cai num link quebrado. Ao gerar as versões
   // traduzidas, coloque os PDFs em apps/web/public/curriculo com os nomes
   // -en.pdf e -es.pdf e troque os caminhos abaixo.
   resumeUrl: {

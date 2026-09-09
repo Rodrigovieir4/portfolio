@@ -4,11 +4,11 @@ import { certificationSchema, parseCollection, type Certification } from '../sch
  * Certificados.
  *
  * O campo `file` aponta para um PDF em apps/web/public/certificados. O site
- * abre o arquivo em nova aba; se `file` ficar vazio, o card aparece sem botao
- * de download em vez de quebrar.
+ * abre o arquivo em nova aba; se `file` ficar vazio, o card aparece sem link
+ * em vez de quebrar.
  *
- * Os PDFs originais estao no repositorio antigo, em portfolio/assets/certificados.
- * O script `pnpm assets:importar` copia todos de uma vez.
+ * Os PDFs originais estão no repositório antigo, em portfolio/assets/certificados.
+ * O comando `pnpm assets:importar` baixa todos de uma vez, já renomeados.
  */
 const raw = [
   {
@@ -16,9 +16,9 @@ const raw = [
     category: 'idioma',
     issuer: 'Wizard',
     name: {
-      pt: 'Proficiencia em Ingles',
+      pt: 'Proficiência em Inglês',
       en: 'English Proficiency',
-      es: 'Competencia en Ingles',
+      es: 'Competencia en Inglés',
     },
     file: '/certificados/wizard-ingles.pdf',
   },
@@ -27,9 +27,9 @@ const raw = [
     category: 'curso',
     issuer: 'Rocketseat',
     name: {
-      pt: 'Introducao ao Python',
+      pt: 'Introdução ao Python',
       en: 'Introduction to Python',
-      es: 'Introduccion a Python',
+      es: 'Introducción a Python',
     },
     file: '/certificados/rocketseat-python.pdf',
   },
@@ -45,11 +45,11 @@ const raw = [
     file: '/certificados/rocketseat-java.pdf',
   },
 
-  // --- Unidades curriculares da Universidade Sao Judas Tadeu ---
+  // --- Unidades curriculares da Universidade São Judas Tadeu ---
   {
     id: 'usjt-modelagem-software',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
       pt: 'Modelagem de software',
       en: 'Software modelling',
@@ -60,31 +60,31 @@ const raw = [
   {
     id: 'usjt-engenharia-software',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
-      pt: 'Modelos, metodos e tecnicas da engenharia de software',
+      pt: 'Modelos, métodos e técnicas da engenharia de software',
       en: 'Software engineering models, methods and techniques',
-      es: 'Modelos, metodos y tecnicas de la ingenieria de software',
+      es: 'Modelos, métodos y técnicas de la ingeniería de software',
     },
     file: '/certificados/usjt-engenharia-de-software.pdf',
   },
   {
     id: 'usjt-programacao-solucoes',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
-      pt: 'Programacao de solucoes computacionais',
+      pt: 'Programação de soluções computacionais',
       en: 'Programming computational solutions',
-      es: 'Programacion de soluciones computacionales',
+      es: 'Programación de soluciones computacionales',
     },
     file: '/certificados/usjt-programacao-de-solucoes.pdf',
   },
   {
     id: 'usjt-sistemas-distribuidos',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
-      pt: 'Sistemas distribuidos e mobile',
+      pt: 'Sistemas distribuídos e mobile',
       en: 'Distributed and mobile systems',
       es: 'Sistemas distribuidos y mobile',
     },
@@ -93,9 +93,9 @@ const raw = [
   {
     id: 'usjt-seguranca',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
-      pt: 'Sistemas computacionais e seguranca',
+      pt: 'Sistemas computacionais e segurança',
       en: 'Computing systems and security',
       es: 'Sistemas computacionales y seguridad',
     },
@@ -104,7 +104,7 @@ const raw = [
   {
     id: 'usjt-ambientes-conectividade',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
       pt: 'Ambientes computacionais e conectividade',
       en: 'Computing environments and connectivity',
@@ -115,18 +115,18 @@ const raw = [
   {
     id: 'usjt-qualidade-software',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
-      pt: 'Gestao e qualidade de software',
+      pt: 'Gestão e qualidade de software',
       en: 'Software management and quality',
-      es: 'Gestion y calidad de software',
+      es: 'Gestión y calidad de software',
     },
     file: '/certificados/usjt-qualidade-de-software.pdf',
   },
   {
     id: 'usjt-usabilidade-web-mobile',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
       pt: 'Usabilidade, desenvolvimento web, mobile e jogos',
       en: 'Usability, web, mobile and game development',
@@ -137,11 +137,11 @@ const raw = [
   {
     id: 'usjt-inovacao',
     category: 'academico',
-    issuer: 'Universidade Sao Judas Tadeu',
+    issuer: 'Universidade São Judas Tadeu',
     name: {
-      pt: 'Inovacao, sustentabilidade e competitividade',
+      pt: 'Inovação, sustentabilidade e competitividade',
       en: 'Innovation, sustainability and competitiveness',
-      es: 'Innovacion, sostenibilidad y competitividad',
+      es: 'Innovación, sostenibilidad y competitividad',
     },
     file: '/certificados/usjt-inovacao.pdf',
   },

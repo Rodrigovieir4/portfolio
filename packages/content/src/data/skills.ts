@@ -1,12 +1,12 @@
 import { parseCollection, skillGroupSchema, type SkillGroup } from '../schema';
 
 /**
- * Stack tecnica agrupada por camada.
+ * Stack técnica agrupada por camada.
  *
- * O campo `level` vai de 1 a 5 e alimenta tanto a barra de proficiencia quanto
- * o raio de orbita de cada no na constelacao 3D: quanto maior o nivel, mais
- * perto do centro o no gira.
- *   1 estudando | 2 basico | 3 produtivo | 4 solido | 5 referencia
+ * O campo `level` vai de 1 a 5 e alimenta tanto a barra de proficiência quanto
+ * o brilho de cada card: quanto maior o nível, mais forte o acento de cor.
+ *
+ *   1 estudando | 2 básico | 3 produtivo | 4 sólido | 5 referência
  */
 const raw = [
   {

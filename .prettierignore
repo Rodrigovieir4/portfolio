@@ -6,3 +6,4 @@ out
 coverage
 pnpm-lock.yaml
 *.glsl
+next-env.d.ts

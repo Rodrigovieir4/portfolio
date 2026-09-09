@@ -2,6 +2,9 @@
 node_modules/
 .pnpm-store/
 
+# gerado pelo Next a cada build, nao deve ser versionado
+next-env.d.ts
+
 # builds
 .next/
 out/

@@ -5,10 +5,10 @@ import { allSkills } from './data/skills';
 import type { Localized } from './locale';
 
 /**
- * Numeros exibidos no contador animado da home.
+ * Números exibidos no contador animado da home.
  *
- * Sao derivados do conteudo, nunca digitados a mao: publicar um projeto novo
- * atualiza o contador sozinho, sem ninguem lembrar de mexer aqui.
+ * São derivados do conteúdo, nunca digitados à mão: publicar um projeto novo
+ * atualiza o contador sozinho, sem ninguém lembrar de mexer aqui.
  */
 
 function yearsSince(isoYearMonth: string): number {
@@ -60,9 +60,9 @@ export const stats: Stat[] = [
     value: Math.max(1, yearsSince(codingStart)),
     suffix: '+',
     label: {
-      pt: 'Anos escrevendo codigo',
+      pt: 'Anos escrevendo código',
       en: 'Years writing code',
-      es: 'Anos escribiendo codigo',
+      es: 'Años escribiendo código',
     },
   },
 ];

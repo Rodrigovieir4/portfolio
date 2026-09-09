@@ -1,22 +1,22 @@
 import { experienceSchema, parseCollection, type Experience } from '../schema';
 
 /**
- * Linha do tempo da trajetoria.
+ * Linha do tempo da trajetória.
  *
- * ============================ ATENCAO ============================
- * As datas marcadas com "CONFIRMAR" abaixo sao estimativas, porque nao
- * constavam no portfolio antigo nem no GitHub. Ajuste antes de publicar.
- * Sao elas:
- *   - atleta.futebol      -> start e end
- *   - atleta.esports      -> start e end
- *   - formacao.sao-judas  -> start
+ * ============================ ATENÇÃO ============================
+ * As datas marcadas com "CONFIRMAR" abaixo são estimativas, porque não
+ * constavam no portfólio antigo nem no GitHub. Ajuste antes de divulgar.
+ * São elas:
+ *   - atleta-futebol   -> start e end
+ *   - atleta-esports   -> start e end
+ *   - sao-judas-ads    -> start
  * =================================================================
  *
- * `kind` controla o simbolo e a cor do marcador na linha do tempo:
- *   athletics    trajetoria esportiva
- *   education    formacao academica
- *   project      projeto proprio relevante o bastante para virar marco
- *   work         experiencia profissional
+ * `kind` controla o rótulo e a cor do marcador na linha do tempo:
+ *   athletics    trajetória esportiva
+ *   education    formação acadêmica
+ *   project      projeto próprio relevante o bastante para virar marco
+ *   work         experiência profissional
  *
  * Para registrar um emprego novo, copie o bloco modelo no fim do arquivo,
  * troque `end: null` por uma data quando sair, e pronto. O site reordena
@@ -29,22 +29,22 @@ const raw = [
     role: {
       pt: 'Atleta de futebol',
       en: 'Football athlete',
-      es: 'Atleta de futbol',
+      es: 'Atleta de fútbol',
     },
     organization: 'Futebol de base',
     start: '2016-01', // CONFIRMAR
     end: '2021-12', // CONFIRMAR
-    location: 'Sao Paulo, SP',
+    location: 'São Paulo, SP',
     summary: {
-      pt: 'Anos de treino em categoria de base, onde aprendi que constancia vence talento isolado.',
+      pt: 'Anos de treino em categoria de base, onde aprendi que constância vence talento isolado.',
       en: 'Years of youth-academy training, where I learned that consistency beats isolated talent.',
-      es: 'Anos de entrenamiento en categoria de base, donde aprendi que la constancia vence al talento aislado.',
+      es: 'Años de entrenamiento en categoría de base, donde aprendí que la constancia vence al talento aislado.',
     },
     highlights: {
       pt: [
-        'Rotina diaria de treino conciliada com os estudos',
-        'Leitura de jogo e tomada de decisao sob pressao',
-        'Trabalho de equipe com funcao clara dentro de um sistema',
+        'Rotina diária de treino conciliada com os estudos',
+        'Leitura de jogo e tomada de decisão sob pressão',
+        'Trabalho de equipe com função clara dentro de um sistema',
       ],
       en: [
         'A daily training routine balanced against school',
@@ -53,8 +53,8 @@ const raw = [
       ],
       es: [
         'Rutina diaria de entrenamiento conciliada con los estudios',
-        'Lectura de juego y toma de decision bajo presion',
-        'Trabajo en equipo con funcion clara dentro de un sistema',
+        'Lectura de juego y toma de decisión bajo presión',
+        'Trabajo en equipo con función clara dentro de un sistema',
       ],
     },
     stack: [],
@@ -68,20 +68,20 @@ const raw = [
       en: 'Competitive eSports player',
       es: 'Jugador competitivo de eSports',
     },
-    organization: 'Cenario competitivo',
+    organization: 'Cenário competitivo',
     start: '2020-01', // CONFIRMAR
     end: '2023-12', // CONFIRMAR
     location: 'Remoto',
     summary: {
-      pt: 'A transicao do campo para a tela. Foi jogando competitivo que a curiosidade virou do jogo para o que rodava por baixo dele.',
+      pt: 'A transição do campo para a tela. Foi jogando competitivo que a curiosidade virou do jogo para o que rodava por baixo dele.',
       en: 'The move from pitch to screen. Playing competitively is what turned my curiosity from the game toward what ran underneath it.',
-      es: 'La transicion del campo a la pantalla. Fue jugando competitivo que la curiosidad paso del juego a lo que corria por debajo.',
+      es: 'La transición del campo a la pantalla. Fue jugando competitivo que la curiosidad pasó del juego a lo que corría por debajo.',
     },
     highlights: {
       pt: [
-        'Analise de desempenho a partir de dados de partida',
-        'Comunicacao objetiva em equipe, em tempo real',
-        'Primeiro contato com codigo, por curiosidade sobre a infraestrutura do jogo',
+        'Análise de desempenho a partir de dados de partida',
+        'Comunicação objetiva em equipe, em tempo real',
+        'Primeiro contato com código, por curiosidade sobre a infraestrutura do jogo',
       ],
       en: [
         'Performance analysis driven by match data',
@@ -89,9 +89,9 @@ const raw = [
         'First contact with code, out of curiosity about the game infrastructure',
       ],
       es: [
-        'Analisis de desempeno a partir de datos de partida',
-        'Comunicacion objetiva en equipo, en tiempo real',
-        'Primer contacto con codigo, por curiosidad sobre la infraestructura del juego',
+        'Análisis de desempeño a partir de datos de partida',
+        'Comunicación objetiva en equipo, en tiempo real',
+        'Primer contacto con código, por curiosidad sobre la infraestructura del juego',
       ],
     },
     stack: [],
@@ -101,25 +101,25 @@ const raw = [
     id: 'sao-judas-ads',
     kind: 'education',
     role: {
-      pt: 'Analise e Desenvolvimento de Sistemas',
+      pt: 'Análise e Desenvolvimento de Sistemas',
       en: 'Systems Analysis and Development',
-      es: 'Analisis y Desarrollo de Sistemas',
+      es: 'Análisis y Desarrollo de Sistemas',
     },
-    organization: 'Universidade Sao Judas Tadeu',
+    organization: 'Universidade São Judas Tadeu',
     organizationUrl: 'https://www.usjt.br',
     start: '2025-02', // CONFIRMAR
     end: null,
-    location: 'Sao Paulo, SP',
+    location: 'São Paulo, SP',
     summary: {
-      pt: 'Graduacao em andamento, com dez unidades curriculares ja certificadas, de modelagem de software a sistemas distribuidos.',
+      pt: 'Graduação em andamento, com dez unidades curriculares já certificadas, de modelagem de software a sistemas distribuídos.',
       en: 'Degree in progress, with ten curricular units already certified, from software modelling to distributed systems.',
       es: 'Carrera en curso, con diez unidades curriculares ya certificadas, de modelado de software a sistemas distribuidos.',
     },
     highlights: {
       pt: [
         'Modelagem de software e engenharia de requisitos',
-        'Sistemas distribuidos, mobile e ambientes computacionais',
-        'Seguranca de sistemas e gestao de qualidade de software',
+        'Sistemas distribuídos, mobile e ambientes computacionais',
+        'Segurança de sistemas e gestão de qualidade de software',
       ],
       en: [
         'Software modelling and requirements engineering',
@@ -127,9 +127,9 @@ const raw = [
         'Systems security and software quality management',
       ],
       es: [
-        'Modelado de software e ingenieria de requisitos',
+        'Modelado de software e ingeniería de requisitos',
         'Sistemas distribuidos, mobile y ambientes computacionales',
-        'Seguridad de sistemas y gestion de calidad de software',
+        'Seguridad de sistemas y gestión de calidad de software',
       ],
     },
     stack: ['Java', 'Python', 'MySQL', 'Scrum'],
@@ -143,20 +143,20 @@ const raw = [
       en: 'From first commit to first deploy',
       es: 'Del primer commit al primer deploy',
     },
-    organization: 'Projetos proprios',
+    organization: 'Projetos próprios',
     organizationUrl: 'https://github.com/Rodrigovieir4',
     start: '2025-08',
     end: null,
     location: 'Remoto',
     summary: {
-      pt: 'O periodo em que sair do tutorial virou rotina: API em Flask, servico Java em container e um jogo multiplayer em TypeScript.',
+      pt: 'O período em que sair do tutorial virou rotina: API em Flask, serviço Java em container e um jogo multiplayer em TypeScript.',
       en: 'The stretch where leaving the tutorial behind became routine: a Flask API, a containerised Java service, and a multiplayer game in TypeScript.',
-      es: 'El periodo en que salir del tutorial se volvio rutina: API en Flask, servicio Java en contenedor y un juego multijugador en TypeScript.',
+      es: 'El período en que salir del tutorial se volvió rutina: API en Flask, servicio Java en contenedor y un juego multijugador en TypeScript.',
     },
     highlights: {
       pt: [
-        'API REST documentada em OpenAPI, com autenticacao e carrinho',
-        'Servico Java empacotado em Docker e publicado em nuvem',
+        'API REST documentada em OpenAPI, com autenticação e carrinho',
+        'Serviço Java empacotado em Docker e publicado em nuvem',
         'Jogo multiplayer com estado sincronizado por WebSocket',
       ],
       en: [
@@ -165,7 +165,7 @@ const raw = [
         'A multiplayer game with state synchronised over WebSocket',
       ],
       es: [
-        'API REST documentada en OpenAPI, con autenticacion y carrito',
+        'API REST documentada en OpenAPI, con autenticación y carrito',
         'Servicio Java empaquetado en Docker y publicado en la nube',
         'Juego multijugador con estado sincronizado por WebSocket',
       ],
@@ -175,7 +175,7 @@ const raw = [
 
   /*
    * ------------------------- MODELO DE EMPREGO -------------------------
-   * Descomente, preencha e o site publica sozinho na proxima build.
+   * Descomente, preencha e o site publica sozinho na próxima build.
    *
    * {
    *   id: 'empresa-cargo',
@@ -186,11 +186,11 @@ const raw = [
    *   employment: 'clt',        // clt | pj | freelance | estagio | trainee
    *   mode: 'hibrido',          // remoto | hibrido | presencial
    *   start: '2026-01',
-   *   end: null,                // null = ate hoje
-   *   location: 'Sao Paulo, SP',
+   *   end: null,                // null = até hoje
+   *   location: 'São Paulo, SP',
    *   summary: { pt: '...', en: '...', es: '...' },
    *   highlights: {
-   *     pt: ['Resultado com numero', 'Outro resultado', 'Mais um'],
+   *     pt: ['Resultado com número', 'Outro resultado', 'Mais um'],
    *     en: ['...', '...', '...'],
    *     es: ['...', '...', '...'],
    *   },
@@ -200,7 +200,7 @@ const raw = [
    */
 ];
 
-/** Ordenada da mais recente para a mais antiga, que e a ordem de leitura. */
+/** Ordenada da mais recente para a mais antiga, que é a ordem de leitura. */
 export const experiences: Experience[] = parseCollection(
   experienceSchema,
   raw,
