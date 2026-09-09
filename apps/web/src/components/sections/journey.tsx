@@ -1,5 +1,6 @@
+import { Badge } from '@/components/ui/badge';
 import { experiences, t as translate, type Locale } from '@portfolio/content';
-import { Badge, Reveal, RevealGroup, RevealItem, SectionHeading } from '@portfolio/ui';
+import { Reveal, RevealGroup, RevealItem, SectionHeading } from '@portfolio/ui';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 const KIND_TONE: Record<string, 'signal' | 'plasma' | 'ember' | 'cyan' | 'neutral'> = {
@@ -83,7 +84,7 @@ export async function Journey() {
                       <h3 className="font-display text-xl leading-tight font-semibold text-ink">
                         {translate(item.role, locale)}
                       </h3>
-                      <p className="text-sm text-muted">
+                      <p className="text-sm text-muted-foreground">
                         {item.organizationUrl ? (
                           <a
                             href={item.organizationUrl}
@@ -106,7 +107,7 @@ export async function Journey() {
 
                     <ul className="flex max-w-2xl flex-col gap-1.5 pt-1">
                       {translate(item.highlights, locale).map((highlight, index) => (
-                        <li key={index} className="flex gap-2.5 text-sm text-muted">
+                        <li key={index} className="flex gap-2.5 text-sm text-muted-foreground">
                           <span
                             className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-line-strong"
                             aria-hidden="true"
@@ -121,7 +122,7 @@ export async function Journey() {
                         {item.stack.map((tech) => (
                           <li
                             key={tech}
-                            className="rounded border border-line bg-elevated/50 px-2 py-0.5 font-mono text-[0.65rem] text-muted"
+                            className="rounded border border-line bg-elevated/50 px-2 py-0.5 font-mono text-[0.65rem] text-muted-foreground"
                           >
                             {tech}
                           </li>

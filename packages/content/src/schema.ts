@@ -77,6 +77,18 @@ export const skillGroupSchema = z.object({
   skills: z.array(skillSchema).min(1),
 });
 
+/**
+ * Um número que prova alguma coisa.
+ *
+ * Existe porque "trabalhei numa API grande" não diz nada e "286 endpoints REST,
+ * 285 documentados em Swagger" diz tudo. O campo `value` é string, não número,
+ * para caber "2,7 MB" e "99%" sem gambiarra de formatação.
+ */
+export const metricSchema = z.object({
+  value: z.string().min(1),
+  label: localizedString,
+});
+
 export const projectSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'slug deve ser kebab-case, sem acento'),
   name: z.string().min(1),
@@ -84,10 +96,24 @@ export const projectSchema = z.object({
   description: localized(z.array(z.string().min(1)).min(1)),
   role: localizedString,
   year: z.string().regex(/^\d{4}$/),
+  /** Período de atuação. `end: null` significa que segue em andamento. */
+  start: yearMonth.optional(),
+  end: yearMonth.nullish(),
+  /** Quem contratou. Ausente quando é projeto próprio ou acadêmico. */
+  client: z.string().optional(),
+  /** Como o trabalho chegou: via a DBC, como freelance, ou por conta própria. */
+  engagement: z.enum(['dbc', 'freelance', 'proprio', 'academico']).default('proprio'),
   status: z.enum(['live', 'wip', 'archived', 'private']),
+  /**
+   * Se o código pode ser lido por quem visita. Produto de cliente é fechado, e
+   * dizer isso explicitamente é melhor do que um card sem link que parece
+   * quebrado.
+   */
+  codeVisibility: z.enum(['public', 'private']).default('public'),
   featured: z.boolean().default(false),
   stack: z.array(z.string().min(1)).min(1),
   highlights: localizedList,
+  metrics: z.array(metricSchema).default([]),
   links: z.object({
     repo: z.string().url().optional(),
     demo: z.string().url().optional(),
@@ -144,6 +170,7 @@ export type Social = z.infer<typeof socialSchema>;
 export type Profile = z.infer<typeof profileSchema>;
 export type Skill = z.infer<typeof skillSchema>;
 export type SkillGroup = z.infer<typeof skillGroupSchema>;
+export type Metric = z.infer<typeof metricSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
 export type Certification = z.infer<typeof certificationSchema>;

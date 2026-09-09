@@ -28,7 +28,7 @@ export async function Footer() {
       <div className="container-wide flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-3">
           <p className="font-display text-lg font-medium text-ink">{profile.name}</p>
-          <p className="max-w-sm text-sm leading-relaxed text-muted">{t('builtWith')}</p>
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">{t('builtWith')}</p>
           <p className="font-mono text-xs text-faint">
             © {year} · {t('rights')}
           </p>
@@ -41,7 +41,7 @@ export async function Footer() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1 font-mono text-xs tracking-[0.12em] text-muted uppercase transition-colors hover:text-signal"
+              className="group inline-flex items-center gap-1 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-signal"
             >
               {social.label}
               <ArrowUpRight
@@ -55,7 +55,7 @@ export async function Footer() {
             href={siteConfig.repository}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1 font-mono text-xs tracking-[0.12em] text-muted uppercase transition-colors hover:text-signal"
+            className="group inline-flex items-center gap-1 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-signal"
           >
             {t('sourceCode')}
             <ArrowUpRight

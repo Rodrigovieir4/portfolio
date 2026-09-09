@@ -1,47 +1,18 @@
 'use client';
 
-import { cva, type VariantProps } from 'class-variance-authority';
 import { animate, motion, useInView, useReducedMotion } from 'motion/react';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 import { cn } from '../cn';
 
-/* -------------------------------------------------------------------------- */
-/* Badge                                                                      */
-/* -------------------------------------------------------------------------- */
-
-const badgeStyles = cva(
-  'inline-flex items-center gap-1.5 rounded-full border font-mono text-[0.7rem] uppercase tracking-[0.14em] transition-colors',
-  {
-    variants: {
-      tone: {
-        signal: 'border-signal/30 bg-signal/8 text-signal',
-        plasma: 'border-plasma/30 bg-plasma/10 text-plasma',
-        ember: 'border-ember/30 bg-ember/10 text-ember',
-        cyan: 'border-cyan/30 bg-cyan/10 text-cyan',
-        neutral: 'border-line bg-elevated/60 text-muted',
-      },
-      size: {
-        sm: 'px-2.5 py-1',
-        md: 'px-3.5 py-1.5 text-xs',
-      },
-    },
-    defaultVariants: { tone: 'neutral', size: 'sm' },
-  },
-);
-
-export interface BadgeProps
-  extends VariantProps<typeof badgeStyles>, React.HTMLAttributes<HTMLSpanElement> {
-  children: ReactNode;
-}
-
-export function Badge({ children, className, tone, size, ...rest }: BadgeProps) {
-  return (
-    <span className={cn(badgeStyles({ tone, size }), className)} {...rest}>
-      {children}
-    </span>
-  );
-}
+/*
+ * O Badge não mora mais aqui.
+ *
+ * Ele virou uma extensão do Badge do shadcn/ui, em
+ * apps/web/src/components/ui/badge.tsx, com as cores de acento do tema somadas
+ * às variantes que vieram do gerador. Ter dois componentes de mesmo nome em
+ * pacotes diferentes é como se perde a coerência de um design system.
+ */
 
 /* -------------------------------------------------------------------------- */
 /* Ponto de status pulsante                                                   */
@@ -82,7 +53,7 @@ export function SectionHeading({
 }) {
   return (
     <header className={cn('flex flex-col gap-4', className)}>
-      <div className="flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-muted uppercase">
+      <div className="flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase">
         <span className="text-signal">{index}</span>
         <span className="h-px w-8 bg-line-strong" aria-hidden="true" />
         <span>{eyebrow}</span>

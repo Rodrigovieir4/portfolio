@@ -8,6 +8,9 @@ import { useLocale, useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { useRef, useState } from 'react';
 
+import ShinyText from '@/components/reactbits/ShinyText';
+import StarBorder from '@/components/reactbits/StarBorder';
+
 /**
  * A cena WebGL entra por import dinamico com ssr desligado.
  *
@@ -77,7 +80,7 @@ export function Hero() {
               <StatusDot active={profile.availability.open} />
               {translate(profile.availability.label, locale)}
             </span>
-            <span className="font-mono text-[0.7rem] tracking-[0.14em] text-muted uppercase">
+            <span className="font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
               {t('basedIn')}
             </span>
           </motion.div>
@@ -102,12 +105,23 @@ export function Hero() {
           </motion.p>
 
           <motion.p
-            className="max-w-xl text-[length:var(--text-fluid-base)] leading-relaxed text-ink-soft"
+            className="max-w-xl text-[length:var(--text-fluid-base)] leading-relaxed"
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.66, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            {translate(profile.tagline, locale)}
+            {/*
+              O brilho passa devagar e uma vez a cada ciclo longo. É a frase que
+              resume a pessoa: chamar atenção para ela vale, piscar sem parar
+              não.
+            */}
+            <ShinyText
+              text={translate(profile.tagline, locale)}
+              speed={7}
+              color="var(--color-ink-soft)"
+              shineColor="var(--color-signal)"
+              spread={26}
+            />
           </motion.p>
 
           <motion.div
@@ -117,16 +131,25 @@ export function Hero() {
             transition={{ delay: 0.78, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <Magnetic>
-              <a
+              <StarBorder
+                as="a"
                 href="#projects"
-                className="group inline-flex items-center gap-2 rounded-full bg-signal px-6 py-3 font-mono text-xs tracking-[0.12em] text-void uppercase transition-colors hover:bg-signal-glow"
+                color="#c8f751"
+                speed="5s"
+                thickness={1}
+                backgroundColor="var(--color-signal)"
+                textColor="var(--color-void)"
+                borderColor="transparent"
+                className="group font-mono text-xs tracking-[0.12em] uppercase"
               >
-                {t('ctaProjects')}
-                <ArrowUpRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  aria-hidden="true"
-                />
-              </a>
+                <span className="inline-flex items-center gap-2">
+                  {t('ctaProjects')}
+                  <ArrowUpRight
+                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    aria-hidden="true"
+                  />
+                </span>
+              </StarBorder>
             </Magnetic>
 
             <Magnetic>
@@ -141,7 +164,7 @@ export function Hero() {
             <a
               href={translate(profile.resumeUrl, locale)}
               download
-              className="inline-flex items-center gap-2 px-3 py-3 font-mono text-xs tracking-[0.12em] text-muted uppercase transition-colors hover:text-ink"
+              className="inline-flex items-center gap-2 px-3 py-3 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-ink"
             >
               <Download className="h-4 w-4" aria-hidden="true" />
               {t('resume')}

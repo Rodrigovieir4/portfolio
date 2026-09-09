@@ -48,12 +48,13 @@
       "avancado": "Avançado",
       "intermediario": "Intermediário",
       "basico": "Básico"
-    }
+    },
+    "marqueeLabel": "Tecnologias que uso no dia a dia"
   },
   "journey": {
     "eyebrow": "como cheguei aqui",
     "title": "Uma trajetória que não começou no código.",
-    "description": "Anos de treino, competição e leitura de jogo antes da primeira linha. Nada disso ficou para trás, só mudou de campo.",
+    "description": "Seis anos de alto rendimento antes da primeira linha de código, e um ano entrando em base grande escrita por outra pessoa. Nada disso ficou para trás, só mudou de campo.",
     "present": "hoje",
     "kinds": {
       "work": "Experiência",
@@ -65,8 +66,8 @@
   },
   "projects": {
     "eyebrow": "o que eu construí",
-    "title": "Projetos que saíram do editor.",
-    "description": "Cada um resolveu um problema real e me ensinou algo que tutorial nenhum ensina. Código aberto, dá para abrir e conferir.",
+    "title": "Produtos com gente usando do outro lado.",
+    "description": "Três deles estão no ar agora, atendendo Brasil, Portugal e Irlanda. O código é fechado, então em vez de link de repositório os cards trazem os números que dá para conferir e o produto no ar.",
     "viewProject": "Ver projeto",
     "viewAll": "Ver todos os projetos",
     "backToProjects": "Voltar aos projetos",
@@ -81,12 +82,26 @@
       "wip": "em construção",
       "archived": "arquivado",
       "private": "privado"
+    },
+    "clientLabel": "Cliente",
+    "privateCode": "Código privado",
+    "liveSite": "Ver no ar",
+    "periodLabel": "Período",
+    "present": "hoje",
+    "metricsLabel": "Em números",
+    "groupClient": "Produtos de cliente",
+    "groupPersonal": "Projetos próprios e de estudo",
+    "engagement": {
+      "dbc": "via DBC Software",
+      "freelance": "Freelance",
+      "proprio": "Projeto próprio",
+      "academico": "Projeto de estudo"
     }
   },
   "certificates": {
     "eyebrow": "o que eu estudei",
     "title": "Certificados e formação.",
-    "description": "Formação acadêmica em andamento, cursos técnicos e certificação de idioma. Todos os arquivos abrem em PDF.",
+    "description": "Graduação concluída, MBA em andamento na USP, cursos técnicos e certificação de idioma. Todos os arquivos abrem em PDF.",
     "open": "Abrir certificado",
     "categories": {
       "academico": "Acadêmico",

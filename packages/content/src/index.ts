@@ -10,7 +10,13 @@ export * from './schema';
 
 export { profile } from './data/profile';
 export { skillGroups, allSkills } from './data/skills';
-export { projects, featuredProjects, projectBySlug } from './data/projects';
+export {
+  projects,
+  featuredProjects,
+  clientProjects,
+  personalProjects,
+  projectBySlug,
+} from './data/projects';
 export { experiences, workExperiences } from './data/experience';
 export { certifications, certificationsByCategory } from './data/certifications';
 export { languages } from './data/languages';

@@ -6,14 +6,12 @@ export { Reveal, RevealGroup, RevealItem, type RevealProps } from './components/
 export { SplitText, ScrambleText, type SplitTextProps } from './components/text';
 export { Magnetic, Cursor, TiltCard } from './components/interactive';
 export {
-  Badge,
   StatusDot,
   SectionHeading,
   Counter,
   Marquee,
   ScrollProgress,
   Grain,
-  type BadgeProps,
 } from './components/primitives';
 export { SmoothScroll, useLenis } from './components/smooth-scroll';
 

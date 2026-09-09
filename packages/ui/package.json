@@ -16,11 +16,10 @@
   "dependencies": {
     "@portfolio/config-tailwind": "workspace:*",
     "class-variance-authority": "catalog:styling",
-    "clsx": "catalog:styling",
+    "cn": "catalog:styling",
     "lenis": "catalog:motion",
     "lucide-react": "catalog:styling",
-    "motion": "catalog:motion",
-    "tailwind-merge": "catalog:styling"
+    "motion": "catalog:motion"
   },
   "devDependencies": {
     "@portfolio/config-eslint": "workspace:*",

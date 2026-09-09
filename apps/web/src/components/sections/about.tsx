@@ -74,7 +74,7 @@ export async function About() {
                   <span className="font-display text-3xl font-semibold text-signal">
                     <Counter value={stat.value} suffix={stat.suffix} />
                   </span>
-                  <span className="font-mono text-[0.65rem] leading-tight tracking-[0.1em] text-muted uppercase">
+                  <span className="font-mono text-[0.65rem] leading-tight tracking-[0.1em] text-muted-foreground uppercase">
                     {translate(stat.label, locale)}
                   </span>
                 </div>

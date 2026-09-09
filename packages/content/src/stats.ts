@@ -19,11 +19,18 @@ function yearsSince(isoYearMonth: string): number {
   return Math.max(0, Math.floor(elapsed / (365.25 * 24 * 60 * 60 * 1000)));
 }
 
+/** A data mais antiga entre formação e projeto marca o início da estrada. */
 const codingStart =
   experiences
     .filter((item) => item.kind === 'project' || item.kind === 'education')
     .map((item) => item.start)
-    .sort()[0] ?? '2025-01';
+    .sort()[0] ?? '2023-02';
+
+const liveClientProducts = projects.filter(
+  (project) =>
+    project.status === 'live' &&
+    (project.engagement === 'dbc' || project.engagement === 'freelance'),
+);
 
 export interface Stat {
   id: string;
@@ -34,26 +41,14 @@ export interface Stat {
 
 export const stats: Stat[] = [
   {
-    id: 'projetos',
-    value: projects.length,
-    suffix: '',
-    label: { pt: 'Projetos publicados', en: 'Published projects', es: 'Proyectos publicados' },
-  },
-  {
-    id: 'tecnologias',
-    value: allSkills.length,
+    id: 'producao',
+    value: liveClientProducts.length,
     suffix: '',
     label: {
-      pt: 'Tecnologias no radar',
-      en: 'Technologies in play',
-      es: 'Tecnologias en el radar',
+      pt: 'Produtos em produção',
+      en: 'Products in production',
+      es: 'Productos en producción',
     },
-  },
-  {
-    id: 'certificados',
-    value: certifications.length,
-    suffix: '',
-    label: { pt: 'Certificados', en: 'Certificates', es: 'Certificados' },
   },
   {
     id: 'anos',
@@ -64,5 +59,21 @@ export const stats: Stat[] = [
       en: 'Years writing code',
       es: 'Años escribiendo código',
     },
+  },
+  {
+    id: 'tecnologias',
+    value: allSkills.length,
+    suffix: '',
+    label: {
+      pt: 'Tecnologias em uso',
+      en: 'Technologies in use',
+      es: 'Tecnologías en uso',
+    },
+  },
+  {
+    id: 'certificados',
+    value: certifications.length,
+    suffix: '',
+    label: { pt: 'Certificados', en: 'Certificates', es: 'Certificados' },
   },
 ];

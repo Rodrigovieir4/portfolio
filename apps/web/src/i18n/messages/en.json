@@ -48,12 +48,13 @@
       "avancado": "Advanced",
       "intermediario": "Intermediate",
       "basico": "Basic"
-    }
+    },
+    "marqueeLabel": "Technologies I use day to day"
   },
   "journey": {
     "eyebrow": "how I got here",
     "title": "A path that did not start in code.",
-    "description": "Years of training, competition and reading the game before the first line. None of it was left behind. It only changed field.",
+    "description": "Six years of high-performance sport before the first line of code, and a year spent entering large codebases written by other people. None of it was left behind. It only changed field.",
     "present": "present",
     "kinds": {
       "work": "Experience",
@@ -65,8 +66,8 @@
   },
   "projects": {
     "eyebrow": "what I have built",
-    "title": "Projects that left the editor.",
-    "description": "Each one solved a real problem and taught me something no tutorial does. Open source, so you can go read it.",
+    "title": "Products with people on the other side.",
+    "description": "Three of them are live right now, serving Brazil, Portugal and Ireland. The code is closed, so instead of a repository link the cards carry the numbers you can check and the product itself.",
     "viewProject": "View project",
     "viewAll": "View all projects",
     "backToProjects": "Back to projects",
@@ -81,12 +82,26 @@
       "wip": "in progress",
       "archived": "archived",
       "private": "private"
+    },
+    "clientLabel": "Client",
+    "privateCode": "Private code",
+    "liveSite": "Visit live site",
+    "periodLabel": "Period",
+    "present": "present",
+    "metricsLabel": "In numbers",
+    "groupClient": "Client products",
+    "groupPersonal": "Personal and study projects",
+    "engagement": {
+      "dbc": "through DBC Software",
+      "freelance": "Freelance",
+      "proprio": "Personal project",
+      "academico": "Study project"
     }
   },
   "certificates": {
     "eyebrow": "what I have studied",
     "title": "Certificates and education.",
-    "description": "A degree in progress, technical courses and a language certification. Every file opens as a PDF.",
+    "description": "Degree completed, an MBA in progress at USP, technical courses and a language certification. Every file opens as a PDF.",
     "open": "Open certificate",
     "categories": {
       "academico": "Academic",

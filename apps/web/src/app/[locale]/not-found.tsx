@@ -13,7 +13,7 @@ export default function NotFound() {
       <h1 className="-mt-8 font-display text-[length:var(--text-fluid-xl)] font-bold tracking-tight text-ink">
         {t('title')}
       </h1>
-      <p className="max-w-md leading-relaxed text-muted">{t('description')}</p>
+      <p className="max-w-md leading-relaxed text-muted-foreground">{t('description')}</p>
       <Link
         href="/"
         className="mt-2 inline-flex items-center rounded-full bg-signal px-6 py-3 font-mono text-xs tracking-[0.12em] text-void uppercase transition-colors hover:bg-signal-glow"

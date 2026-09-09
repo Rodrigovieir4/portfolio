@@ -66,7 +66,7 @@ export function Contact() {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2.5 rounded-full border border-line-strong px-5 py-4 font-mono text-sm text-muted transition-colors hover:border-signal hover:text-signal"
+                className="inline-flex items-center gap-2.5 rounded-full border border-line-strong px-5 py-4 font-mono text-sm text-muted-foreground transition-colors hover:border-signal hover:text-signal"
               >
                 {copied ? (
                   <Check className="h-4 w-4 text-signal" aria-hidden="true" />
@@ -91,7 +91,7 @@ export function Contact() {
                     rel="noopener noreferrer"
                     className="group flex h-full flex-col gap-1.5 bg-abyss p-5 transition-colors hover:bg-surface"
                   >
-                    <span className="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.14em] text-muted uppercase">
+                    <span className="flex items-center justify-between font-mono text-[0.65rem] tracking-[0.14em] text-muted-foreground uppercase">
                       {social.label}
                       <ArrowUpRight
                         className="h-3.5 w-3.5 text-faint transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal"

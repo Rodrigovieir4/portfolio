@@ -1,6 +1,7 @@
+import { Badge } from '@/components/ui/badge';
 import { projectBySlug, projects, t as translate, type Locale } from '@portfolio/content';
-import { Badge, GithubIcon, Reveal, SplitText } from '@portfolio/ui';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { GithubIcon, Reveal, SplitText } from '@portfolio/ui';
+import { ArrowLeft, ExternalLink, Lock } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -54,7 +55,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
       <div className="container-content flex flex-col gap-12">
         <Link
           href="/"
-          className="group inline-flex w-fit items-center gap-2 font-mono text-xs tracking-[0.12em] text-muted uppercase transition-colors hover:text-signal"
+          className="group inline-flex w-fit items-center gap-2 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-signal"
         >
           <ArrowLeft
             className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
@@ -82,16 +83,23 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-1">
-            {project.links.repo && (
-              <a
-                href={project.links.repo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-mono text-xs tracking-[0.12em] text-ink uppercase transition-colors hover:border-signal hover:text-signal"
-              >
-                <GithubIcon className="h-4 w-4" />
-                {t('repo')}
-              </a>
+            {project.codeVisibility === 'private' ? (
+              <span className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-mono text-xs tracking-[0.12em] text-faint uppercase">
+                <Lock className="h-4 w-4" aria-hidden="true" />
+                {t('privateCode')}
+              </span>
+            ) : (
+              project.links.repo && (
+                <a
+                  href={project.links.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-mono text-xs tracking-[0.12em] text-ink uppercase transition-colors hover:border-signal hover:text-signal"
+                >
+                  <GithubIcon className="h-4 w-4" />
+                  {t('repo')}
+                </a>
+              )
             )}
             {project.links.demo && (
               <a
@@ -105,6 +113,26 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
               </a>
             )}
           </div>
+
+          {project.metrics.length > 0 && (
+            <div className="pt-4">
+              <h2 className="mb-3 font-mono text-xs tracking-[0.16em] text-muted-foreground uppercase">
+                {t('metricsLabel')}
+              </h2>
+              <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
+                {project.metrics.map((metric) => (
+                  <li key={metric.value} className="flex flex-col gap-1 bg-abyss px-5 py-4">
+                    <span className="font-display text-2xl font-semibold text-signal tabular-nums">
+                      {metric.value}
+                    </span>
+                    <span className="font-mono text-[0.62rem] leading-tight tracking-[0.08em] text-muted-foreground uppercase">
+                      {translate(metric.label, typedLocale)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </header>
 
         <div className="grid gap-12 border-t border-line pt-12 lg:grid-cols-12">
@@ -138,15 +166,29 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           </div>
 
           <aside className="flex flex-col gap-8 lg:col-span-4">
+            {project.client && (
+              <div className="flex flex-col gap-3">
+                <h2 className="font-mono text-xs tracking-[0.16em] text-muted-foreground uppercase">
+                  {t('clientLabel')}
+                </h2>
+                <p className="text-ink-soft">
+                  {project.client}
+                  <span className="block font-mono text-xs text-faint">
+                    {t(`engagement.${project.engagement}`)}
+                  </span>
+                </p>
+              </div>
+            )}
+
             <div className="flex flex-col gap-3">
-              <h2 className="font-mono text-xs tracking-[0.16em] text-muted uppercase">
+              <h2 className="font-mono text-xs tracking-[0.16em] text-muted-foreground uppercase">
                 {t('roleLabel')}
               </h2>
               <p className="text-ink-soft">{translate(project.role, typedLocale)}</p>
             </div>
 
             <div className="flex flex-col gap-3">
-              <h2 className="font-mono text-xs tracking-[0.16em] text-muted uppercase">
+              <h2 className="font-mono text-xs tracking-[0.16em] text-muted-foreground uppercase">
                 {t('stackLabel')}
               </h2>
               <ul className="flex flex-wrap gap-1.5">

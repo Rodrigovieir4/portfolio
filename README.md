@@ -32,6 +32,8 @@ Requer Node 20.11 ou superior e pnpm 10. A versão exata do Node está em `.nvmr
 ```
 apps/
   web/                  Next.js 16 — App Router, i18n em /pt /en /es
+    components/ui/      shadcn/ui, gerado pelo CLI oficial
+    components/reactbits/ React Bits, vendorizado pelo mesmo CLI
 packages/
   content/              Dados profissionais tipados e validados com Zod
   gl/                   Cena WebGL, shaders GLSL, detecção de capacidade
@@ -83,12 +85,14 @@ contadores da home se atualizam sozinhos.
 
 ### Pendências de conteúdo
 
-Três datas na linha do tempo são estimativas, porque não constavam nem no portfólio
-antigo nem no GitHub. Estão marcadas com `// CONFIRMAR` em `experience.ts`:
+Alguns meses na linha do tempo são estimativas, porque o currículo trazia só o ano.
+Estão marcados com `// CONFIRMAR` em `experience.ts`:
 
-- início e fim do período como atleta de futebol
-- início e fim do período em eSports
-- início da graduação na Universidade São Judas Tadeu
+- mês de início do MBA na USP
+- meses de início e fim da graduação na São Judas
+- meses de início e fim do período como atleta profissional
+
+Todo o resto de data veio do histórico git dos repositórios em `D:workspace`.
 
 O currículo em inglês e em espanhol ainda não existe. Enquanto isso, os três idiomas
 apontam para o PDF em português, conforme a nota em `profile.ts`.

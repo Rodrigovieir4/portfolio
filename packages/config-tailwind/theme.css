@@ -21,8 +21,40 @@
   /* ---- Texto ---- */
   --color-ink: #eef1f6;
   --color-ink-soft: #b6bdcb;
-  --color-muted: #7d8698;
   --color-faint: #4d5567;
+
+  /*
+   * Camada semantica do shadcn/ui.
+   *
+   * Os componentes gerados pelo shadcn referenciam nomes fixos: bg-background,
+   * text-muted-foreground, border-border, bg-primary. Em vez de manter dois
+   * vocabularios que nunca batem, os nomes deles sao apontados para a paleta
+   * Obsidiana. Assim um Select ou um ScrollArea recem-gerado ja nasce na cor
+   * certa, sem precisar editar o componente.
+   *
+   * Atencao ao par muted: no shadcn --color-muted e FUNDO e
+   * --color-muted-foreground e TEXTO. Por isso o cinza de texto do projeto
+   * mora em --color-muted-foreground, e nao em --color-muted.
+   */
+  --color-background: #050609;
+  --color-foreground: #eef1f6;
+  --color-card: #10131a;
+  --color-card-foreground: #eef1f6;
+  --color-popover: #0d1016;
+  --color-popover-foreground: #eef1f6;
+  --color-primary: #c8f751;
+  --color-primary-foreground: #050609;
+  --color-secondary: #171b24;
+  --color-secondary-foreground: #eef1f6;
+  --color-muted: #171b24;
+  --color-muted-foreground: #7d8698;
+  --color-accent: #1c2130;
+  --color-accent-foreground: #eef1f6;
+  --color-destructive: #f43f5e;
+  --color-destructive-foreground: #eef1f6;
+  --color-border: #232936;
+  --color-input: #232936;
+  --color-ring: #c8f751;
 
   /* ---- Acentos ---- */
   --color-signal: #c8f751;
@@ -54,6 +86,8 @@
   --text-fluid-mega: clamp(4rem, 1rem + 15vw, 16rem);
 
   /* ---- Ritmo e profundidade ---- */
+  /* O shadcn deriva os cantos dele a partir de --radius. */
+  --radius: 0.875rem;
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.875rem;
