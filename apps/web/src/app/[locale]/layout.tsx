@@ -1,13 +1,10 @@
 import { LOCALE_META, profile, type Locale } from '@portfolio/content';
-import { Cursor, Grain, ScrollProgress, SmoothScroll } from '@portfolio/ui';
 import type { Metadata } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
-import { Footer } from '@/components/layout/footer';
-import { Header } from '@/components/layout/header';
 import { routing } from '@/i18n/routing';
 import { fontVariables } from '@/lib/fonts';
 import { siteUrl } from '@/lib/site';
@@ -95,17 +92,7 @@ export default async function LocaleLayout({
   return (
     <html lang={LOCALE_META[locale].hreflang} className={fontVariables} suppressHydrationWarning>
       <body className="min-h-dvh bg-void text-ink antialiased">
-        <NextIntlClientProvider>
-          <SmoothScroll>
-            <ScrollProgress />
-            <Grain />
-            <Cursor />
-
-            <Header />
-            <main id="conteudo">{children}</main>
-            <Footer />
-          </SmoothScroll>
-        </NextIntlClientProvider>
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
   );

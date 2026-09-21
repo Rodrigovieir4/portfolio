@@ -129,5 +129,54 @@
     "title": "Esta página no existe.",
     "description": "El enlace puede haber cambiado de lugar. Vuelve al inicio y sigue desde ahí.",
     "back": "Ir al inicio"
+  },
+  "game": {
+    "metaTitle": "Jugar",
+    "prototype": "Prototipo",
+    "loading": "Armando la habitación",
+    "backToCv": "Ver currículum",
+    "controlsKeyboard": "WASD moverse · Shift correr · E interactuar · Espacio patear · Z y X girar la cámara",
+    "controlsTouch": "Arrastra el joystick para moverte. Acércate al arco y patea.",
+    "interact": "Interactuar",
+    "kick": "Patear",
+    "rotateLeft": "Girar cámara a la izquierda",
+    "rotateRight": "Girar cámara a la derecha",
+    "joystick": "Control de movimiento",
+    "visited": "{count} de {total}",
+    "close": "Cerrar",
+    "hint": {
+      "pc": "Ver proyectos",
+      "certificados": "Ver certificados",
+      "trofeus": "Ver trayectoria"
+    },
+    "objectsLabel": "Objetos de la habitación",
+    "unsupported": {
+      "title": "Este dispositivo no va a correr bien el juego.",
+      "body": "El navegador no tiene WebGL2 o el sistema pide menos movimiento. El currículum tiene todo lo que está en la habitación.",
+      "cta": "Ver currículum",
+      "force": "Jugar de todos modos"
+    },
+    "panels": {
+      "pc": {
+        "title": "Proyectos",
+        "description": "Lo que corre en los monitores."
+      },
+      "certificados": {
+        "title": "Certificados",
+        "description": "La pared de cuadros."
+      },
+      "trofeus": {
+        "title": "Trayectoria",
+        "description": "De la cancha al deploy."
+      },
+      "gol": {
+        "title": "Golazo.",
+        "description": "Ya que llegaste hasta aquí, ¿hablamos?"
+      }
+    },
+    "openProject": "Página del proyecto",
+    "openPdf": "Abrir PDF",
+    "present": "hoy",
+    "emailCta": "Enviar correo"
   }
 }

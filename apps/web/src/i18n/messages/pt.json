@@ -129,5 +129,54 @@
     "title": "Esta página não existe.",
     "description": "O link pode ter mudado de lugar. Volte para o início e siga daí.",
     "back": "Ir para o início"
+  },
+  "game": {
+    "metaTitle": "Jogar",
+    "prototype": "Protótipo",
+    "loading": "Montando o quarto",
+    "backToCv": "Ver currículo",
+    "controlsKeyboard": "WASD andar · Shift correr · E interagir · Espaço chutar · Z e X girar a câmera",
+    "controlsTouch": "Arraste o joystick para andar. Encoste no gol e chute.",
+    "interact": "Interagir",
+    "kick": "Chutar",
+    "rotateLeft": "Girar câmera para a esquerda",
+    "rotateRight": "Girar câmera para a direita",
+    "joystick": "Controle de movimento",
+    "visited": "{count} de {total}",
+    "close": "Fechar",
+    "hint": {
+      "pc": "Ver projetos",
+      "certificados": "Ver certificados",
+      "trofeus": "Ver trajetória"
+    },
+    "objectsLabel": "Objetos do quarto",
+    "unsupported": {
+      "title": "Este aparelho não vai rodar o jogo bem.",
+      "body": "O navegador está sem WebGL2 ou o sistema pede menos movimento. O currículo tem tudo o que está no quarto.",
+      "cta": "Ver currículo",
+      "force": "Jogar mesmo assim"
+    },
+    "panels": {
+      "pc": {
+        "title": "Projetos",
+        "description": "O que está rodando nos monitores."
+      },
+      "certificados": {
+        "title": "Certificados",
+        "description": "A parede de quadros."
+      },
+      "trofeus": {
+        "title": "Trajetória",
+        "description": "Da quadra ao deploy."
+      },
+      "gol": {
+        "title": "Golaço.",
+        "description": "Já que você chegou até aqui, bora conversar?"
+      }
+    },
+    "openProject": "Página do projeto",
+    "openPdf": "Abrir PDF",
+    "present": "hoje",
+    "emailCta": "Mandar e-mail"
   }
 }

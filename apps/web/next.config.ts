@@ -10,6 +10,7 @@ const config: NextConfig = {
   // build proprio. Isso mantem o "ir ate a definicao" funcionando no editor e
   // elimina a etapa de compilar biblioteca antes de rodar o app.
   transpilePackages: [
+    '@portfolio/game',
     '@portfolio/ui',
     '@portfolio/gl',
     '@portfolio/content',

@@ -25,6 +25,15 @@ Requer Node 20.11 ou superior e pnpm 10. A versão exata do Node está em `.nvmr
 | `pnpm format`          | Aplica o Prettier no repositório inteiro                   |
 | `pnpm assets:importar` | Baixa currículo, foto e certificados do repositório antigo |
 
+## Portfólio jogável (protótipo)
+
+Em `/pt/jogo`, `/en/play` e `/es/jugar` há um quarto isométrico em React Three Fiber
+com física Rapier. O visitante anda com WASD ou joystick, chega perto dos objetos para
+abrir partes do currículo e pode fazer gol com a bola para chegar no contato.
+
+Por enquanto é tudo caixa cinza: a fase é de acertar o controle antes da arte. Com
+`?debug` na URL, o estado do jogo fica em `window.__game` para testes automatizados.
+
 ---
 
 ## Arquitetura
@@ -36,6 +45,7 @@ apps/
     components/reactbits/ React Bits, vendorizado pelo mesmo CLI
 packages/
   content/              Dados profissionais tipados e validados com Zod
+  game/                 Protótipo do portfólio jogável: quarto 3D com física
   gl/                   Cena WebGL, shaders GLSL, detecção de capacidade
   ui/                   Design system e componentes de movimento
   config-tailwind/      Design tokens, em CSS e espelhados em TypeScript

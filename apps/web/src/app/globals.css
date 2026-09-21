@@ -168,3 +168,13 @@
 @utility section-spacing {
   padding-block: clamp(5rem, 3rem + 9vw, 11rem);
 }
+
+/* Barra da tela de carregamento do jogo: um trecho que corre da esquerda para a direita. */
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}

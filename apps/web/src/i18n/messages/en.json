@@ -129,5 +129,54 @@
     "title": "This page does not exist.",
     "description": "The link may have moved. Head back to the start and pick it up from there.",
     "back": "Go to the start"
+  },
+  "game": {
+    "metaTitle": "Play",
+    "prototype": "Prototype",
+    "loading": "Building the room",
+    "backToCv": "View résumé",
+    "controlsKeyboard": "WASD move · Shift run · E interact · Space kick · Z and X rotate the camera",
+    "controlsTouch": "Drag the joystick to move. Walk up to the goal and shoot.",
+    "interact": "Interact",
+    "kick": "Kick",
+    "rotateLeft": "Rotate camera left",
+    "rotateRight": "Rotate camera right",
+    "joystick": "Movement control",
+    "visited": "{count} of {total}",
+    "close": "Close",
+    "hint": {
+      "pc": "See projects",
+      "certificados": "See certificates",
+      "trofeus": "See journey"
+    },
+    "objectsLabel": "Objects in the room",
+    "unsupported": {
+      "title": "This device will not run the game well.",
+      "body": "The browser lacks WebGL2 or the system asks for reduced motion. The résumé has everything the room does.",
+      "cta": "View résumé",
+      "force": "Play anyway"
+    },
+    "panels": {
+      "pc": {
+        "title": "Projects",
+        "description": "What is running on the monitors."
+      },
+      "certificados": {
+        "title": "Certificates",
+        "description": "The picture wall."
+      },
+      "trofeus": {
+        "title": "Journey",
+        "description": "From the pitch to the deploy."
+      },
+      "gol": {
+        "title": "What a goal.",
+        "description": "Since you made it this far, shall we talk?"
+      }
+    },
+    "openProject": "Project page",
+    "openPdf": "Open PDF",
+    "present": "present",
+    "emailCta": "Send an email"
   }
 }

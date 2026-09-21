@@ -1,12 +1,12 @@
 {
-  "name": "@portfolio/gl",
+  "name": "@portfolio/game",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./device": "./src/device.ts"
+    "./state": "./src/state.ts"
   },
   "scripts": {
     "lint": "eslint .",
@@ -14,12 +14,11 @@
     "clean": "rimraf .turbo node_modules"
   },
   "dependencies": {
-    "@portfolio/config-tailwind": "workspace:*",
     "@react-three/drei": "catalog:gl",
     "@react-three/fiber": "catalog:gl",
-    "@react-three/postprocessing": "catalog:gl",
-    "postprocessing": "catalog:gl",
-    "three": "catalog:gl"
+    "@react-three/rapier": "catalog:gl",
+    "three": "catalog:gl",
+    "zustand": "catalog:state"
   },
   "devDependencies": {
     "@portfolio/config-eslint": "workspace:*",
