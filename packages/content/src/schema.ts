@@ -114,6 +114,11 @@ export const projectSchema = z.object({
   stack: z.array(z.string().min(1)).min(1),
   highlights: localizedList,
   metrics: z.array(metricSchema).default([]),
+  /**
+   * Onde o produto roda. EU marca mercado europeu sem país definido no
+   * material de origem: melhor dizer menos do que chutar um país.
+   */
+  markets: z.array(z.enum(['BR', 'PT', 'IE', 'EU'])).default([]),
   links: z.object({
     repo: z.string().url().optional(),
     demo: z.string().url().optional(),

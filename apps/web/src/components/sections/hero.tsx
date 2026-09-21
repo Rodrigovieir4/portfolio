@@ -2,13 +2,14 @@
 
 import { profile, t as translate, type Locale } from '@portfolio/content';
 import { Magnetic, ScrambleText, SplitText, StatusDot } from '@portfolio/ui';
-import { ArrowDown, ArrowUpRight, Download } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Download, Gamepad2 } from 'lucide-react';
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
 import { useLocale, useTranslations } from 'next-intl';
 import dynamic from 'next/dynamic';
 import { useRef, useState } from 'react';
 
 import ShinyText from '@/components/reactbits/ShinyText';
+import { Link } from '@/i18n/navigation';
 import StarBorder from '@/components/reactbits/StarBorder';
 
 /**
@@ -169,6 +170,24 @@ export function Hero() {
               <Download className="h-4 w-4" aria-hidden="true" />
               {t('resume')}
             </a>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.6 }}
+          >
+            <Link
+              href="/jogo"
+              className="group inline-flex items-center gap-2 font-mono text-xs tracking-[0.12em] text-plasma uppercase transition-colors hover:text-signal"
+            >
+              <Gamepad2 className="h-4 w-4" aria-hidden="true" />
+              {t('play')}
+              <ArrowUpRight
+                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                aria-hidden="true"
+              />
+            </Link>
           </motion.div>
         </div>
       </motion.div>

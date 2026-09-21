@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "clean": "rimraf .next .turbo node_modules"
+    "clean": "rimraf .next .turbo node_modules",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@portfolio/config-tailwind": "workspace:*",
@@ -28,6 +29,7 @@
     "react-dom": "catalog:react"
   },
   "devDependencies": {
+    "@playwright/test": "catalog:tooling",
     "@portfolio/config-eslint": "workspace:*",
     "@portfolio/config-typescript": "workspace:*",
     "@tailwindcss/postcss": "catalog:styling",

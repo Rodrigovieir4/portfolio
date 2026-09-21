@@ -25,14 +25,38 @@ Requer Node 20.11 ou superior e pnpm 10. A versão exata do Node está em `.nvmr
 | `pnpm format`          | Aplica o Prettier no repositório inteiro                   |
 | `pnpm assets:importar` | Baixa currículo, foto e certificados do repositório antigo |
 
-## Portfólio jogável (protótipo)
+## Portfólio jogável
 
-Em `/pt/jogo`, `/en/play` e `/es/jugar` há um quarto isométrico em React Three Fiber
-com física Rapier. O visitante anda com WASD ou joystick, chega perto dos objetos para
-abrir partes do currículo e pode fazer gol com a bola para chegar no contato.
+Em `/pt/jogo`, `/en/play` e `/es/jugar` o currículo vira um quarto isométrico em React Three
+Fiber com física Rapier. O visitante anda com WASD ou joystick e descobre o conteúdo chegando
+perto dos objetos.
 
-Por enquanto é tudo caixa cinza: a fase é de acertar o controle antes da arte. Com
-`?debug` na URL, o estado do jogo fica em `window.__game` para testes automatizados.
+| Objeto                 | O que abre                                                |
+| ---------------------- | --------------------------------------------------------- |
+| Tapete da entrada      | Sobre mim                                                 |
+| PC gamer               | RodrigoOS: projetos em janelas e um terminal com comandos |
+| Lousa                  | Stack                                                     |
+| Mapa-múndi             | Onde os produtos rodam                                    |
+| Parede de quadros      | Certificados                                              |
+| Estante de troféus     | Trajetória                                                |
+| Estante de livros      | Formação e idiomas                                        |
+| Celular no criado-mudo | Contato                                                   |
+
+Além disso: doze commits escondidos para coletar, uma bola com física e uma trave onde o gol
+abre o contato, um abajur que apaga a luz, sete conquistas, cronômetro do tour, placar na tecla
+P e som sintetizado no navegador, desligado por padrão.
+
+Todo texto vem de `packages/content`, então atualizar o currículo atualiza o quarto junto. O
+pacote `packages/game` tem duas entradas: `@portfolio/game` traz o motor e entra por import
+dinâmico; `@portfolio/game/state` traz só estado, sem three, para o HUD não pesar.
+
+Os testes de ponta a ponta em `apps/web/e2e` jogam de verdade, pelo teclado, lendo o estado do
+jogo por `window.__game`, que só existe com `?debug` na URL:
+
+```bash
+pnpm --filter @portfolio/web build
+pnpm --filter @portfolio/web test:e2e
+```
 
 ---
 

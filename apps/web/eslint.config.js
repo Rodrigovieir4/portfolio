@@ -3,6 +3,12 @@ import { nextConfig } from '@portfolio/config-eslint/next';
 const config = [
   ...nextConfig,
   {
+    // Os testes leem window.__game, que só existe em modo de depuração e não
+    // tem tipo publicado. Tipar isso seria cerimônia para código de teste.
+    files: ['e2e/**'],
+    rules: { '@typescript-eslint/no-explicit-any': 'off' },
+  },
+  {
     /*
      * Código de terceiro, trazido para dentro do repositório.
      *

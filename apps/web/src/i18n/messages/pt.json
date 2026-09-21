@@ -15,14 +15,16 @@
     "menu": "Menu",
     "close": "Fechar menu",
     "changeLanguage": "Mudar idioma",
-    "skipToContent": "Pular para o conteúdo"
+    "skipToContent": "Pular para o conteúdo",
+    "play": "Jogar"
   },
   "hero": {
     "scrollHint": "role para explorar",
     "ctaProjects": "Ver projetos",
     "ctaContact": "Falar comigo",
     "resume": "Baixar currículo",
-    "basedIn": "São Paulo, Brasil"
+    "basedIn": "São Paulo, Brasil",
+    "play": "Ou explore meu quarto jogando"
   },
   "about": {
     "eyebrow": "quem está do outro lado",
@@ -132,34 +134,117 @@
   },
   "game": {
     "metaTitle": "Jogar",
-    "prototype": "Protótipo",
+    "badge": "Beta",
     "loading": "Montando o quarto",
     "backToCv": "Ver currículo",
-    "controlsKeyboard": "WASD andar · Shift correr · E interagir · Espaço chutar · Z e X girar a câmera",
-    "controlsTouch": "Arraste o joystick para andar. Encoste no gol e chute.",
     "interact": "Interagir",
     "kick": "Chutar",
+    "wave": "Acenar",
     "rotateLeft": "Girar câmera para a esquerda",
     "rotateRight": "Girar câmera para a direita",
     "joystick": "Controle de movimento",
-    "visited": "{count} de {total}",
     "close": "Fechar",
-    "hint": {
-      "pc": "Ver projetos",
-      "certificados": "Ver certificados",
-      "trofeus": "Ver trajetória"
-    },
     "objectsLabel": "Objetos do quarto",
-    "unsupported": {
-      "title": "Este aparelho não vai rodar o jogo bem.",
-      "body": "O navegador está sem WebGL2 ou o sistema pede menos movimento. O currículo tem tudo o que está no quarto.",
-      "cta": "Ver currículo",
-      "force": "Jogar mesmo assim"
+    "openProject": "Página do projeto",
+    "liveSite": "Ver no ar",
+    "privateCode": "Código privado",
+    "openPdf": "Abrir PDF",
+    "present": "hoje",
+    "emailCta": "Mandar e-mail",
+    "hint": {
+      "sobre": "Sobre mim",
+      "pc": "Sentar no PC",
+      "lousa": "Ver a stack",
+      "mapa": "Onde eu atuo",
+      "certificados": "Ver certificados",
+      "trofeus": "Ver trajetória",
+      "formacao": "Ver formação",
+      "contato": "Pegar o celular",
+      "lampOff": "Apagar a luz",
+      "lampOn": "Acender a luz"
+    },
+    "onboarding": {
+      "keyboard": "WASD para andar · E para interagir",
+      "touch": "Arraste o joystick para andar"
+    },
+    "hud": {
+      "soundOn": "Ligar som",
+      "soundOff": "Desligar som",
+      "help": "Controles",
+      "scoreboard": "Placar",
+      "objects": "Objetos",
+      "commits": "Commits",
+      "goals": "Gols",
+      "time": "Tempo"
+    },
+    "help": {
+      "title": "Controles",
+      "move": "Andar",
+      "run": "Correr",
+      "interact": "Interagir",
+      "kick": "Chutar a bola",
+      "wave": "Acenar",
+      "camera": "Girar a câmera",
+      "scoreboard": "Placar",
+      "help": "Esta ajuda",
+      "tip": "Chegue perto de um objeto para ver o que ele guarda. Tem doze commits escondidos pelo quarto, e o abajur também faz alguma coisa."
+    },
+    "toastTitle": "Conquista desbloqueada",
+    "achievements": {
+      "explorador": {
+        "title": "Explorador",
+        "description": "Visitou os oito objetos do quarto."
+      },
+      "colecionador": {
+        "title": "Colecionador",
+        "description": "Pegou os doze commits."
+      },
+      "primeiro-gol": {
+        "title": "Primeiro gol",
+        "description": "Balançou a rede."
+      },
+      "hat-trick": {
+        "title": "Hat-trick",
+        "description": "Três gols na mesma visita."
+      },
+      "boa-noite": {
+        "title": "Boa noite",
+        "description": "Apagou a luz do quarto."
+      },
+      "speedrun": {
+        "title": "Speedrun",
+        "description": "Tour completo em menos de 90 segundos."
+      },
+      "platina": {
+        "title": "Platina",
+        "description": "Explorador, colecionador e artilheiro."
+      }
+    },
+    "scoreboard": {
+      "title": "Placar",
+      "player": "Jogador",
+      "career": "Números de carreira",
+      "achievements": "Conquistas",
+      "stats": {
+        "live": "Produtos no ar",
+        "endpoints": "Endpoints REST",
+        "tests": "Casos de teste",
+        "migrations": "Migrations"
+      },
+      "close": "Aperte P para fechar"
     },
     "panels": {
-      "pc": {
-        "title": "Projetos",
-        "description": "O que está rodando nos monitores."
+      "sobre": {
+        "title": "Oi, eu sou o Rodrigo.",
+        "description": "Quem está do outro lado."
+      },
+      "lousa": {
+        "title": "A stack",
+        "description": "O que está escrito na lousa."
+      },
+      "mapa": {
+        "title": "Onde eu atuo",
+        "description": "Produtos rodando em três países."
       },
       "certificados": {
         "title": "Certificados",
@@ -167,16 +252,86 @@
       },
       "trofeus": {
         "title": "Trajetória",
-        "description": "Da quadra ao deploy."
+        "description": "Do gramado ao deploy."
+      },
+      "formacao": {
+        "title": "Formação",
+        "description": "A estante de estudos."
+      },
+      "contato": {
+        "title": "Bora conversar",
+        "description": "Resposta em até um dia útil."
       },
       "gol": {
         "title": "Golaço.",
         "description": "Já que você chegou até aqui, bora conversar?"
+      },
+      "final": {
+        "title": "Tour completo.",
+        "description": "Você viu tudo o que tem no quarto."
+      },
+      "pc": {
+        "title": "RodrigoOS",
+        "description": "Os projetos, do jeito que ficam no meu PC."
       }
     },
-    "openProject": "Página do projeto",
-    "openPdf": "Abrir PDF",
-    "present": "hoje",
-    "emailCta": "Mandar e-mail"
+    "markets": {
+      "BR": "Brasil",
+      "PT": "Portugal",
+      "IE": "Irlanda",
+      "EU": "Europa",
+      "base": "Base em São Paulo, trabalhando remoto."
+    },
+    "formacao": {
+      "languages": "Idiomas",
+      "certificatesHint": "Os certificados estão na parede do outro lado."
+    },
+    "final": {
+      "time": "Seu tempo",
+      "noTime": "sem cronômetro",
+      "achievements": "Conquistas",
+      "commits": "Commits encontrados",
+      "cv": "Baixar currículo",
+      "contact": "Entrar em contato",
+      "keep": "Continuar explorando",
+      "speedrunHint": "Menos de 90 segundos vale a conquista Speedrun."
+    },
+    "os": {
+      "booting": "Iniciando RodrigoOS",
+      "bootLines": [
+        "montando /home/rodrigo",
+        "carregando projetos em produção",
+        "conectando ao PostgreSQL",
+        "tudo certo"
+      ],
+      "desktop": "Área de trabalho",
+      "exit": "Sair do PC",
+      "terminal": "Terminal",
+      "about": "sobre.txt",
+      "resume": "curriculo.pdf",
+      "trash": "Lixeira",
+      "trashContent": "Aqui ficam os bugs que já foram corrigidos. Está vazia.",
+      "projectsFolder": "Projetos",
+      "metrics": "Em números",
+      "highlights": "Destaques",
+      "stack": "Stack",
+      "openHint": "Clique num ícone para abrir",
+      "terminalWelcome": "RodrigoOS terminal. Digite help para ver os comandos.",
+      "terminalPlaceholder": "digite um comando",
+      "commands": {
+        "help": "comandos: whoami, ls, cat <projeto>, open <projeto>, stack, contato, clear, exit",
+        "notFound": "comando não encontrado: {command}. Digite help.",
+        "noProject": "projeto não encontrado: {name}. Digite ls.",
+        "opening": "abrindo {name}...",
+        "hire": "permissão concedida. abrindo o contato.",
+        "exit": "até mais."
+      }
+    },
+    "unsupported": {
+      "title": "Este aparelho não vai rodar o jogo bem.",
+      "body": "O navegador está sem WebGL2 ou o sistema pede menos movimento. O currículo tem tudo o que está no quarto.",
+      "cta": "Ver currículo",
+      "force": "Jogar mesmo assim"
+    }
   }
 }

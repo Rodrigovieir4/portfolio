@@ -36,6 +36,13 @@ export function Ball() {
     if (!ball) return;
     const { x, y, z } = ball.translation();
     runtime.ballPosition.set(x, y, z);
+    // Rede de segurança: se um chute muito forte atravessar um colisor e a
+    // bola sair do quarto, ela volta para o meio em vez de sumir para sempre.
+    if (y < -1 || Math.abs(x) > 5.5 || Math.abs(z) > 5.5) {
+      ball.setTranslation({ x: BALL_START[0], y: BALL_START[1], z: BALL_START[2] }, true);
+      ball.setLinvel({ x: 0, y: 0, z: 0 }, true);
+      ball.setAngvel({ x: 0, y: 0, z: 0 }, true);
+    }
   });
 
   useEffect(() => {

@@ -62,3 +62,4 @@ catalogs:
     "@types/node": 26.5.0
     zod: 4.5.4
     vitest: 5.0.0
+    "@playwright/test": 1.62.1

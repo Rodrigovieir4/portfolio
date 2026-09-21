@@ -48,3 +48,43 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_SITE_URL: https://rodrigovsousa.dev
+
+  e2e:
+    name: Ponta a ponta (jogo e site)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: verify
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Build do app
+        run: pnpm turbo run build --filter=@portfolio/web
+        env:
+          NEXT_PUBLIC_SITE_URL: http://localhost:3200
+
+      # O jogo roda em WebGL e o runner nao tem placa de video: o Chromium
+      # desenha em software com o SwiftShader, configurado no playwright.config.
+      - name: Instalar Chromium do Playwright
+        run: pnpm --filter @portfolio/web exec playwright install --with-deps chromium
+
+      - name: Testes de ponta a ponta
+        run: pnpm --filter @portfolio/web test:e2e
+
+      - name: Guardar rastros das falhas
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: apps/web/test-results
+          retention-days: 7

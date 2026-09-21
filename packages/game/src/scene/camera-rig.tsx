@@ -28,25 +28,35 @@ export function yawForStep(step: number): number {
  */
 export function CameraRig() {
   const target = useRef(new Vector3(0, 0, 2));
-  const lastFit = useRef(0);
+  const lastZoom = useRef(0);
+  const intro = useRef(0);
 
   useFrame(({ camera, size }, delta) => {
+    const step = Math.min(delta, 1 / 30);
+
+    // Entrada: nos primeiros dois segundos a câmera vem de longe, girando, e
+    // assenta na vista do quarto. Easing cúbico de saída, o que chega rápido e
+    // pousa devagar.
+    intro.current = Math.min(1, intro.current + step / 2);
+    const eased = 1 - Math.pow(1 - intro.current, 3);
+
     // Em vista isométrica o quarto de 10 por 10 ocupa cerca de 14 unidades de
     // largura na tela e 10 de altura. O zoom é o que couber nos dois eixos, com
     // folga, para o quarto aparecer inteiro no monitor deitado e no celular em
-    // pé. Só recalcula quando a tela muda, porque atualizar a projeção a cada
-    // quadro é trabalho à toa.
+    // pé. Só recalcula quando muda, porque atualizar a projeção a cada quadro é
+    // trabalho à toa.
     const fit = Math.min(size.width / 16, size.height / 12.5);
-    if (fit !== lastFit.current && camera instanceof OrthographicCamera) {
-      lastFit.current = fit;
-      camera.zoom = fit;
+    const zoom = fit * (0.55 + 0.45 * eased);
+    if (Math.abs(zoom - lastZoom.current) > 0.001 && camera instanceof OrthographicCamera) {
+      lastZoom.current = zoom;
+      camera.zoom = zoom;
       camera.updateProjectionMatrix();
     }
 
-    const step = Math.min(delta, 1 / 30);
     const goalYaw = yawForStep(useGameStore.getState().cameraStep);
-
     runtime.cameraYaw += (goalYaw - runtime.cameraYaw) * Math.min(1, step * 8);
+    // O giro da entrada é só visual: o controle usa o ângulo final desde já.
+    const shownYaw = runtime.cameraYaw + (1 - eased) * 1.1;
 
     // Segue o personagem com atraso leve. Seguir travado faz o quarto tremer
     // a cada passo; seguir solto demais deixa o personagem sair da tela.
@@ -55,9 +65,9 @@ export function CameraRig() {
 
     const horizontal = Math.cos(PITCH) * DISTANCE;
     camera.position.set(
-      target.current.x + Math.sin(runtime.cameraYaw) * horizontal,
+      target.current.x + Math.sin(shownYaw) * horizontal,
       target.current.y + Math.sin(PITCH) * DISTANCE,
-      target.current.z + Math.cos(runtime.cameraYaw) * horizontal,
+      target.current.z + Math.cos(shownYaw) * horizontal,
     );
     camera.lookAt(target.current);
   });

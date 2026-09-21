@@ -15,14 +15,16 @@
     "menu": "Menu",
     "close": "Close menu",
     "changeLanguage": "Change language",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "play": "Play"
   },
   "hero": {
     "scrollHint": "scroll to explore",
     "ctaProjects": "See projects",
     "ctaContact": "Get in touch",
     "resume": "Download résumé",
-    "basedIn": "São Paulo, Brazil"
+    "basedIn": "São Paulo, Brazil",
+    "play": "Or explore my room as a game"
   },
   "about": {
     "eyebrow": "who is on the other side",
@@ -132,34 +134,117 @@
   },
   "game": {
     "metaTitle": "Play",
-    "prototype": "Prototype",
+    "badge": "Beta",
     "loading": "Building the room",
     "backToCv": "View résumé",
-    "controlsKeyboard": "WASD move · Shift run · E interact · Space kick · Z and X rotate the camera",
-    "controlsTouch": "Drag the joystick to move. Walk up to the goal and shoot.",
     "interact": "Interact",
     "kick": "Kick",
+    "wave": "Wave",
     "rotateLeft": "Rotate camera left",
     "rotateRight": "Rotate camera right",
     "joystick": "Movement control",
-    "visited": "{count} of {total}",
     "close": "Close",
-    "hint": {
-      "pc": "See projects",
-      "certificados": "See certificates",
-      "trofeus": "See journey"
-    },
     "objectsLabel": "Objects in the room",
-    "unsupported": {
-      "title": "This device will not run the game well.",
-      "body": "The browser lacks WebGL2 or the system asks for reduced motion. The résumé has everything the room does.",
-      "cta": "View résumé",
-      "force": "Play anyway"
+    "openProject": "Project page",
+    "liveSite": "Visit live site",
+    "privateCode": "Private code",
+    "openPdf": "Open PDF",
+    "present": "present",
+    "emailCta": "Send an email",
+    "hint": {
+      "sobre": "About me",
+      "pc": "Sit at the PC",
+      "lousa": "See the stack",
+      "mapa": "Where I work",
+      "certificados": "See certificates",
+      "trofeus": "See journey",
+      "formacao": "See education",
+      "contato": "Pick up the phone",
+      "lampOff": "Turn the light off",
+      "lampOn": "Turn the light on"
+    },
+    "onboarding": {
+      "keyboard": "WASD to move · E to interact",
+      "touch": "Drag the joystick to move"
+    },
+    "hud": {
+      "soundOn": "Turn sound on",
+      "soundOff": "Turn sound off",
+      "help": "Controls",
+      "scoreboard": "Scoreboard",
+      "objects": "Objects",
+      "commits": "Commits",
+      "goals": "Goals",
+      "time": "Time"
+    },
+    "help": {
+      "title": "Controls",
+      "move": "Move",
+      "run": "Run",
+      "interact": "Interact",
+      "kick": "Kick the ball",
+      "wave": "Wave",
+      "camera": "Rotate the camera",
+      "scoreboard": "Scoreboard",
+      "help": "This help",
+      "tip": "Walk up to an object to see what it holds. There are twelve commits hidden around the room, and the lamp does something too."
+    },
+    "toastTitle": "Achievement unlocked",
+    "achievements": {
+      "explorador": {
+        "title": "Explorer",
+        "description": "Visited all eight objects in the room."
+      },
+      "colecionador": {
+        "title": "Collector",
+        "description": "Picked up all twelve commits."
+      },
+      "primeiro-gol": {
+        "title": "First goal",
+        "description": "Found the back of the net."
+      },
+      "hat-trick": {
+        "title": "Hat-trick",
+        "description": "Three goals in one visit."
+      },
+      "boa-noite": {
+        "title": "Good night",
+        "description": "Turned the room light off."
+      },
+      "speedrun": {
+        "title": "Speedrun",
+        "description": "Full tour in under 90 seconds."
+      },
+      "platina": {
+        "title": "Platinum",
+        "description": "Explorer, collector and scorer."
+      }
+    },
+    "scoreboard": {
+      "title": "Scoreboard",
+      "player": "Player",
+      "career": "Career numbers",
+      "achievements": "Achievements",
+      "stats": {
+        "live": "Live products",
+        "endpoints": "REST endpoints",
+        "tests": "Test cases",
+        "migrations": "Migrations"
+      },
+      "close": "Press P to close"
     },
     "panels": {
-      "pc": {
-        "title": "Projects",
-        "description": "What is running on the monitors."
+      "sobre": {
+        "title": "Hi, I'm Rodrigo.",
+        "description": "Who is on the other side."
+      },
+      "lousa": {
+        "title": "The stack",
+        "description": "What is written on the board."
+      },
+      "mapa": {
+        "title": "Where I work",
+        "description": "Products running in three countries."
       },
       "certificados": {
         "title": "Certificates",
@@ -169,14 +254,84 @@
         "title": "Journey",
         "description": "From the pitch to the deploy."
       },
+      "formacao": {
+        "title": "Education",
+        "description": "The study shelf."
+      },
+      "contato": {
+        "title": "Let's talk",
+        "description": "I reply within one business day."
+      },
       "gol": {
         "title": "What a goal.",
         "description": "Since you made it this far, shall we talk?"
+      },
+      "final": {
+        "title": "Tour complete.",
+        "description": "You have seen everything in the room."
+      },
+      "pc": {
+        "title": "RodrigoOS",
+        "description": "The projects, the way they sit on my PC."
       }
     },
-    "openProject": "Project page",
-    "openPdf": "Open PDF",
-    "present": "present",
-    "emailCta": "Send an email"
+    "markets": {
+      "BR": "Brazil",
+      "PT": "Portugal",
+      "IE": "Ireland",
+      "EU": "Europe",
+      "base": "Based in São Paulo, working remotely."
+    },
+    "formacao": {
+      "languages": "Languages",
+      "certificatesHint": "The certificates hang on the opposite wall."
+    },
+    "final": {
+      "time": "Your time",
+      "noTime": "no timer",
+      "achievements": "Achievements",
+      "commits": "Commits found",
+      "cv": "Download résumé",
+      "contact": "Get in touch",
+      "keep": "Keep exploring",
+      "speedrunHint": "Under 90 seconds earns the Speedrun achievement."
+    },
+    "os": {
+      "booting": "Booting RodrigoOS",
+      "bootLines": [
+        "mounting /home/rodrigo",
+        "loading production projects",
+        "connecting to PostgreSQL",
+        "all good"
+      ],
+      "desktop": "Desktop",
+      "exit": "Leave the PC",
+      "terminal": "Terminal",
+      "about": "about.txt",
+      "resume": "resume.pdf",
+      "trash": "Trash",
+      "trashContent": "This is where fixed bugs go. It is empty.",
+      "projectsFolder": "Projects",
+      "metrics": "In numbers",
+      "highlights": "Highlights",
+      "stack": "Stack",
+      "openHint": "Click an icon to open it",
+      "terminalWelcome": "RodrigoOS terminal. Type help to see the commands.",
+      "terminalPlaceholder": "type a command",
+      "commands": {
+        "help": "commands: whoami, ls, cat <project>, open <project>, stack, contact, clear, exit",
+        "notFound": "command not found: {command}. Type help.",
+        "noProject": "project not found: {name}. Type ls.",
+        "opening": "opening {name}...",
+        "hire": "permission granted. opening contact.",
+        "exit": "see you."
+      }
+    },
+    "unsupported": {
+      "title": "This device will not run the game well.",
+      "body": "The browser lacks WebGL2 or the system asks for reduced motion. The résumé has everything the room does.",
+      "cta": "View résumé",
+      "force": "Play anyway"
+    }
   }
 }

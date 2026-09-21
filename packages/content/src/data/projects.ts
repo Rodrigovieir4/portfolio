@@ -16,6 +16,7 @@ import { parseCollection, projectSchema, type Project } from '../schema';
 const raw = [
   {
     slug: 'esplendido',
+    markets: ['PT', 'IE'],
     name: 'Esplêndido',
     year: '2026',
     start: '2026-07',
@@ -107,6 +108,7 @@ const raw = [
 
   {
     slug: 'db-store',
+    markets: ['BR'],
     name: 'DB Store',
     year: '2026',
     start: '2026-05',
@@ -198,6 +200,7 @@ const raw = [
 
   {
     slug: 'db-connect',
+    markets: ['EU'],
     name: 'DB Connect',
     year: '2026',
     start: '2025-11',
@@ -283,6 +286,7 @@ const raw = [
 
   {
     slug: 'memoreba',
+    markets: ['BR'],
     name: 'Memoreba',
     year: '2026',
     start: '2025-12',
@@ -363,6 +367,7 @@ const raw = [
 
   {
     slug: 'cs2-cortex',
+    markets: ['PT'],
     name: 'CS2 Cortex',
     year: '2026',
     start: '2025-10',

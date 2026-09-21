@@ -1,78 +1,206 @@
 import { create } from 'zustand';
 
-import type { HotspotId } from './hotspots';
+import { ACHIEVEMENTS, SPEEDRUN_MS, type AchievementId } from './achievements';
+import { playSfx, type Sfx } from './audio';
+import { COMMIT_IDS } from './collectibles';
+import { HOTSPOT_IDS, LAMP, type HotspotId, type InteractableId } from './hotspots';
 
-/** Painel aberto: um objeto do quarto, ou a comemoração do gol. */
-export type PanelId = HotspotId | 'gol';
+/**
+ * Painel aberto. Um objeto do quarto, a comemoração do gol ou o fechamento do
+ * tour. O PC não abre painel: abre o RodrigoOS, mas usa o mesmo id.
+ */
+export type PanelId = HotspotId | 'gol' | 'final';
+
+export interface Toast {
+  key: number;
+  achievement: AchievementId;
+}
 
 interface GameState {
   /** Objeto cuja área de proximidade o personagem está pisando agora. */
-  nearby: HotspotId | null;
+  nearby: InteractableId | null;
   openPanel: PanelId | null;
-  /** Objetos que o visitante já abriu, para o contador de conquistas. */
+  /** Objetos que o visitante já abriu, para o contador e o fim do tour. */
   visited: HotspotId[];
+  collected: string[];
+  achievements: AchievementId[];
+  toasts: Toast[];
+  goals: number;
+  lampOn: boolean;
+  soundOn: boolean;
+  scoreboardOpen: boolean;
+  helpOpen: boolean;
+  /** Primeiro passo e último objeto visitado, em ms de performance.now(). */
+  startedAt: number | null;
+  finishedAt: number | null;
+  completionShown: boolean;
+
   /** Vetor do joystick de toque, de -1 a 1 em cada eixo. */
   joystick: { x: number; y: number };
-  /** Quantas vezes a câmera girou 90 graus. Só cresce ou decresce; o módulo por 4 dá o lado. */
+  /** Quantas vezes a câmera girou 90 graus. O módulo por 4 dá o lado. */
   cameraStep: number;
   /**
-   * Contador de pedidos de chute. É um número, não um booleano, para que dois
-   * chutes seguidos sejam dois eventos: a bola observa a mudança do valor.
+   * Contadores de pedido. São números, não booleanos, para que dois chutes
+   * seguidos sejam dois eventos: quem reage observa a mudança do valor.
    */
   kickSeq: number;
-  goals: number;
+  emoteSeq: number;
 
-  setNearby: (id: HotspotId | null) => void;
+  setNearby: (id: InteractableId | null) => void;
   interact: () => void;
   openPanelFor: (id: PanelId) => void;
   closePanel: () => void;
+  collect: (id: string) => void;
+  registerGoal: () => void;
+  markStarted: () => void;
   setJoystick: (x: number, y: number) => void;
   rotateCamera: (direction: 1 | -1) => void;
   requestKick: () => void;
-  registerGoal: () => void;
+  requestEmote: () => void;
+  toggleSound: () => void;
+  toggleScoreboard: (open?: boolean) => void;
+  toggleHelp: (open?: boolean) => void;
+  dismissToast: (key: number) => void;
+  sfx: (name: Sfx) => void;
 }
 
-/**
- * Estado do jogo, compartilhado entre a cena 3D e os painéis em HTML.
- *
- * A cena escreve (quem está perto de quê, quando saiu gol) e o HTML lê para
- * decidir o que mostrar. O que muda a cada quadro, como a posição do
- * personagem, NÃO mora aqui: isso fica em runtime.ts, para não disparar uma
- * renderização do React sessenta vezes por segundo.
- */
-export const useGameStore = create<GameState>((set, get) => ({
-  nearby: null,
-  openPanel: null,
-  visited: [],
-  joystick: { x: 0, y: 0 },
-  cameraStep: 0,
-  kickSeq: 0,
-  goals: 0,
+let toastKey = 0;
 
-  setNearby: (id) => set({ nearby: id }),
+export const useGameStore = create<GameState>((set, get) => {
+  /** Libera uma conquista uma vez só, com aviso na tela e som. */
+  function unlock(id: AchievementId) {
+    const state = get();
+    if (state.achievements.includes(id)) return;
+    const achievements = [...state.achievements, id].sort(
+      (a, b) => ACHIEVEMENTS.indexOf(a) - ACHIEVEMENTS.indexOf(b),
+    );
+    set({ achievements, toasts: [...state.toasts, { key: ++toastKey, achievement: id }] });
+    get().sfx('achievement');
 
-  interact: () => {
-    const { nearby, openPanel } = get();
-    if (!nearby || openPanel) return;
-    get().openPanelFor(nearby);
-  },
+    // Platina = as três conquistas que dão trabalho de verdade.
+    const needed: AchievementId[] = ['explorador', 'colecionador', 'primeiro-gol'];
+    if (id !== 'platina' && needed.every((item) => achievements.includes(item))) {
+      unlock('platina');
+    }
+  }
 
-  openPanelFor: (id) =>
-    set((state) => ({
-      openPanel: id,
-      visited: id !== 'gol' && !state.visited.includes(id) ? [...state.visited, id] : state.visited,
-    })),
+  return {
+    nearby: null,
+    openPanel: null,
+    visited: [],
+    collected: [],
+    achievements: [],
+    toasts: [],
+    goals: 0,
+    lampOn: true,
+    soundOn: false,
+    scoreboardOpen: false,
+    helpOpen: false,
+    startedAt: null,
+    finishedAt: null,
+    completionShown: false,
+    joystick: { x: 0, y: 0 },
+    cameraStep: 0,
+    kickSeq: 0,
+    emoteSeq: 0,
 
-  closePanel: () => set({ openPanel: null }),
+    setNearby: (id) => set({ nearby: id }),
 
-  setJoystick: (x, y) => set({ joystick: { x, y } }),
+    interact: () => {
+      const { nearby, openPanel } = get();
+      if (!nearby || openPanel) return;
+      if (nearby === LAMP.id) {
+        const lampOn = !get().lampOn;
+        set({ lampOn });
+        get().sfx('toggle');
+        if (!lampOn) unlock('boa-noite');
+        return;
+      }
+      get().openPanelFor(nearby);
+    },
 
-  rotateCamera: (direction) => set((state) => ({ cameraStep: state.cameraStep + direction })),
+    openPanelFor: (id) => {
+      const state = get();
+      const isHotspot = (HOTSPOT_IDS as readonly string[]).includes(id);
+      const firstVisit = isHotspot && !state.visited.includes(id as HotspotId);
+      const visited = firstVisit ? [...state.visited, id as HotspotId] : state.visited;
+      const tourDone = visited.length === HOTSPOT_IDS.length;
+      const finishedAt =
+        tourDone && state.finishedAt === null ? performance.now() : state.finishedAt;
 
-  requestKick: () => set((state) => ({ kickSeq: state.kickSeq + 1 })),
+      set({ openPanel: id, visited, finishedAt, scoreboardOpen: false });
+      get().sfx('open');
 
-  registerGoal: () => {
-    set((state) => ({ goals: state.goals + 1 }));
-    get().openPanelFor('gol');
-  },
-}));
+      if (tourDone && state.finishedAt === null) {
+        unlock('explorador');
+        const started = state.startedAt ?? finishedAt ?? 0;
+        if (finishedAt !== null && finishedAt - started < SPEEDRUN_MS) unlock('speedrun');
+      }
+    },
+
+    closePanel: () => {
+      const state = get();
+      if (!state.openPanel) return;
+      get().sfx('close');
+      // Fechar o último objeto do tour abre o painel de conclusão, uma vez.
+      if (
+        state.openPanel !== 'final' &&
+        state.visited.length === HOTSPOT_IDS.length &&
+        !state.completionShown
+      ) {
+        set({ openPanel: 'final', completionShown: true });
+        return;
+      }
+      set({ openPanel: null });
+    },
+
+    collect: (id) => {
+      const state = get();
+      if (state.collected.includes(id)) return;
+      const collected = [...state.collected, id];
+      set({ collected });
+      get().sfx('pickup');
+      if (collected.length === COMMIT_IDS.length) unlock('colecionador');
+    },
+
+    registerGoal: () => {
+      const goals = get().goals + 1;
+      set({ goals });
+      get().sfx('goal');
+      unlock('primeiro-gol');
+      if (goals >= 3) unlock('hat-trick');
+      // Só o primeiro gol abre o contato. Depois disso, gol é só diversão.
+      if (goals === 1) get().openPanelFor('gol');
+    },
+
+    markStarted: () => {
+      if (get().startedAt === null) set({ startedAt: performance.now() });
+    },
+
+    setJoystick: (x, y) => set({ joystick: { x, y } }),
+
+    rotateCamera: (direction) => set((state) => ({ cameraStep: state.cameraStep + direction })),
+
+    requestKick: () => set((state) => ({ kickSeq: state.kickSeq + 1 })),
+
+    requestEmote: () => set((state) => ({ emoteSeq: state.emoteSeq + 1 })),
+
+    toggleSound: () => {
+      const soundOn = !get().soundOn;
+      set({ soundOn });
+      // Tocar ao ligar é o gesto que o navegador exige para liberar o áudio.
+      if (soundOn) playSfx('toggle');
+    },
+
+    toggleScoreboard: (open) => set((state) => ({ scoreboardOpen: open ?? !state.scoreboardOpen })),
+
+    toggleHelp: (open) => set((state) => ({ helpOpen: open ?? !state.helpOpen })),
+
+    dismissToast: (key) =>
+      set((state) => ({ toasts: state.toasts.filter((toast) => toast.key !== key) })),
+
+    sfx: (name) => {
+      if (get().soundOn) playSfx(name);
+    },
+  };
+});

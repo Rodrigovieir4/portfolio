@@ -2,7 +2,7 @@
 
 import { LOCALES, LOCALE_META, profile, type Locale } from '@portfolio/content';
 import { cn, Magnetic, StatusDot } from '@portfolio/ui';
-import { Check, Globe, Menu } from 'lucide-react';
+import { Check, Gamepad2, Globe, Menu } from 'lucide-react';
 import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useParams } from 'next/navigation';
@@ -83,6 +83,14 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            {/* Entrada para o portfólio jogável, visível em toda página do site. */}
+            <Link
+              href="/jogo"
+              className="inline-flex items-center gap-2 rounded-full border border-plasma/50 bg-plasma/10 px-3 py-2 font-mono text-[0.68rem] tracking-[0.12em] text-plasma uppercase transition-colors hover:bg-plasma hover:text-void"
+            >
+              <Gamepad2 className="h-3.5 w-3.5" aria-hidden="true" />
+              <span className="hidden sm:inline">{t('play')}</span>
+            </Link>
             <LocaleSwitcher />
 
             <Magnetic className="hidden sm:block">
@@ -168,7 +176,7 @@ function MobileMenu({
  * idioma, então o mesmo valor serve para os três. O `params` é repassado para
  * que rotas dinâmicas como /projetos/[slug] não percam o slug na troca.
  */
-function LocaleSwitcher() {
+export function LocaleSwitcher() {
   const t = useTranslations('nav');
   const locale = useLocale() as Locale;
   const pathname = usePathname();
