@@ -187,7 +187,15 @@
       "camera": "Girar la cámara",
       "scoreboard": "Marcador",
       "help": "Esta ayuda",
-      "tip": "Acércate a un objeto para ver lo que guarda. Hay doce commits escondidos por la habitación, y la lámpara también hace algo."
+      "tip": "Acércate a un objeto para ver lo que guarda. Hay doce commits escondidos por la habitación, y la lámpara también hace algo.",
+      "quality": {
+        "label": "Calidad",
+        "auto": "Automática",
+        "baixo": "Baja",
+        "medio": "Media",
+        "alto": "Alta",
+        "hint": "En automático, el juego baja la calidad solo si el dispositivo se atasca."
+      }
     },
     "toastTitle": "Logro desbloqueado",
     "achievements": {

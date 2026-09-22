@@ -17,7 +17,6 @@
     "@react-three/drei": "catalog:gl",
     "@react-three/fiber": "catalog:gl",
     "@react-three/postprocessing": "catalog:gl",
-    "@react-three/rapier": "catalog:gl",
     "postprocessing": "catalog:gl",
     "three": "catalog:gl",
     "zustand": "catalog:state"

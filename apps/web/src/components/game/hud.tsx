@@ -1,7 +1,16 @@
 'use client';
 
 import { profile, t as translate, type Locale } from '@portfolio/content';
-import { COMMIT_IDS, HOTSPOT_IDS, LAMP, useGameStore, type Toast } from '@portfolio/game/state';
+import {
+  activeTier,
+  COMMIT_IDS,
+  HOTSPOT_IDS,
+  LAMP,
+  QUALITY_TIERS,
+  useGameStore,
+  type QualityMode,
+  type Toast,
+} from '@portfolio/game/state';
 import {
   FileText,
   Hand,
@@ -18,6 +27,13 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { LocaleSwitcher } from '@/components/layout/header';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Link } from '@/i18n/navigation';
 
 import { careerStats, formatDuration } from './career-stats';
@@ -351,12 +367,59 @@ export function HelpCard() {
               </div>
             ))}
           </dl>
+          <QualityPicker />
+
           <p className="mt-3 border-t border-line pt-3 text-xs leading-relaxed text-muted-foreground">
             {t('tip')}
           </p>
         </motion.aside>
       )}
     </AnimatePresence>
+  );
+}
+
+/**
+ * Escolha de qualidade, com o automático como padrão.
+ *
+ * O automático cobre quase todo mundo, mas o manual existe por dois motivos
+ * concretos: quem está com a bateria acabando quer o nível baixo mesmo com o
+ * aparelho dando conta, e quem gravou a tela quer o alto travado, sem o jogo
+ * mudando de aparência no meio do vídeo. No automático, o nível em vigor
+ * aparece ao lado: o visitante vê o que o jogo decidiu por ele.
+ */
+function QualityPicker() {
+  const t = useTranslations('game.help.quality');
+  const quality = useGameStore((state) => state.quality);
+  const setQuality = useGameStore((state) => state.setQuality);
+  const tier = useGameStore(activeTier);
+
+  return (
+    <div className="mt-3 border-t border-line pt-3">
+      <div className="flex items-center justify-between gap-3">
+        <label htmlFor="quality" className="text-xs text-ink-soft">
+          {t('label')}
+          {quality === 'auto' && (
+            <span className="ml-1.5 font-mono text-[0.6rem] text-muted-foreground uppercase">
+              {t(tier)}
+            </span>
+          )}
+        </label>
+        <Select value={quality} onValueChange={(value) => setQuality(value as QualityMode)}>
+          <SelectTrigger id="quality" size="sm" className="w-28 font-mono text-xs">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="auto">{t('auto')}</SelectItem>
+            {QUALITY_TIERS.map((item) => (
+              <SelectItem key={item} value={item}>
+                {t(item)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <p className="mt-2 text-[0.7rem] leading-relaxed text-muted-foreground">{t('hint')}</p>
+    </div>
   );
 }
 

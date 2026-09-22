@@ -1,6 +1,6 @@
 'use client';
 
-import { runtime, useGameStore } from '@portfolio/game/state';
+import { loadQuality, perf, runtime, useGameStore } from '@portfolio/game/state';
 import { useDeviceTier } from '@portfolio/gl/device';
 import { useMediaQuery } from '@portfolio/ui';
 import { useTranslations } from 'next-intl';
@@ -24,8 +24,8 @@ import { GamePanels } from './panels';
 import { RodrigoOS } from './rodrigo-os';
 
 /**
- * three e Rapier entram só no navegador. O Rapier ainda baixa um módulo
- * WebAssembly, então o canvas mostra a tela de carregamento enquanto isso.
+ * O three entra só no navegador, e é o pedaço mais pesado do site inteiro.
+ * Até ele chegar, fica a tela de carregamento; o resto do HUD já está montado.
  */
 const GameCanvas = dynamic(() => import('@portfolio/game').then((module) => module.GameCanvas), {
   ssr: false,
@@ -99,12 +99,24 @@ export function GameView() {
 
   useActionKeys();
 
+  // A qualidade é decidida no navegador, nunca no servidor: o HTML gerado é o
+  // mesmo para todo mundo, e o ajuste acontece depois que a página monta.
+  // Quem já escolheu à mão tem a escolha respeitada; no automático, aparelho
+  // sem WebGL decente começa no nível baixo em vez de descobrir travando.
+  useEffect(() => {
+    const store = useGameStore.getState();
+    const saved = loadQuality();
+    if (saved !== 'auto') store.setQuality(saved, false);
+    else if (device.tier === 'low') store.setAutoTier('baixo');
+  }, [device.tier]);
+
   // Com ?debug na URL, o estado do jogo fica em window.__game. É o que permite
   // um teste automatizado dirigir o personagem pelo teclado lendo onde ele está.
   useEffect(() => {
     if (!new URLSearchParams(window.location.search).has('debug')) return;
     (window as unknown as { __game: unknown }).__game = {
       runtime,
+      perf,
       getState: useGameStore.getState,
     };
   }, []);
@@ -115,10 +127,7 @@ export function GameView() {
 
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-void select-none">
-      <GameCanvas
-        className="absolute inset-0 touch-none"
-        quality={device.tier === 'low' ? 'low' : 'high'}
-      />
+      <GameCanvas className="absolute inset-0 touch-none" />
 
       <TopBar />
       <Onboarding touch={touch} />

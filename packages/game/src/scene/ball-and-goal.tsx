@@ -1,58 +1,39 @@
 'use client';
 
-import {
-  BallCollider,
-  CuboidCollider,
-  RigidBody,
-  type IntersectionEnterPayload,
-  type RapierRigidBody,
-} from '@react-three/rapier';
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
+import type { Mesh } from 'three';
 
-import { runtime } from '../runtime';
+import { GameWorld } from '../physics';
+import { ball, resetBall, runtime } from '../runtime';
 import { useGameStore } from '../store';
+import { gameWorld, GOAL, GOAL_SENSOR, GOAL_SOLIDS } from '../world';
+import { PLAYER_HALF } from './player';
+import { boxMaterial, unitBall, unitBox, unitCylinder } from './resources';
 
-const BALL_RADIUS = 0.2;
-const BALL_START: [number, number, number] = [1, 0.6, 1.4];
+export const BALL_RADIUS = 0.2;
 /** Distância do centro do personagem ao centro da bola em que o chute pega. */
 const KICK_RANGE = 1.05;
-const KICK_FORCE = 2.6;
+/** Velocidade que o chute imprime, em metros por segundo. */
+const KICK_SPEED = 6.2;
 
 /**
  * A bola.
  *
- * Tem massa de bola de verdade, 450 gramas, para que o impulso do chute tenha
- * uma escala intuitiva: 2,6 newton-segundo dá uns 6 metros por segundo, um
- * chute firme dentro de um quarto.
+ * A física dela é integrada aqui mesmo, a partir do estado em runtime.ball, e
+ * congela junto com o jogo quando há painel aberto: ninguém precisa simular
+ * bola enquanto o visitante lê um projeto.
  */
 export function Ball() {
-  const body = useRef<RapierRigidBody>(null);
+  const mesh = useRef<Mesh>(null);
   const kickSeq = useGameStore((state) => state.kickSeq);
   const goals = useGameStore((state) => state.goals);
-
-  useFrame(() => {
-    const ball = body.current;
-    if (!ball) return;
-    const { x, y, z } = ball.translation();
-    runtime.ballPosition.set(x, y, z);
-    // Rede de segurança: se um chute muito forte atravessar um colisor e a
-    // bola sair do quarto, ela volta para o meio em vez de sumir para sempre.
-    if (y < -1 || Math.abs(x) > 5.5 || Math.abs(z) > 5.5) {
-      ball.setTranslation({ x: BALL_START[0], y: BALL_START[1], z: BALL_START[2] }, true);
-      ball.setLinvel({ x: 0, y: 0, z: 0 }, true);
-      ball.setAngvel({ x: 0, y: 0, z: 0 }, true);
-    }
-  });
+  const lastGoalAt = useRef(0);
 
   useEffect(() => {
     if (kickSeq === 0) return;
-    const ball = body.current;
-    if (!ball) return;
-
-    const position = ball.translation();
-    const dx = position.x - runtime.playerPosition.x;
-    const dz = position.z - runtime.playerPosition.z;
+    const dx = ball.x - runtime.playerPosition.x;
+    const dz = ball.z - runtime.playerPosition.z;
     const distance = Math.hypot(dx, dz);
     if (distance > KICK_RANGE) return;
 
@@ -61,50 +42,51 @@ export function Ball() {
     const useFacing = distance < 0.05;
     const nx = useFacing ? Math.sin(runtime.playerFacing) : dx / distance;
     const nz = useFacing ? Math.cos(runtime.playerFacing) : dz / distance;
-
-    ball.applyImpulse({ x: nx * KICK_FORCE, y: KICK_FORCE * 0.3, z: nz * KICK_FORCE }, true);
+    ball.vx = nx * KICK_SPEED;
+    ball.vz = nz * KICK_SPEED;
+    ball.vy = 2.2;
   }, [kickSeq]);
 
   // Depois do gol a bola volta para o meio do quarto.
   useEffect(() => {
     if (goals === 0) return;
-    const timeout = setTimeout(() => {
-      const ball = body.current;
-      if (!ball) return;
-      ball.setTranslation({ x: BALL_START[0], y: BALL_START[1], z: BALL_START[2] }, true);
-      ball.setLinvel({ x: 0, y: 0, z: 0 }, true);
-      ball.setAngvel({ x: 0, y: 0, z: 0 }, true);
-    }, 1200);
+    const timeout = setTimeout(resetBall, 1200);
     return () => clearTimeout(timeout);
   }, [goals]);
 
+  useFrame((_, delta) => {
+    const state = useGameStore.getState();
+    if (!state.openPanel) {
+      gameWorld().stepBall(ball, BALL_RADIUS, Math.min(delta, 0.05));
+
+      // Rede de segurança: se a bola escapar do quarto, volta para o meio.
+      if (ball.y < -1 || Math.abs(ball.x) > 5.4 || Math.abs(ball.z) > 5.4) resetBall();
+
+      if (GameWorld.contains(GOAL_SENSOR, ball.x, ball.y, ball.z)) {
+        const now = performance.now();
+        if (now - lastGoalAt.current > 2000) {
+          lastGoalAt.current = now;
+          state.registerGoal();
+        }
+      }
+    }
+
+    runtime.ballPosition.set(ball.x, ball.y, ball.z);
+    const node = mesh.current;
+    if (!node) return;
+    node.position.set(ball.x, ball.y, ball.z);
+    node.rotation.set(ball.spinX, 0, ball.spinZ);
+  });
+
   return (
-    <RigidBody
-      ref={body}
-      name="ball"
-      colliders={false}
-      position={BALL_START}
-      linearDamping={0.5}
-      angularDamping={0.6}
-      ccd
-    >
-      <BallCollider args={[BALL_RADIUS]} mass={0.45} restitution={0.6} friction={0.8} />
-      <mesh castShadow>
-        <icosahedronGeometry args={[BALL_RADIUS, 1]} />
-        <meshStandardMaterial color="#f4f5f7" flatShading />
-      </mesh>
-    </RigidBody>
+    <mesh
+      ref={mesh}
+      geometry={unitBall}
+      material={boxMaterial('#f4f5f7', { roughness: 0.6 })}
+      scale={BALL_RADIUS * 2}
+      castShadow
+    />
   );
-}
-
-const GOAL_X = 3.3;
-const GOAL_Z = 4.55;
-const GOAL_HALF_WIDTH = 0.8;
-const GOAL_HEIGHT = 0.9;
-const POST = 0.05;
-
-function isBall({ other }: IntersectionEnterPayload): boolean {
-  return other.rigidBodyObject?.name === 'ball';
 }
 
 /**
@@ -114,69 +96,39 @@ function isBall({ other }: IntersectionEnterPayload): boolean {
  * jeito menos burocrático que existe de chegar no "vamos conversar".
  */
 export function Goal() {
-  const registerGoal = useGameStore((state) => state.registerGoal);
-  // A bola pode sair e entrar de novo na área antes de ser recolocada.
-  const lastGoalAt = useRef(0);
-
-  const left = GOAL_X - GOAL_HALF_WIDTH;
-  const right = GOAL_X + GOAL_HALF_WIDTH;
+  const white = boxMaterial('#eef1f6', { roughness: 0.5 });
 
   return (
-    <RigidBody type="fixed" colliders={false}>
-      {/* Postes, travessão e rede de fundo: sólidos, a bola bate e volta. */}
-      <CuboidCollider
-        args={[POST, GOAL_HEIGHT / 2, POST]}
-        position={[left, GOAL_HEIGHT / 2, GOAL_Z - 0.3]}
-      />
-      <CuboidCollider
-        args={[POST, GOAL_HEIGHT / 2, POST]}
-        position={[right, GOAL_HEIGHT / 2, GOAL_Z - 0.3]}
-      />
-      <CuboidCollider
-        args={[GOAL_HALF_WIDTH, POST, 0.3]}
-        position={[GOAL_X, GOAL_HEIGHT, GOAL_Z]}
-      />
-      <CuboidCollider
-        args={[POST, GOAL_HEIGHT / 2, 0.3]}
-        position={[left, GOAL_HEIGHT / 2, GOAL_Z]}
-      />
-      <CuboidCollider
-        args={[POST, GOAL_HEIGHT / 2, 0.3]}
-        position={[right, GOAL_HEIGHT / 2, GOAL_Z]}
-      />
-
-      <CuboidCollider
-        sensor
-        args={[GOAL_HALF_WIDTH - POST * 2, GOAL_HEIGHT / 2 - POST, 0.22]}
-        position={[GOAL_X, GOAL_HEIGHT / 2, GOAL_Z + 0.05]}
-        onIntersectionEnter={(payload) => {
-          if (!isBall(payload)) return;
-          const now = performance.now();
-          if (now - lastGoalAt.current < 2000) return;
-          lastGoalAt.current = now;
-          registerGoal();
-        }}
-      />
-
-      {[left, right].map((x) => (
-        <mesh key={x} position={[x, GOAL_HEIGHT / 2, GOAL_Z - 0.3]} castShadow>
-          <cylinderGeometry args={[POST, POST, GOAL_HEIGHT, 8]} />
-          <meshStandardMaterial color="#eef1f6" />
-        </mesh>
+    <group>
+      {GOAL_SOLIDS.slice(0, 2).map((post, index) => (
+        <mesh
+          key={index}
+          geometry={unitCylinder}
+          material={white}
+          position={post.position}
+          scale={[GOAL.post * 2, GOAL.height, GOAL.post * 2]}
+          castShadow
+        />
       ))}
       <mesh
-        position={[GOAL_X, GOAL_HEIGHT, GOAL_Z - 0.3]}
+        geometry={unitCylinder}
+        material={white}
+        position={[GOAL.x, GOAL.height, GOAL.z - 0.3]}
         rotation={[0, 0, Math.PI / 2]}
+        scale={[GOAL.post * 2, GOAL.halfWidth * 2, GOAL.post * 2]}
         castShadow
+      />
+      {/* Rede: uma caixa translúcida, só para ler o volume do gol. */}
+      <mesh
+        geometry={unitBox}
+        position={[GOAL.x, GOAL.height / 2, GOAL.z + 0.02]}
+        scale={[GOAL.halfWidth * 2, GOAL.height, 0.6]}
       >
-        <cylinderGeometry args={[POST, POST, GOAL_HALF_WIDTH * 2, 8]} />
-        <meshStandardMaterial color="#eef1f6" />
-      </mesh>
-      {/* Rede: caixa translúcida, só para ler o volume do gol. */}
-      <mesh position={[GOAL_X, GOAL_HEIGHT / 2, GOAL_Z + 0.02]}>
-        <boxGeometry args={[GOAL_HALF_WIDTH * 2, GOAL_HEIGHT, 0.6]} />
         <meshStandardMaterial color="#c8f751" transparent opacity={0.08} />
       </mesh>
-    </RigidBody>
+    </group>
   );
 }
+
+/** A altura do jogador é usada pela bola para saber quando foi empurrada. */
+export { PLAYER_HALF };

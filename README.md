@@ -28,8 +28,8 @@ Requer Node 20.11 ou superior e pnpm 10. A versão exata do Node está em `.nvmr
 ## Portfólio jogável
 
 Em `/pt/jogo`, `/en/play` e `/es/jugar` o currículo vira um quarto isométrico em React Three
-Fiber com física Rapier. O visitante anda com WASD ou joystick e descobre o conteúdo chegando
-perto dos objetos.
+Fiber, com física própria escrita para a geometria do quarto. O visitante anda com WASD ou
+joystick e descobre o conteúdo chegando perto dos objetos.
 
 | Objeto                 | O que abre                                                |
 | ---------------------- | --------------------------------------------------------- |
@@ -57,6 +57,44 @@ jogo por `window.__game`, que só existe com `?debug` na URL:
 pnpm --filter @portfolio/web build
 pnpm --filter @portfolio/web test:e2e
 ```
+
+### Rodar em máquina fraca
+
+O jogo foi feito para abrir no celular de quem clicou no link, não para exigir placa de vídeo.
+Três decisões respondem por quase todo o ganho:
+
+**Física própria, no lugar de um motor.** O quarto é um chão plano e vinte e cinco caixas
+alinhadas aos eixos. Para isso, cem linhas de teste de caixa contra caixa e esfera contra caixa
+dão o mesmo resultado que um motor completo — e o motor custava 811 kB, metade do peso da
+página, porque embute WebAssembly. Está em `packages/game/src/physics.ts`, e o mundo de
+colisão sai do mesmo arquivo que desenha os móveis, então não existe o bug clássico de mover
+um móvel na tela e esquecer o colisor.
+
+**Uma geometria e um material por forma, não por objeto.** Tudo passa por
+`scene/resources.ts`. Os doze commits do chão viraram uma malha instanciada, e sombra só fica
+em peça grande o bastante para a sombra aparecer, porque quem projeta sombra é desenhado duas
+vezes por quadro.
+
+**Três níveis de qualidade, escolhidos medindo.** `packages/game/src/quality.ts` define o que
+cada nível liga. No automático, o jogo começa no alto e cai de nível se ficar abaixo de 40
+quadros por segundo por dois segundos; subir de novo é mais lento e acontece no máximo uma vez,
+porque alternar entre bonito e travado é pior que assumir que o aparelho é modesto. O brilho e
+a vinheta só são baixados quando o nível alto está em vigor. Quem quiser travar um nível tem o
+seletor na tecla `H`, e a escolha fica lembrada no navegador.
+
+Medido no mesmo aparelho, em renderização por software (SwiftShader, que é o pior caso
+plausível), 1366×820:
+
+|                              | antes   | depois (alto) | depois (baixo) |
+| ---------------------------- | ------- | ------------- | -------------- |
+| JavaScript na rede           | 1596 kB | 790 kB        | 685 kB         |
+| Chamadas de desenho          | 356     | 258           | 176            |
+| Geometrias na GPU            | 197     | 19            | 17             |
+| Quadros por segundo, andando | 16      | 17            | 47             |
+| Memória JS                   | 30 MB   | 22 MB         | 20 MB          |
+
+No automático, esse mesmo aparelho termina em 40 quadros por segundo sozinho, sem ninguém
+mexer em ajuste.
 
 ---
 

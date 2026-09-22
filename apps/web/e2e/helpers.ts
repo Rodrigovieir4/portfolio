@@ -45,8 +45,8 @@ export async function openGame(page: Page, locale = 'pt') {
   await page.goto(`${path}?debug`);
   await page.waitForFunction(() => 'undefined' !== typeof (window as any).__game);
   await page.locator('canvas').waitFor();
-  // O Rapier baixa WebAssembly e o personagem precisa de alguns quadros para
-  // assentar no chão antes de o teste começar a apertar teclas.
+  // O personagem precisa de alguns quadros para assentar no chão antes de o
+  // teste começar a apertar teclas.
   await page.waitForFunction(() => (window as any).__game.runtime.playerPosition.y > 0.3);
   await page.mouse.click(10, 400);
 }

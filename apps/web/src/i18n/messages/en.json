@@ -187,7 +187,15 @@
       "camera": "Rotate the camera",
       "scoreboard": "Scoreboard",
       "help": "This help",
-      "tip": "Walk up to an object to see what it holds. There are twelve commits hidden around the room, and the lamp does something too."
+      "tip": "Walk up to an object to see what it holds. There are twelve commits hidden around the room, and the lamp does something too.",
+      "quality": {
+        "label": "Quality",
+        "auto": "Automatic",
+        "baixo": "Low",
+        "medio": "Medium",
+        "alto": "High",
+        "hint": "On automatic, the game lowers quality by itself if the device struggles."
+      }
     },
     "toastTitle": "Achievement unlocked",
     "achievements": {

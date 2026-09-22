@@ -2,31 +2,33 @@
 
 import { Sparkles } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
-import { Physics } from '@react-three/rapier';
-import { Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 
 import { HOTSPOTS } from '../hotspots';
 import { attachKeyboard } from '../input';
-import { useGameStore } from '../store';
+import { QUALITY, type QualitySettings } from '../quality';
+import { activeTier, useGameStore } from '../store';
 import { Ball, Goal } from './ball-and-goal';
 import { CameraRig } from './camera-rig';
 import { Collectibles } from './collectibles';
+import { Instrumentation } from './instrumentation';
 import { Interactable } from './hotspot';
 import { Player } from './player';
+import { QualityRig } from './quality-rig';
 import { Room, useFrontWalls } from './room';
+
+// Chega só quando o nível alto está em vigor, e não é baixado em aparelho fraco.
+const Effects = lazy(() => import('./effects'));
 
 export interface GameCanvasProps {
   className?: string;
-  /** 'low' desliga sombra, brilho e partículas, para aparelho fraco. */
-  quality?: 'low' | 'high';
 }
 
 /**
  * Luzes do quarto. Com o abajur aceso, o quarto é quente; apagado, sobram o
  * luar azul da janela, o verde do LED e o brilho das telas.
  */
-function Lights({ low }: { low: boolean }) {
+function Lights({ settings }: { settings: QualitySettings }) {
   const lampOn = useGameStore((state) => state.lampOn);
 
   return (
@@ -36,8 +38,8 @@ function Lights({ low }: { low: boolean }) {
         position={[6, 10, 4]}
         intensity={lampOn ? 1.15 : 0.35}
         color={lampOn ? '#fff1de' : '#8fa6ff'}
-        castShadow={!low}
-        shadow-mapSize={[1024, 1024]}
+        castShadow={settings.shadows}
+        shadow-mapSize={[settings.shadowMapSize, settings.shadowMapSize]}
         shadow-camera-left={-7}
         shadow-camera-right={7}
         shadow-camera-top={7}
@@ -68,7 +70,7 @@ function Lights({ low }: { low: boolean }) {
         distance={6}
         color="#7f96ff"
       />
-      {lampOn && !low && (
+      {lampOn && settings.sparkles && (
         <Sparkles
           count={36}
           position={[-3.9, 1.3, -3.9]}
@@ -104,48 +106,51 @@ function Interactables() {
  *
  * Tudo que o visitante lê, dica, painel e contador, fica fora daqui, em HTML
  * no app. Esta cena só desenha o quarto e avisa pelo store o que aconteceu.
+ *
+ * Com painel aberto, o laço de quadros passa para "sob demanda": o quarto fica
+ * congelado atrás do painel, que é o que se veria de qualquer jeito, e o
+ * aparelho para de desenhar sessenta vezes por segundo uma cena que ninguém
+ * está olhando. Em celular isso é bateria; em notebook, é a ventoinha que não
+ * liga enquanto a pessoa lê sobre um projeto.
  */
-export function GameCanvas({ className, quality = 'high' }: GameCanvasProps) {
+export function GameCanvas({ className }: GameCanvasProps) {
   useEffect(() => attachKeyboard(), []);
 
-  const low = quality === 'low';
+  const tier = useGameStore(activeTier);
+  const paused = useGameStore((state) => state.openPanel !== null);
+  const settings = QUALITY[tier];
 
   return (
     <Canvas
       className={className}
       orthographic
+      frameloop={paused ? 'demand' : 'always'}
       // PCF comum: o PCFSoft foi descontinuado no three e só gerava aviso.
-      shadows={low ? false : 'percentage'}
-      dpr={low ? [1, 1] : [1, 1.75]}
+      shadows={settings.shadows ? 'percentage' : false}
+      dpr={[1, settings.maxDpr]}
       camera={{ position: [14, 14, 14], zoom: 40, near: 0.1, far: 200 }}
-      gl={{ antialias: !low }}
+      gl={{ antialias: settings.antialias, powerPreference: 'high-performance' }}
     >
       <color attach="background" args={['#07080c']} />
-      <Lights low={low} />
+      <Lights settings={settings} />
 
       <Suspense fallback={null}>
-        <Physics gravity={[0, -9.81, 0]}>
-          <Room />
-          <Interactables />
-          <Collectibles />
-          <Goal />
-          <Ball />
-          <Player />
-        </Physics>
+        <Room />
+        <Interactables />
+        <Collectibles />
+        <Goal />
+        <Ball />
+        <Player />
       </Suspense>
 
       <CameraRig />
+      <Instrumentation />
+      <QualityRig />
 
-      {/*
-        Brilho só no que já é luz: LED, telas, commits e losangos passam do
-        limiar; paredes e móveis não. É o que dá o ar de quarto à noite sem
-        lavar a cena inteira.
-      */}
-      {!low && (
-        <EffectComposer multisampling={0}>
-          <Bloom intensity={0.85} luminanceThreshold={0.62} luminanceSmoothing={0.2} mipmapBlur />
-          <Vignette eskil={false} offset={0.22} darkness={0.62} />
-        </EffectComposer>
+      {settings.effects && (
+        <Suspense fallback={null}>
+          <Effects />
+        </Suspense>
       )}
     </Canvas>
   );

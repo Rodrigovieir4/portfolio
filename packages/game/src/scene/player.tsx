@@ -1,27 +1,24 @@
 'use client';
 
 import { useFrame } from '@react-three/fiber';
-import {
-  CapsuleCollider,
-  RigidBody,
-  useRapier,
-  type RapierCollider,
-  type RapierRigidBody,
-} from '@react-three/rapier';
-import { useEffect, useRef } from 'react';
-import { Vector3, type Group } from 'three';
+import { useRef } from 'react';
+import type { Group } from 'three';
 
 import { SPAWN } from '../hotspots';
 import { keyboardAxis } from '../input';
-import { runtime } from '../runtime';
+import { ball, runtime } from '../runtime';
 import { useGameStore } from '../store';
+import { COMMIT_SENSOR, gameWorld } from '../world';
+import { BALL_RADIUS } from './ball-and-goal';
+import { boxMaterial, unitBox } from './resources';
 
 const WALK_SPEED = 3.2;
 const RUN_SPEED = 5.6;
-const GRAVITY = 18;
-/** Metade da parte reta da cápsula e o raio. Altura total: 2 × (0,35 + 0,28). */
-const HALF_HEIGHT = 0.35;
-const RADIUS = 0.28;
+/** Meia largura do quadrado de colisão. Um pouco menor que o boneco: assim ele
+ * passa por vãos apertados sem parecer que prendeu no nada. */
+export const PLAYER_HALF = 0.26;
+/** Altura do centro do corpo. Os pés ficam em zero. */
+const PLAYER_Y = 0.63;
 /** Quanto a fase do passo avança por metro andado. Mais alto, passo mais curto. */
 const STRIDE = 7;
 const WAVE_SECONDS = 1.8;
@@ -55,27 +52,29 @@ function Part({
   size: [number, number, number];
   color: string;
 }) {
+  // Geometria e material compartilhados: uma caixa unitária esticada pela
+  // escala. Sem isso, cada pedaço do boneco criaria o próprio par na memória.
   return (
-    <mesh position={position} castShadow>
-      <boxGeometry args={size} />
-      <meshStandardMaterial color={color} flatShading roughness={0.8} />
-    </mesh>
+    <mesh
+      position={position}
+      scale={size}
+      geometry={unitBox}
+      material={boxMaterial(color)}
+      castShadow
+    />
   );
 }
 
 /**
  * O personagem, controlado por teclado ou joystick.
  *
- * O corpo físico é uma cápsula cinemática movida pelo controlador de
- * personagem do Rapier: para no instante em que a tecla sobe, desliza encostado
- * na parede e empurra a bola quando esbarra nela. O boneco que se vê é outra
- * coisa, montado de caixas por cima da cápsula, com braços e pernas que giram
- * a partir do ombro e do quadril.
+ * O corpo é um quadrado no plano do chão movido pela física própria: para no
+ * instante em que a tecla sobe, desliza encostado na parede e empurra a bola
+ * quando esbarra nela. O boneco que se vê é outra coisa, montado de caixas por
+ * cima desse quadrado, com braços e pernas que giram no ombro e no quadril.
  */
 export function Player() {
-  const { world, rapier } = useRapier();
-  const body = useRef<RapierRigidBody>(null);
-  const collider = useRef<RapierCollider>(null);
+  const root = useRef<Group>(null);
   const visual = useRef<Group>(null);
   const leftLeg = useRef<Group>(null);
   const rightLeg = useRef<Group>(null);
@@ -83,44 +82,15 @@ export function Player() {
   const rightArm = useRef<Group>(null);
   const torso = useRef<Group>(null);
 
-  const verticalSpeed = useRef(0);
-  const desired = useRef(new Vector3());
+  const position = useRef({ x: SPAWN[0], z: SPAWN[2] });
   const phase = useRef(0);
   const swing = useRef(0);
   const lastEmote = useRef(0);
   const waveUntil = useRef(0);
 
-  /**
-   * O controlador nasce e morre no mesmo efeito.
-   *
-   * Com useMemo, o modo estrito do React em desenvolvimento quebrava o jogo: ele
-   * monta, desmonta e monta de novo, a desmontagem libera o controlador no
-   * Rapier, e o useMemo devolve o mesmo objeto já liberado. Cada quadro passava
-   * a lançar erro e o laço de renderização parava. Criando no efeito, a segunda
-   * montagem ganha um controlador novo.
-   */
-  const controller = useRef<ReturnType<typeof world.createCharacterController> | null>(null);
-
-  useEffect(() => {
-    const instance = world.createCharacterController(0.02);
-    instance.setSlideEnabled(true);
-    instance.enableSnapToGround(0.3);
-    instance.enableAutostep(0.2, 0.1, false);
-    // Esbarrar na bola empurra a bola: é o que torna possível conduzir.
-    instance.setApplyImpulsesToDynamicBodies(true);
-    instance.setCharacterMass(60);
-    controller.current = instance;
-    return () => {
-      controller.current = null;
-      world.removeCharacterController(instance);
-    };
-  }, [world]);
-
   useFrame(({ clock }, delta) => {
-    const rigidBody = body.current;
-    const shape = collider.current;
-    const characterController = controller.current;
-    if (!rigidBody || !shape || !characterController) return;
+    const group = root.current;
+    if (!group) return;
 
     // O teto de 0,1 s evita o teletransporte ao voltar de outra aba. Um teto
     // menor faria o personagem andar em câmera lenta em aparelho que roda
@@ -128,6 +98,7 @@ export function Player() {
     const dt = Math.min(delta, 0.1);
     const t = clock.elapsedTime;
     const state = useGameStore.getState();
+    const world = gameWorld();
 
     // Teclado tem prioridade; sem tecla, vale o joystick de toque.
     const keys = keyboardAxis();
@@ -161,30 +132,31 @@ export function Player() {
     const moveZ = -Math.sin(yaw) * inputX - Math.cos(yaw) * inputY;
     const speed = running ? RUN_SPEED : WALK_SPEED;
 
-    verticalSpeed.current = characterController.computedGrounded()
-      ? -1
-      : verticalSpeed.current - GRAVITY * dt;
+    const before = { x: position.current.x, z: position.current.z };
+    world.moveBody(position.current, PLAYER_HALF, moveX * speed * dt, moveZ * speed * dt);
 
-    desired.current.set(moveX * speed * dt, verticalSpeed.current * dt, moveZ * speed * dt);
-    // Sem EXCLUDE_SENSORS o controlador trata as áreas invisíveis de
-    // proximidade como parede, e o personagem para na borda delas.
-    characterController.computeColliderMovement(
-      shape,
-      desired.current,
-      rapier.QueryFilterFlags.EXCLUDE_SENSORS,
-    );
-    const moved = characterController.computedMovement();
-    const position = rigidBody.translation();
-    const next = { x: position.x + moved.x, y: position.y + moved.y, z: position.z + moved.z };
-    rigidBody.setNextKinematicTranslation(next);
-    runtime.playerPosition.set(next.x, next.y, next.z);
+    const travelled = Math.hypot(position.current.x - before.x, position.current.z - before.z);
+    const moving = length > 0.1 && travelled > 0.0005;
+
+    group.position.set(position.current.x, PLAYER_Y, position.current.z);
+    runtime.playerPosition.set(position.current.x, PLAYER_Y, position.current.z);
+
+    if (moving) {
+      world.pushBall(ball, BALL_RADIUS, position.current, PLAYER_HALF, speed);
+    }
+
+    // ---------------- áreas de proximidade ----------------
+    const touching = world.sensorsAt(position.current.x, position.current.z, PLAYER_HALF);
+    let interactable: string | null = null;
+    for (const id of touching) {
+      if (id.startsWith(COMMIT_SENSOR)) state.collect(id.slice(COMMIT_SENSOR.length));
+      else interactable ??= id;
+    }
+    if (interactable !== state.nearby) {
+      state.setNearby(interactable as Parameters<typeof state.setNearby>[0]);
+    }
 
     // ---------------- animação ----------------
-    const group = visual.current;
-    if (!group) return;
-
-    const travelled = Math.hypot(moved.x, moved.z);
-    const moving = length > 0.1 && travelled > 0.0005;
     if (moving) {
       const facing = Math.atan2(moveX, moveZ);
       runtime.playerFacing += shortestAngle(runtime.playerFacing, facing) * Math.min(1, dt * 14);
@@ -195,7 +167,6 @@ export function Player() {
     // nunca desliza no chão, nem correndo, nem encostado na parede.
     const previousPhase = phase.current;
     phase.current += travelled * STRIDE;
-    // O som do passo sai quando a perna cruza o meio do movimento.
     if (moving && Math.sign(Math.sin(previousPhase)) !== Math.sign(Math.sin(phase.current))) {
       state.sfx('step');
     }
@@ -222,39 +193,17 @@ export function Player() {
       }
     }
 
-    // Parado, respira; andando, o corpo sobe e desce a cada passo.
     const bob = Math.abs(Math.sin(phase.current)) * 0.05 * swing.current;
     const breathe = Math.sin(t * 2.2) * 0.008 * (1 - swing.current);
-    group.position.y = bob;
+    if (visual.current) visual.current.position.y = bob;
     if (torso.current) torso.current.scale.y = 1 + breathe;
   });
 
-  // A cápsula vai de -0,63 a +0,63 em torno do centro do corpo. O boneco é
-  // desenhado dentro desse volume, com os pés em -0,63.
+  // O boneco é desenhado com os pés em -0,63, para o grupo ficar na altura do
+  // centro do corpo e a rotação girar em torno do eixo dele.
   return (
-    <RigidBody
-      ref={body}
-      name="player"
-      type="kinematicPosition"
-      colliders={false}
-      position={SPAWN}
-      enabledRotations={[false, false, false]}
-    >
-      {/*
-        O Rapier, por padrão, não gera evento entre corpo cinemático e corpo
-        fixo. As áreas de proximidade e os commits são fixos e o personagem é
-        cinemático, então sem KINEMATIC_FIXED nenhuma dica acenderia.
-      */}
-      <CapsuleCollider
-        ref={collider}
-        args={[HALF_HEIGHT, RADIUS]}
-        activeCollisionTypes={
-          rapier.ActiveCollisionTypes.DEFAULT | rapier.ActiveCollisionTypes.KINEMATIC_FIXED
-        }
-      />
-
+    <group ref={root} position={[SPAWN[0], PLAYER_Y, SPAWN[2]]}>
       <group ref={visual}>
-        {/* pernas, girando a partir do quadril */}
         {(
           [
             [leftLeg, -0.085],
@@ -274,7 +223,6 @@ export function Player() {
           <Part position={[0, -0.02, 0.112]} size={[0.1, 0.14, 0.01]} color={LOOK.jerseyTrim} />
         </group>
 
-        {/* braços, girando a partir do ombro */}
         <group ref={leftArm} position={[-0.245, 0.3, 0]}>
           <Part position={[0, -0.14, 0]} size={[0.1, 0.18, 0.11]} color={LOOK.jersey} />
           <Part position={[0, -0.3, 0]} size={[0.09, 0.16, 0.1]} color={LOOK.skin} />
@@ -284,21 +232,16 @@ export function Player() {
           <Part position={[0, -0.3, 0]} size={[0.09, 0.16, 0.1]} color={LOOK.skin} />
         </group>
 
-        {/* cabeça, cabelo e rosto voltado para +z */}
         <Part position={[0, 0.49, 0]} size={[0.28, 0.28, 0.26]} color={LOOK.skin} />
         <Part position={[0, 0.65, -0.01]} size={[0.3, 0.08, 0.28]} color={LOOK.hair} />
         <Part position={[0, 0.54, -0.12]} size={[0.3, 0.18, 0.05]} color={LOOK.hair} />
         <Part position={[-0.06, 0.5, 0.131]} size={[0.04, 0.05, 0.01]} color="#12151c" />
         <Part position={[0.06, 0.5, 0.131]} size={[0.04, 0.05, 0.01]} color="#12151c" />
 
-        {/* headset no pescoço */}
-        <mesh position={[0, 0.34, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
-          <torusGeometry args={[0.14, 0.022, 6, 16]} />
-          <meshStandardMaterial color={LOOK.headset} />
-        </mesh>
+        <Part position={[0, 0.34, 0]} size={[0.3, 0.05, 0.24]} color={LOOK.headset} />
         <Part position={[-0.15, 0.33, 0.06]} size={[0.05, 0.09, 0.09]} color={LOOK.headset} />
         <Part position={[0.15, 0.33, 0.06]} size={[0.05, 0.09, 0.09]} color={LOOK.headset} />
       </group>
-    </RigidBody>
+    </group>
   );
 }

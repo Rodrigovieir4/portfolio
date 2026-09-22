@@ -4,6 +4,7 @@ import { ACHIEVEMENTS, SPEEDRUN_MS, type AchievementId } from './achievements';
 import { playSfx, type Sfx } from './audio';
 import { COMMIT_IDS } from './collectibles';
 import { HOTSPOT_IDS, LAMP, type HotspotId, type InteractableId } from './hotspots';
+import { saveQuality, type QualityMode, type QualityTier } from './quality';
 
 /**
  * Painel aberto. Um objeto do quarto, a comemoração do gol ou o fechamento do
@@ -46,6 +47,11 @@ interface GameState {
   kickSeq: number;
   emoteSeq: number;
 
+  /** O que o visitante escolheu no menu. 'auto' deixa o jogo decidir. */
+  quality: QualityMode;
+  /** O nível que o ajuste automático chegou medindo os quadros por segundo. */
+  autoTier: QualityTier;
+
   setNearby: (id: InteractableId | null) => void;
   interact: () => void;
   openPanelFor: (id: PanelId) => void;
@@ -62,6 +68,14 @@ interface GameState {
   toggleHelp: (open?: boolean) => void;
   dismissToast: (key: number) => void;
   sfx: (name: Sfx) => void;
+  /** `remember` fica falso ao restaurar o que já estava salvo. */
+  setQuality: (mode: QualityMode, remember?: boolean) => void;
+  setAutoTier: (tier: QualityTier) => void;
+}
+
+/** O nível em vigor: o escolhido à mão, ou o que o automático decidiu. */
+export function activeTier(state: { quality: QualityMode; autoTier: QualityTier }): QualityTier {
+  return state.quality === 'auto' ? state.autoTier : state.quality;
 }
 
 let toastKey = 0;
@@ -103,6 +117,11 @@ export const useGameStore = create<GameState>((set, get) => {
     cameraStep: 0,
     kickSeq: 0,
     emoteSeq: 0,
+    // Começa no automático e no nível alto: o ajuste desce sozinho em dois
+    // segundos se o aparelho não der conta, e é melhor uma primeira impressão
+    // bonita que se adapta do que uma feia que nunca melhora.
+    quality: 'auto',
+    autoTier: 'alto',
 
     setNearby: (id) => set({ nearby: id }),
 
@@ -201,6 +220,18 @@ export const useGameStore = create<GameState>((set, get) => {
 
     sfx: (name) => {
       if (get().soundOn) playSfx(name);
+    },
+
+    setQuality: (mode, remember = true) => {
+      set({ quality: mode });
+      // Escolher um nível à mão vira também o ponto de partida do automático,
+      // caso o visitante volte para ele depois.
+      if (mode !== 'auto') set({ autoTier: mode });
+      if (remember) saveQuality(mode);
+    },
+
+    setAutoTier: (tier) => {
+      if (get().autoTier !== tier) set({ autoTier: tier });
     },
   };
 });

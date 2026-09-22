@@ -187,7 +187,15 @@
       "camera": "Girar a câmera",
       "scoreboard": "Placar",
       "help": "Esta ajuda",
-      "tip": "Chegue perto de um objeto para ver o que ele guarda. Tem doze commits escondidos pelo quarto, e o abajur também faz alguma coisa."
+      "tip": "Chegue perto de um objeto para ver o que ele guarda. Tem doze commits escondidos pelo quarto, e o abajur também faz alguma coisa.",
+      "quality": {
+        "label": "Qualidade",
+        "auto": "Automática",
+        "baixo": "Baixa",
+        "medio": "Média",
+        "alto": "Alta",
+        "hint": "No automático, o jogo baixa a qualidade sozinho se o aparelho engasgar."
+      }
     },
     "toastTitle": "Conquista desbloqueada",
     "achievements": {
