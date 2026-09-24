@@ -58,6 +58,11 @@ pnpm --filter @portfolio/web build
 pnpm --filter @portfolio/web test:e2e
 ```
 
+O pôster do quarto que aparece no alto do currículo é um quadro do jogo de verdade, gerado pelo
+mesmo caminho: com o servidor de produção no ar, `pnpm --filter @portfolio/web poster` dirige o
+personagem até o meio do quarto, esconde o HUD e grava `public/images/quarto.webp`. Mudou o
+quarto, roda de novo.
+
 ### Rodar em máquina fraca
 
 O jogo foi feito para abrir no celular de quem clicou no link, não para exigir placa de vídeo.

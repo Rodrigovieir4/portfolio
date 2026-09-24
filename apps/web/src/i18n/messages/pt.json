@@ -24,7 +24,10 @@
     "ctaContact": "Falar comigo",
     "resume": "Baixar currículo",
     "basedIn": "São Paulo, Brasil",
-    "play": "Ou explore meu quarto jogando"
+    "play": "Entrar no meu quarto",
+    "playCardTitle": "O portfólio jogável",
+    "playCardBody": "Um quarto isométrico onde você anda, abre os projetos no PC e chuta a bola. Roda no navegador, sem instalar nada.",
+    "playCardAlt": "Quarto isométrico do portfólio jogável, com mesa, certificados na parede e uma trave"
   },
   "about": {
     "eyebrow": "quem está do outro lado",

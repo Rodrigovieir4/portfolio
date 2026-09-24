@@ -28,6 +28,24 @@ test('o currículo tem a porta de entrada para o jogo', async ({ page }) => {
   await expect(page).toHaveURL(/\/pt\/jogo$/);
 });
 
+/*
+ * O quarto é o destino que se perde se ninguém clicar: a seção de projetos
+ * está logo abaixo e chega de graça para quem rola. Por isso o convite tem
+ * dois caminhos no alto da página, o botão e o pôster, e os dois são testados.
+ */
+test('o alto do currículo convida para o quarto pelo botão e pelo pôster', async ({ page }) => {
+  await page.goto('/pt');
+
+  await expect(page.getByRole('link', { name: /Entrar no meu quarto/i })).toBeVisible();
+
+  const cartao = page.getByRole('link', { name: /portfólio jogável/i });
+  await expect(cartao).toBeVisible();
+  await expect(cartao.getByAltText(/quarto isométrico/i)).toBeVisible();
+
+  await cartao.click();
+  await expect(page).toHaveURL(/\/pt\/jogo$/);
+});
+
 test('as páginas de projeto existem nos três idiomas', async ({ page }) => {
   for (const path of [
     '/pt/projetos/esplendido',

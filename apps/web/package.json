@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "clean": "rimraf .next .turbo node_modules",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "poster": "node scripts/gerar-poster.mjs"
   },
   "dependencies": {
     "@portfolio/config-tailwind": "workspace:*",
@@ -39,6 +40,7 @@
     "eslint": "catalog:tooling",
     "eslint-config-next": "catalog:next",
     "rimraf": "catalog:tooling",
+    "sharp": "catalog:tooling",
     "tailwindcss": "catalog:styling",
     "typescript": "catalog:tooling"
   }

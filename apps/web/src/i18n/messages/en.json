@@ -24,7 +24,10 @@
     "ctaContact": "Get in touch",
     "resume": "Download résumé",
     "basedIn": "São Paulo, Brazil",
-    "play": "Or explore my room as a game"
+    "play": "Enter my room",
+    "playCardTitle": "The playable portfolio",
+    "playCardBody": "An isometric room where you walk around, open the projects on the PC and kick the ball. Runs in the browser, nothing to install.",
+    "playCardAlt": "Isometric room of the playable portfolio, with a desk, certificates on the wall and a goal"
   },
   "about": {
     "eyebrow": "who is on the other side",
