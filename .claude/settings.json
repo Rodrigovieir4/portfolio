@@ -30,7 +30,6 @@
       }
     ]
   },
-  "enabledMcpjsonServers": ["higgsfield"],
   "permissions": {
     "deny": ["mcp__claude_ai_Videos"]
   }
