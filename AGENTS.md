@@ -1,8 +1,9 @@
 # Portfólio — Rodrigo Vieira de Sousa
 
-Monorepo Turborepo: `apps/web` (Next.js, site e jogo), `apps/api` (Elysia) e
-pacotes em `packages/*`. O conteúdo profissional vive em `packages/content` e
-é a única coisa que se edita para atualizar o currículo.
+Monorepo Turborepo com Bun: `apps/web` (Next.js, site e jogo), `apps/api`
+(Elysia, onde o admin vai morar) e pacotes em `packages/*`. O conteúdo
+profissional vive em `packages/content` e é a única coisa que se edita para
+atualizar o currículo.
 
 ## Padrão do projeto
 

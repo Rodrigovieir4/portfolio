@@ -1427,4 +1427,15 @@ igual ao padrão; o que é próprio do projeto (marca, telas, decisões) entra a
 
 | O padrão diz | Neste projeto | Motivo | Até quando |
 |---|---|---|---|
-| | | | |
+| Pacotes com escopo `@workspace/*` | `@portfolio/*` | É o nome do projeto; a função de cada pacote é a mesma do padrão. | Permanente. |
+| Tokens em três camadas (marca, semânticos, estados), em OKLCH, claro e escuro | Paleta Obsidiana e Sinal em hex, só escuro, com nomes próprios (`void`, `signal`...) apontados para os semânticos do shadcn | Visual aprovado. A marca nova sai do redesenho do currículo. Os tokens já moram no arquivo certo (`packages/ui/src/styles/globals.css`). | Redesenho do currículo. |
+| Geist e Geist Mono, no máximo 2 famílias | Bricolage Grotesque, Inter e JetBrains Mono | Mesmo motivo: visual aprovado. | Redesenho do currículo. |
+| Claro e escuro com `next-themes` | Só escuro | Mesmo motivo. | Redesenho do currículo. |
+| shadcn em `packages/ui`, estilo `radix-nova` | Em `apps/web/src/components/ui`, estilo `new-york` | A seção 4.3 proíbe trocar o estilo de projeto existente. Mover os componentes regenera todos, e isso vai junto com o redesenho. | Redesenho do currículo (fase 6). |
+| Efeitos (partículas, brilho, gradiente) só com pedido explícito | Partículas em WebGL, cursor, granulado e brilho no currículo; scroll interativo com GSAP no redesenho | Pedido explícito do Rodrigo em 2026-11-18. | Permanente. |
+| Animação com `tw-animate-css`; `motion` só com física ou gestos | `motion` e `lenis` no currículo; GSAP com ScrollTrigger no redesenho | Pedido explícito: landing com scroll interativo em GSAP. | Revisar no redesenho. |
+| Stack sem biblioteca 3D | `three` e React Three Fiber em `packages/game` e `packages/gl` | O jogo e a cena do topo são 3D. | Permanente para o jogo. |
+| Espelho de tokens fora do CSS | `packages/ui/src/styles/tokens.ts` repete as cores em hex | WebGL não lê CSS: o three.js precisa de número hexadecimal. | Enquanto houver cena WebGL. |
+| Regras de tamanho e travas visuais como erro | Avisam nos arquivos listados com `legado()` em cada `eslint.config.js` (`packages/eslint-config/legado.js`) | Código anterior ao padrão. Arquivo novo segue o padrão inteiro. | O arquivo sai da lista quando for reescrito. |
+| `no-param-reassign` com `props: true` | `props: false` em `packages/game` | O laço de quadros e a física mutam vetores do three de propósito, para não alocar objeto novo a cada quadro. | Até o jogo novo substituir o pacote. |
+| Testes só com `bun test` | Ponta a ponta com Playwright em `apps/web/e2e`, inclusive o jogo | O jogo é o fluxo crítico do portfólio. Os testes do jogo dependem de CPU livre: em renderização por software, máquina carregada derruba o quadro por segundo e o personagem erra o alvo. | Permanente. |
