@@ -1,0 +1,12 @@
+{
+  "extends": "@portfolio/typescript-config/base.json",
+  "compilerOptions": {
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
+    "declaration": false,
+    "declarationMap": false,
+    "noEmit": true,
+    "types": ["bun"]
+  },
+  "include": ["src"]
+}
