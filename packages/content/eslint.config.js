@@ -1,3 +1,3 @@
-import { baseConfig } from '@portfolio/config-eslint/base';
+import { config } from "@portfolio/eslint-config/base"
 
-export default baseConfig;
+export default config

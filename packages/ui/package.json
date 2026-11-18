@@ -22,13 +22,14 @@
     "motion": "catalog:motion"
   },
   "devDependencies": {
-    "@portfolio/config-eslint": "workspace:*",
-    "@portfolio/config-typescript": "workspace:*",
+    "@portfolio/eslint-config": "workspace:*",
+    "@portfolio/typescript-config": "workspace:*",
     "@types/react": "catalog:react",
     "@types/react-dom": "catalog:react",
     "eslint": "catalog:tooling",
     "react": "catalog:react",
     "rimraf": "catalog:tooling",
+    "tailwindcss": "catalog:styling",
     "typescript": "catalog:tooling"
   },
   "peerDependencies": {

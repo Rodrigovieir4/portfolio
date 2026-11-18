@@ -116,8 +116,8 @@ packages/
   gl/                   Cena WebGL, shaders GLSL, detecção de capacidade
   ui/                   Design system e componentes de movimento
   config-tailwind/      Design tokens, em CSS e espelhados em TypeScript
-  config-eslint/        Configuração de lint compartilhada
-  config-typescript/    Bases de tsconfig compartilhadas
+  eslint-config/        Configuração de lint compartilhada
+  typescript-config/    Bases de tsconfig compartilhadas
 ```
 
 Três decisões explicam o resto do repositório.

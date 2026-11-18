@@ -4,7 +4,7 @@ import { allSkills, languages, skillGroups, t as translate, type Locale } from '
 import { Reveal, SectionHeading } from '@portfolio/ui';
 import { useLocale, useTranslations } from 'next-intl';
 
-import LogoLoop, { type LogoItem } from '@/components/reactbits/LogoLoop';
+import LogoLoop, { type LogoItem } from '@/components/reactbits/logo-loop';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';

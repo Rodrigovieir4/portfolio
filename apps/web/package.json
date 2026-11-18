@@ -27,18 +27,18 @@
     "next-intl": "catalog:next",
     "radix-ui": "catalog:styling",
     "react": "catalog:react",
-    "react-dom": "catalog:react"
+    "react-dom": "catalog:react",
+    "tw-animate-css": "catalog:styling"
   },
   "devDependencies": {
     "@playwright/test": "catalog:tooling",
-    "@portfolio/config-eslint": "workspace:*",
-    "@portfolio/config-typescript": "workspace:*",
+    "@portfolio/eslint-config": "workspace:*",
+    "@portfolio/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:styling",
     "@types/node": "catalog:tooling",
     "@types/react": "catalog:react",
     "@types/react-dom": "catalog:react",
     "eslint": "catalog:tooling",
-    "eslint-config-next": "catalog:next",
     "rimraf": "catalog:tooling",
     "sharp": "catalog:tooling",
     "tailwindcss": "catalog:styling",

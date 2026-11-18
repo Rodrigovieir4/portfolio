@@ -445,6 +445,12 @@ interface Line {
   text: string;
 }
 
+const LINE_COLOR: Record<Line['kind'], string> = {
+  error: 'text-danger',
+  in: 'text-ink',
+  out: 'text-ink-soft',
+};
+
 function Terminal({ onOpen }: { onOpen: (spec: WindowKind) => void }) {
   const t = useTranslations('game.os');
   const locale = useLocale() as Locale;
@@ -572,13 +578,7 @@ function Terminal({ onOpen }: { onOpen: (spec: WindowKind) => void }) {
       {lines.map((line, index) => (
         <p
           key={index}
-          className={
-            line.kind === 'in'
-              ? 'text-ink'
-              : line.kind === 'error'
-                ? 'text-danger'
-                : 'text-ink-soft'
-          }
+          className={LINE_COLOR[line.kind]}
         >
           {line.kind === 'in' && <span className="text-signal">rodrigo@os:~$ </span>}
           {line.text}
@@ -587,6 +587,7 @@ function Terminal({ onOpen }: { onOpen: (spec: WindowKind) => void }) {
       <label className="flex items-center gap-2">
         <span className="text-signal">rodrigo@os:~$</span>
         <input
+          // eslint-disable-next-line jsx-a11y/no-autofocus -- abrir o terminal é pedir para digitar nele
           autoFocus
           value={value}
           onChange={(event) => setValue(event.target.value)}

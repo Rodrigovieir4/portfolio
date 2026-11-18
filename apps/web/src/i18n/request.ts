@@ -15,6 +15,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   return {
     locale,
+    // eslint-disable-next-line no-unsanitized/method -- locale passou por hasLocale: só pt, en ou es
     messages: (await import(`./messages/${locale}.json`)).default,
     timeZone: 'America/Sao_Paulo',
   };

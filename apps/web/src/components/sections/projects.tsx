@@ -10,7 +10,7 @@ import { GithubIcon, Reveal, RevealGroup, RevealItem, SectionHeading } from '@po
 import { ArrowUpRight, ExternalLink, Lock } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import SpotlightCard from '@/components/reactbits/SpotlightCard';
+import SpotlightCard from '@/components/reactbits/spotlight-card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Link } from '@/i18n/navigation';

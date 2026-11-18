@@ -1,0 +1,36 @@
+{
+  "name": "@portfolio/eslint-config",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./elysia": "./elysia.js",
+    "./next": "./next.js"
+  },
+  "dependencies": {
+    "@eslint/js": "catalog:tooling",
+    "@next/eslint-plugin-next": "catalog:next",
+    "@stylistic/eslint-plugin": "^6.0.1",
+    "eslint-config-prettier": "catalog:tooling",
+    "eslint-import-resolver-typescript": "^4.4.5",
+    "eslint-plugin-better-tailwindcss": "^4.11.0",
+    "eslint-plugin-boundaries": "^7.4.4",
+    "eslint-plugin-check-file": "^3.3.2",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-no-secrets": "^2.3.3",
+    "eslint-plugin-no-unsanitized": "^4.1.5",
+    "eslint-plugin-perfectionist": "^5.14.0",
+    "eslint-plugin-react-hooks": "catalog:tooling",
+    "eslint-plugin-turbo": "^2.11.12",
+    "globals": "^17.14.0",
+    "typescript-eslint": "catalog:tooling"
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "catalog:tooling"
+  }
+}

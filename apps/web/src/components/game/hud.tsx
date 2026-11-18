@@ -205,12 +205,9 @@ export function InteractPrompt() {
   const lampOn = useGameStore((state) => state.lampOn);
   const interact = useGameStore((state) => state.interact);
 
-  const label =
-    nearby === LAMP.id
-      ? t(lampOn ? 'hint.lampOff' : 'hint.lampOn')
-      : nearby
-        ? t(`hint.${nearby}`)
-        : '';
+  let label = '';
+  if (nearby === LAMP.id) label = t(lampOn ? 'hint.lampOff' : 'hint.lampOn');
+  else if (nearby) label = t(`hint.${nearby}`);
 
   return (
     <AnimatePresence>
@@ -452,6 +449,7 @@ export function Scoreboard() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="absolute inset-0 z-30 grid place-items-center bg-void/60 p-4 backdrop-blur-sm"
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- clicar fora é atalho de mouse; no teclado, P e Esc fecham
           onClick={() => toggleScoreboard(false)}
         >
           <div

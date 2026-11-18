@@ -1,3 +1,6 @@
+/* eslint-disable no-restricted-syntax -- fora do layout de [locale] o CSS do Tailwind não carrega; o estilo tem de ir na tag */
+import Link from 'next/link';
+
 /**
  * 404 global, para caminhos que nem chegam a ter idioma resolvido.
  *
@@ -24,9 +27,9 @@ export default function GlobalNotFound() {
           <p style={{ color: '#7d8698', margin: '0 0 1.5rem' }}>
             Página não encontrada · Page not found · Página no encontrada
           </p>
-          <a href="/pt" style={{ color: '#c8f751' }}>
+          <Link href="/pt" style={{ color: '#c8f751' }}>
             Ir para o início
-          </a>
+          </Link>
         </div>
       </body>
     </html>

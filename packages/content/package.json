@@ -18,8 +18,8 @@
     "zod": "catalog:tooling"
   },
   "devDependencies": {
-    "@portfolio/config-eslint": "workspace:*",
-    "@portfolio/config-typescript": "workspace:*",
+    "@portfolio/eslint-config": "workspace:*",
+    "@portfolio/typescript-config": "workspace:*",
     "eslint": "catalog:tooling",
     "rimraf": "catalog:tooling",
     "typescript": "catalog:tooling",

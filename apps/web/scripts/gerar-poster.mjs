@@ -16,6 +16,7 @@
  * derruba o contexto WebGL antes do fim, e o que sai é um retângulo preto.
  */
 
+/* global window, document -- os callbacks de page.evaluate rodam no navegador */
 import { chromium } from '@playwright/test';
 import sharp from 'sharp';
 
@@ -36,7 +37,9 @@ const ler = (page) =>
   });
 
 /** Anda até (x, z) segurando as mesmas teclas que uma pessoa seguraria. */
-async function andarAte(page, alvo, tolerancia = 0.15, limiteMs = 20_000) {
+async function andarAte(page, alvo) {
+  const tolerancia = 0.15;
+  const limiteMs = 20_000;
   const presas = new Set();
   const tecla = async (nome, ligada) => {
     if (ligada && !presas.has(nome)) {
@@ -120,6 +123,6 @@ const png = await page.screenshot({ clip: RECORTE });
 await navegador.close();
 
 const info = await sharp(png).resize(1600).webp({ quality: 82 }).toFile(DESTINO);
-console.log(
+console.warn(
   `pôster gravado: ${DESTINO} — ${info.width}x${info.height}, ${Math.round(info.size / 1024)} kB`,
 );

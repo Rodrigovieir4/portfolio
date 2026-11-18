@@ -9,9 +9,9 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
-import ShinyText from '@/components/reactbits/ShinyText';
+import ShinyText from '@/components/reactbits/shiny-text';
 import { Link } from '@/i18n/navigation';
-import StarBorder from '@/components/reactbits/StarBorder';
+import StarBorder from '@/components/reactbits/star-border';
 
 /**
  * A cena WebGL entra por import dinamico com ssr desligado.
