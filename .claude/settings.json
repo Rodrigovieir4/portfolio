@@ -1,10 +1,16 @@
 {
   "extraKnownMarketplaces": {
     "socraticode": {
-      "source": { "source": "github", "repo": "giancarloerra/socraticode" }
+      "source": {
+        "source": "github",
+        "repo": "giancarloerra/socraticode"
+      }
     },
     "ponytail": {
-      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
   },
   "enabledPlugins": {
@@ -23,5 +29,9 @@
         ]
       }
     ]
+  },
+  "enabledMcpjsonServers": ["higgsfield"],
+  "permissions": {
+    "deny": ["mcp__claude_ai_Videos"]
   }
 }

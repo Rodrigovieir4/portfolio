@@ -21,6 +21,15 @@ Use o SocratiCode para localizar código e medir impacto (seção 9.3).
   caminho de degradação para máquina fraca.
 - Todo texto visível tem `pt`, `en` e `es`.
 
+## Higgsfield
+
+- Use só o servidor `higgsfield` do `.mcp.json`. Ele entra por OAuth na
+  conta do Rodrigo. O conector "claude.ai Videos" da conta Claude é de outra
+  pessoa e fica bloqueado em `.claude/settings.json`.
+- Toda geração gasta créditos. Cotar antes e pedir aprovação do Rodrigo.
+- Scripts usam a API REST com `HF_API_KEY` e `HF_API_SECRET`, lidas do
+  `.env.local`. Só no servidor; nunca com prefixo `NEXT_PUBLIC_`.
+
 ## Deploy
 
 - Hospedagem: Vercel, configurada em `vercel.json`.
