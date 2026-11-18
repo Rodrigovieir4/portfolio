@@ -7,3 +7,4 @@ coverage
 pnpm-lock.yaml
 *.glsl
 next-env.d.ts
+DESIGN-SYSTEM.md

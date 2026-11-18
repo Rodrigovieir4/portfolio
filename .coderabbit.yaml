@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: "pt-BR"
+reviews:
+  profile: "assertive"
+  request_changes_workflow: true
+  high_level_summary: true
+  auto_review:
+    enabled: true
+    drafts: false
+  tools:
+    eslint:
+      enabled: true
+  path_instructions:
+    - path: "apps/web/**/*.tsx"
+      instructions: >-
+        Componentes devem vir de @portfolio/ui (shadcn). Ícones só de
+        lucide-react. Cores só por tokens semânticos (bg-background,
+        text-foreground, bg-primary...). Aponte cor solta, valor arbitrário
+        do Tailwind e componente que duplica um do shadcn.
+    - path: "apps/api/**/*.ts"
+      instructions: >-
+        Rotas Elysia devem validar body, query e params com `t`. O tipo
+        `App` precisa continuar exportado para o Eden.
+    - path: "packages/content/**/*.ts"
+      instructions: >-
+        Todo texto visível tem pt, en e es. Datas e campos passam pelo schema
+        Zod do pacote.
+knowledge_base:
+  code_guidelines:
+    filePatterns:
+      - "**/DESIGN-SYSTEM.md"

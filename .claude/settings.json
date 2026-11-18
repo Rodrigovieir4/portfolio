@@ -1,0 +1,27 @@
+{
+  "extraKnownMarketplaces": {
+    "socraticode": {
+      "source": { "source": "github", "repo": "giancarloerra/socraticode" }
+    },
+    "ponytail": {
+      "source": { "source": "github", "repo": "DietrichGebert/ponytail" }
+    }
+  },
+  "enabledPlugins": {
+    "socraticode@socraticode": true,
+    "ponytail@ponytail": true
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"$CLAUDE_PROJECT_DIR/.claude/hooks/lint-file.js\""
+          }
+        ]
+      }
+    ]
+  }
+}

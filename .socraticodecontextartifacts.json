@@ -1,0 +1,14 @@
+{
+  "artifacts": [
+    {
+      "name": "design-system",
+      "path": "./DESIGN-SYSTEM.md",
+      "description": "Padrão de stack, lint, tokens e checklist que o projeto segue, com as exceções na seção 11."
+    },
+    {
+      "name": "design-tokens",
+      "path": "./packages/config-tailwind/theme.css",
+      "description": "Tokens do design system: fonte única de verdade."
+    }
+  ]
+}
