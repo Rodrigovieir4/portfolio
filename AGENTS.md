@@ -24,9 +24,15 @@ Use o SocratiCode para localizar código e medir impacto (seção 9.3).
 ## Higgsfield
 
 - Use só o servidor MCP `higgsfield`, registrado no escopo local desta pasta
-  (`claude mcp add --transport http --scope local higgsfield
-https://mcp.higgsfield.ai/mcp`) e autenticado por OAuth na conta do Rodrigo
-  (`claude mcp login higgsfield`, num terminal interativo). O conector
+  e autenticado por OAuth na conta do Rodrigo. Para refazer numa máquina nova,
+  num terminal interativo:
+
+  ```bash
+  claude mcp add --transport http --scope local higgsfield https://mcp.higgsfield.ai/mcp
+  claude mcp login higgsfield
+  ```
+
+  O conector
   "claude.ai Videos" da conta Claude é de outra pessoa e fica bloqueado em
   `.claude/settings.json`.
 - Toda geração gasta créditos. Cotar antes e pedir aprovação do Rodrigo.
