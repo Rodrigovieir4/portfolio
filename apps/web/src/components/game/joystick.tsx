@@ -1,10 +1,10 @@
-'use client';
+"use client"
 
-import { useGameStore } from '@portfolio/game/state';
-import { useRef, useState, type PointerEvent } from 'react';
+import { useGameStore } from "@portfolio/game/state"
+import { type PointerEvent, useRef, useState } from "react"
 
 /** Raio, em pixels, que o botão central pode se afastar do centro da base. */
-const RADIUS = 52;
+const RADIUS = 52
 
 /**
  * Joystick virtual para tela de toque.
@@ -17,27 +17,27 @@ const RADIUS = 52;
  * `touch-action: none` impede que arrastar o dedo role ou dê zoom na página.
  */
 export function Joystick({ label }: { label: string }) {
-  const setJoystick = useGameStore((state) => state.setJoystick);
-  const base = useRef<HTMLDivElement>(null);
-  const [knob, setKnob] = useState({ x: 0, y: 0 });
+  const setJoystick = useGameStore((state) => state.setJoystick)
+  const base = useRef<HTMLDivElement>(null)
+  const [knob, setKnob] = useState({ x: 0, y: 0 })
 
   function update(event: PointerEvent<HTMLDivElement>) {
-    const rect = base.current?.getBoundingClientRect();
-    if (!rect) return;
-    let dx = event.clientX - (rect.left + rect.width / 2);
-    let dy = event.clientY - (rect.top + rect.height / 2);
-    const length = Math.hypot(dx, dy);
+    const rect = base.current?.getBoundingClientRect()
+    if (!rect) return
+    let dx = event.clientX - (rect.left + rect.width / 2)
+    let dy = event.clientY - (rect.top + rect.height / 2)
+    const length = Math.hypot(dx, dy)
     if (length > RADIUS) {
-      dx = (dx / length) * RADIUS;
-      dy = (dy / length) * RADIUS;
+      dx = (dx / length) * RADIUS
+      dy = (dy / length) * RADIUS
     }
-    setKnob({ x: dx, y: dy });
-    setJoystick(dx / RADIUS, -dy / RADIUS);
+    setKnob({ x: dx, y: dy })
+    setJoystick(dx / RADIUS, -dy / RADIUS)
   }
 
   function release() {
-    setKnob({ x: 0, y: 0 });
-    setJoystick(0, 0);
+    setKnob({ x: 0, y: 0 })
+    setJoystick(0, 0)
   }
 
   return (
@@ -47,11 +47,12 @@ export function Joystick({ label }: { label: string }) {
       aria-label={label}
       className="relative grid h-36 w-36 touch-none place-items-center rounded-full border border-line-strong bg-void/50 backdrop-blur-md select-none"
       onPointerDown={(event) => {
-        event.currentTarget.setPointerCapture(event.pointerId);
-        update(event);
+        event.currentTarget.setPointerCapture(event.pointerId)
+        update(event)
       }}
       onPointerMove={(event) => {
-        if (event.currentTarget.hasPointerCapture(event.pointerId)) update(event);
+        if (event.currentTarget.hasPointerCapture(event.pointerId))
+          update(event)
       }}
       onPointerUp={release}
       onPointerCancel={release}
@@ -61,5 +62,5 @@ export function Joystick({ label }: { label: string }) {
         style={{ transform: `translate(${knob.x}px, ${knob.y}px)` }}
       />
     </div>
-  );
+  )
 }

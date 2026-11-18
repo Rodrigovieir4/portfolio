@@ -72,9 +72,14 @@
 
   /* ---- Tipografia ---- */
   --font-display:
-    var(--font-bricolage), 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-jetbrains), 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+    var(--font-bricolage), "Bricolage Grotesque", ui-sans-serif, system-ui,
+    sans-serif;
+  --font-sans:
+    var(--font-inter), "Inter", ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  --font-mono:
+    var(--font-jetbrains), "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
+    monospace;
 
   /* Escala fluida: cresce com a viewport sem media query. */
   --text-fluid-sm: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
@@ -94,8 +99,10 @@
   --radius-lg: 1.25rem;
   --radius-xl: 2rem;
 
-  --shadow-glow-signal: 0 0 0 1px rgb(200 247 81 / 0.2), 0 0 32px -4px rgb(200 247 81 / 0.28);
-  --shadow-glow-plasma: 0 0 0 1px rgb(123 92 255 / 0.24), 0 0 40px -6px rgb(123 92 255 / 0.32);
+  --shadow-glow-signal:
+    0 0 0 1px rgb(200 247 81 / 0.2), 0 0 32px -4px rgb(200 247 81 / 0.28);
+  --shadow-glow-plasma:
+    0 0 0 1px rgb(123 92 255 / 0.24), 0 0 40px -6px rgb(123 92 255 / 0.32);
   --shadow-lift: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -12px rgb(0 0 0 / 0.7);
 
   /* ---- Movimento ---- */

@@ -1,9 +1,10 @@
-import { Cursor, Grain, ScrollProgress, SmoothScroll } from '@portfolio/ui';
-import { setRequestLocale } from 'next-intl/server';
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react"
 
-import { Footer } from '@/components/layout/footer';
-import { Header } from '@/components/layout/header';
+import { Cursor, Grain, ScrollProgress, SmoothScroll } from "@portfolio/ui"
+import { setRequestLocale } from "next-intl/server"
+
+import { Footer } from "@/components/layout/footer"
+import { Header } from "@/components/layout/header"
 
 /**
  * Moldura do site em modo currículo.
@@ -16,12 +17,12 @@ export default async function SiteLayout({
   children,
   params,
 }: {
-  children: ReactNode;
-  params: Promise<{ locale: string }>;
+  children: ReactNode
+  params: Promise<{ locale: string }>
 }) {
   // Layout e página renderizam em paralelo: sem isto, o rodapé pergunta o
   // idioma aos cabeçalhos da requisição e a rota inteira deixa de ser estática.
-  setRequestLocale((await params).locale);
+  setRequestLocale((await params).locale)
 
   return (
     <SmoothScroll>
@@ -33,5 +34,5 @@ export default async function SiteLayout({
       <main id="conteudo">{children}</main>
       <Footer />
     </SmoothScroll>
-  );
+  )
 }

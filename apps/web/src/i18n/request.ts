@@ -1,7 +1,7 @@
-import { hasLocale } from 'next-intl';
-import { getRequestConfig } from 'next-intl/server';
+import { hasLocale } from "next-intl"
+import { getRequestConfig } from "next-intl/server"
 
-import { routing } from './routing';
+import { routing } from "./routing"
 
 /**
  * Carrega o dicionario da requisicao.
@@ -10,13 +10,15 @@ import { routing } from './routing';
  * versao em portugues nunca baixa os textos em espanhol.
  */
 export default getRequestConfig(async ({ requestLocale }) => {
-  const requested = await requestLocale;
-  const locale = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+  const requested = await requestLocale
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
+    : routing.defaultLocale
 
   return {
     locale,
     // eslint-disable-next-line no-unsanitized/method -- locale passou por hasLocale: só pt, en ou es
     messages: (await import(`./messages/${locale}.json`)).default,
-    timeZone: 'America/Sao_Paulo',
-  };
-});
+    timeZone: "America/Sao_Paulo",
+  }
+})

@@ -1,6 +1,6 @@
-'use client';
+"use client"
 
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore } from "react"
 
 /**
  * Le uma media query como fonte externa de verdade.
@@ -16,14 +16,14 @@ import { useSyncExternalStore } from 'react';
 export function useMediaQuery(query: string): boolean {
   return useSyncExternalStore(
     (onChange) => {
-      const list = window.matchMedia(query);
-      list.addEventListener('change', onChange);
-      return () => list.removeEventListener('change', onChange);
+      const list = window.matchMedia(query)
+      list.addEventListener("change", onChange)
+      return () => list.removeEventListener("change", onChange)
     },
     () => window.matchMedia(query).matches,
     () => false,
-  );
+  )
 }
 
 /** Ponteiro fino significa mouse ou trackpad, nunca tela de toque. */
-export const FINE_POINTER = '(pointer: fine)';
+export const FINE_POINTER = "(pointer: fine)"

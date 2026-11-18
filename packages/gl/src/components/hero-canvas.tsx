@@ -1,21 +1,27 @@
-'use client';
+"use client"
 
-import { Canvas } from '@react-three/fiber';
-import { Bloom, ChromaticAberration, EffectComposer, Vignette } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
-import { Suspense, useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
+import { Canvas } from "@react-three/fiber"
+import {
+  Bloom,
+  ChromaticAberration,
+  EffectComposer,
+  Vignette,
+} from "@react-three/postprocessing"
+import { BlendFunction } from "postprocessing"
+import { Suspense, useEffect, useRef, useState } from "react"
+import * as THREE from "three"
 
-import { useDeviceTier } from '../hooks/use-device-tier';
-import { ParticleField } from '../scenes/particle-field';
-import type { ShapeName } from '../shapes';
+import type { ShapeName } from "../shapes"
+
+import { useDeviceTier } from "../hooks/use-device-tier"
+import { ParticleField } from "../scenes/particle-field"
 
 export interface HeroCanvasProps {
   /** Progresso de 0 a 1, normalmente vindo do scroll da pagina. */
-  progress?: number;
-  from?: ShapeName;
-  to?: ShapeName;
-  className?: string;
+  progress?: number
+  from?: ShapeName
+  to?: ShapeName
+  className?: string
 }
 
 /**
@@ -30,30 +36,30 @@ export interface HeroCanvasProps {
  */
 export function HeroCanvas({
   progress = 0,
-  from = 'sphere',
-  to = 'knot',
+  from = "sphere",
+  to = "knot",
   className,
 }: HeroCanvasProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const device = useDeviceTier();
-  const [visible, setVisible] = useState(false);
-  const [contextLost, setContextLost] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null)
+  const device = useDeviceTier()
+  const [visible, setVisible] = useState(false)
+  const [contextLost, setContextLost] = useState(false)
 
   useEffect(() => {
-    const element = containerRef.current;
-    if (!element) return;
+    const element = containerRef.current
+    if (!element) return
 
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(entry?.isIntersecting ?? false),
-      { rootMargin: '200px' },
-    );
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+      { rootMargin: "200px" },
+    )
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
 
   // tier 'off' cobre tanto ausencia de WebGL2 quanto pedido explicito de menos
   // movimento no sistema operacional.
-  const disabled = device.tier === 'off' || contextLost;
+  const disabled = device.tier === "off" || contextLost
 
   return (
     <div ref={containerRef} className={className} aria-hidden="true">
@@ -61,25 +67,30 @@ export function HeroCanvas({
         <StaticFallback />
       ) : (
         <Canvas
-          frameloop={visible ? 'always' : 'never'}
+          frameloop={visible ? "always" : "never"}
           dpr={device.dpr}
           gl={{
             antialias: false,
             alpha: true,
-            powerPreference: 'high-performance',
+            powerPreference: "high-performance",
             // A nuvem e aditiva e ja satura; tonemapping cortaria o brilho.
             toneMapping: THREE.NoToneMapping,
           }}
           camera={{ position: [0, 0, 4.2], fov: 52 }}
           onCreated={({ gl }) => {
-            gl.domElement.addEventListener('webglcontextlost', (event) => {
-              event.preventDefault();
-              setContextLost(true);
-            });
+            gl.domElement.addEventListener("webglcontextlost", (event) => {
+              event.preventDefault()
+              setContextLost(true)
+            })
           }}
         >
           <Suspense fallback={null}>
-            <ParticleField count={device.particleCount} from={from} to={to} morph={progress} />
+            <ParticleField
+              count={device.particleCount}
+              from={from}
+              to={to}
+              morph={progress}
+            />
 
             {device.postProcessing && (
               <EffectComposer enableNormalPass={false}>
@@ -102,7 +113,7 @@ export function HeroCanvas({
         </Canvas>
       )}
     </div>
-  );
+  )
 }
 
 /**
@@ -115,5 +126,5 @@ function StaticFallback() {
       <div className="absolute top-1/2 left-1/2 h-[52vmin] w-[52vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle_at_35%_30%,var(--color-signal)_0%,transparent_58%)] opacity-25 blur-3xl" />
       <div className="absolute top-1/2 left-1/2 h-[44vmin] w-[44vmin] -translate-x-[38%] -translate-y-[58%] rounded-full bg-[radial-gradient(circle_at_65%_65%,var(--color-plasma)_0%,transparent_60%)] opacity-30 blur-3xl" />
     </div>
-  );
+  )
 }

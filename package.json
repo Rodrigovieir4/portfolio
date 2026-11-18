@@ -81,8 +81,8 @@
     "lint:fix": "turbo run lint -- --fix",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css,glsl}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mjs,cjs,json,md,css,glsl}\"",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "check": "bun run format:check && turbo run lint typecheck test build",
     "clean": "turbo run clean && rimraf node_modules .turbo",
     "assets:importar": "node scripts/importar-assets.mjs"

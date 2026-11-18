@@ -5,8 +5,8 @@
  * three e postprocessing para o bundle antes da hora.
  */
 export {
-  useDeviceTier,
-  usePrefersReducedMotion,
   type DeviceProfile,
   type DeviceTier,
-} from './hooks/use-device-tier';
+  useDeviceTier,
+  usePrefersReducedMotion,
+} from "./hooks/use-device-tier"

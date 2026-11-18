@@ -1,6 +1,6 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import '@portfolio/config-tailwind/theme.css';
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@portfolio/config-tailwind/theme.css";
 
 /* Animações do StarBorder (React Bits), que o componente espera do tema. */
 @theme {
@@ -36,8 +36,8 @@
  * declarados como fonte de classes — sem isso, as utilitarias usadas apenas
  * pelo design system somem no build de producao.
  */
-@source '../../../../packages/ui/src';
-@source '../../../../packages/gl/src';
+@source "../../../../packages/ui/src";
+@source "../../../../packages/gl/src";
 
 /* -------------------------------------------------------------------------- */
 /* Base                                                                       */
@@ -80,7 +80,7 @@
     background-color: var(--color-void);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -167,12 +167,17 @@
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(140deg, var(--color-signal), transparent 42%, var(--color-plasma));
+    background: linear-gradient(
+      140deg,
+      var(--color-signal),
+      transparent 42%,
+      var(--color-plasma)
+    );
     mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);

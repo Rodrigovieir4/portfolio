@@ -1,19 +1,32 @@
-import { profile, stats, t as translate, type Locale } from '@portfolio/content';
-import { Counter, Reveal, RevealGroup, RevealItem, SectionHeading } from '@portfolio/ui';
-import { getLocale, getTranslations } from 'next-intl/server';
-import Image from 'next/image';
+import { type Locale, profile, stats, t as translate } from "@portfolio/content"
+import {
+  Counter,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  SectionHeading,
+} from "@portfolio/ui"
+import { getLocale, getTranslations } from "next-intl/server"
+import Image from "next/image"
 
 export async function About() {
-  const t = await getTranslations('about');
-  const locale = (await getLocale()) as Locale;
-  const bio = translate(profile.bio, locale);
+  const t = await getTranslations("about")
+  const locale = (await getLocale()) as Locale
+  const bio = translate(profile.bio, locale)
 
   return (
-    <section id="about" className="relative border-t border-line/60 section-spacing">
+    <section
+      id="about"
+      className="relative border-t border-line/60 section-spacing"
+    >
       <div className="container-wide grid gap-14 lg:grid-cols-12">
         <div className="flex flex-col gap-10 lg:col-span-5">
           <Reveal>
-            <SectionHeading index="01" eyebrow={t('eyebrow')} title={t('title')} />
+            <SectionHeading
+              index="01"
+              eyebrow={t("eyebrow")}
+              title={t("title")}
+            />
           </Reveal>
 
           <Reveal delay={0.1} direction="right">
@@ -44,7 +57,8 @@ export async function About() {
               </div>
 
               <figcaption className="mt-4 font-mono text-[0.65rem] tracking-[0.14em] text-faint uppercase">
-                {profile.location.city}, {profile.location.state} · {profile.location.country}
+                {profile.location.city}, {profile.location.state} ·{" "}
+                {profile.location.country}
               </figcaption>
             </figure>
           </Reveal>
@@ -57,8 +71,8 @@ export async function About() {
                 <p
                   className={
                     index === 0
-                      ? 'text-[length:var(--text-fluid-lg)] leading-snug text-ink'
-                      : 'text-[length:var(--text-fluid-base)] leading-relaxed text-ink-soft'
+                      ? "text-[length:var(--text-fluid-lg)] leading-snug text-ink"
+                      : "text-[length:var(--text-fluid-base)] leading-relaxed text-ink-soft"
                   }
                 >
                   {paragraph}
@@ -70,7 +84,10 @@ export async function About() {
           <Reveal delay={0.15}>
             <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
               {stats.map((stat) => (
-                <div key={stat.id} className="flex flex-col gap-1.5 bg-abyss p-5">
+                <div
+                  key={stat.id}
+                  className="flex flex-col gap-1.5 bg-abyss p-5"
+                >
                   <span className="font-display text-3xl font-semibold text-signal">
                     <Counter value={stat.value} suffix={stat.suffix} />
                   </span>
@@ -84,5 +101,5 @@ export async function About() {
         </div>
       </div>
     </section>
-  );
+  )
 }

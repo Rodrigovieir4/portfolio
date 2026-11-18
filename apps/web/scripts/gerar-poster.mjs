@@ -17,112 +17,121 @@
  */
 
 /* global window, document -- os callbacks de page.evaluate rodam no navegador */
-import { chromium } from '@playwright/test';
-import sharp from 'sharp';
+import { chromium } from "@playwright/test"
+import sharp from "sharp"
 
-const BASE = process.env.BASE ?? 'http://localhost:3200';
-const DESTINO = new URL('../public/images/quarto.webp', import.meta.url).pathname.slice(1);
+const BASE = process.env.BASE ?? "http://localhost:3200"
+const DESTINO = new URL(
+  "../public/images/quarto.webp",
+  import.meta.url,
+).pathname.slice(1)
 
 /** Enquadramento: a câmera segue o boneco, então é ele que decide o quadro. */
-const LARGURA = 1600;
-const ALTURA = 940;
-const RECORTE = { x: 200, y: 0, width: 1190, height: 780 };
+const LARGURA = 1600
+const ALTURA = 940
+const RECORTE = { x: 200, y: 0, width: 1190, height: 780 }
 /** Onde o boneco para. Perto do meio do quarto, para nada ficar de fora. */
-const ALVO = { x: 0, z: -0.3 };
+const ALVO = { x: 0, z: -0.3 }
 
 const ler = (page) =>
   page.evaluate(() => {
-    const { runtime } = window.__game;
-    return { x: runtime.playerPosition.x, z: runtime.playerPosition.z, yaw: runtime.cameraYaw };
-  });
+    const { runtime } = window.__game
+    return {
+      x: runtime.playerPosition.x,
+      z: runtime.playerPosition.z,
+      yaw: runtime.cameraYaw,
+    }
+  })
 
 /** Anda até (x, z) segurando as mesmas teclas que uma pessoa seguraria. */
 async function andarAte(page, alvo) {
-  const tolerancia = 0.15;
-  const limiteMs = 20_000;
-  const presas = new Set();
+  const tolerancia = 0.15
+  const limiteMs = 20_000
+  const presas = new Set()
   const tecla = async (nome, ligada) => {
     if (ligada && !presas.has(nome)) {
-      await page.keyboard.down(nome);
-      presas.add(nome);
+      await page.keyboard.down(nome)
+      presas.add(nome)
     } else if (!ligada && presas.has(nome)) {
-      await page.keyboard.up(nome);
-      presas.delete(nome);
+      await page.keyboard.up(nome)
+      presas.delete(nome)
     }
-  };
+  }
 
-  const inicio = Date.now();
+  const inicio = Date.now()
   while (Date.now() - inicio < limiteMs) {
-    const atual = await ler(page);
-    const dx = alvo.x - atual.x;
-    const dz = alvo.z - atual.z;
-    if (Math.hypot(dx, dz) < tolerancia) break;
+    const atual = await ler(page)
+    const dx = alvo.x - atual.x
+    const dz = alvo.z - atual.z
+    if (Math.hypot(dx, dz) < tolerancia) break
 
     // O inverso exato do que o personagem faz com a entrada: do rumo no mundo
     // para os eixos da tela, usando o ângulo atual da câmera.
-    const sin = Math.sin(atual.yaw);
-    const cos = Math.cos(atual.yaw);
-    const eixoX = cos * dx - sin * dz;
-    const eixoY = -sin * dx - cos * dz;
-    const escala = Math.max(Math.abs(eixoX), Math.abs(eixoY));
-    await tecla('KeyD', eixoX / escala > 0.35);
-    await tecla('KeyA', eixoX / escala < -0.35);
-    await tecla('KeyW', eixoY / escala > 0.35);
-    await tecla('KeyS', eixoY / escala < -0.35);
-    await page.waitForTimeout(35);
+    const sin = Math.sin(atual.yaw)
+    const cos = Math.cos(atual.yaw)
+    const eixoX = cos * dx - sin * dz
+    const eixoY = -sin * dx - cos * dz
+    const escala = Math.max(Math.abs(eixoX), Math.abs(eixoY))
+    await tecla("KeyD", eixoX / escala > 0.35)
+    await tecla("KeyA", eixoX / escala < -0.35)
+    await tecla("KeyW", eixoY / escala > 0.35)
+    await tecla("KeyS", eixoY / escala < -0.35)
+    await page.waitForTimeout(35)
   }
-  for (const nome of [...presas]) await tecla(nome, false);
-  await page.waitForTimeout(150);
+  for (const nome of [...presas]) await tecla(nome, false)
+  await page.waitForTimeout(150)
 }
 
-const navegador = await chromium.launch({ args: ['--ignore-gpu-blocklist'] });
+const navegador = await chromium.launch({ args: ["--ignore-gpu-blocklist"] })
 const contexto = await navegador.newContext({
   viewport: { width: LARGURA, height: ALTURA },
   deviceScaleFactor: 2,
-});
+})
 // Nível alto travado: o pôster mostra a melhor cara que o quarto tem.
-await contexto.addInitScript(() => window.localStorage.setItem('rodrigo:quality', 'alto'));
+await contexto.addInitScript(() =>
+  window.localStorage.setItem("rodrigo:quality", "alto"),
+)
 
-const page = await contexto.newPage();
-await page.goto(`${BASE}/pt/jogo?debug`, { waitUntil: 'networkidle' });
-await page.waitForFunction(() => window.__game?.runtime.playerPosition.y > 0.3);
-await page.waitForTimeout(3000);
+const page = await contexto.newPage()
+await page.goto(`${BASE}/pt/jogo?debug`, { waitUntil: "networkidle" })
+await page.waitForFunction(() => window.__game?.runtime.playerPosition.y > 0.3)
+await page.waitForTimeout(3000)
 
 // Foco no canto esquerdo: no meio de baixo fica o botão de interagir, e clicar
 // nele abre um painel, que congela o boneco.
-await page.mouse.click(10, 400);
-await andarAte(page, ALVO);
+await page.mouse.click(10, 400)
+await andarAte(page, ALVO)
 
 // Um passo curto na direção da câmera, para ele terminar de frente.
-await page.keyboard.down('KeyS');
-await page.waitForTimeout(260);
-await page.keyboard.up('KeyS');
-await page.waitForTimeout(2500);
+await page.keyboard.down("KeyS")
+await page.waitForTimeout(260)
+await page.keyboard.up("KeyS")
+await page.waitForTimeout(2500)
 
 // Esconde o HUD: sobe do canvas até o topo escondendo, em cada nível, tudo que
 // não está no caminho do canvas.
 await page.evaluate(() => {
-  let no = document.querySelector('canvas');
+  let no = document.querySelector("canvas")
   while (no.parentElement) {
     for (const irmao of Array.from(no.parentElement.children)) {
-      if (irmao !== no) irmao.style.display = 'none';
+      if (irmao !== no) irmao.style.display = "none"
     }
-    no = no.parentElement;
+    no = no.parentElement
   }
-});
-await page.waitForTimeout(800);
+})
+await page.waitForTimeout(800)
 
 const perdido = await page.evaluate(() => {
-  const canvas = document.querySelector('canvas');
-  const ctx = canvas.getContext('webgl2') ?? canvas.getContext('webgl');
-  return ctx ? ctx.isContextLost() : true;
-});
-if (perdido) throw new Error('o contexto WebGL caiu: o pôster sairia preto');
+  const canvas = document.querySelector("canvas")
+  const ctx = canvas.getContext("webgl2") ?? canvas.getContext("webgl")
+  return ctx ? ctx.isContextLost() : true
+})
+if (perdido) throw new Error("o contexto WebGL caiu: o pôster sairia preto")
 
-const png = await page.screenshot({ clip: RECORTE });
-await navegador.close();
+const png = await page.screenshot({ clip: RECORTE })
+await navegador.close()
 
-const info = await sharp(png).resize(1600).webp({ quality: 82 }).toFile(DESTINO);
+const info = await sharp(png).resize(1600).webp({ quality: 82 }).toFile(DESTINO)
 console.warn(
   `pôster gravado: ${DESTINO} — ${info.width}x${info.height}, ${Math.round(info.size / 1024)} kB`,
-);
+)

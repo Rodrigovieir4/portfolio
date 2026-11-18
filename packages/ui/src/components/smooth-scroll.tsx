@@ -1,8 +1,15 @@
-'use client';
+"use client"
 
-import Lenis from 'lenis';
-import { useReducedMotion } from 'motion/react';
-import { createContext, useCallback, useContext, useEffect, useRef, type ReactNode } from 'react';
+import Lenis from "lenis"
+import { useReducedMotion } from "motion/react"
+import {
+  type ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from "react"
 
 /**
  * O contexto guarda um getter, nao a instancia.
@@ -13,11 +20,11 @@ import { createContext, useCallback, useContext, useEffect, useRef, type ReactNo
  * dentro de manipuladores de evento, um getter estavel entrega o mesmo acesso
  * sem custo de renderizacao.
  */
-const LenisContext = createContext<() => Lenis | null>(() => null);
+const LenisContext = createContext<() => Lenis | null>(() => null)
 
 /** Da acesso a instancia do Lenis, para rolar ate uma ancora programaticamente. */
 export function useLenis(): () => Lenis | null {
-  return useContext(LenisContext);
+  return useContext(LenisContext)
 }
 
 /**
@@ -33,16 +40,16 @@ export function useLenis(): () => Lenis | null {
  *     para o clique em ancora e o React compartilharem o mesmo relogio.
  */
 export function SmoothScroll({ children }: { children: ReactNode }) {
-  const reduced = useReducedMotion();
-  const instanceRef = useRef<Lenis | null>(null);
+  const reduced = useReducedMotion()
+  const instanceRef = useRef<Lenis | null>(null)
   // useCallback, e nao useRef: ler ref.current durante a renderizacao e
   // proibido no React 19, e este getter precisa existir ja na montagem do
   // Provider. O array vazio garante que a referencia nunca muda, entao os
   // consumidores do contexto nao re-renderizam a toa.
-  const getInstance = useCallback(() => instanceRef.current, []);
+  const getInstance = useCallback(() => instanceRef.current, [])
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced) return
 
     const instance = new Lenis({
       duration: 1.05,
@@ -54,23 +61,27 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       // gesto do sistema e sempre sai pior.
       syncTouch: false,
       autoRaf: false,
-    });
+    })
 
-    instanceRef.current = instance;
+    instanceRef.current = instance
 
-    let frameId = 0;
+    let frameId = 0
     function raf(time: number) {
-      instance.raf(time);
-      frameId = requestAnimationFrame(raf);
+      instance.raf(time)
+      frameId = requestAnimationFrame(raf)
     }
-    frameId = requestAnimationFrame(raf);
+    frameId = requestAnimationFrame(raf)
 
     return () => {
-      cancelAnimationFrame(frameId);
-      instance.destroy();
-      instanceRef.current = null;
-    };
-  }, [reduced]);
+      cancelAnimationFrame(frameId)
+      instance.destroy()
+      instanceRef.current = null
+    }
+  }, [reduced])
 
-  return <LenisContext.Provider value={getInstance}>{children}</LenisContext.Provider>;
+  return (
+    <LenisContext.Provider value={getInstance}>
+      {children}
+    </LenisContext.Provider>
+  )
 }

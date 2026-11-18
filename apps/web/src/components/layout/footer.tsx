@@ -1,13 +1,13 @@
-import { profile } from '@portfolio/content';
-import { Marquee } from '@portfolio/ui';
-import { ArrowUpRight } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { profile } from "@portfolio/content"
+import { Marquee } from "@portfolio/ui"
+import { ArrowUpRight } from "lucide-react"
+import { getTranslations } from "next-intl/server"
 
-import { siteConfig } from '@/lib/site';
+import { siteConfig } from "@/lib/site"
 
 export async function Footer() {
-  const t = await getTranslations('footer');
-  const year = new Date().getFullYear();
+  const t = await getTranslations("footer")
+  const year = new Date().getFullYear()
 
   return (
     <footer className="relative border-t border-line bg-abyss">
@@ -27,10 +27,14 @@ export async function Footer() {
 
       <div className="container-wide flex flex-col gap-8 py-12 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-3">
-          <p className="font-display text-lg font-medium text-ink">{profile.name}</p>
-          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">{t('builtWith')}</p>
+          <p className="font-display text-lg font-medium text-ink">
+            {profile.name}
+          </p>
+          <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+            {t("builtWith")}
+          </p>
           <p className="font-mono text-xs text-faint">
-            © {year} · {t('rights')}
+            © {year} · {t("rights")}
           </p>
         </div>
 
@@ -57,7 +61,7 @@ export async function Footer() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-1 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-signal"
           >
-            {t('sourceCode')}
+            {t("sourceCode")}
             <ArrowUpRight
               className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               aria-hidden="true"
@@ -66,5 +70,5 @@ export async function Footer() {
         </nav>
       </div>
     </footer>
-  );
+  )
 }

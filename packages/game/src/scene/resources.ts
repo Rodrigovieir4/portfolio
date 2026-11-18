@@ -1,4 +1,5 @@
 import {
+  type Texture,
   BoxGeometry,
   CylinderGeometry,
   DoubleSide,
@@ -9,8 +10,7 @@ import {
   OctahedronGeometry,
   PlaneGeometry,
   RingGeometry,
-  type Texture,
-} from 'three';
+} from "three"
 
 /**
  * Geometrias e materiais compartilhados por toda a cena.
@@ -25,28 +25,28 @@ import {
  * placa troca de estado por quadro, que é o que trava aparelho fraco.
  */
 
-export const unitBox = new BoxGeometry(1, 1, 1);
-export const unitPlane = new PlaneGeometry(1, 1);
-export const unitCylinder = new CylinderGeometry(0.5, 0.5, 1, 10);
+export const unitBox = new BoxGeometry(1, 1, 1)
+export const unitPlane = new PlaneGeometry(1, 1)
+export const unitCylinder = new CylinderGeometry(0.5, 0.5, 1, 10)
 /** Tronco de cone com a boca para cima, para vaso e abajur. */
-export const unitCone = new CylinderGeometry(0.5, 0.375, 1, 10);
-export const unitBall = new IcosahedronGeometry(0.5, 1);
-export const unitRock = new IcosahedronGeometry(0.5, 0);
-export const unitMarker = new OctahedronGeometry(0.15, 0);
+export const unitCone = new CylinderGeometry(0.5, 0.375, 1, 10)
+export const unitBall = new IcosahedronGeometry(0.5, 1)
+export const unitRock = new IcosahedronGeometry(0.5, 0)
+export const unitMarker = new OctahedronGeometry(0.15, 0)
 /** Anel do chão, com raio um: cada área o achata para o próprio tamanho. */
-export const unitRing = new RingGeometry(0.86, 1, 40);
+export const unitRing = new RingGeometry(0.86, 1, 40)
 
 export interface MaterialOptions {
-  emissive?: string;
-  emissiveIntensity?: number;
-  metalness?: number;
-  roughness?: number;
-  flatShading?: boolean;
+  emissive?: string
+  emissiveIntensity?: number
+  metalness?: number
+  roughness?: number
+  flatShading?: boolean
   /** Para forma aberta, como a cúpula do abajur, que se vê por dentro. */
-  doubleSide?: boolean;
+  doubleSide?: boolean
 }
 
-const cache = new Map<string, MeshStandardMaterial>();
+const cache = new Map<string, MeshStandardMaterial>()
 
 /**
  * Material opaco por cor, reaproveitado.
@@ -55,18 +55,21 @@ const cache = new Map<string, MeshStandardMaterial>();
  * precisa do próprio material, senão acenderia em todos os objetos da mesma
  * cor ao mesmo tempo.
  */
-export function boxMaterial(color: string, options: MaterialOptions = {}): MeshStandardMaterial {
+export function boxMaterial(
+  color: string,
+  options: MaterialOptions = {},
+): MeshStandardMaterial {
   const {
-    emissive = '#000000',
+    emissive = "#000000",
     emissiveIntensity = 0,
     metalness = 0,
     roughness = 0.85,
     flatShading = true,
     doubleSide = false,
-  } = options;
-  const key = `${color}|${emissive}|${emissiveIntensity}|${metalness}|${roughness}|${flatShading}|${doubleSide}`;
-  const cached = cache.get(key);
-  if (cached) return cached;
+  } = options
+  const key = `${color}|${emissive}|${emissiveIntensity}|${metalness}|${roughness}|${flatShading}|${doubleSide}`
+  const cached = cache.get(key)
+  if (cached) return cached
 
   const material = new MeshStandardMaterial({
     color,
@@ -76,12 +79,12 @@ export function boxMaterial(color: string, options: MaterialOptions = {}): MeshS
     roughness,
     flatShading,
     side: doubleSide ? DoubleSide : FrontSide,
-  });
-  cache.set(key, material);
-  return material;
+  })
+  cache.set(key, material)
+  return material
 }
 
-const mapCache = new Map<string, MeshStandardMaterial | MeshBasicMaterial>();
+const mapCache = new Map<string, MeshBasicMaterial | MeshStandardMaterial>()
 
 /**
  * Material com textura, reaproveitado pela textura e pelo tom.
@@ -92,22 +95,37 @@ const mapCache = new Map<string, MeshStandardMaterial | MeshBasicMaterial>();
  */
 export function mapMaterial(
   texture: Texture,
-  options: { tint?: string; basic?: boolean; roughness?: number; transparent?: boolean } = {},
-): MeshStandardMaterial | MeshBasicMaterial {
-  const { tint = '#ffffff', basic = false, roughness = 0.8, transparent = false } = options;
-  const key = `${texture.uuid}|${tint}|${basic}|${roughness}|${transparent}`;
-  const cached = mapCache.get(key);
-  if (cached) return cached;
+  options: {
+    tint?: string
+    basic?: boolean
+    roughness?: number
+    transparent?: boolean
+  } = {},
+): MeshBasicMaterial | MeshStandardMaterial {
+  const {
+    tint = "#ffffff",
+    basic = false,
+    roughness = 0.8,
+    transparent = false,
+  } = options
+  const key = `${texture.uuid}|${tint}|${basic}|${roughness}|${transparent}`
+  const cached = mapCache.get(key)
+  if (cached) return cached
 
   const material = basic
-    ? new MeshBasicMaterial({ map: texture, color: tint, toneMapped: false, transparent })
+    ? new MeshBasicMaterial({
+        map: texture,
+        color: tint,
+        toneMapped: false,
+        transparent,
+      })
     : new MeshStandardMaterial({
         map: texture,
         color: tint,
         roughness,
         transparent,
         alphaTest: transparent ? 0.1 : 0,
-      });
-  mapCache.set(key, material);
-  return material;
+      })
+  mapCache.set(key, material)
+  return material
 }

@@ -7,22 +7,24 @@
  */
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000")
 
 export const siteConfig = {
   url: siteUrl,
-  repository: 'https://github.com/Rodrigovieir4',
-  plausibleDomain: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? '',
-} as const;
+  repository: "https://github.com/Rodrigovieir4",
+  plausibleDomain: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN ?? "",
+} as const
 
 /** Seções da home, na ordem em que aparecem. Alimenta a navegação e o sumário. */
 export const SECTIONS = [
-  'about',
-  'skills',
-  'journey',
-  'projects',
-  'certificates',
-  'contact',
-] as const;
+  "about",
+  "skills",
+  "journey",
+  "projects",
+  "certificates",
+  "contact",
+] as const
 
-export type SectionId = (typeof SECTIONS)[number];
+export type SectionId = (typeof SECTIONS)[number]

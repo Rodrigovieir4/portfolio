@@ -5,20 +5,20 @@
  * arquivo de dados não vaza para dentro dos componentes.
  */
 
-export * from './locale';
-export * from './schema';
+export * from "./locale"
+export * from "./schema"
 
-export { profile } from './data/profile';
-export { skillGroups, allSkills } from './data/skills';
+export { profile } from "./data/profile"
+export { allSkills, skillGroups } from "./data/skills"
 export {
-  projects,
-  featuredProjects,
   clientProjects,
+  featuredProjects,
   personalProjects,
   projectBySlug,
-} from './data/projects';
-export { experiences, workExperiences } from './data/experience';
-export { certifications, certificationsByCategory } from './data/certifications';
-export { languages } from './data/languages';
+  projects,
+} from "./data/projects"
+export { experiences, workExperiences } from "./data/experience"
+export { certifications, certificationsByCategory } from "./data/certifications"
+export { languages } from "./data/languages"
 
-export { stats } from './stats';
+export { stats } from "./stats"

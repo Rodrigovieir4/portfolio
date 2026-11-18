@@ -1,15 +1,17 @@
-'use client';
+"use client"
 
-import { useFrame } from '@react-three/fiber';
-import { useRef, type ReactNode } from 'react';
-import type { Mesh, MeshBasicMaterial } from 'three';
+import type { Mesh, MeshBasicMaterial } from "three"
 
-import type { HotspotId, InteractableConfig, InteractableId } from '../hotspots';
-import { useGameStore } from '../store';
-import { FurnitureFor } from './furniture';
-import { boxMaterial, unitMarker, unitRing } from './resources';
+import { useFrame } from "@react-three/fiber"
+import { type ReactNode, useRef } from "react"
 
-const SIGNAL = '#c8f751';
+import type { HotspotId, InteractableConfig, InteractableId } from "../hotspots"
+
+import { useGameStore } from "../store"
+import { FurnitureFor } from "./furniture"
+import { boxMaterial, unitMarker, unitRing } from "./resources"
+
+const SIGNAL = "#c8f751"
 
 /**
  * Um objeto interativo: o visual do móvel, o anel no chão e o losango que
@@ -30,41 +32,47 @@ export function Interactable({
   hidden,
   children,
 }: {
-  config: InteractableConfig & { id: InteractableId };
+  config: InteractableConfig & { id: InteractableId }
   /** A parede onde o objeto está pendurado está rebaixada: o visual some. */
-  hidden: boolean;
+  hidden: boolean
   /** Visual do objeto. Sem ele, usa o visual registrado para o id. */
-  children?: ReactNode;
+  children?: ReactNode
 }) {
-  const near = useGameStore((state) => state.nearby === config.id);
-  const visited = useGameStore((state) => (state.visited as readonly string[]).includes(config.id));
-  const marker = useRef<Mesh>(null);
-  const ring = useRef<MeshBasicMaterial>(null);
+  const near = useGameStore((state) => state.nearby === config.id)
+  const visited = useGameStore((state) =>
+    (state.visited as readonly string[]).includes(config.id),
+  )
+  const marker = useRef<Mesh>(null)
+  const ring = useRef<MeshBasicMaterial>(null)
 
-  const { zone } = config;
+  const { zone } = config
 
   useFrame(({ clock }, delta) => {
-    const t = clock.elapsedTime;
-    const mesh = marker.current;
+    const t = clock.elapsedTime
+    const mesh = marker.current
     if (mesh && config.marker) {
-      mesh.position.y = config.marker[1] + Math.sin(t * 2.2) * 0.08;
-      mesh.rotation.y = t * 1.4;
-      const scale = near ? 1.35 : 1;
-      mesh.scale.setScalar(mesh.scale.x + (scale - mesh.scale.x) * Math.min(1, delta * 10));
+      mesh.position.y = config.marker[1] + Math.sin(t * 2.2) * 0.08
+      mesh.rotation.y = t * 1.4
+      const scale = near ? 1.35 : 1
+      mesh.scale.setScalar(
+        mesh.scale.x + (scale - mesh.scale.x) * Math.min(1, delta * 10),
+      )
     }
-    const material = ring.current;
+    const material = ring.current
     if (material) {
-      const target = near ? 0.45 + Math.sin(t * 4) * 0.12 : 0;
-      material.opacity += (target - material.opacity) * Math.min(1, delta * 10);
+      const target = near ? 0.45 + Math.sin(t * 4) * 0.12 : 0
+      material.opacity += (target - material.opacity) * Math.min(1, delta * 10)
       // Anel apagado não precisa entrar na fila de desenho.
-      if (material.opacity < 0.01) material.visible = false;
-      else material.visible = true;
+      if (material.opacity < 0.01) material.visible = false
+      else material.visible = true
     }
-  });
+  })
 
   return (
     <group>
-      <group visible={!hidden}>{children ?? <FurnitureFor id={config.id} near={near} />}</group>
+      <group visible={!hidden}>
+        {children ?? <FurnitureFor id={config.id} near={near} />}
+      </group>
 
       {/* Anel no chão, do tamanho da área: mostra onde parar. */}
       <mesh
@@ -90,7 +98,7 @@ export function Interactable({
           geometry={unitMarker}
           material={
             visited
-              ? boxMaterial('#4d5567', { flatShading: false })
+              ? boxMaterial("#4d5567", { flatShading: false })
               : boxMaterial(SIGNAL, {
                   emissive: SIGNAL,
                   emissiveIntensity: 1.2,
@@ -100,7 +108,7 @@ export function Interactable({
         />
       )}
     </group>
-  );
+  )
 }
 
-export type { HotspotId };
+export type { HotspotId }

@@ -6,4 +6,4 @@
  * para os componentes gerados e os nossos resolverem conflito de classe do
  * Tailwind exatamente da mesma forma.
  */
-export { cn } from '@portfolio/ui';
+export { cn } from "@portfolio/ui"

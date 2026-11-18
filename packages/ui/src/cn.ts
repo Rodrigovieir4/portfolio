@@ -9,5 +9,5 @@
  * resultado dependeria da ordem no CSS gerado. Com ele, a última vence, que é
  * o que qualquer pessoa espera ao sobrescrever o estilo de um componente.
  */
-export { cn } from 'cn';
-export type { ClassValue } from 'cn';
+export { cn } from "cn"
+export type { ClassValue } from "cn"

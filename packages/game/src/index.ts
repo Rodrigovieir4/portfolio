@@ -5,4 +5,4 @@
  * three toca em window. Estado e registro de objetos ficam em
  * "@portfolio/game/state", que não puxa o motor junto.
  */
-export { GameCanvas, type GameCanvasProps } from './scene/game-canvas';
+export { GameCanvas, type GameCanvasProps } from "./scene/game-canvas"

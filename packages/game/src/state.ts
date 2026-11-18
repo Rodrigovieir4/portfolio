@@ -5,9 +5,21 @@
  * three, então o HTML do jogo aparece sem esperar os megabytes do motor, que
  * chegam depois pelo import dinâmico de "@portfolio/game".
  */
-export { activeTier, useGameStore, type PanelId, type Toast } from './store';
-export { loadQuality, QUALITY, QUALITY_TIERS, type QualityMode, type QualityTier } from './quality';
-export { HOTSPOTS, HOTSPOT_IDS, LAMP, type HotspotId, type InteractableId } from './hotspots';
-export { COMMITS, COMMIT_IDS } from './collectibles';
-export { ACHIEVEMENTS, SPEEDRUN_MS, type AchievementId } from './achievements';
-export { runtime, perf } from './runtime';
+export { activeTier, type PanelId, type Toast, useGameStore } from "./store"
+export {
+  loadQuality,
+  QUALITY,
+  QUALITY_TIERS,
+  type QualityMode,
+  type QualityTier,
+} from "./quality"
+export {
+  HOTSPOT_IDS,
+  type HotspotId,
+  HOTSPOTS,
+  type InteractableId,
+  LAMP,
+} from "./hotspots"
+export { COMMIT_IDS, COMMITS } from "./collectibles"
+export { type AchievementId, ACHIEVEMENTS, SPEEDRUN_MS } from "./achievements"
+export { perf, runtime } from "./runtime"

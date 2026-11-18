@@ -8,3 +8,4 @@ bun.lock
 *.glsl
 next-env.d.ts
 DESIGN-SYSTEM.md
+apps/web/AGENTS.md

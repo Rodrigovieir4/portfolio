@@ -1,27 +1,33 @@
-'use client';
+"use client"
 
-import { allSkills, languages, skillGroups, t as translate, type Locale } from '@portfolio/content';
-import { Reveal, SectionHeading } from '@portfolio/ui';
-import { useLocale, useTranslations } from 'next-intl';
+import {
+  type Locale,
+  allSkills,
+  languages,
+  skillGroups,
+  t as translate,
+} from "@portfolio/content"
+import { Reveal, SectionHeading } from "@portfolio/ui"
+import { useLocale, useTranslations } from "next-intl"
 
-import LogoLoop, { type LogoItem } from '@/components/reactbits/logo-loop';
-import { Badge } from '@/components/ui/badge';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import LogoLoop, { type LogoItem } from "@/components/reactbits/logo-loop"
+import { Badge } from "@/components/ui/badge"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const ACCENT_BAR: Record<string, string> = {
-  signal: 'bg-signal',
-  plasma: 'bg-plasma',
-  ember: 'bg-ember',
-  cyan: 'bg-cyan',
-};
+  signal: "bg-signal",
+  plasma: "bg-plasma",
+  ember: "bg-ember",
+  cyan: "bg-cyan",
+}
 
 const ACCENT_TEXT: Record<string, string> = {
-  signal: 'text-signal',
-  plasma: 'text-plasma',
-  ember: 'text-ember',
-  cyan: 'text-cyan',
-};
+  signal: "text-signal",
+  plasma: "text-plasma",
+  ember: "text-ember",
+  cyan: "text-cyan",
+}
 
 /**
  * Faixa de tecnologias em rolagem contínua.
@@ -43,23 +49,26 @@ function techLogos(): LogoItem[] {
         </span>
       ),
       title: skill.name,
-    }));
+    }))
 }
 
 export function Skills() {
-  const t = useTranslations('skills');
-  const locale = useLocale() as Locale;
-  const firstGroup = skillGroups[0]?.id ?? 'backend';
+  const t = useTranslations("skills")
+  const locale = useLocale() as Locale
+  const firstGroup = skillGroups[0]?.id ?? "backend"
 
   return (
-    <section id="skills" className="relative border-t border-line/60 bg-abyss/40 section-spacing">
+    <section
+      id="skills"
+      className="relative border-t border-line/60 bg-abyss/40 section-spacing"
+    >
       <div className="container-wide flex flex-col gap-12">
         <Reveal>
           <SectionHeading
             index="02"
-            eyebrow={t('eyebrow')}
-            title={t('title')}
-            description={t('description')}
+            eyebrow={t("eyebrow")}
+            title={t("title")}
+            description={t("description")}
           />
         </Reveal>
 
@@ -74,7 +83,7 @@ export function Skills() {
               scaleOnHover
               fadeOut
               fadeOutColor="#090b10"
-              ariaLabel={t('marqueeLabel')}
+              ariaLabel={t("marqueeLabel")}
             />
           </div>
         </Reveal>
@@ -102,7 +111,7 @@ export function Skills() {
                   value="idiomas"
                   className="font-mono text-xs tracking-[0.1em] uppercase data-[state=active]:bg-elevated data-[state=active]:text-ink"
                 >
-                  {t('languagesTitle')}
+                  {t("languagesTitle")}
                 </TabsTrigger>
               </TabsList>
             </ScrollArea>
@@ -115,7 +124,7 @@ export function Skills() {
                       <div className="flex items-baseline justify-between gap-3">
                         <span className="text-ink-soft">{skill.name}</span>
                         <span
-                          className={`font-mono text-[0.62rem] tracking-[0.1em] uppercase ${ACCENT_TEXT[group.accent] ?? 'text-signal'}`}
+                          className={`font-mono text-[0.62rem] tracking-[0.1em] uppercase ${ACCENT_TEXT[group.accent] ?? "text-signal"}`}
                         >
                           {t(`levels.${skill.level}`)}
                         </span>
@@ -130,7 +139,7 @@ export function Skills() {
                         aria-hidden="true"
                       >
                         <div
-                          className={`h-full rounded-full ${ACCENT_BAR[group.accent] ?? 'bg-signal'}`}
+                          className={`h-full rounded-full ${ACCENT_BAR[group.accent] ?? "bg-signal"}`}
                           style={{ width: `${(skill.level / 5) * 100}%` }}
                         />
                       </div>
@@ -145,8 +154,12 @@ export function Skills() {
                 {languages.map((language) => (
                   <li key={language.code} className="flex flex-col gap-2">
                     <div className="flex items-baseline justify-between gap-3">
-                      <span className="text-ink-soft">{translate(language.name, locale)}</span>
-                      <Badge tone="cyan">{t(`languageLevels.${language.level}`)}</Badge>
+                      <span className="text-ink-soft">
+                        {translate(language.name, locale)}
+                      </span>
+                      <Badge tone="cyan">
+                        {t(`languageLevels.${language.level}`)}
+                      </Badge>
                     </div>
                     <div
                       className="h-[3px] w-full overflow-hidden rounded-full bg-line"
@@ -165,5 +178,5 @@ export function Skills() {
         </Reveal>
       </div>
     </section>
-  );
+  )
 }

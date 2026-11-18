@@ -1,4 +1,4 @@
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
+import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google"
 
 /**
  * Tres familias com papeis distintos:
@@ -12,23 +12,23 @@ import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google';
  */
 
 export const fontDisplay = Bricolage_Grotesque({
-  subsets: ['latin'],
-  variable: '--font-bricolage',
-  display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
-});
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+})
 
 export const fontSans = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-});
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+})
 
 export const fontMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-  weight: ['400', '500'],
-});
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+  weight: ["400", "500"],
+})
 
-export const fontVariables = `${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable}`;
+export const fontVariables = `${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable}`

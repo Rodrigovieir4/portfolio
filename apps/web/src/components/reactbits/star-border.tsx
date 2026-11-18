@@ -1,32 +1,33 @@
-'use client';
+"use client"
 
-import React from 'react';
+import React from "react"
 
-type StarBorderProps<T extends React.ElementType> = React.ComponentPropsWithoutRef<T> & {
-  as?: T;
-  className?: string;
-  children?: React.ReactNode;
-  color?: string;
-  speed?: React.CSSProperties['animationDuration'];
-  thickness?: number;
-  backgroundColor?: string;
-  textColor?: string;
-  borderColor?: string;
-};
+type StarBorderProps<T extends React.ElementType> =
+  React.ComponentPropsWithoutRef<T> & {
+    as?: T
+    className?: string
+    children?: React.ReactNode
+    color?: string
+    speed?: React.CSSProperties["animationDuration"]
+    thickness?: number
+    backgroundColor?: string
+    textColor?: string
+    borderColor?: string
+  }
 
-const StarBorder = <T extends React.ElementType = 'button'>({
+const StarBorder = <T extends React.ElementType = "button">({
   as,
-  className = '',
-  color = 'white',
-  speed = '6s',
+  className = "",
+  color = "white",
+  speed = "6s",
   thickness = 1,
-  backgroundColor = '#000000',
-  textColor = '#ffffff',
-  borderColor = '#222222',
+  backgroundColor = "#000000",
+  textColor = "#ffffff",
+  borderColor = "#222222",
   children,
   ...rest
 }: StarBorderProps<T>) => {
-  const Component = as || 'button';
+  const Component = as || "button"
 
   return (
     <Component
@@ -38,14 +39,14 @@ const StarBorder = <T extends React.ElementType = 'button'>({
       }}
     >
       <div
-        className="animate-star-movement-bottom absolute right-[-250%] bottom-[-11px] z-0 h-[50%] w-[300%] rounded-full opacity-70"
+        className="absolute right-[-250%] bottom-[-11px] z-0 h-[50%] w-[300%] animate-star-movement-bottom rounded-full opacity-70"
         style={{
           background: `radial-gradient(circle, ${color}, transparent 10%)`,
           animationDuration: speed,
         }}
       ></div>
       <div
-        className="animate-star-movement-top absolute top-[-10px] left-[-250%] z-0 h-[50%] w-[300%] rounded-full opacity-70"
+        className="absolute top-[-10px] left-[-250%] z-0 h-[50%] w-[300%] animate-star-movement-top rounded-full opacity-70"
         style={{
           background: `radial-gradient(circle, ${color}, transparent 10%)`,
           animationDuration: speed,
@@ -58,10 +59,10 @@ const StarBorder = <T extends React.ElementType = 'button'>({
         {children}
       </div>
     </Component>
-  );
-};
+  )
+}
 
-export default StarBorder;
+export default StarBorder
 
 // tailwind.config.js
 // module.exports = {

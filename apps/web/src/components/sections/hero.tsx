@@ -1,17 +1,22 @@
-'use client';
+"use client"
 
-import { profile, t as translate, type Locale } from '@portfolio/content';
-import { Magnetic, ScrambleText, SplitText, StatusDot } from '@portfolio/ui';
-import { ArrowDown, ArrowUpRight, Download, Gamepad2 } from 'lucide-react';
-import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
-import { useLocale, useTranslations } from 'next-intl';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { type Locale, profile, t as translate } from "@portfolio/content"
+import { Magnetic, ScrambleText, SplitText, StatusDot } from "@portfolio/ui"
+import { ArrowDown, ArrowUpRight, Download, Gamepad2 } from "lucide-react"
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react"
+import { useLocale, useTranslations } from "next-intl"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+import { useRef, useState } from "react"
 
-import ShinyText from '@/components/reactbits/shiny-text';
-import { Link } from '@/i18n/navigation';
-import StarBorder from '@/components/reactbits/star-border';
+import ShinyText from "@/components/reactbits/shiny-text"
+import StarBorder from "@/components/reactbits/star-border"
+import { Link } from "@/i18n/navigation"
 
 /**
  * A cena WebGL entra por import dinamico com ssr desligado.
@@ -20,36 +25,41 @@ import StarBorder from '@/components/reactbits/star-border';
  * no servidor quebraria a build. Como bonus, os cerca de 600 kB de three saem
  * do bundle inicial e so chegam depois que o HTML ja pintou.
  */
-const HeroCanvas = dynamic(() => import('@portfolio/gl').then((module) => module.HeroCanvas), {
-  ssr: false,
-});
+const HeroCanvas = dynamic(
+  () => import("@portfolio/gl").then((module) => module.HeroCanvas),
+  {
+    ssr: false,
+  },
+)
 
 export function Hero() {
-  const t = useTranslations('hero');
-  const locale = useLocale() as Locale;
-  const sectionRef = useRef<HTMLElement>(null);
+  const t = useTranslations("hero")
+  const locale = useLocale() as Locale
+  const sectionRef = useRef<HTMLElement>(null)
 
   // Progresso da propria secao, de quando o topo encosta no topo da janela ate
   // ela sair por baixo.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start start', 'end start'],
-  });
+    offset: ["start start", "end start"],
+  })
 
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '32%']);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.68], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "32%"])
+  const textOpacity = useTransform(scrollYProgress, [0, 0.68], [1, 0])
 
   // A nuvem de particulas recebe um numero simples, nao um MotionValue, para o
   // pacote WebGL nao depender da biblioteca de animacao. O estado so e
   // atualizado quando a mudanca e perceptivel, entao rolar a pagina nao dispara
   // uma re-renderizacao por pixel.
-  const [morph, setMorph] = useState(0);
+  const [morph, setMorph] = useState(0)
 
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    setMorph((current) => (Math.abs(latest - current) > 0.006 ? latest : current));
-  });
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setMorph((current) =>
+      Math.abs(latest - current) > 0.006 ? latest : current,
+    )
+  })
 
-  const [first, ...rest] = profile.name.split(' ');
+  const [first, ...rest] = profile.name.split(" ")
 
   return (
     <section
@@ -57,9 +67,17 @@ export function Hero() {
       className="relative flex min-h-dvh items-center overflow-hidden"
       aria-labelledby="hero-title"
     >
-      <div className="absolute inset-0 bg-grid opacity-[0.06]" aria-hidden="true" />
+      <div
+        className="absolute inset-0 bg-grid opacity-[0.06]"
+        aria-hidden="true"
+      />
 
-      <HeroCanvas progress={morph} from="sphere" to="knot" className="absolute inset-0" />
+      <HeroCanvas
+        progress={morph}
+        from="sphere"
+        to="knot"
+        className="absolute inset-0"
+      />
 
       {/* Vinheta que escurece as bordas e devolve contraste ao texto. */}
       <div
@@ -95,7 +113,7 @@ export function Hero() {
                 {translate(profile.availability.label, locale)}
               </span>
               <span className="font-mono text-[0.7rem] tracking-[0.14em] text-muted-foreground uppercase">
-                {t('basedIn')}
+                {t("basedIn")}
               </span>
             </motion.div>
 
@@ -103,9 +121,9 @@ export function Hero() {
               id="hero-title"
               className="font-display text-[length:var(--text-fluid-3xl)] leading-[0.92] font-bold tracking-[-0.03em]"
             >
-              <SplitText text={first ?? ''} as="span" />
+              <SplitText text={first ?? ""} as="span" />
               <span className="block text-gradient">
-                <SplitText text={rest.join(' ')} as="span" delay={0.18} />
+                <SplitText text={rest.join(" ")} as="span" delay={0.18} />
               </span>
             </h1>
 
@@ -115,14 +133,21 @@ export function Hero() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              <ScrambleText text={translate(profile.headline, locale)} startDelay={700} />
+              <ScrambleText
+                text={translate(profile.headline, locale)}
+                startDelay={700}
+              />
             </motion.p>
 
             <motion.p
               className="max-w-xl text-[length:var(--text-fluid-base)] leading-relaxed"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.66, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: 0.66,
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               {/*
               O brilho passa devagar e uma vez a cada ciclo longo. É a frase que
@@ -142,7 +167,11 @@ export function Hero() {
               className="flex flex-wrap items-center gap-3 pt-2"
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.78, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: 0.78,
+                duration: 0.6,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
               {/*
               O quarto é o botão principal, e não "ver projetos", por um motivo
@@ -164,7 +193,7 @@ export function Hero() {
                 >
                   <span className="inline-flex items-center gap-2">
                     <Gamepad2 className="h-4 w-4" aria-hidden="true" />
-                    {t('play')}
+                    {t("play")}
                     <ArrowUpRight
                       className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       aria-hidden="true"
@@ -178,7 +207,7 @@ export function Hero() {
                   href="#projects"
                   className="inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3 font-mono text-xs tracking-[0.12em] text-ink uppercase transition-colors hover:border-signal hover:text-signal"
                 >
-                  {t('ctaProjects')}
+                  {t("ctaProjects")}
                 </a>
               </Magnetic>
 
@@ -186,7 +215,7 @@ export function Hero() {
                 href="#contact"
                 className="inline-flex items-center gap-2 px-3 py-3 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-ink"
               >
-                {t('ctaContact')}
+                {t("ctaContact")}
               </a>
 
               <a
@@ -195,7 +224,7 @@ export function Hero() {
                 className="inline-flex items-center gap-2 px-3 py-3 font-mono text-xs tracking-[0.12em] text-muted-foreground uppercase transition-colors hover:text-ink"
               >
                 <Download className="h-4 w-4" aria-hidden="true" />
-                {t('resume')}
+                {t("resume")}
               </a>
             </motion.div>
           </div>
@@ -221,7 +250,7 @@ export function Hero() {
               <div className="relative h-[72px] w-[116px] shrink-0 overflow-hidden rounded-xl sm:h-[84px] sm:w-[134px] lg:aspect-[16/10] lg:h-auto lg:w-full">
                 <Image
                   src="/images/quarto.webp"
-                  alt={t('playCardAlt')}
+                  alt={t("playCardAlt")}
                   fill
                   sizes="(max-width: 1024px) 134px, 18rem"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -229,14 +258,14 @@ export function Hero() {
               </div>
               <div className="min-w-0 flex-1 lg:flex-none">
                 <p className="flex items-center justify-between gap-2 font-mono text-[0.7rem] tracking-[0.12em] text-signal uppercase">
-                  {t('playCardTitle')}
+                  {t("playCardTitle")}
                   <ArrowUpRight
                     className="h-4 w-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-signal"
                     aria-hidden="true"
                   />
                 </p>
                 <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-ink-soft lg:line-clamp-none">
-                  {t('playCardBody')}
+                  {t("playCardBody")}
                 </p>
               </div>
             </Link>
@@ -249,15 +278,15 @@ export function Hero() {
         style={{ opacity: textOpacity }}
       >
         <span className="font-mono text-[0.65rem] tracking-[0.22em] text-faint uppercase">
-          {t('scrollHint')}
+          {t("scrollHint")}
         </span>
         <motion.span
           animate={{ y: [0, 7, 0] }}
-          transition={{ duration: 1.9, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 1.9, repeat: Infinity, ease: "easeInOut" }}
         >
           <ArrowDown className="h-4 w-4 text-signal" aria-hidden="true" />
         </motion.span>
       </motion.div>
     </section>
-  );
+  )
 }

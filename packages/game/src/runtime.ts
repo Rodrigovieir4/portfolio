@@ -10,13 +10,13 @@
  * que carrega antes do jogo, e não pode arrastar o three para o bundle inicial.
  */
 
-import type { BallState } from './physics';
+import type { BallState } from "./physics"
 
 export interface Point3 {
-  x: number;
-  y: number;
-  z: number;
-  set: (x: number, y: number, z: number) => void;
+  x: number
+  y: number
+  z: number
+  set: (x: number, y: number, z: number) => void
 }
 
 function point(x: number, y: number, z: number): Point3 {
@@ -25,11 +25,11 @@ function point(x: number, y: number, z: number): Point3 {
     y,
     z,
     set(nextX, nextY, nextZ) {
-      this.x = nextX;
-      this.y = nextY;
-      this.z = nextZ;
+      this.x = nextX
+      this.y = nextY
+      this.z = nextZ
     },
-  };
+  }
 }
 
 /** Estado da bola, integrado pela física própria a cada quadro. */
@@ -42,12 +42,12 @@ export const ball: BallState = {
   vz: 0,
   spinX: 0,
   spinZ: 0,
-};
+}
 
-export const BALL_START = { x: 1, y: 0.6, z: 1.4 } as const;
+export const BALL_START = { x: 1, y: 0.6, z: 1.4 } as const
 
 export function resetBall(): void {
-  Object.assign(ball, BALL_START, { vx: 0, vy: 0, vz: 0 });
+  Object.assign(ball, BALL_START, { vx: 0, vy: 0, vz: 0 })
 }
 
 export const runtime = {
@@ -58,7 +58,7 @@ export const runtime = {
   playerFacing: 0,
   /** Ângulo atual da câmera, já suavizado. A movimentação é relativa a ele. */
   cameraYaw: Math.PI / 4,
-};
+}
 
 /**
  * Medidas do último quadro, escritas pelo instrumento dentro da cena.
@@ -75,4 +75,4 @@ export const perf = {
   geometries: 0,
   textures: 0,
   programs: 0,
-};
+}

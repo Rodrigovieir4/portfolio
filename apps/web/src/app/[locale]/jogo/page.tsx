@@ -1,26 +1,27 @@
-import { profile, t as translate, type Locale } from '@portfolio/content';
-import type { Metadata } from 'next';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import type { Metadata } from "next"
 
-import { GameView } from '@/components/game/game-view';
-import { routing } from '@/i18n/routing';
+import { type Locale, profile, t as translate } from "@portfolio/content"
+import { getTranslations, setRequestLocale } from "next-intl/server"
+
+import { GameView } from "@/components/game/game-view"
+import { routing } from "@/i18n/routing"
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }))
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'game' });
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: "game" })
   return {
-    title: t('metaTitle'),
+    title: t("metaTitle"),
     // Protótipo: fora do índice até a versão com arte substituir o site.
     robots: { index: false, follow: true },
-  };
+  }
 }
 
 /**
@@ -29,9 +30,13 @@ export async function generateMetadata({
  * O resumo em texto abaixo do jogo é renderizado no servidor. Buscador e
  * navegador sem JavaScript não enxergam o canvas, mas leem isto.
  */
-export default async function GamePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params;
-  setRequestLocale(locale);
+export default async function GamePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
 
   return (
     <main>
@@ -39,5 +44,5 @@ export default async function GamePage({ params }: { params: Promise<{ locale: s
       <p className="sr-only">{translate(profile.tagline, locale as Locale)}</p>
       <GameView />
     </main>
-  );
+  )
 }

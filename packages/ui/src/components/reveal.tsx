@@ -1,11 +1,12 @@
-'use client';
+"use client"
 
-import { motion, useReducedMotion, type Variants } from 'motion/react';
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react"
 
-import { cn } from '../cn';
+import { type Variants, motion, useReducedMotion } from "motion/react"
 
-type Direction = 'up' | 'down' | 'left' | 'right' | 'none';
+import { cn } from "../cn"
+
+type Direction = "down" | "left" | "none" | "right" | "up"
 
 const OFFSET: Record<Direction, { x: number; y: number }> = {
   up: { x: 0, y: 28 },
@@ -13,17 +14,17 @@ const OFFSET: Record<Direction, { x: number; y: number }> = {
   left: { x: 32, y: 0 },
   right: { x: -32, y: 0 },
   none: { x: 0, y: 0 },
-};
+}
 
 export interface RevealProps {
-  children: ReactNode;
-  className?: string;
-  direction?: Direction;
-  delay?: number;
-  duration?: number;
+  children: ReactNode
+  className?: string
+  direction?: Direction
+  delay?: number
+  duration?: number
   /** Fracao do elemento que precisa aparecer para disparar. */
-  amount?: number;
-  as?: 'div' | 'section' | 'article' | 'li' | 'span';
+  amount?: number
+  as?: "article" | "div" | "li" | "section" | "span"
 }
 
 /**
@@ -39,30 +40,30 @@ export interface RevealProps {
 export function Reveal({
   children,
   className,
-  direction = 'up',
+  direction = "up",
   delay = 0,
   duration = 0.7,
   amount = 0.25,
-  as = 'div',
+  as = "div",
 }: RevealProps) {
-  const reduced = useReducedMotion();
-  const offset = reduced ? OFFSET.none : OFFSET[direction];
-  const Component = motion[as];
+  const reduced = useReducedMotion()
+  const offset = reduced ? OFFSET.none : OFFSET[direction]
+  const Component = motion[as]
 
   const variants: Variants = {
-    hidden: { opacity: 0, x: offset.x, y: offset.y, filter: 'blur(6px)' },
+    hidden: { opacity: 0, x: offset.x, y: offset.y, filter: "blur(6px)" },
     visible: {
       opacity: 1,
       x: 0,
       y: 0,
-      filter: 'blur(0px)',
+      filter: "blur(0px)",
       transition: {
         duration: reduced ? 0.01 : duration,
         delay: reduced ? 0 : delay,
         ease: [0.16, 1, 0.3, 1],
       },
     },
-  };
+  }
 
   return (
     <Component
@@ -74,7 +75,7 @@ export function Reveal({
     >
       {children}
     </Component>
-  );
+  )
 }
 
 /**
@@ -91,13 +92,13 @@ export function RevealGroup({
   delay = 0,
   amount = 0.2,
 }: {
-  children: ReactNode;
-  className?: string;
-  stagger?: number;
-  delay?: number;
-  amount?: number;
+  children: ReactNode
+  className?: string
+  stagger?: number
+  delay?: number
+  amount?: number
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion()
 
   return (
     <motion.div
@@ -117,20 +118,20 @@ export function RevealGroup({
     >
       {children}
     </motion.div>
-  );
+  )
 }
 
 export function RevealItem({
   children,
   className,
-  direction = 'up',
+  direction = "up",
 }: {
-  children: ReactNode;
-  className?: string;
-  direction?: Direction;
+  children: ReactNode
+  className?: string
+  direction?: Direction
 }) {
-  const reduced = useReducedMotion();
-  const offset = reduced ? OFFSET.none : OFFSET[direction];
+  const reduced = useReducedMotion()
+  const offset = reduced ? OFFSET.none : OFFSET[direction]
 
   return (
     <motion.div
@@ -141,11 +142,14 @@ export function RevealItem({
           opacity: 1,
           x: 0,
           y: 0,
-          transition: { duration: reduced ? 0.01 : 0.62, ease: [0.16, 1, 0.3, 1] },
+          transition: {
+            duration: reduced ? 0.01 : 0.62,
+            ease: [0.16, 1, 0.3, 1],
+          },
         },
       }}
     >
       {children}
     </motion.div>
-  );
+  )
 }

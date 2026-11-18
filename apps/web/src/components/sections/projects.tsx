@@ -1,80 +1,136 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react"
+
 import {
+  type Locale,
+  type Project,
   clientProjects,
   personalProjects,
   t as translate,
-  type Locale,
-  type Project,
-} from '@portfolio/content';
-import { GithubIcon, Reveal, RevealGroup, RevealItem, SectionHeading } from '@portfolio/ui';
-import { ArrowUpRight, ExternalLink, Lock } from 'lucide-react';
-import { getLocale, getTranslations } from 'next-intl/server';
+} from "@portfolio/content"
+import {
+  GithubIcon,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  SectionHeading,
+} from "@portfolio/ui"
+import { ArrowUpRight, ExternalLink, Lock } from "lucide-react"
+import { getLocale, getTranslations } from "next-intl/server"
 
-import SpotlightCard from '@/components/reactbits/spotlight-card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Link } from '@/i18n/navigation';
+import SpotlightCard from "@/components/reactbits/spotlight-card"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { Link } from "@/i18n/navigation"
 
 /** rgba do acento, no formato literal que o SpotlightCard exige. */
-const SPOTLIGHT: Record<Project['accent'], `rgba(${number}, ${number}, ${number}, ${number})`> = {
-  signal: 'rgba(200, 247, 81, 0.16)',
-  plasma: 'rgba(123, 92, 255, 0.18)',
-  ember: 'rgba(255, 107, 61, 0.16)',
-  cyan: 'rgba(78, 224, 208, 0.16)',
-};
+const SPOTLIGHT: Record<
+  Project["accent"],
+  `rgba(${number}, ${number}, ${number}, ${number})`
+> = {
+  signal: "rgba(200, 247, 81, 0.16)",
+  plasma: "rgba(123, 92, 255, 0.18)",
+  ember: "rgba(255, 107, 61, 0.16)",
+  cyan: "rgba(78, 224, 208, 0.16)",
+}
 
-const STATUS_TONE: Record<Project['status'], 'signal' | 'ember' | 'neutral'> = {
-  live: 'signal',
-  wip: 'ember',
-  archived: 'neutral',
-  private: 'neutral',
-};
+const STATUS_TONE: Record<Project["status"], "ember" | "neutral" | "signal"> = {
+  live: "signal",
+  wip: "ember",
+  archived: "neutral",
+  private: "neutral",
+}
 
 const MONTHS: Record<Locale, string[]> = {
-  pt: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'],
-  en: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
-  es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-};
+  pt: [
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+  ],
+  en: [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ],
+  es: [
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "jul",
+    "ago",
+    "sep",
+    "oct",
+    "nov",
+    "dic",
+  ],
+}
 
 /** "2026-07" e null viram "jul 2026 — hoje". Mês igual colapsa num rótulo só. */
-function formatPeriod(project: Project, locale: Locale, present: string): string {
-  if (!project.start) return project.year;
+function formatPeriod(
+  project: Project,
+  locale: Locale,
+  present: string,
+): string {
+  if (!project.start) return project.year
 
   const label = (value: string) => {
-    const [year, month] = value.split('-');
-    return `${MONTHS[locale][Number(month) - 1] ?? month} ${year}`;
-  };
+    const [year, month] = value.split("-")
+    return `${MONTHS[locale][Number(month) - 1] ?? month} ${year}`
+  }
 
-  const from = label(project.start);
-  const to = project.end ? label(project.end) : present;
-  return from === to ? from : `${from} — ${to}`;
+  const from = label(project.start)
+  const to = project.end ? label(project.end) : present
+  return from === to ? from : `${from} — ${to}`
 }
 
 export async function Projects() {
-  const t = await getTranslations('projects');
-  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("projects")
+  const locale = (await getLocale()) as Locale
 
   const labels: CardLabels = {
-    viewProject: t('viewProject'),
-    privateCode: t('privateCode'),
-    liveSite: t('liveSite'),
-    present: t('present'),
-  };
+    viewProject: t("viewProject"),
+    privateCode: t("privateCode"),
+    liveSite: t("liveSite"),
+    present: t("present"),
+  }
 
   return (
-    <section id="projects" className="relative border-t border-line/60 bg-abyss/40 section-spacing">
+    <section
+      id="projects"
+      className="relative border-t border-line/60 bg-abyss/40 section-spacing"
+    >
       <div className="container-wide flex flex-col gap-14">
         <Reveal>
           <SectionHeading
             index="04"
-            eyebrow={t('eyebrow')}
-            title={t('title')}
-            description={t('description')}
+            eyebrow={t("eyebrow")}
+            title={t("title")}
+            description={t("description")}
           />
         </Reveal>
 
         <div className="flex flex-col gap-6">
-          <GroupLabel>{t('groupClient')}</GroupLabel>
+          <GroupLabel>{t("groupClient")}</GroupLabel>
 
           <RevealGroup className="grid gap-6 lg:grid-cols-2" stagger={0.09}>
             {clientProjects.map((project, index) => (
@@ -83,7 +139,7 @@ export async function Projects() {
                 // Os dois primeiros ocupam a linha inteira. Sem essa hierarquia
                 // a grade dá o mesmo peso visual a um marketplace em produção e
                 // a um projeto de três semanas.
-                className={index < 2 ? 'lg:col-span-2' : undefined}
+                className={index < 2 ? "lg:col-span-2" : undefined}
               >
                 <ProjectCard
                   project={project}
@@ -99,7 +155,7 @@ export async function Projects() {
         </div>
 
         <div className="flex flex-col gap-6 pt-4">
-          <GroupLabel>{t('groupPersonal')}</GroupLabel>
+          <GroupLabel>{t("groupPersonal")}</GroupLabel>
 
           <RevealGroup className="grid gap-5 md:grid-cols-3" stagger={0.07}>
             {personalProjects.map((project) => (
@@ -118,7 +174,7 @@ export async function Projects() {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
 function GroupLabel({ children }: { children: ReactNode }) {
@@ -129,14 +185,14 @@ function GroupLabel({ children }: { children: ReactNode }) {
       </h3>
       <Separator className="flex-1 bg-line" />
     </div>
-  );
+  )
 }
 
 interface CardLabels {
-  viewProject: string;
-  privateCode: string;
-  liveSite: string;
-  present: string;
+  viewProject: string
+  privateCode: string
+  liveSite: string
+  present: string
 }
 
 function ProjectCard({
@@ -147,14 +203,14 @@ function ProjectCard({
   status,
   engagement,
 }: {
-  project: Project;
-  locale: Locale;
-  large: boolean;
-  labels: CardLabels;
-  status: string;
-  engagement: string;
+  project: Project
+  locale: Locale
+  large: boolean
+  labels: CardLabels
+  status: string
+  engagement: string
 }) {
-  const period = formatPeriod(project, locale, labels.present);
+  const period = formatPeriod(project, locale, labels.present)
 
   return (
     <SpotlightCard
@@ -174,21 +230,21 @@ function ProjectCard({
             <h4
               className={
                 large
-                  ? 'font-display text-[length:var(--text-fluid-xl)] leading-none font-bold tracking-tight text-ink'
-                  : 'font-display text-2xl leading-none font-bold tracking-tight text-ink'
+                  ? "font-display text-[length:var(--text-fluid-xl)] leading-none font-bold tracking-tight text-ink"
+                  : "font-display text-2xl leading-none font-bold tracking-tight text-ink"
               }
             >
               {project.name}
             </h4>
 
             <p className="font-mono text-[0.68rem] tracking-[0.1em] text-muted-foreground">
-              {project.client ? `${project.client} · ` : ''}
+              {project.client ? `${project.client} · ` : ""}
               {engagement}
             </p>
           </div>
 
           <div className="flex items-center gap-1.5">
-            {project.codeVisibility === 'private' ? (
+            {project.codeVisibility === "private" ? (
               // Dizer que o código é fechado é melhor do que um card sem
               // nenhum botão, que o visitante lê como página incompleta.
               <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 font-mono text-[0.62rem] tracking-[0.12em] text-faint uppercase">
@@ -226,8 +282,8 @@ function ProjectCard({
         <p
           className={
             large
-              ? 'max-w-2xl text-[length:var(--text-fluid-base)] leading-relaxed text-ink-soft'
-              : 'text-sm leading-relaxed text-ink-soft'
+              ? "max-w-2xl text-[length:var(--text-fluid-base)] leading-relaxed text-ink-soft"
+              : "text-sm leading-relaxed text-ink-soft"
           }
         >
           {translate(project.summary, locale)}
@@ -236,7 +292,10 @@ function ProjectCard({
         {project.metrics.length > 0 && (
           <ul className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-4">
             {project.metrics.map((metric) => (
-              <li key={metric.value} className="flex flex-col gap-0.5 bg-abyss/80 px-4 py-3">
+              <li
+                key={metric.value}
+                className="flex flex-col gap-0.5 bg-abyss/80 px-4 py-3"
+              >
                 <span className="font-display text-xl font-semibold text-signal tabular-nums">
                   {metric.value}
                 </span>
@@ -261,7 +320,10 @@ function ProjectCard({
 
         <footer className="mt-auto pt-3">
           <Link
-            href={{ pathname: '/projetos/[slug]', params: { slug: project.slug } }}
+            href={{
+              pathname: "/projetos/[slug]",
+              params: { slug: project.slug },
+            }}
             className="group/link inline-flex items-center gap-2 font-mono text-xs tracking-[0.12em] text-signal uppercase"
           >
             {labels.viewProject}
@@ -273,5 +335,5 @@ function ProjectCard({
         </footer>
       </div>
     </SpotlightCard>
-  );
+  )
 }

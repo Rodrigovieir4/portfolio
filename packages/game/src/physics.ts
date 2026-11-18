@@ -1,4 +1,4 @@
-import type { Box, Vec3 } from './hotspots';
+import type { Box, Vec3 } from "./hotspots"
 
 /**
  * Física do quarto, escrita à mão.
@@ -15,17 +15,17 @@ import type { Box, Vec3 } from './hotspots';
  */
 
 export interface SensorDef {
-  id: string;
-  box: Box;
+  id: string
+  box: Box
 }
 
 interface Aabb {
-  minX: number;
-  maxX: number;
-  minY: number;
-  maxY: number;
-  minZ: number;
-  maxZ: number;
+  minX: number
+  maxX: number
+  minY: number
+  maxY: number
+  minZ: number
+  maxZ: number
 }
 
 function toAabb({ position, halfSize }: Box): Aabb {
@@ -36,37 +36,41 @@ function toAabb({ position, halfSize }: Box): Aabb {
     maxY: position[1] + halfSize[1],
     minZ: position[2] - halfSize[2],
     maxZ: position[2] + halfSize[2],
-  };
+  }
 }
 
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, value))
 
 export interface BallState {
-  x: number;
-  y: number;
-  z: number;
-  vx: number;
-  vy: number;
-  vz: number;
+  x: number
+  y: number
+  z: number
+  vx: number
+  vy: number
+  vz: number
   /** Rolagem acumulada, só para girar a malha na tela. */
-  spinX: number;
-  spinZ: number;
+  spinX: number
+  spinZ: number
 }
 
-const GRAVITY = 12;
-const RESTITUTION = 0.55;
+const GRAVITY = 12
+const RESTITUTION = 0.55
 /** Quanto a bola perde de velocidade lateral ao bater. */
-const SURFACE_FRICTION = 0.72;
-const ROLL_DAMPING = 0.8;
-const SLEEP_SPEED = 0.05;
+const SURFACE_FRICTION = 0.72
+const ROLL_DAMPING = 0.8
+const SLEEP_SPEED = 0.05
 
 export class GameWorld {
-  private readonly solids: Aabb[];
-  private readonly sensors: { id: string; box: Aabb }[];
+  private readonly solids: Aabb[]
+  private readonly sensors: { id: string; box: Aabb }[]
 
   constructor(solids: readonly Box[], sensors: readonly SensorDef[]) {
-    this.solids = solids.map(toAabb);
-    this.sensors = sensors.map((sensor) => ({ id: sensor.id, box: toAabb(sensor.box) }));
+    this.solids = solids.map(toAabb)
+    this.sensors = sensors.map((sensor) => ({
+      id: sensor.id,
+      box: toAabb(sensor.box),
+    }))
   }
 
   /**
@@ -78,14 +82,23 @@ export class GameWorld {
    * vez, e é isso que produz o deslizamento: bater de frente na parede zera o
    * avanço naquele eixo e deixa o outro passar.
    */
-  moveBody(position: { x: number; z: number }, half: number, dx: number, dz: number): void {
-    position.x += dx;
-    this.resolveAxis(position, half, 'x');
-    position.z += dz;
-    this.resolveAxis(position, half, 'z');
+  moveBody(
+    position: { x: number; z: number },
+    half: number,
+    dx: number,
+    dz: number,
+  ): void {
+    position.x += dx
+    this.resolveAxis(position, half, "x")
+    position.z += dz
+    this.resolveAxis(position, half, "z")
   }
 
-  private resolveAxis(position: { x: number; z: number }, half: number, axis: 'x' | 'z'): void {
+  private resolveAxis(
+    position: { x: number; z: number },
+    half: number,
+    axis: "x" | "z",
+  ): void {
     for (const box of this.solids) {
       if (
         position.x + half <= box.minX ||
@@ -93,23 +106,25 @@ export class GameWorld {
         position.z + half <= box.minZ ||
         position.z - half >= box.maxZ
       ) {
-        continue;
+        continue
       }
-      if (axis === 'x') {
-        const fromLeft = box.minX - (position.x + half);
-        const fromRight = box.maxX - (position.x - half);
-        position.x += Math.abs(fromLeft) < Math.abs(fromRight) ? fromLeft : fromRight;
+      if (axis === "x") {
+        const fromLeft = box.minX - (position.x + half)
+        const fromRight = box.maxX - (position.x - half)
+        position.x +=
+          Math.abs(fromLeft) < Math.abs(fromRight) ? fromLeft : fromRight
       } else {
-        const fromFront = box.minZ - (position.z + half);
-        const fromBack = box.maxZ - (position.z - half);
-        position.z += Math.abs(fromFront) < Math.abs(fromBack) ? fromFront : fromBack;
+        const fromFront = box.minZ - (position.z + half)
+        const fromBack = box.maxZ - (position.z - half)
+        position.z +=
+          Math.abs(fromFront) < Math.abs(fromBack) ? fromFront : fromBack
       }
     }
   }
 
   /** Ids das áreas invisíveis que o quadrado do personagem toca agora. */
   sensorsAt(x: number, z: number, half: number): Set<string> {
-    const touching = new Set<string>();
+    const touching = new Set<string>()
     for (const { id, box } of this.sensors) {
       if (
         x + half > box.minX &&
@@ -117,15 +132,15 @@ export class GameWorld {
         z + half > box.minZ &&
         z - half < box.maxZ
       ) {
-        touching.add(id);
+        touching.add(id)
       }
     }
-    return touching;
+    return touching
   }
 
   /** A bola está dentro desta caixa? Usado pelo gol. */
   static contains(box: Box, x: number, y: number, z: number): boolean {
-    const aabb = toAabb(box);
+    const aabb = toAabb(box)
     return (
       x > aabb.minX &&
       x < aabb.maxX &&
@@ -133,7 +148,7 @@ export class GameWorld {
       y < aabb.maxY &&
       z > aabb.minZ &&
       z < aabb.maxZ
-    );
+    )
   }
 
   /**
@@ -144,66 +159,69 @@ export class GameWorld {
    * empurrada para fora e a velocidade é refletida na normal, perdendo energia.
    */
   stepBall(ball: BallState, radius: number, dt: number): void {
-    ball.vy -= GRAVITY * dt;
-    ball.x += ball.vx * dt;
-    ball.y += ball.vy * dt;
-    ball.z += ball.vz * dt;
+    ball.vy -= GRAVITY * dt
+    ball.x += ball.vx * dt
+    ball.y += ball.vy * dt
+    ball.z += ball.vz * dt
 
     // chão
     if (ball.y < radius) {
-      ball.y = radius;
-      if (ball.vy < 0) ball.vy = -ball.vy * RESTITUTION;
-      if (Math.abs(ball.vy) < 0.6) ball.vy = 0;
-      ball.vx *= ROLL_DAMPING ** dt;
-      ball.vz *= ROLL_DAMPING ** dt;
+      ball.y = radius
+      if (ball.vy < 0) ball.vy = -ball.vy * RESTITUTION
+      if (Math.abs(ball.vy) < 0.6) ball.vy = 0
+      ball.vx *= ROLL_DAMPING ** dt
+      ball.vz *= ROLL_DAMPING ** dt
     }
 
     for (const box of this.solids) {
-      const closestX = clamp(ball.x, box.minX, box.maxX);
-      const closestY = clamp(ball.y, box.minY, box.maxY);
-      const closestZ = clamp(ball.z, box.minZ, box.maxZ);
-      let nx = ball.x - closestX;
-      let ny = ball.y - closestY;
-      let nz = ball.z - closestZ;
-      const distance = Math.hypot(nx, ny, nz);
-      if (distance >= radius) continue;
+      const closestX = clamp(ball.x, box.minX, box.maxX)
+      const closestY = clamp(ball.y, box.minY, box.maxY)
+      const closestZ = clamp(ball.z, box.minZ, box.maxZ)
+      let nx = ball.x - closestX
+      let ny = ball.y - closestY
+      let nz = ball.z - closestZ
+      const distance = Math.hypot(nx, ny, nz)
+      if (distance >= radius) continue
 
       if (distance < 1e-5) {
         // Centro dentro da caixa: empurra pela face mais próxima.
-        nx = ball.x - (box.minX + box.maxX) / 2;
-        nz = ball.z - (box.minZ + box.maxZ) / 2;
-        ny = 0;
+        nx = ball.x - (box.minX + box.maxX) / 2
+        nz = ball.z - (box.minZ + box.maxZ) / 2
+        ny = 0
       }
-      const length = Math.hypot(nx, ny, nz) || 1;
-      nx /= length;
-      ny /= length;
-      nz /= length;
+      const length = Math.hypot(nx, ny, nz) || 1
+      nx /= length
+      ny /= length
+      nz /= length
 
-      const penetration = radius - distance;
-      ball.x += nx * penetration;
-      ball.y += ny * penetration;
-      ball.z += nz * penetration;
+      const penetration = radius - distance
+      ball.x += nx * penetration
+      ball.y += ny * penetration
+      ball.z += nz * penetration
 
-      const along = ball.vx * nx + ball.vy * ny + ball.vz * nz;
+      const along = ball.vx * nx + ball.vy * ny + ball.vz * nz
       if (along < 0) {
-        ball.vx -= (1 + RESTITUTION) * along * nx;
-        ball.vy -= (1 + RESTITUTION) * along * ny;
-        ball.vz -= (1 + RESTITUTION) * along * nz;
-        ball.vx *= SURFACE_FRICTION;
-        ball.vz *= SURFACE_FRICTION;
+        ball.vx -= (1 + RESTITUTION) * along * nx
+        ball.vy -= (1 + RESTITUTION) * along * ny
+        ball.vz -= (1 + RESTITUTION) * along * nz
+        ball.vx *= SURFACE_FRICTION
+        ball.vz *= SURFACE_FRICTION
       }
     }
 
     // Parar de vez evita a bola tremendo eternamente no chão.
-    if (Math.hypot(ball.vx, ball.vz) < SLEEP_SPEED && Math.abs(ball.vy) < SLEEP_SPEED) {
-      ball.vx = 0;
-      ball.vz = 0;
-      ball.vy = 0;
+    if (
+      Math.hypot(ball.vx, ball.vz) < SLEEP_SPEED &&
+      Math.abs(ball.vy) < SLEEP_SPEED
+    ) {
+      ball.vx = 0
+      ball.vz = 0
+      ball.vy = 0
     }
 
     // Giro só para a aparência: a bola rola na direção em que anda.
-    ball.spinX += (ball.vz / radius) * dt;
-    ball.spinZ += (-ball.vx / radius) * dt;
+    ball.spinX += (ball.vz / radius) * dt
+    ball.spinZ += (-ball.vx / radius) * dt
   }
 
   /**
@@ -218,23 +236,23 @@ export class GameWorld {
     playerHalf: number,
     speed: number,
   ): void {
-    const dx = ball.x - player.x;
-    const dz = ball.z - player.z;
-    const distance = Math.hypot(dx, dz);
-    const contact = playerHalf + radius;
-    if (distance > contact || distance < 1e-4) return;
+    const dx = ball.x - player.x
+    const dz = ball.z - player.z
+    const distance = Math.hypot(dx, dz)
+    const contact = playerHalf + radius
+    if (distance > contact || distance < 1e-4) return
 
-    const nx = dx / distance;
-    const nz = dz / distance;
-    ball.x = player.x + nx * contact;
-    ball.z = player.z + nz * contact;
-    const push = Math.max(speed * 0.9, 1.2);
-    ball.vx = nx * push;
-    ball.vz = nz * push;
+    const nx = dx / distance
+    const nz = dz / distance
+    ball.x = player.x + nx * contact
+    ball.z = player.z + nz * contact
+    const push = Math.max(speed * 0.9, 1.2)
+    ball.vx = nx * push
+    ball.vz = nz * push
   }
 }
 
 /** Constrói uma caixa a partir do centro e das meias-medidas. */
 export function box(position: Vec3, halfSize: Vec3): Box {
-  return { position, halfSize };
+  return { position, halfSize }
 }

@@ -1,4 +1,4 @@
-import { defineRouting } from 'next-intl/routing';
+import { defineRouting } from "next-intl/routing"
 
 /**
  * Roteamento por idioma.
@@ -13,28 +13,28 @@ import { defineRouting } from 'next-intl/routing';
  * sozinho, entao o codigo continua referenciando uma unica rota logica.
  */
 export const routing = defineRouting({
-  locales: ['pt', 'en', 'es'],
-  defaultLocale: 'pt',
-  localePrefix: 'always',
+  locales: ["pt", "en", "es"],
+  defaultLocale: "pt",
+  localePrefix: "always",
   localeDetection: true,
   pathnames: {
-    '/': '/',
-    '/jogo': {
-      pt: '/jogo',
-      en: '/play',
-      es: '/jugar',
+    "/": "/",
+    "/jogo": {
+      pt: "/jogo",
+      en: "/play",
+      es: "/jugar",
     },
-    '/projetos': {
-      pt: '/projetos',
-      en: '/projects',
-      es: '/proyectos',
+    "/projetos": {
+      pt: "/projetos",
+      en: "/projects",
+      es: "/proyectos",
     },
-    '/projetos/[slug]': {
-      pt: '/projetos/[slug]',
-      en: '/projects/[slug]',
-      es: '/proyectos/[slug]',
+    "/projetos/[slug]": {
+      pt: "/projetos/[slug]",
+      en: "/projects/[slug]",
+      es: "/proyectos/[slug]",
     },
   },
-});
+})
 
-export type AppPathname = keyof typeof routing.pathnames;
+export type AppPathname = keyof typeof routing.pathnames

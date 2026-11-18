@@ -1,9 +1,9 @@
-'use client';
+"use client"
 
-import { animate, motion, useInView, useReducedMotion } from 'motion/react';
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { animate, motion, useInView, useReducedMotion } from "motion/react"
+import { type ReactNode, useEffect, useRef, useState } from "react"
 
-import { cn } from '../cn';
+import { cn } from "../cn"
 
 /*
  * O Badge não mora mais aqui.
@@ -26,12 +26,12 @@ export function StatusDot({ active = true }: { active?: boolean }) {
       )}
       <span
         className={cn(
-          'relative inline-flex h-2 w-2 rounded-full',
-          active ? 'bg-signal' : 'bg-muted',
+          "relative inline-flex h-2 w-2 rounded-full",
+          active ? "bg-signal" : "bg-muted",
         )}
       />
     </span>
-  );
+  )
 }
 
 /* -------------------------------------------------------------------------- */
@@ -45,14 +45,14 @@ export function SectionHeading({
   description,
   className,
 }: {
-  index: string;
-  eyebrow: string;
-  title: ReactNode;
-  description?: ReactNode;
-  className?: string;
+  index: string
+  eyebrow: string
+  title: ReactNode
+  description?: ReactNode
+  className?: string
 }) {
   return (
-    <header className={cn('flex flex-col gap-4', className)}>
+    <header className={cn("flex flex-col gap-4", className)}>
       <div className="flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase">
         <span className="text-signal">{index}</span>
         <span className="h-px w-8 bg-line-strong" aria-hidden="true" />
@@ -69,7 +69,7 @@ export function SectionHeading({
         </p>
       )}
     </header>
-  );
+  )
 }
 
 /* -------------------------------------------------------------------------- */
@@ -85,44 +85,44 @@ export function SectionHeading({
  */
 export function Counter({
   value,
-  suffix = '',
+  suffix = "",
   duration = 1.8,
   className,
 }: {
-  value: number;
-  suffix?: string;
-  duration?: number;
-  className?: string;
+  value: number
+  suffix?: string
+  duration?: number
+  className?: string
 }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
-  const reduced = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.6 })
+  const reduced = useReducedMotion()
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node || !inView) return;
+    const node = ref.current
+    if (!node || !inView) return
 
     if (reduced) {
-      node.textContent = `${value}${suffix}`;
-      return;
+      node.textContent = `${value}${suffix}`
+      return
     }
 
     const controls = animate(0, value, {
       duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (latest) => {
-        node.textContent = `${Math.round(latest)}${suffix}`;
+        node.textContent = `${Math.round(latest)}${suffix}`
       },
-    });
+    })
 
-    return () => controls.stop();
-  }, [inView, value, suffix, duration, reduced]);
+    return () => controls.stop()
+  }, [inView, value, suffix, duration, reduced])
 
   return (
-    <span ref={ref} className={cn('tabular-nums', className)}>
+    <span ref={ref} className={cn("tabular-nums", className)}>
       0{suffix}
     </span>
-  );
+  )
 }
 
 /* -------------------------------------------------------------------------- */
@@ -142,43 +142,48 @@ export function Marquee({
   reverse = false,
   className,
 }: {
-  children: ReactNode;
-  speed?: number;
-  reverse?: boolean;
-  className?: string;
+  children: ReactNode
+  speed?: number
+  reverse?: boolean
+  className?: string
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedMotion()
 
   if (reduced) {
     return (
-      <div className={cn('flex gap-8 overflow-x-auto', className)}>
+      <div className={cn("flex gap-8 overflow-x-auto", className)}>
         <div className="flex shrink-0 items-center gap-8">{children}</div>
       </div>
-    );
+    )
   }
 
   return (
     <div
-      className={cn('relative flex overflow-hidden', className)}
+      className={cn("relative flex overflow-hidden", className)}
       // A mascara dissolve as pontas, para o texto nao ser cortado a faca na
       // borda da tela.
       style={{
-        maskImage: 'linear-gradient(90deg, transparent, black 8%, black 92%, transparent)',
-        WebkitMaskImage: 'linear-gradient(90deg, transparent, black 8%, black 92%, transparent)',
+        maskImage:
+          "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
+        WebkitMaskImage:
+          "linear-gradient(90deg, transparent, black 8%, black 92%, transparent)",
       }}
     >
       <motion.div
         className="flex shrink-0 items-center gap-8 pr-8"
-        animate={{ x: reverse ? ['-50%', '0%'] : ['0%', '-50%'] }}
-        transition={{ duration: speed, ease: 'linear', repeat: Infinity }}
+        animate={{ x: reverse ? ["-50%", "0%"] : ["0%", "-50%"] }}
+        transition={{ duration: speed, ease: "linear", repeat: Infinity }}
       >
         <div className="flex shrink-0 items-center gap-8 pr-8">{children}</div>
-        <div className="flex shrink-0 items-center gap-8 pr-8" aria-hidden="true">
+        <div
+          className="flex shrink-0 items-center gap-8 pr-8"
+          aria-hidden="true"
+        >
           {children}
         </div>
       </motion.div>
     </div>
-  );
+  )
 }
 
 /* -------------------------------------------------------------------------- */
@@ -186,26 +191,30 @@ export function Marquee({
 /* -------------------------------------------------------------------------- */
 
 export function ScrollProgress({ className }: { className?: string }) {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     function update() {
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(scrollable > 0 ? window.scrollY / scrollable : 0);
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight
+      setProgress(scrollable > 0 ? window.scrollY / scrollable : 0)
     }
 
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update)
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
-    };
-  }, []);
+      window.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+    }
+  }, [])
 
   return (
     <div
-      className={cn('fixed inset-x-0 top-0 z-50 h-px bg-transparent', className)}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 h-px bg-transparent",
+        className,
+      )}
       aria-hidden="true"
     >
       <div
@@ -213,7 +222,7 @@ export function ScrollProgress({ className }: { className?: string }) {
         style={{ transform: `scaleX(${progress})` }}
       />
     </div>
-  );
+  )
 }
 
 /* -------------------------------------------------------------------------- */
@@ -239,5 +248,5 @@ export function Grain({ opacity = 0.035 }: { opacity?: number }) {
           "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
       }}
     />
-  );
+  )
 }

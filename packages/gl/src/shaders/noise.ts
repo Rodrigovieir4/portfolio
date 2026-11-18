@@ -74,7 +74,7 @@ float snoise(vec3 v) {
   m = m * m;
   return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));
 }
-`;
+`
 
 /**
  * Curl noise: o rotacional de um campo de ruido.
@@ -115,4 +115,4 @@ vec3 curlNoise(vec3 p) {
 
   return normalize(vec3(x, y, z) / (2.0 * e));
 }
-`;
+`

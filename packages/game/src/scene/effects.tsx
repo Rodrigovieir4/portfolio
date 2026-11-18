@@ -1,6 +1,6 @@
-'use client';
+"use client"
 
-import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
+import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing"
 
 /**
  * Brilho e vinheta, num arquivo só para poder chegar depois.
@@ -16,8 +16,13 @@ import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
 export default function Effects() {
   return (
     <EffectComposer multisampling={0}>
-      <Bloom intensity={0.85} luminanceThreshold={0.62} luminanceSmoothing={0.2} mipmapBlur />
+      <Bloom
+        intensity={0.85}
+        luminanceThreshold={0.62}
+        luminanceSmoothing={0.2}
+        mipmapBlur
+      />
       <Vignette eskil={false} offset={0.22} darkness={0.62} />
     </EffectComposer>
-  );
+  )
 }

@@ -1,21 +1,64 @@
-import { Badge } from '@/components/ui/badge';
-import { experiences, t as translate, type Locale } from '@portfolio/content';
-import { Reveal, RevealGroup, RevealItem, SectionHeading } from '@portfolio/ui';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { type Locale, experiences, t as translate } from "@portfolio/content"
+import { Reveal, RevealGroup, RevealItem, SectionHeading } from "@portfolio/ui"
+import { getLocale, getTranslations } from "next-intl/server"
 
-const KIND_TONE: Record<string, 'signal' | 'plasma' | 'ember' | 'cyan' | 'neutral'> = {
-  work: 'signal',
-  education: 'plasma',
-  athletics: 'ember',
-  project: 'cyan',
-  certification: 'neutral',
-};
+import { Badge } from "@/components/ui/badge"
+
+const KIND_TONE: Record<
+  string,
+  "cyan" | "ember" | "neutral" | "plasma" | "signal"
+> = {
+  work: "signal",
+  education: "plasma",
+  athletics: "ember",
+  project: "cyan",
+  certification: "neutral",
+}
 
 const MONTHS: Record<Locale, string[]> = {
-  pt: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'],
-  en: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
-  es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-};
+  pt: [
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+  ],
+  en: [
+    "jan",
+    "feb",
+    "mar",
+    "apr",
+    "may",
+    "jun",
+    "jul",
+    "aug",
+    "sep",
+    "oct",
+    "nov",
+    "dec",
+  ],
+  es: [
+    "ene",
+    "feb",
+    "mar",
+    "abr",
+    "may",
+    "jun",
+    "jul",
+    "ago",
+    "sep",
+    "oct",
+    "nov",
+    "dic",
+  ],
+}
 
 /**
  * Formata "2025-02" como "fev 2025".
@@ -25,24 +68,27 @@ const MONTHS: Record<Locale, string[]> = {
  * dado, e a virada de fuso poderia empurrar o mes para tras.
  */
 function formatYearMonth(value: string, locale: Locale): string {
-  const [year, month] = value.split('-');
-  const index = Number(month) - 1;
-  return `${MONTHS[locale][index] ?? month} ${year}`;
+  const [year, month] = value.split("-")
+  const index = Number(month) - 1
+  return `${MONTHS[locale][index] ?? month} ${year}`
 }
 
 export async function Journey() {
-  const t = await getTranslations('journey');
-  const locale = (await getLocale()) as Locale;
+  const t = await getTranslations("journey")
+  const locale = (await getLocale()) as Locale
 
   return (
-    <section id="journey" className="relative border-t border-line/60 section-spacing">
+    <section
+      id="journey"
+      className="relative border-t border-line/60 section-spacing"
+    >
       <div className="container-wide flex flex-col gap-14">
         <Reveal>
           <SectionHeading
             index="03"
-            eyebrow={t('eyebrow')}
-            title={t('title')}
-            description={t('description')}
+            eyebrow={t("eyebrow")}
+            title={t("title")}
+            description={t("description")}
           />
         </Reveal>
 
@@ -72,10 +118,12 @@ export async function Journey() {
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
                       <time className="font-mono text-xs tracking-[0.12em] text-signal uppercase">
                         {formatYearMonth(item.start, locale)}
-                        {' — '}
-                        {item.end ? formatYearMonth(item.end, locale) : t('present')}
+                        {" — "}
+                        {item.end
+                          ? formatYearMonth(item.end, locale)
+                          : t("present")}
                       </time>
-                      <Badge tone={KIND_TONE[item.kind] ?? 'neutral'}>
+                      <Badge tone={KIND_TONE[item.kind] ?? "neutral"}>
                         {t(`kinds.${item.kind}`)}
                       </Badge>
                     </div>
@@ -97,7 +145,7 @@ export async function Journey() {
                         ) : (
                           item.organization
                         )}
-                        {item.location ? ` · ${item.location}` : ''}
+                        {item.location ? ` · ${item.location}` : ""}
                       </p>
                     </div>
 
@@ -106,15 +154,20 @@ export async function Journey() {
                     </p>
 
                     <ul className="flex max-w-2xl flex-col gap-1.5 pt-1">
-                      {translate(item.highlights, locale).map((highlight, index) => (
-                        <li key={index} className="flex gap-2.5 text-sm text-muted-foreground">
-                          <span
-                            className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-line-strong"
-                            aria-hidden="true"
-                          />
-                          {highlight}
-                        </li>
-                      ))}
+                      {translate(item.highlights, locale).map(
+                        (highlight, index) => (
+                          <li
+                            key={index}
+                            className="flex gap-2.5 text-sm text-muted-foreground"
+                          >
+                            <span
+                              className="mt-[0.55em] h-1 w-1 shrink-0 rounded-full bg-line-strong"
+                              aria-hidden="true"
+                            />
+                            {highlight}
+                          </li>
+                        ),
+                      )}
                     </ul>
 
                     {item.stack.length > 0 && (
@@ -137,5 +190,5 @@ export async function Journey() {
         </RevealGroup>
       </div>
     </section>
-  );
+  )
 }

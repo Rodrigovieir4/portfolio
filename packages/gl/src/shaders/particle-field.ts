@@ -1,4 +1,4 @@
-import { curlNoise, simplexNoise3D } from './noise';
+import { curlNoise, simplexNoise3D } from "./noise"
 
 /**
  * Shader do campo de particulas do hero.
@@ -74,7 +74,7 @@ void main() {
   vIntensity = clamp(length(flow) * 0.42 + influence * 0.9, 0.0, 1.0);
   vSeed = aSeed;
 }
-`;
+`
 
 export const particleFieldFragment = /* glsl */ `
 precision highp float;
@@ -109,4 +109,4 @@ void main() {
 
   #include <colorspace_fragment>
 }
-`;
+`

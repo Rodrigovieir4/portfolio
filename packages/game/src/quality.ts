@@ -20,21 +20,21 @@
  * no HUD, que carrega antes do motor.
  */
 
-export const QUALITY_TIERS = ['baixo', 'medio', 'alto'] as const;
-export type QualityTier = (typeof QUALITY_TIERS)[number];
+export const QUALITY_TIERS = ["baixo", "medio", "alto"] as const
+export type QualityTier = (typeof QUALITY_TIERS)[number]
 /** 'auto' deixa o jogo decidir pelos quadros por segundo medidos. */
-export type QualityMode = QualityTier | 'auto';
+export type QualityMode = "auto" | QualityTier
 
 export interface QualitySettings {
-  shadows: boolean;
-  shadowMapSize: number;
+  shadows: boolean
+  shadowMapSize: number
   /** Brilho e vinheta. É o passe mais caro em tela grande. */
-  effects: boolean;
+  effects: boolean
   /** Poeira flutuando na luz do abajur. */
-  sparkles: boolean;
-  antialias: boolean;
+  sparkles: boolean
+  antialias: boolean
   /** Teto de pixels por ponto de tela. */
-  maxDpr: number;
+  maxDpr: number
 }
 
 export const QUALITY: Record<QualityTier, QualitySettings> = {
@@ -62,42 +62,45 @@ export const QUALITY: Record<QualityTier, QualitySettings> = {
     antialias: true,
     maxDpr: 1.75,
   },
-};
+}
 
 /** Abaixo disto o jogo já parece travado e o nível cai. */
-export const FPS_FLOOR = 40;
+export const FPS_FLOOR = 40
 /** Acima disto sobra folga e o nível pode subir de volta. */
-export const FPS_CEILING = 56;
+export const FPS_CEILING = 56
 
-const STORAGE_KEY = 'rodrigo:quality';
+const STORAGE_KEY = "rodrigo:quality"
 
 export function loadQuality(): QualityMode {
-  if (typeof window === 'undefined') return 'auto';
+  if (typeof window === "undefined") return "auto"
   try {
-    const saved = window.localStorage.getItem(STORAGE_KEY);
-    if (saved === 'auto' || (QUALITY_TIERS as readonly string[]).includes(saved ?? '')) {
-      return saved as QualityMode;
+    const saved = window.localStorage.getItem(STORAGE_KEY)
+    if (
+      saved === "auto" ||
+      (QUALITY_TIERS as readonly string[]).includes(saved ?? "")
+    ) {
+      return saved as QualityMode
     }
   } catch {
     // Navegação anônima com armazenamento bloqueado: segue no automático.
   }
-  return 'auto';
+  return "auto"
 }
 
 export function saveQuality(mode: QualityMode): void {
   try {
-    window.localStorage.setItem(STORAGE_KEY, mode);
+    window.localStorage.setItem(STORAGE_KEY, mode)
   } catch {
     // Não poder lembrar a escolha não é motivo para quebrar o jogo.
   }
 }
 
 export function lowerTier(tier: QualityTier): QualityTier {
-  const index = QUALITY_TIERS.indexOf(tier);
-  return QUALITY_TIERS[Math.max(0, index - 1)]!;
+  const index = QUALITY_TIERS.indexOf(tier)
+  return QUALITY_TIERS[Math.max(0, index - 1)]!
 }
 
 export function higherTier(tier: QualityTier): QualityTier {
-  const index = QUALITY_TIERS.indexOf(tier);
-  return QUALITY_TIERS[Math.min(QUALITY_TIERS.length - 1, index + 1)]!;
+  const index = QUALITY_TIERS.indexOf(tier)
+  return QUALITY_TIERS[Math.min(QUALITY_TIERS.length - 1, index + 1)]!
 }

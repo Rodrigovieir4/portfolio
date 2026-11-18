@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from "react"
 
 /**
  * Layout raiz vazio, de proposito.
@@ -8,5 +8,5 @@ import type { ReactNode } from 'react';
  * apenas repassa os filhos.
  */
 export default function RootLayout({ children }: { children: ReactNode }) {
-  return children;
+  return children
 }

@@ -1,25 +1,25 @@
-'use client';
+"use client"
 
-import { profile } from '@portfolio/content';
-import { Magnetic, Reveal, SectionHeading } from '@portfolio/ui';
-import { ArrowUpRight, Check, Copy } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { profile } from "@portfolio/content"
+import { Magnetic, Reveal, SectionHeading } from "@portfolio/ui"
+import { ArrowUpRight, Check, Copy } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { useEffect, useState } from "react"
 
 export function Contact() {
-  const t = useTranslations('contact');
-  const [copied, setCopied] = useState(false);
+  const t = useTranslations("contact")
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
-    if (!copied) return;
-    const timeoutId = setTimeout(() => setCopied(false), 2200);
-    return () => clearTimeout(timeoutId);
-  }, [copied]);
+    if (!copied) return
+    const timeoutId = setTimeout(() => setCopied(false), 2200)
+    return () => clearTimeout(timeoutId)
+  }, [copied])
 
   async function copyEmail() {
     try {
-      await navigator.clipboard.writeText(profile.email);
-      setCopied(true);
+      await navigator.clipboard.writeText(profile.email)
+      setCopied(true)
     } catch {
       // A area de transferencia e negada em contexto sem HTTPS e em alguns
       // navegadores embutidos. O e-mail continua visivel e selecionavel ao
@@ -41,9 +41,9 @@ export function Contact() {
         <Reveal>
           <SectionHeading
             index="06"
-            eyebrow={t('eyebrow')}
-            title={t('title')}
-            description={t('description')}
+            eyebrow={t("eyebrow")}
+            title={t("title")}
+            description={t("description")}
           />
         </Reveal>
 
@@ -55,7 +55,7 @@ export function Contact() {
                   href={`mailto:${profile.email}`}
                   className="group inline-flex items-center gap-3 rounded-full bg-signal px-7 py-4 font-mono text-sm tracking-[0.1em] text-void uppercase transition-colors hover:bg-signal-glow"
                 >
-                  {t('emailCta')}
+                  {t("emailCta")}
                   <ArrowUpRight
                     className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     aria-hidden="true"
@@ -74,10 +74,12 @@ export function Contact() {
                   <Copy className="h-4 w-4" aria-hidden="true" />
                 )}
                 <span className="hidden sm:inline">{profile.email}</span>
-                <span className="sm:hidden">{copied ? t('copied') : t('copyEmail')}</span>
+                <span className="sm:hidden">
+                  {copied ? t("copied") : t("copyEmail")}
+                </span>
                 {/* Anuncia a copia a quem usa leitor de tela, sem roubar o foco. */}
                 <span className="sr-only" role="status" aria-live="polite">
-                  {copied ? t('copied') : ''}
+                  {copied ? t("copied") : ""}
                 </span>
               </button>
             </div>
@@ -98,7 +100,9 @@ export function Contact() {
                         aria-hidden="true"
                       />
                     </span>
-                    <span className="truncate text-sm text-ink-soft">{social.handle}</span>
+                    <span className="truncate text-sm text-ink-soft">
+                      {social.handle}
+                    </span>
                   </a>
                 </li>
               ))}
@@ -107,5 +111,5 @@ export function Contact() {
         </Reveal>
       </div>
     </section>
-  );
+  )
 }

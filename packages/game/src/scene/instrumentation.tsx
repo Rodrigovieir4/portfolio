@@ -1,9 +1,9 @@
-'use client';
+"use client"
 
-import { useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useFrame } from "@react-three/fiber"
+import { useRef } from "react"
 
-import { perf } from '../runtime';
+import { perf } from "../runtime"
 
 /**
  * Lê o contador do renderizador a cada quadro e publica em runtime.perf.
@@ -17,8 +17,8 @@ import { perf } from '../runtime';
  * faria o ajuste automático baixar a qualidade sem motivo.
  */
 export function Instrumentation() {
-  const smoothed = useRef(60);
-  const configured = useRef(false);
+  const smoothed = useRef(60)
+  const configured = useRef(false)
 
   useFrame(({ gl }, delta) => {
     // Por padrão o three zera o contador a cada render. Com pós-processamento
@@ -27,22 +27,22 @@ export function Instrumentation() {
     // O ajuste fica aqui, e não num efeito, porque o renderizador vem do
     // próprio quadro: mexer no que um hook devolveu é proibido.
     if (!configured.current) {
-      gl.info.autoReset = false;
-      configured.current = true;
+      gl.info.autoReset = false
+      configured.current = true
     }
 
-    const instant = delta > 0 ? 1 / delta : 60;
-    smoothed.current += (instant - smoothed.current) * 0.06;
-    perf.fps = smoothed.current;
+    const instant = delta > 0 ? 1 / delta : 60
+    smoothed.current += (instant - smoothed.current) * 0.06
+    perf.fps = smoothed.current
 
-    const { render, memory, programs } = gl.info;
-    perf.calls = render.calls;
-    perf.triangles = render.triangles;
-    perf.geometries = memory.geometries;
-    perf.textures = memory.textures;
-    perf.programs = programs?.length ?? 0;
-    gl.info.reset();
-  });
+    const { render, memory, programs } = gl.info
+    perf.calls = render.calls
+    perf.triangles = render.triangles
+    perf.geometries = memory.geometries
+    perf.textures = memory.textures
+    perf.programs = programs?.length ?? 0
+    gl.info.reset()
+  })
 
-  return null;
+  return null
 }

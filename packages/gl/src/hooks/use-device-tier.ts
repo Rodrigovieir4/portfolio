@@ -1,6 +1,6 @@
-'use client';
+"use client"
 
-import { useSyncExternalStore } from 'react';
+import { useSyncExternalStore } from "react"
 
 /**
  * Descobre quanto a maquina do visitante aguenta antes de montar a cena.
@@ -16,79 +16,81 @@ import { useSyncExternalStore } from 'react';
  * com o perfil errado e so depois se corrige.
  */
 
-export type DeviceTier = 'off' | 'low' | 'mid' | 'high';
+export type DeviceTier = "high" | "low" | "mid" | "off"
 
 export interface DeviceProfile {
-  tier: DeviceTier;
+  tier: DeviceTier
   /** Quantidade de particulas segura para esta maquina. */
-  particleCount: number;
+  particleCount: number
   /** Se vale ligar bloom e aberracao cromatica, que custam passes extras. */
-  postProcessing: boolean;
-  dpr: [number, number];
+  postProcessing: boolean
+  dpr: [number, number]
 }
 
-const PROFILES: Record<DeviceTier, Omit<DeviceProfile, 'tier'>> = {
+const PROFILES: Record<DeviceTier, Omit<DeviceProfile, "tier">> = {
   off: { particleCount: 0, postProcessing: false, dpr: [1, 1] },
   low: { particleCount: 6000, postProcessing: false, dpr: [1, 1] },
   mid: { particleCount: 22000, postProcessing: true, dpr: [1, 1.5] },
   high: { particleCount: 48000, postProcessing: true, dpr: [1, 2] },
-};
+}
 
 /**
  * O teste de WebGL2 cria um canvas e um contexto, o que e caro demais para
  * rodar a cada renderizacao. Como a resposta nunca muda durante a sessao, ela
  * e calculada uma vez e guardada.
  */
-let webgl2Support: boolean | null = null;
+let webgl2Support: boolean | null = null
 
 function supportsWebGL2(): boolean {
-  if (webgl2Support !== null) return webgl2Support;
+  if (webgl2Support !== null) return webgl2Support
 
   try {
-    const canvas = document.createElement('canvas');
-    webgl2Support = Boolean(canvas.getContext('webgl2'));
+    const canvas = document.createElement("canvas")
+    webgl2Support = Boolean(canvas.getContext("webgl2"))
   } catch {
-    webgl2Support = false;
+    webgl2Support = false
   }
 
-  return webgl2Support;
+  return webgl2Support
 }
 
 function detectTier(): DeviceTier {
   // Quem pediu menos animacao no sistema recebe menos animacao. Sem discussao.
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return 'off';
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+    return "off"
 
   // Sem WebGL2 nao ha o que negociar.
-  if (!supportsWebGL2()) return 'off';
+  if (!supportsWebGL2()) return "off"
 
-  const cores = navigator.hardwareConcurrency ?? 4;
+  const cores = navigator.hardwareConcurrency ?? 4
   // memoria do dispositivo em GB, exposta so em navegadores baseados em Chromium
-  const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4;
-  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
-  const narrow = window.matchMedia('(max-width: 767px)').matches;
+  const memory =
+    (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 4
+  const coarsePointer = window.matchMedia("(pointer: coarse)").matches
+  const narrow = window.matchMedia("(max-width: 767px)").matches
 
   // Celular quase sempre e limitado por bateria e preenchimento de tela, nao
   // por nucleos. Tratar como low evita superaquecer o aparelho do visitante.
-  if (coarsePointer && narrow) return 'low';
-  if (cores <= 4 || memory <= 4) return 'low';
-  if (cores >= 8 && memory >= 8) return 'high';
-  return 'mid';
+  if (coarsePointer && narrow) return "low"
+  if (cores <= 4 || memory <= 4) return "low"
+  if (cores >= 8 && memory >= 8) return "high"
+  return "mid"
 }
 
 const WATCHED_QUERIES = [
-  '(prefers-reduced-motion: reduce)',
-  '(pointer: coarse)',
-  '(max-width: 767px)',
-];
+  "(prefers-reduced-motion: reduce)",
+  "(pointer: coarse)",
+  "(max-width: 767px)",
+]
 
 /** Reavalia o perfil sempre que uma das condicoes observadas muda. */
 function subscribeToEnvironment(onChange: () => void): () => void {
-  const lists = WATCHED_QUERIES.map((query) => window.matchMedia(query));
-  lists.forEach((list) => list.addEventListener('change', onChange));
+  const lists = WATCHED_QUERIES.map((query) => window.matchMedia(query))
+  lists.forEach((list) => list.addEventListener("change", onChange))
 
   return () => {
-    lists.forEach((list) => list.removeEventListener('change', onChange));
-  };
+    lists.forEach((list) => list.removeEventListener("change", onChange))
+  }
 }
 
 /**
@@ -96,20 +98,24 @@ function subscribeToEnvironment(onChange: () => void): () => void {
  * maquina potente nem entrega o fallback estatico a quem tem GPU.
  */
 function serverTier(): DeviceTier {
-  return 'mid';
+  return "mid"
 }
 
 export function useDeviceTier(): DeviceProfile {
-  const tier = useSyncExternalStore(subscribeToEnvironment, detectTier, serverTier);
-  return { tier, ...PROFILES[tier] };
+  const tier = useSyncExternalStore(
+    subscribeToEnvironment,
+    detectTier,
+    serverTier,
+  )
+  return { tier, ...PROFILES[tier] }
 }
 
-const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)"
 
 function subscribeToReducedMotion(onChange: () => void): () => void {
-  const list = window.matchMedia(REDUCED_MOTION_QUERY);
-  list.addEventListener('change', onChange);
-  return () => list.removeEventListener('change', onChange);
+  const list = window.matchMedia(REDUCED_MOTION_QUERY)
+  list.addEventListener("change", onChange)
+  return () => list.removeEventListener("change", onChange)
 }
 
 /** Versao enxuta para componentes que so precisam saber se podem animar. */
@@ -118,5 +124,5 @@ export function usePrefersReducedMotion(): boolean {
     subscribeToReducedMotion,
     () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
     () => false,
-  );
+  )
 }

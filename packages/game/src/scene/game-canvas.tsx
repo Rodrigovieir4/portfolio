@@ -1,27 +1,27 @@
-'use client';
+"use client"
 
-import { Sparkles } from '@react-three/drei';
-import { Canvas } from '@react-three/fiber';
-import { lazy, Suspense, useEffect } from 'react';
+import { Sparkles } from "@react-three/drei"
+import { Canvas } from "@react-three/fiber"
+import { lazy, Suspense, useEffect } from "react"
 
-import { HOTSPOTS } from '../hotspots';
-import { attachKeyboard } from '../input';
-import { QUALITY, type QualitySettings } from '../quality';
-import { activeTier, useGameStore } from '../store';
-import { Ball, Goal } from './ball-and-goal';
-import { CameraRig } from './camera-rig';
-import { Collectibles } from './collectibles';
-import { Instrumentation } from './instrumentation';
-import { Interactable } from './hotspot';
-import { Player } from './player';
-import { QualityRig } from './quality-rig';
-import { Room, useFrontWalls } from './room';
+import { HOTSPOTS } from "../hotspots"
+import { attachKeyboard } from "../input"
+import { type QualitySettings, QUALITY } from "../quality"
+import { activeTier, useGameStore } from "../store"
+import { Ball, Goal } from "./ball-and-goal"
+import { CameraRig } from "./camera-rig"
+import { Collectibles } from "./collectibles"
+import { Interactable } from "./hotspot"
+import { Instrumentation } from "./instrumentation"
+import { Player } from "./player"
+import { QualityRig } from "./quality-rig"
+import { Room, useFrontWalls } from "./room"
 
 // Chega só quando o nível alto está em vigor, e não é baixado em aparelho fraco.
-const Effects = lazy(() => import('./effects'));
+const Effects = lazy(() => import("./effects"))
 
 export interface GameCanvasProps {
-  className?: string;
+  className?: string
 }
 
 /**
@@ -29,15 +29,18 @@ export interface GameCanvasProps {
  * luar azul da janela, o verde do LED e o brilho das telas.
  */
 function Lights({ settings }: { settings: QualitySettings }) {
-  const lampOn = useGameStore((state) => state.lampOn);
+  const lampOn = useGameStore((state) => state.lampOn)
 
   return (
     <>
-      <ambientLight intensity={lampOn ? 0.75 : 0.22} color={lampOn ? '#b6bedc' : '#6f80c8'} />
+      <ambientLight
+        intensity={lampOn ? 0.75 : 0.22}
+        color={lampOn ? "#b6bedc" : "#6f80c8"}
+      />
       <directionalLight
         position={[6, 10, 4]}
         intensity={lampOn ? 1.15 : 0.35}
-        color={lampOn ? '#fff1de' : '#8fa6ff'}
+        color={lampOn ? "#fff1de" : "#8fa6ff"}
         castShadow={settings.shadows}
         shadow-mapSize={[settings.shadowMapSize, settings.shadowMapSize]}
         shadow-camera-left={-7}
@@ -82,23 +85,23 @@ function Lights({ settings }: { settings: QualitySettings }) {
         />
       )}
     </>
-  );
+  )
 }
 
 /** Os objetos do quarto, cada um sabendo se a própria parede está rebaixada. */
 function Interactables() {
-  const front = useFrontWalls();
+  const front = useFrontWalls()
   return (
     <>
       {HOTSPOTS.map((hotspot) => (
         <Interactable
           key={hotspot.id}
           config={hotspot}
-          hidden={'wall' in hotspot ? front.has(hotspot.wall) : false}
+          hidden={"wall" in hotspot ? front.has(hotspot.wall) : false}
         />
       ))}
     </>
-  );
+  )
 }
 
 /**
@@ -114,24 +117,27 @@ function Interactables() {
  * liga enquanto a pessoa lê sobre um projeto.
  */
 export function GameCanvas({ className }: GameCanvasProps) {
-  useEffect(() => attachKeyboard(), []);
+  useEffect(() => attachKeyboard(), [])
 
-  const tier = useGameStore(activeTier);
-  const paused = useGameStore((state) => state.openPanel !== null);
-  const settings = QUALITY[tier];
+  const tier = useGameStore(activeTier)
+  const paused = useGameStore((state) => state.openPanel !== null)
+  const settings = QUALITY[tier]
 
   return (
     <Canvas
       className={className}
       orthographic
-      frameloop={paused ? 'demand' : 'always'}
+      frameloop={paused ? "demand" : "always"}
       // PCF comum: o PCFSoft foi descontinuado no three e só gerava aviso.
-      shadows={settings.shadows ? 'percentage' : false}
+      shadows={settings.shadows ? "percentage" : false}
       dpr={[1, settings.maxDpr]}
       camera={{ position: [14, 14, 14], zoom: 40, near: 0.1, far: 200 }}
-      gl={{ antialias: settings.antialias, powerPreference: 'high-performance' }}
+      gl={{
+        antialias: settings.antialias,
+        powerPreference: "high-performance",
+      }}
     >
-      <color attach="background" args={['#07080c']} />
+      <color attach="background" args={["#07080c"]} />
       <Lights settings={settings} />
 
       <Suspense fallback={null}>
@@ -153,5 +159,5 @@ export function GameCanvas({ className }: GameCanvasProps) {
         </Suspense>
       )}
     </Canvas>
-  );
+  )
 }
