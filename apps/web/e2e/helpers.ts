@@ -83,9 +83,8 @@ export async function walkTo(
   }
 
   const start = Date.now()
-  let snapshot = await readGame(page)
   while (Date.now() - start < timeoutMs) {
-    snapshot = await readGame(page)
+    const snapshot = await readGame(page)
     const dx = x - snapshot.px
     const dz = z - snapshot.pz
     if (Math.hypot(dx, dz) < tolerance) break
