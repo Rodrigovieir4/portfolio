@@ -326,8 +326,7 @@ export function certificate(seed: number) {
       const width = 50 + random() * 40
       ctx.fillRect(64 - width / 2, 34 + line * 9, width, 3)
     }
-    ctx.fillStyle =
-      seed % 3 === 0 ? "#c92442" : seed % 3 === 1 ? "#2456c9" : "#d9a441"
+    ctx.fillStyle = ["#c92442", "#2456c9", "#d9a441"][seed % 3] ?? "#d9a441"
     ctx.beginPath()
     ctx.arc(100, 72, 8, 0, Math.PI * 2)
     ctx.fill()

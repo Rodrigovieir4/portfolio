@@ -11,7 +11,8 @@ import {
  * abre o arquivo em nova aba; se `file` ficar vazio, o card aparece sem link
  * em vez de quebrar.
  *
- * Os PDFs originais estão no repositório antigo, em portfolio/assets/certificados.
+ * Os PDFs originais estão no repositório antigo, em
+ * portfolio/assets/certificados.
  * O comando `bun run assets:importar` baixa todos de uma vez, já renomeados.
  */
 const raw = [
@@ -153,16 +154,13 @@ const raw = [
 
 export const certifications: Certification[] = parseCollection(
   certificationSchema,
-  raw,
-  "src/data/certifications.ts",
+  { items: raw, source: "src/data/certifications.ts" },
 )
 
-export const certificationsByCategory = certifications.reduce<
-  Record<Certification["category"], Certification[]>
->(
-  (accumulator, item) => {
-    ;(accumulator[item.category] ??= []).push(item)
-    return accumulator
-  },
-  {} as Record<Certification["category"], Certification[]>,
-)
+export const certificationsByCategory = {} as Record<
+  Certification["category"],
+  Certification[]
+>
+for (const item of certifications) {
+  ;(certificationsByCategory[item.category] ??= []).push(item)
+}

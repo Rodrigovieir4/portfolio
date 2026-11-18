@@ -1,3 +1,4 @@
+import { legado } from "@portfolio/eslint-config/legado"
 import { nextConfig } from "@portfolio/eslint-config/next"
 
 export default [
@@ -14,9 +15,11 @@ export default [
      */
     files: ["src/components/ui/**", "src/components/reactbits/**"],
     rules: {
+      "@stylistic/max-len": "off",
       "@typescript-eslint/max-params": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "off",
+      "better-tailwindcss/no-restricted-classes": "off",
       eqeqeq: "off",
       "jsx-a11y/anchor-has-content": "off",
       "jsx-a11y/anchor-is-valid": "off",
@@ -28,6 +31,7 @@ export default [
       "max-lines-per-function": "off",
       "no-nested-ternary": "off",
       "no-param-reassign": "off",
+      "no-restricted-syntax": "off",
       "react-hooks/exhaustive-deps": "off",
       "react-hooks/refs": "off",
       "react-hooks/set-state-in-effect": "off",
@@ -42,4 +46,19 @@ export default [
     files: ["e2e/**"],
     rules: { "@typescript-eslint/no-explicit-any": "off" },
   },
+  // O currículo vai ser redesenhado e o jogo do quarto vai ser substituído:
+  // estes arquivos saem da lista quando forem reescritos.
+  legado([
+    "e2e/helpers.ts",
+    "scripts/gerar-poster.mjs",
+    "src/app/[[]locale]/(site)/projetos/[[]slug]/page.tsx",
+    "src/app/[[]locale]/not-found.tsx",
+    "src/app/[[]locale]/opengraph-image.tsx",
+    "src/app/not-found.tsx",
+    "src/components/game/**",
+    "src/components/layout/**",
+    "src/components/sections/**",
+    "src/i18n/request.ts",
+    "src/lib/site.ts",
+  ]),
 ]

@@ -21,8 +21,7 @@ const raw = [
   },
 ]
 
-export const languages: Language[] = parseCollection(
-  languageSchema,
-  raw,
-  "src/data/languages.ts",
-)
+export const languages: Language[] = parseCollection(languageSchema, {
+  items: raw,
+  source: "src/data/languages.ts",
+})

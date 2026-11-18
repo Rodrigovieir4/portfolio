@@ -118,13 +118,12 @@ const raw = [
   },
 ]
 
-export const skillGroups: SkillGroup[] = parseCollection(
-  skillGroupSchema,
-  raw,
-  "src/data/skills.ts",
-)
+export const skillGroups: SkillGroup[] = parseCollection(skillGroupSchema, {
+  items: raw,
+  source: "src/data/skills.ts",
+})
 
-/** Lista achatada, usada pelo filtro de projetos e pela faixa de tecnologias. */
+/** Lista achatada, para o filtro de projetos e a faixa de tecnologias. */
 export const allSkills = skillGroups.flatMap((group) =>
   group.skills.map((skill) => ({
     ...skill,

@@ -466,9 +466,9 @@ export function Scoreboard() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="absolute inset-0 z-30 grid place-items-center bg-void/60 p-4 backdrop-blur-sm"
-
           onClick={() => toggleScoreboard(false)}
         >
+          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- só impede que o clique dentro feche o placar; no teclado, P e Esc fecham */}
           <div
             className="w-full max-w-2xl rounded-xl border border-line-strong bg-void/95 p-5"
             onClick={(event) => event.stopPropagation()}

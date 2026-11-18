@@ -119,7 +119,7 @@ export const projectSchema = z.object({
   end: yearMonth.nullish(),
   /** Quem contratou. Ausente quando é projeto próprio ou acadêmico. */
   client: z.string().optional(),
-  /** Como o trabalho chegou: via a DBC, como freelance, ou por conta própria. */
+  /** Como o trabalho chegou: pela DBC, como freelance ou por conta própria. */
   engagement: z
     .enum(["dbc", "freelance", "proprio", "academico"])
     .default("proprio"),
@@ -221,8 +221,7 @@ export type Language = z.infer<typeof languageSchema>
  */
 export function parseCollection<T extends z.ZodTypeAny>(
   schema: T,
-  items: unknown[],
-  source: string,
+  { items, source }: { items: unknown[]; source: string },
 ): z.infer<T>[] {
   return items.map((item, index) => {
     const result = schema.safeParse(item)

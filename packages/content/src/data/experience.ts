@@ -283,11 +283,10 @@ const raw = [
 ]
 
 /** Ordenada da mais recente para a mais antiga, que é a ordem de leitura. */
-export const experiences: Experience[] = parseCollection(
-  experienceSchema,
-  raw,
-  "src/data/experience.ts",
-).sort((a, b) => (b.end ?? "9999-12").localeCompare(a.end ?? "9999-12"))
+export const experiences: Experience[] = parseCollection(experienceSchema, {
+  items: raw,
+  source: "src/data/experience.ts",
+}).sort((a, b) => (b.end ?? "9999-12").localeCompare(a.end ?? "9999-12"))
 
 export const workExperiences = experiences.filter(
   (item) => item.kind === "work",

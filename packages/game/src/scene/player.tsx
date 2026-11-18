@@ -189,9 +189,9 @@ export function Player() {
       state.sfx("step")
     }
 
-    swing.current +=
-      ((moving ? (running ? 1 : 0.75) : 0) - swing.current) *
-      Math.min(1, dt * 12)
+    let stride = 0
+    if (moving) stride = running ? 1 : 0.75
+    swing.current += (stride - swing.current) * Math.min(1, dt * 12)
     const legAngle = Math.sin(phase.current) * 0.75 * swing.current
     if (leftLeg.current) leftLeg.current.rotation.x = legAngle
     if (rightLeg.current) rightLeg.current.rotation.x = -legAngle

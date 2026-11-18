@@ -720,11 +720,10 @@ const raw = [
   },
 ]
 
-export const projects: Project[] = parseCollection(
-  projectSchema,
-  raw,
-  "src/data/projects.ts",
-)
+export const projects: Project[] = parseCollection(projectSchema, {
+  items: raw,
+  source: "src/data/projects.ts",
+})
 
 export const featuredProjects = projects.filter((project) => project.featured)
 
