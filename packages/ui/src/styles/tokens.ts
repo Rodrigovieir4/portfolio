@@ -1,5 +1,5 @@
 /**
- * Espelho tipado dos tokens de theme.css.
+ * Espelho tipado dos tokens de globals.css.
  *
  * Existe porque WebGL nao le CSS: three.js precisa de numero hexadecimal e de
  * vetores normalizados. Manter os dois lados sincronizados aqui evita que a
@@ -28,7 +28,7 @@ export function hex(key: PaletteKey): number {
   return Number.parseInt(palette[key].slice(1), 16)
 }
 
-/** Converte um token em [r, g, b] no intervalo 0..1, para uniforms de shader. */
+/** Converte um token em [r, g, b] de 0 a 1, para uniforms de shader. */
 export function rgb(key: PaletteKey): [number, number, number] {
   const value = hex(key)
   return [

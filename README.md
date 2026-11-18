@@ -114,8 +114,7 @@ packages/
   content/              Dados profissionais tipados e validados com Zod
   game/                 Protótipo do portfólio jogável: quarto 3D com física
   gl/                   Cena WebGL, shaders GLSL, detecção de capacidade
-  ui/                   Design system e componentes de movimento
-  config-tailwind/      Design tokens, em CSS e espelhados em TypeScript
+  ui/                   Design system: tokens e estilos base, componentes de movimento
   eslint-config/        Configuração de lint compartilhada
   typescript-config/    Bases de tsconfig compartilhadas
 ```
@@ -180,8 +179,8 @@ apontam para o PDF em português, conforme a nota em `profile.ts`.
 
 O tema se chama Obsidiana e Sinal. Fundo quase preto que empurra o conteúdo para a
 frente, um verde-limão ácido como único sinal de ação, e violeta e brasa apenas para
-dar profundidade. Os tokens ficam em `packages/config-tailwind/theme.css` e são
-espelhados em `tokens.ts`, porque WebGL não lê CSS: o three.js precisa de hexadecimal
+dar profundidade. Os tokens ficam em `packages/ui/src/styles/globals.css` e são
+espelhados em `tokens.ts`, ao lado, porque WebGL não lê CSS: o three.js precisa de hexadecimal
 e de vetores normalizados, e manter os dois lados no mesmo lugar evita que a cena 3D
 e a interface saiam de sintonia.
 

@@ -15,7 +15,6 @@ const config: NextConfig = {
     "@portfolio/ui",
     "@portfolio/gl",
     "@portfolio/content",
-    "@portfolio/config-tailwind",
   ],
 
   images: {

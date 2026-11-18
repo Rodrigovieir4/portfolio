@@ -3,7 +3,7 @@ import { nextConfig } from "@portfolio/eslint-config/next"
 
 export default [
   ...nextConfig({
-    tailwindEntryPoint: "../../apps/web/src/app/globals.css",
+    tailwindEntryPoint: "./src/styles/globals.css",
     app: false,
   }),
   {

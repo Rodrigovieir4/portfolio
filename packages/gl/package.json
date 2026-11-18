@@ -14,7 +14,7 @@
     "clean": "rimraf .turbo node_modules"
   },
   "dependencies": {
-    "@portfolio/config-tailwind": "workspace:*",
+    "@portfolio/ui": "workspace:*",
     "@react-three/drei": "catalog:gl",
     "@react-three/fiber": "catalog:gl",
     "@react-three/postprocessing": "catalog:gl",

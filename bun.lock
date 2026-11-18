@@ -18,7 +18,6 @@
       "name": "@portfolio/web",
       "version": "1.0.0",
       "dependencies": {
-        "@portfolio/config-tailwind": "workspace:*",
         "@portfolio/content": "workspace:*",
         "@portfolio/game": "workspace:*",
         "@portfolio/gl": "workspace:*",
@@ -32,7 +31,6 @@
         "radix-ui": "catalog:styling",
         "react": "catalog:react",
         "react-dom": "catalog:react",
-        "tw-animate-css": "catalog:styling",
       },
       "devDependencies": {
         "@playwright/test": "catalog:tooling",
@@ -47,13 +45,6 @@
         "sharp": "catalog:tooling",
         "tailwindcss": "catalog:styling",
         "typescript": "catalog:tooling",
-      },
-    },
-    "packages/config-tailwind": {
-      "name": "@portfolio/config-tailwind",
-      "version": "1.0.0",
-      "dependencies": {
-        "tailwindcss": "catalog:styling",
       },
     },
     "packages/content": {
@@ -127,7 +118,7 @@
       "name": "@portfolio/gl",
       "version": "1.0.0",
       "dependencies": {
-        "@portfolio/config-tailwind": "workspace:*",
+        "@portfolio/ui": "workspace:*",
         "@react-three/drei": "catalog:gl",
         "@react-three/fiber": "catalog:gl",
         "@react-three/postprocessing": "catalog:gl",
@@ -158,12 +149,12 @@
       "name": "@portfolio/ui",
       "version": "1.0.0",
       "dependencies": {
-        "@portfolio/config-tailwind": "workspace:*",
         "class-variance-authority": "catalog:styling",
         "cn": "catalog:styling",
         "lenis": "catalog:motion",
         "lucide-react": "catalog:styling",
         "motion": "catalog:motion",
+        "tw-animate-css": "catalog:styling",
       },
       "devDependencies": {
         "@portfolio/eslint-config": "workspace:*",
@@ -473,8 +464,6 @@
     "@pkgr/core": ["@pkgr/core@0.3.6", "", {}, "sha512-SEeaJLb3qBNF/OaXnaR1NmmBbFYk1zC0ZH/52fATcRPLFg/p791YrcyFFy44Bo9sLaGuSuLp5Q6axbb/O+v/RA=="],
 
     "@playwright/test": ["@playwright/test@1.62.1", "", { "dependencies": { "playwright": "1.62.1" }, "bin": { "playwright": "cli.js" } }, "sha512-DTcUc8qii+cpHvtOwggMtBRMjKZHXYWdw8syRYu2vtzuq4Wxphqq4NfCs5Zt44L6mA8rfDfj+PHnxFc/FeK6mQ=="],
-
-    "@portfolio/config-tailwind": ["@portfolio/config-tailwind@workspace:packages/config-tailwind"],
 
     "@portfolio/content": ["@portfolio/content@workspace:packages/content"],
 

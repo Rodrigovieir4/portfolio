@@ -1,6 +1,6 @@
 "use client"
 
-import { rgb } from "@portfolio/config-tailwind/tokens"
+import { rgb } from "@portfolio/ui/tokens"
 import { useFrame, useThree } from "@react-three/fiber"
 import { useMemo, useRef } from "react"
 import * as THREE from "three"

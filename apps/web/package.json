@@ -14,7 +14,6 @@
     "poster": "node scripts/gerar-poster.mjs"
   },
   "dependencies": {
-    "@portfolio/config-tailwind": "workspace:*",
     "@portfolio/content": "workspace:*",
     "@portfolio/game": "workspace:*",
     "@portfolio/gl": "workspace:*",
@@ -27,8 +26,7 @@
     "next-intl": "catalog:next",
     "radix-ui": "catalog:styling",
     "react": "catalog:react",
-    "react-dom": "catalog:react",
-    "tw-animate-css": "catalog:styling"
+    "react-dom": "catalog:react"
   },
   "devDependencies": {
     "@playwright/test": "catalog:tooling",

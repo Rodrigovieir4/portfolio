@@ -2,6 +2,6 @@
 export default {
   semi: false,
   plugins: ["prettier-plugin-tailwindcss"],
-  tailwindStylesheet: "./apps/web/src/app/globals.css",
+  tailwindStylesheet: "./packages/ui/src/styles/globals.css",
   tailwindFunctions: ["cn", "cva"],
 }

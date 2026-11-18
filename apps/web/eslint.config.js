@@ -2,7 +2,9 @@ import { legado } from "@portfolio/eslint-config/legado"
 import { nextConfig } from "@portfolio/eslint-config/next"
 
 export default [
-  ...nextConfig({ tailwindEntryPoint: "./src/app/globals.css" }),
+  ...nextConfig({
+    tailwindEntryPoint: "../../packages/ui/src/styles/globals.css",
+  }),
   {
     /*
      * Código de terceiro, trazido para dentro do repositório.
