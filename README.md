@@ -10,20 +10,20 @@ Produção: a definir · Antecessor: [portfolio v1](https://portfolio-rodrigo-vi
 ## Como rodar
 
 ```bash
-pnpm install
-pnpm dev            # http://localhost:3000 (redireciona para /pt)
+bun install
+bun run dev        # http://localhost:3000 (redireciona para /pt)
 ```
 
-Requer Node 20.11 ou superior e pnpm 10. A versão exata do Node está em `.nvmrc`.
+Requer Bun 1.3 e Node 20.11 ou superior, porque o Next roda no Node. A versão exata do Node está em `.nvmrc`.
 
-| Comando                | O que faz                                                  |
-| ---------------------- | ---------------------------------------------------------- |
-| `pnpm dev`             | Sobe o app em modo de desenvolvimento com Turbopack        |
-| `pnpm build`           | Build de produção de todo o monorepo                       |
-| `pnpm check`           | Lint, checagem de tipos e build, na ordem                  |
-| `pnpm test`            | Testes de consistência do conteúdo                         |
-| `pnpm format`          | Aplica o Prettier no repositório inteiro                   |
-| `pnpm assets:importar` | Baixa currículo, foto e certificados do repositório antigo |
+| Comando                   | O que faz                                                  |
+| ------------------------- | ---------------------------------------------------------- |
+| `bun run dev`             | Sobe o app em modo de desenvolvimento com Turbopack        |
+| `bun run build`           | Build de produção de todo o monorepo                       |
+| `bun run check`           | Formatação, lint, tipos, testes e build — o mesmo do CI    |
+| `bun run test`            | Testes de consistência do conteúdo                         |
+| `bun run format`          | Aplica o Prettier no repositório inteiro                   |
+| `bun run assets:importar` | Baixa currículo, foto e certificados do repositório antigo |
 
 ## Portfólio jogável
 
@@ -54,12 +54,12 @@ Os testes de ponta a ponta em `apps/web/e2e` jogam de verdade, pelo teclado, len
 jogo por `window.__game`, que só existe com `?debug` na URL:
 
 ```bash
-pnpm --filter @portfolio/web build
-pnpm --filter @portfolio/web test:e2e
+bun run --filter @portfolio/web build
+bun run --filter @portfolio/web test:e2e
 ```
 
 O pôster do quarto que aparece no alto do currículo é um quadro do jogo de verdade, gerado pelo
-mesmo caminho: com o servidor de produção no ar, `pnpm --filter @portfolio/web poster` dirige o
+mesmo caminho: com o servidor de produção no ar, `bun run --filter @portfolio/web poster` dirige o
 personagem até o meio do quarto, esconde o HUD e grava `public/images/quarto.webp`. Mudou o
 quarto, roda de novo.
 
@@ -135,7 +135,7 @@ escolhe entre quatro perfis, de 48 mil partículas a nenhuma. Sem WebGL2, em cel
 modesto, ou com `prefers-reduced-motion` ligado, a cena vira um gradiente estático e a
 página continua íntegra.
 
-**As versões vivem em um catálogo só.** `pnpm-workspace.yaml` centraliza todas as
+**As versões vivem em um catálogo só.** os catálogos do `package.json` da raiz centralizam todas as
 versões de dependência. Subir o React é uma linha, não sete arquivos, e não há risco
 de duas cópias de `three` no bundle.
 

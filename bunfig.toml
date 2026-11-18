@@ -1,0 +1,4 @@
+[install]
+# R3F, drei e postprocessing precisam enxergar o mesmo three. Com a instalacao
+# isolada (padrao do Bun 1.3 em workspace) o bundle pode carregar dois THREE.
+linker = "hoisted"

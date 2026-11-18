@@ -8,7 +8,7 @@ import { certificationSchema, parseCollection, type Certification } from '../sch
  * em vez de quebrar.
  *
  * Os PDFs originais estão no repositório antigo, em portfolio/assets/certificados.
- * O comando `pnpm assets:importar` baixa todos de uma vez, já renomeados.
+ * O comando `bun run assets:importar` baixa todos de uma vez, já renomeados.
  */
 const raw = [
   {

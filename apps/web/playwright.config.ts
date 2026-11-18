@@ -34,7 +34,7 @@ export default defineConfig({
     { name: 'celular', use: { ...devices['Pixel 7'] }, testMatch: '**/mobile.spec.ts' },
   ],
   webServer: {
-    command: `pnpm exec next start --port ${PORT}`,
+    command: `bunx next start --port ${PORT}`,
     url: `http://localhost:${PORT}/pt`,
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

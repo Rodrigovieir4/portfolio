@@ -8,9 +8,9 @@
  *
  * Precisa de um servidor de produção no ar:
  *
- *   pnpm --filter @portfolio/web build
- *   pnpm --filter @portfolio/web start --port 3200
- *   pnpm --filter @portfolio/web poster
+ *   bun run --filter @portfolio/web build
+ *   (cd apps/web && bunx next start --port 3200)
+ *   bun run --filter @portfolio/web poster
  *
  * Usa a GPU de verdade de propósito. Em renderização por software o brilho
  * derruba o contexto WebGL antes do fim, e o que sai é um retângulo preto.

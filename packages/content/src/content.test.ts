@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'bun:test';
 
 import { certifications, experiences, LOCALES, profile, projects, skillGroups } from './index';
 

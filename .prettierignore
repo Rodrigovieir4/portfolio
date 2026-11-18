@@ -4,7 +4,7 @@ node_modules
 dist
 out
 coverage
-pnpm-lock.yaml
+bun.lock
 *.glsl
 next-env.d.ts
 DESIGN-SYSTEM.md

@@ -1,6 +1,5 @@
 # dependencias
 node_modules/
-.pnpm-store/
 
 # gerado pelo Next a cada build, nao deve ser versionado
 next-env.d.ts
@@ -30,7 +29,6 @@ Thumbs.db
 # logs
 *.log
 npm-debug.log*
-pnpm-debug.log*
 
 # testes
 coverage/

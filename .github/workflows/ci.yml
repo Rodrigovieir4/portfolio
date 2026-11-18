@@ -4,7 +4,9 @@ on:
   push:
     branches: [main]
   pull_request:
-    branches: [main]
+
+permissions:
+  contents: read
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,37 +17,15 @@ env:
   NEXT_TELEMETRY_DISABLED: 1
 
 jobs:
-  verify:
-    name: Lint, tipos e build
+  verificar:
+    name: Formatação, lint, tipos, testes e build
     runs-on: ubuntu-latest
     timeout-minutes: 15
-
     steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 2
-
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
-
-      - name: Formatacao
-        run: pnpm format:check
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Checagem de tipos
-        run: pnpm typecheck
-
-      - name: Build
-        run: pnpm build
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bun run check
         env:
           NEXT_PUBLIC_SITE_URL: https://rodrigovsousa.dev
 
@@ -53,33 +33,25 @@ jobs:
     name: Ponta a ponta (jogo e site)
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    needs: verify
-
+    needs: verificar
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
 
       - name: Build do app
-        run: pnpm turbo run build --filter=@portfolio/web
+        run: bunx turbo run build --filter=@portfolio/web
         env:
           NEXT_PUBLIC_SITE_URL: http://localhost:3200
 
       # O jogo roda em WebGL e o runner nao tem placa de video: o Chromium
       # desenha em software com o SwiftShader, configurado no playwright.config.
       - name: Instalar Chromium do Playwright
-        run: pnpm --filter @portfolio/web exec playwright install --with-deps chromium
+        working-directory: apps/web
+        run: bunx playwright install --with-deps chromium
 
       - name: Testes de ponta a ponta
-        run: pnpm --filter @portfolio/web test:e2e
+        run: bun run --filter @portfolio/web test:e2e
 
       - name: Guardar rastros das falhas
         if: failure()

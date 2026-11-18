@@ -1,7 +1,7 @@
 # Normaliza tudo em LF dentro do repositorio.
 #
 # Sem isto, o Git no Windows converte para CRLF na hora do checkout e o
-# `pnpm format:check` do CI passa a acusar o repositorio inteiro como
+# `bun run format:check` do CI passa a acusar o repositorio inteiro como
 # desformatado, porque o Prettier espera LF. Travar aqui faz Windows, macOS e
 # Linux verem exatamente os mesmos bytes.
 * text=auto eol=lf
@@ -18,4 +18,4 @@
 *.woff2 binary
 
 # Trata o lockfile como gerado, para nao poluir a revisao de pull request.
-pnpm-lock.yaml linguist-generated=true -diff
+bun.lock linguist-generated=true -diff
