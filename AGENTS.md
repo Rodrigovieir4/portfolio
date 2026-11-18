@@ -30,6 +30,13 @@ Use o SocratiCode para localizar código e medir impacto (seção 9.3).
 - Scripts usam a API REST com `HF_API_KEY` e `HF_API_SECRET`, lidas do
   `.env.local`. Só no servidor; nunca com prefixo `NEXT_PUBLIC_`.
 
+## Navegador
+
+Use o navegador embutido do Orca (`orca tab ...`, skill `orca-cli`). Este
+repositório abre as abas no perfil isolado "Portfólio (Rodrigo)", onde ficam os
+logins da conta do Rodrigo, separados do perfil padrão. Login e senha quem
+digita é ele; o agente só usa a sessão já aberta.
+
 ## Deploy
 
 - Hospedagem: Vercel, configurada em `vercel.json`.
