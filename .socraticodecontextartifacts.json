@@ -9,6 +9,16 @@
       "name": "design-tokens",
       "path": "./packages/ui/src/styles/globals.css",
       "description": "Tokens do design system: fonte única de verdade."
+    },
+    {
+      "name": "contexto",
+      "path": "./docs/contexto.md",
+      "description": "Decisões, preferências do Rodrigo e estado do trabalho; ler antes de qualquer tarefa."
+    },
+    {
+      "name": "checklist",
+      "path": "./docs/checklist.md",
+      "description": "Ordem do que falta no portfólio."
     }
   ]
 }

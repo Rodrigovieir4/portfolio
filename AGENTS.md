@@ -12,6 +12,13 @@ As exceções deste projeto estão na seção 11 dele.
 Antes de concluir uma tarefa, rode `bun run check`.
 Use o SocratiCode para localizar código e medir impacto (seção 9.3).
 
+## Contexto e checklist
+
+Antes de qualquer tarefa, leia `docs/contexto.md` (decisões, preferências do
+Rodrigo e estado do trabalho) e `docs/checklist.md` (ordem do que falta). Ao
+fechar uma etapa ou tomar uma decisão com ele, atualize os dois no mesmo
+commit. É o que permite retomar em outra conta sem perder o fio.
+
 ## Regras próprias
 
 - Escreva em português do Brasil: código, comentários, commits e docs.

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esboço do portfólio</title>
+<style>
+  :where(.app) {
+    --fg: var(--foreground, #171717);
+    --bg: var(--background, #ffffff);
+    --muted: var(--muted-foreground, #737373);
+    --line: var(--border, #e5e5e5);
+    --box: color-mix(in srgb, var(--foreground, #171717) 7%, transparent);
+    --box2: color-mix(in srgb, var(--foreground, #171717) 14%, transparent);
+    --hi: var(--primary, #171717);
+    --hi-fg: var(--primary-foreground, #ffffff);
+  }
+  body { margin: 0; background: var(--background, #fff); color: var(--foreground, #171717); font-family: var(--font-sans, system-ui, sans-serif); }
+  .app { padding: 12px; font-size: 13px; }
+  .mono { font-family: var(--font-mono, ui-monospace, monospace); }
+  .bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+  .chip { border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 999px; padding: 4px 10px; font: inherit; cursor: pointer; }
+  .chip:hover { background: var(--accent, #f5f5f5); color: var(--accent-foreground, #171717); }
+  .chip.on { background: var(--hi); color: var(--hi-fg); border-color: var(--hi); }
+  .spacer { flex: 1; }
+  .frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 0 auto; transition: max-width .2s;
+    background: var(--p-bg); color: var(--p-fg);
+    --fg: var(--p-fg); --line: color-mix(in srgb, var(--p-fg) 16%, transparent); --muted: color-mix(in srgb, var(--p-fg) 55%, transparent);
+    --box: color-mix(in srgb, var(--p-fg) 8%, transparent); --box2: color-mix(in srgb, var(--p-fg) 16%, transparent); }
+  .frame .pill.hi { background: var(--p-hi); color: var(--p-on-hi); border-color: var(--p-hi); }
+  .frame .hi { color: var(--p-hi); }
+  .sw { display: inline-flex; gap: 2px; vertical-align: middle; margin-right: 4px; }
+  .sw i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid #8884; }
+  .chip .ok { font-weight: 700; }
+  .frame.mobile { max-width: 390px; }
+  .nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+  .nav .links { display: flex; gap: 12px; color: var(--muted); }
+  .frame.mobile .nav .links { display: none; }
+  section.s { border-bottom: 1px dashed var(--line); padding: 14px; }
+  .shead { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 10px; }
+  .shead .t { font-weight: 600; margin-right: 6px; }
+  .shead .ref { color: var(--muted); }
+  .box { background: var(--box); border-radius: 8px; display: grid; place-items: center; text-align: center; color: var(--muted); padding: 8px; min-height: 40px;
+    background-image: repeating-linear-gradient(135deg, transparent 0 10px, var(--box) 10px 11px); }
+  .box.dark { background-color: var(--box2); }
+  .lines { display: grid; gap: 6px; }
+  .lines i { display: block; height: 8px; border-radius: 4px; background: var(--box2); }
+  .giant { font-weight: 800; letter-spacing: -0.04em; line-height: .9; text-transform: uppercase; }
+  .row { display: grid; gap: 10px; }
+  .c2 { grid-template-columns: 1fr 1fr; }
+  .c3 { grid-template-columns: repeat(3, 1fr); }
+  .c4 { grid-template-columns: repeat(4, 1fr); }
+  .frame.mobile .c2, .frame.mobile .c3, .frame.mobile .c4 { grid-template-columns: 1fr; }
+  .pill { display: inline-block; border: 1px solid var(--fg); border-radius: 999px; padding: 4px 10px; }
+  .note { color: var(--muted); margin-top: 8px; }
+  .hscroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+  .hscroll > * { flex: 0 0 160px; }
+  .arc { display: flex; gap: 8px; justify-content: center; align-items: flex-end; perspective: 600px; }
+  .arc .box { width: 18%; }
+  .stack-bento { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-auto-rows: 70px; gap: 8px; }
+  .frame.mobile .stack-bento { grid-template-columns: 1fr 1fr; }
+  .tl { border-left: 2px solid var(--box2); padding-left: 12px; display: grid; gap: 12px; }
+  .tlh { display: flex; gap: 10px; overflow-x: auto; border-top: 2px solid var(--box2); padding-top: 10px; }
+  .tlh > * { flex: 0 0 140px; }
+  .rel { position: relative; }
+  .over { position: absolute; inset: auto 12px 12px 12px; }
+  .center { text-align: center; }
+  .k { color: var(--muted); }
+  h3 { margin: 0 0 6px; font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="root" class="app"></div>
+<script type="module">
+import React, { useState } from "https://esm.sh/react@18.3.1"
+import { createRoot } from "https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1"
+import htm from "https://esm.sh/htm@3.1.1"
+const html = htm.bind(React.createElement)
+
+const Box = ({ children, h = 60, dark, style }) =>
+  html`<div class=${"box" + (dark ? " dark" : "")} style=${{ minHeight: h, ...style }}>${children}</div>`
+const Lines = ({ n = 3, w = [100, 90, 70] }) =>
+  html`<div class="lines">${Array.from({ length: n }, (_, i) => html`<i key=${i} style=${{ width: (w[i % w.length]) + "%" }}></i>`)}</div>`
+const Cta = ({ children = "Falar comigo" }) => html`<span class="pill hi">${children}</span>`
+
+function Section({ n, title, variants, refs, pick }) {
+  const [v, setV] = useState(pick ?? 0)
+  const Current = variants[v][1]
+  return html`<section class="s">
+    <div class="shead">
+      <span class="t mono">${String(n).padStart(2, "0")} · ${title}</span>
+      ${variants.map(([name], i) => html`<button key=${i} class=${"chip" + (i === v ? " on" : "")} onClick=${() => setV(i)}>${i === pick ? html`<span class="ok">✓ </span>` : null}${name}</button>`)}
+    </div>
+    <${Current} />
+    ${refs && refs[v] ? html`<div class="note mono">ref visual: ${refs[v]}</div>` : null}
+  </section>`
+}
+
+/* ---------- Início ---------- */
+const AberturaA = () => html`<div class="rel">
+  <div class="giant center" style=${{ fontSize: "clamp(36px,9vw,96px)", opacity: .25 }}>RODRIGO VIEIRA</div>
+  <div style=${{ position: "absolute", inset: 0, display: "grid", placeItems: "center" }}><${Box} h=${150} dark style=${{ width: 140 }}>retrato recortado<br/>na frente do nome<//></div>
+  <div class="row c2" style=${{ marginTop: 18 }}><span class="mono k">ENGENHEIRO FULL-STACK · SP</span><div style=${{ textAlign: "right" }}><${Cta} /></div></div>
+</div>`
+const AberturaB = () => html`<div class="row c2">
+  <div><div class="giant" style=${{ fontSize: "clamp(28px,6vw,64px)" }}>Título <span class="hi">curto</span> em duas linhas</div><div style=${{ margin: "10px 0" }}><${Lines} n=${2} /></div><${Cta} /> <span class="k">Ver casos</span>
+  <div class="row c3 mono k" style=${{ marginTop: 12 }}><span>5 anos</span><span>20 casos</span><span>3 países</span></div></div>
+  <${Box} h=${200} dark>retrato à direita<br/>+ linhas de blueprint / fumaça de cor<//>
+</div>`
+const AberturaC = () => html`<div class="row c2">
+  <div style=${{ alignSelf: "end" }}><div class="mono">Rodrigo Vieira</div><${Lines} n=${1} w=${[80]} /><div style=${{ marginTop: 8 }}><${Cta} /></div></div>
+  <${Box} h=${220} dark>retrato feito de partículas (3D)<br/>monta ao carregar e reage ao mouse<//>
+</div>`
+const AberturaD = () => html`<div class="rel">
+  <${Box} h=${240} dark>filme em tela cheia<br/>(vídeo do Higgsfield que avança com a rolagem)<//>
+  <div class="over"><div class="giant" style=${{ fontSize: "clamp(24px,5vw,48px)" }}>Título sobre o vídeo</div><${Cta} /></div>
+</div>`
+
+const SobreA = () => html`<div class="giant" style=${{ fontSize: "clamp(18px,3.4vw,34px)", textTransform: "none" }}>Três linhas grandes de apresentação, sem imagem, com uma palavra de destaque.</div><div class="note">→ ler mais em /sobre</div>`
+const SobreB = () => html`<div class="row c2"><${Box} h=${120}>foto ou vídeo curto<//><div><${Lines} n=${4} /><div class="note">→ /sobre</div></div></div>`
+
+const CasosA = () => html`<div><div class="row c2" style=${{ marginBottom: 8 }}><div class="giant" style=${{ fontSize: 28 }}>Casos</div><div class="mono k" style=${{ textAlign: "right" }}>06 / 20 · arraste</div></div>
+  <div class="arc">${[0, 1, 2, 3, 4].map((i) => html`<${Box} key=${i} h=${i === 0 ? 150 : 150 - i * 18} dark=${i === 0}>${i === 0 ? "caso ativo + vídeo" : "caso"}<//>`)}</div></div>`
+const CasosB = () => html`<div class="rel"><div class="giant center" style=${{ fontSize: "clamp(30px,8vw,80px)", opacity: .15 }}>ARQUIVO</div>
+  <div class="row c4" style=${{ marginTop: -30 }}>${[0, 1, 2, 3, 4, 5, 6, 7].map((i) => html`<${Box} key=${i} h=${i === 2 ? 120 : 70} dark=${i === 2} style=${{ transform: "rotate(" + ((i % 3) - 1) * 3 + "deg)" }}>${i === 2 ? "caso em foco" : "caso"}<//>`)}</div>
+  <div class="note">cartões flutuando em 3D, mexem com a rolagem</div></div>`
+const CasosC = () => html`<div>${["O webhook que respondia ok", "Duas pessoas, uma cota", "90 ms para 3,5 ms", "O NULL que desfazia o sorteio"].map((t, i) => html`<div key=${i} class="row c2" style=${{ padding: "10px 0", borderTop: "1px solid var(--line)" }}><span class="giant" style=${{ fontSize: 18, textTransform: "none" }}>${t}</span><span class="mono k" style=${{ textAlign: "right" }}>stack · ano · →</span></div>`)}<div class="note">lista grande; ao passar o mouse, o vídeo do caso aparece flutuando</div></div>`
+const CasosD = () => html`<div><div class="note" style=${{ marginTop: 0 }}>a página para; a rolagem anda de lado pelos casos</div><div class="hscroll">${[0, 1, 2, 3, 4, 5].map((i) => html`<${Box} key=${i} h=${200} dark=${i === 0}>caso ${i + 1}<br/>vídeo + título<//>`)}</div></div>`
+
+const NumerosA = () => html`<div class="row c3">${["3,5 ms", "30", "5 repos"].map((x, i) => html`<div key=${i} style=${{ borderTop: "1px solid var(--line)", paddingTop: 8 }}><div class=${"giant" + (i === 1 ? " hi" : "")} style=${{ fontSize: "clamp(28px,6vw,60px)" }}>${x}</div><div class="mono k">legenda curta</div></div>`)}</div><div class="note">grade suíça com linhas finas; um número com a cor de destaque</div>`
+const NumerosB = () => html`<div class="row c3">${["gráfico 90 → 3,5 ms", "fluxo webhook → fila", "diff de código"].map((x, i) => html`<${Box} key=${i} h=${110} dark>${x}<//>`)}</div><div class="note">painéis de vidro sobre faixas de luz</div>`
+
+const StackA = () => html`<div class="hscroll">${["TypeScript", "Node", "NestJS", "Next.js", "PostgreSQL", "AWS", "Flutter", "Docker"].map((s, i) => html`<${Box} key=${i} h=${40}>${s}<//>`)}</div><div class="note">faixa rolando sozinha</div>`
+const StackB = () => html`<div class="stack-bento"><${Box} style=${{ gridRow: "span 2" }}>Backend<//><${Box}>Front<//><${Box}>Mobile<//><${Box}>Banco<//><${Box}>Cloud<//></div>`
+
+const TrajA = () => html`<div class="tl">${["2026 · plataforma de sorteios", "2025 · marketplace em Portugal", "2025 · primeiro commit com o Lucas", "antes · atleta (futebol e CS)"].map((t, i) => html`<div key=${i}><b>${t}</b><${Lines} n=${1} w=${[60]} /></div>`)}</div>`
+const TrajB = () => html`<div class="tlh">${["antes", "2025", "2025", "2026"].map((t, i) => html`<div key=${i}><b class="mono">${t}</b><${Lines} n=${2} /></div>`)}</div><div class="note">linha horizontal que se desenha com a rolagem</div>`
+
+const ProjA = () => html`<div class="stack-bento"><${Box} dark style=${{ gridRow: "span 2" }}>projeto principal<//><${Box}>projeto<//><${Box}>projeto<//><${Box}>projeto<//><${Box}>projeto<//></div>`
+const ProjB = () => html`<div>${["Plataforma de sorteios", "Marketplace PT", "SaaS de IA"].map((t, i) => html`<div key=${i} class="row c2" style=${{ padding: "12px 0", borderTop: "1px solid var(--line)" }}><span class="giant" style=${{ fontSize: 22 }}>${t}</span><span class="k" style=${{ textAlign: "right" }}>imagem aparece no hover →</span></div>`)}</div>`
+
+const ContatoA = () => html`<${Box} h=${160} dark style=${{ background: "var(--p-hi)", color: "var(--p-on-hi)", backgroundImage: "none" }}><div><div class="giant" style=${{ fontSize: 26 }}>Bloco grande na cor de destaque</div><div style=${{ marginTop: 8 }}><span class="pill">Falar comigo</span> <span class="pill">Baixar currículo</span></div></div><//>`
+const ContatoB = () => html`<div class="giant" style=${{ fontSize: "clamp(32px,8vw,90px)" }}>Vamos conversar</div><div class="row c4 mono k" style=${{ marginTop: 10 }}><span>LinkedIn</span><span>WhatsApp</span><span>E-mail</span><span>Currículo PDF</span></div>`
+
+const CertA = () => html`<div class="row c2"><div class="giant" style=${{ fontSize: 26 }}>12 certificados</div><div class="mono k" style=${{ textAlign: "right" }}>ver todos em /sobre →</div></div>
+  <div class="hscroll" style=${{ marginTop: 8 }}>${["USP · MBA", "São Judas", "Rocketseat", "Rocketseat", "Wizard · inglês", "outros"].map((t, i) => html`<${Box} key=${i} h=${50}>${t}<//>`)}</div><div class="note">faixa compacta com os emissores; abre o PDF ao clicar</div>`
+const CertB = () => html`<div class="bar">${["Todos (12)", "Acadêmico (9)", "Cursos (2)", "Idioma (1)"].map((f, i) => html`<span key=${i} class=${"chip" + (i === 0 ? " on" : "")}>${f}</span>`)}</div>
+  <div class="row c4">${Array.from({ length: 8 }, (_, i) => html`<div key=${i}><${Box} h=${70}>miniatura do PDF<//><b>Nome</b><div class="mono k">emissor · ano</div></div>`)}</div>`
+const CertC = () => html`<div class="row c4">${Array.from({ length: 8 }, (_, i) => html`<${Box} key=${i} h=${i % 3 === 0 ? 110 : 80} dark=${i === 1} style=${{ transform: "rotate(" + ((i % 3) - 1) * 2 + "deg)", border: "6px solid var(--box2)" }}>quadro<//>`)}</div><div class="note">parede de quadros em 3D; o certificado vem para a frente ao clicar</div>`
+const CertD = () => html`<div>${["Acadêmico (9)", "Cursos (2)", "Idioma (1)"].map((t, i) => html`<div key=${i} style=${{ padding: "10px 0", borderTop: "1px solid var(--line)" }}><b>${i === 0 ? "▾" : "▸"} ${t}</b>${i === 0 ? html`<div style=${{ marginTop: 6 }}><${Lines} n=${3} /></div>` : null}</div>`)}</div>`
+
+const Inicio = () => html`<div>
+  <${Section} n=${1} title="Abertura" pick=${1} variants=${[["A retrato + nome gigante", AberturaA], ["B retrato à direita", AberturaB], ["C partículas", AberturaC], ["D filme na rolagem", AberturaD]]} refs=${["exemplos 1, 9", "exemplos 10, 7", "exemplos 5, 2", "propostas 3, 8"]} />
+  <${Section} n=${2} title="Sobre curto" pick=${0} variants=${[["A só texto", SobreA], ["B texto + foto", SobreB]]} />
+  <${Section} n=${3} title="Casos em destaque" pick=${0} variants=${[["A carrossel 3D", CasosA], ["B cartões flutuando", CasosB], ["C lista + vídeo no hover", CasosC], ["D rolagem lateral", CasosD]]} refs=${["exemplo 3", "exemplo 8 / ref 8", "ref 12", "ref 2"]} />
+  <${Section} n=${4} title="Números reais" pick=${0} variants=${[["A grade suíça", NumerosA], ["B painéis de vidro", NumerosB]]} refs=${["exemplo 4", "exemplo 6 / proposta 1"]} />
+  <${Section} n=${5} title="Stack" pick=${0} variants=${[["A faixa rolando", StackA], ["B bento", StackB]]} />
+  <${Section} n=${6} title="Trajetória" pick=${1} variants=${[["A vertical", TrajA], ["B horizontal", TrajB]]} />
+  <${Section} n=${7} title="Certificados (novo)" variants=${[["A faixa compacta", CertA], ["B grade com filtro", CertB], ["C parede de quadros", CertC], ["D sanfona por categoria", CertD]]} />
+  <${Section} n=${8} title="Projetos" pick=${0} variants=${[["A bento", ProjA], ["B lista grande", ProjB]]} />
+  <${Section} n=${9} title="Contato" pick=${0} variants=${[["A bloco de cor", ContatoA], ["B título enorme", ContatoB]]} refs=${["exemplo 6", "ref 10"]} />
+</div>`
+
+/* ---------- Outras páginas ---------- */
+const CasosIndex = () => html`<section class="s">
+  <h3>/casos — todos os casos</h3>
+  <div class="bar">${["Todos", "Pagamentos", "Banco de dados", "Segurança", "Deploy", "Mobile"].map((f, i) => html`<span key=${i} class=${"chip" + (i === 0 ? " on" : "")}>${f}</span>`)}</div>
+  <div class="row c3">${Array.from({ length: 9 }, (_, i) => html`<div key=${i}><${Box} h=${90}>capa / vídeo<//><b>Título do caso</b><div class="mono k">projeto · stack · data</div></div>`)}</div>
+</section>`
+
+const CasoDetalhe = () => html`<section class="s">
+  <h3>/casos/[caso] — um caso completo</h3>
+  <${Box} h=${180} dark>vídeo do caso (Higgsfield) em destaque<//>
+  <div class="giant" style=${{ fontSize: "clamp(22px,5vw,44px)", textTransform: "none", margin: "12px 0" }}>O webhook que respondia ok</div>
+  <div class="mono k">Plataforma de sorteios · NestJS · Pix · dez 2026 · <u>ver post no LinkedIn</u></div>
+  <div class="row c3" style=${{ marginTop: 12 }}>${["Problema", "Decisão", "Resultado"].map((t, i) => html`<div key=${i}><b>${t}</b><${Lines} n=${4} /></div>`)}</div>
+  <div class="row c3" style=${{ marginTop: 12 }}>${["número 1", "número 2", "número 3"].map((t, i) => html`<${Box} key=${i} h=${60}>${t}<//>`)}</div>
+  <div class="row c2" style=${{ marginTop: 12 }}><span class="k">← caso anterior</span><span class="k" style=${{ textAlign: "right" }}>próximo caso →</span></div>
+</section>`
+
+const Projeto = () => html`<section class="s">
+  <h3>/projetos/[projeto] — um produto</h3>
+  <div class="row c2"><div><div class="giant" style=${{ fontSize: 32 }}>Nome do projeto</div><${Lines} n=${3} /><div class="mono k" style=${{ marginTop: 6 }}>papel · período · status · mercados</div></div><${Box} h=${150} dark>capa / telas do produto<//></div>
+  <h3 style=${{ marginTop: 14 }}>Casos deste projeto</h3>
+  <div class="row c3">${[0, 1, 2].map((i) => html`<${Box} key=${i} h=${80}>caso ligado<//>`)}</div>
+  <h3 style=${{ marginTop: 14 }}>Stack e links</h3><${Lines} n=${2} />
+</section>`
+
+const Sobre = () => html`<section class="s">
+  <h3>/sobre — tudo que sai do início</h3>
+  <div class="row c2"><${Box} h=${200} dark>retrato grande<//><div><b>Bio longa</b><${Lines} n=${6} /></div></div>
+  <h3 style=${{ marginTop: 14 }}>Trajetória completa</h3><${TrajA} />
+  <div class="row c3" style=${{ marginTop: 14 }}><div><b>Formação</b><${Lines} n=${3} /></div><div><b>Certificados</b><${Lines} n=${3} /></div><div><b>Idiomas</b><${Lines} n=${3} /></div></div>
+  <div style=${{ marginTop: 12 }}><${Cta}>Baixar currículo (PDF)<//></div>
+</section>`
+
+const Ideias = () => html`<section class="s">
+  <h3>/ideias — opcional: posts de opinião (ex.: "Programo com IA: as regras")</h3>
+  ${[0, 1, 2].map((i) => html`<div key=${i} class="row c2" style=${{ padding: "10px 0", borderTop: "1px solid var(--line)" }}><b>Título do texto</b><span class="mono k" style=${{ textAlign: "right" }}>data · leitura de 3 min</span></div>`)}
+</section>`
+
+const PALETTES = [
+  ["Preto + vermelho", "#0b0b0c", "#f2f0eb", "#ff2a2a", "#ffffff", "exemplos 1, 3, 10"],
+  ["Grafite + limão", "#0e100f", "#edefea", "#c8f751", "#0e100f", "exemplos 2, 6 · marca atual"],
+  ["Roxo + violeta", "#0d0618", "#f4f1fa", "#7b3cff", "#ffffff", "exemplos 4, 9"],
+  ["Azul-noite + ciano", "#070b14", "#e8f1f5", "#3ee0ff", "#070b14", "exemplo 5"],
+  ["Papel + laranja (claro)", "#f6f4ef", "#111111", "#ff6a13", "#111111", "exemplos 7, 8"],
+]
+const PAGES = [["Início", Inicio], ["Casos", CasosIndex], ["Caso", CasoDetalhe], ["Projeto", Projeto], ["Sobre", Sobre], ["Ideias (opcional)", Ideias]]
+
+function App() {
+  const [page, setPage] = useState(0)
+  const [mobile, setMobile] = useState(false)
+  const [pal, setPal] = useState(0)
+  const P = PALETTES[pal]
+  const Page = PAGES[page][1]
+  return html`<div>
+    <div class="bar">
+      ${PAGES.map(([name], i) => html`<button key=${i} class=${"chip" + (i === page ? " on" : "")} onClick=${() => setPage(i)}>${name}</button>`)}
+      <span class="spacer"></span>
+      <button class=${"chip" + (!mobile ? " on" : "")} onClick=${() => setMobile(false)}>Computador</button>
+      <button class=${"chip" + (mobile ? " on" : "")} onClick=${() => setMobile(true)}>Celular</button>
+    </div>
+    <div class="bar"><span class="mono k">Paleta:</span>
+      ${PALETTES.map((p, i) => html`<button key=${i} class=${"chip" + (i === pal ? " on" : "")} onClick=${() => setPal(i)}><span class="sw"><i style=${{ background: p[1] }}></i><i style=${{ background: p[2] }}></i><i style=${{ background: p[3] }}></i></span>${p[0]}</button>`)}
+      <span class="mono k">fundo · texto · destaque — ${P[5]}</span>
+    </div>
+    <div class=${"frame" + (mobile ? " mobile" : "")} style=${{ "--p-bg": P[1], "--p-fg": P[2], "--p-hi": P[3], "--p-on-hi": P[4] }}>
+      <div class="nav"><b>Rodrigo Vieira</b><span class="links"><span>Casos</span><span>Projetos</span><span>Sobre</span><span>Contato</span></span><span class="mono k">PT · EN · ES</span></div>
+      <${Page} />
+      <div class="nav k"><span>© Rodrigo Vieira</span><span class="mono">LinkedIn · GitHub · WhatsApp</span></div>
+    </div>
+  </div>`
+}
+
+createRoot(document.getElementById("root")).render(html`<${App} />`)
+</script>
+</body>
+</html>
