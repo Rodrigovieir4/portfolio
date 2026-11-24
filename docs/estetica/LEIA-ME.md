@@ -8,7 +8,8 @@ Aqui ficam as cópias leves, versionadas no repositório. As originais em 2K
 estão fora do git, em `D:/workspace/Claude outputs/portfolio-estetica/`.
 
 `paletas.html` compara as paletas monocromáticas (escolhida: 7, Grafite + vinho).
-`tipografia.html` compara os pares de fontes na paleta escolhida.
+`tipografia.html` é a rodada 1 de fontes (dela ficou só Anton nos números).
+`tipografia-titulos.html` é a rodada 2, só para os títulos.
 
 `esboco.html` é o esqueleto interativo do site: abra no navegador (precisa de
 internet, carrega o React de um CDN).

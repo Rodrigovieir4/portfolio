@@ -148,7 +148,11 @@ azul-noite + ciano, papel + laranja) ficaram para trás.
 
 ### Pendências do redesenho
 
-- Tipografia.
+- Tipografia dos títulos: rodada 2 em `docs/estetica/tipografia-titulos.html`
+  (Archivo expandida, Syne, Italiana, Space Grotesk, Bricolage, Unbounded,
+  Michroma, Outfit fina). Já decidido: **números em Anton**, texto em Geist e
+  rótulos em Geist Mono. Na rodada 1 ele recusou serifa (Cormorant, Bodoni),
+  Anton nos títulos e só Geist.
 - 3 a 5 fotos do Rodrigo (frente, 3/4, perfil, boa luz). As aberturas
   escolhidas dependem do retrato recortado.
 - Confirmar: projeto com vários casos; tipo "Ideias" para posts de opinião;

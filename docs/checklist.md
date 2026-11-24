@@ -21,7 +21,9 @@ Atualizado em 24/11/2026.
 - [x] Opção escolhida para 8 seções do início
 - [x] Opção da seção de certificados (B, 24/11)
 - [x] Paleta: Grafite + vinho (`#121013`, `#8c1730`, `#f2e9dc`, 24/11)
-- [ ] Tipografia: título e texto
+- [x] Tipografia dos números: Anton (24/11)
+- [x] Tipografia do texto: Geist e Geist Mono
+- [ ] Tipografia dos títulos (rodada 2)
 - [ ] Confirmar o modelo projeto com vários casos
 - [ ] Decidir `/ideias` e `/sobre` separado
 - [ ] Fotos do Rodrigo (3 a 5)
