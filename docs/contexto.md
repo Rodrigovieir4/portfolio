@@ -86,6 +86,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   Mono, números grandes em Anton. Alternativa guardada para os títulos:
   Bricolage Grotesque (ele gostou; pode entrar depois). Recusadas: serifas
   (Cormorant, Bodoni) e Anton nos títulos.
+- **Estrutura confirmada** (24/11): um projeto tem vários casos; existe
+  `/ideias` para posts de opinião; `/sobre` é página separada.
+- **Fotos** (24/11): 6 fotos dele (frente, 3/4, perfil, meio corpo, camiseta
+  branca, luz do quarto). Originais em `C:/Users/RoDfps/Downloads/New folder`,
+  convertidas para JPEG em `D:/workspace/Claude outputs/portfolio-estetica/fotos/`.
+  Fora do git. Servem de referência para o retrato de estúdio no Higgsfield.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
 
   | #   | Seção             | Escolha                                                                |
@@ -152,12 +158,9 @@ azul-noite + ciano, papel + laranja) ficaram para trás.
 
 ### Pendências do redesenho
 
-- 3 a 5 fotos do Rodrigo (frente, 3/4, perfil, boa luz). As aberturas
-  escolhidas dependem do retrato recortado.
-- Confirmar: projeto com vários casos; tipo "Ideias" para posts de opinião;
-  página `/sobre` separada.
-- Texto do post 20 (cargo, senioridade, o que busca), que também serve para a
-  abertura.
+- Aprovar os textos de `docs/textos.md` (escritos em 24/11 a partir do
+  currículo) e escolher o título da abertura.
+- Gerar o retrato de estúdio e as imagens de referência de todas as seções.
 
 ## Posts do LinkedIn e vídeos (depois do site)
 

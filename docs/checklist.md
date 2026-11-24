@@ -24,10 +24,10 @@ Atualizado em 24/11/2026.
 - [x] Tipografia dos números: Anton (24/11)
 - [x] Tipografia do texto: Geist e Geist Mono
 - [x] Tipografia dos títulos: Geist; Bricolage Grotesque como alternativa (24/11)
-- [ ] Confirmar o modelo projeto com vários casos
-- [ ] Decidir `/ideias` e `/sobre` separado
-- [ ] Fotos do Rodrigo (3 a 5)
-- [ ] Texto da abertura (cargo, senioridade, o que busca)
+- [x] Confirmar o modelo projeto com vários casos (24/11)
+- [x] Decidir `/ideias` e `/sobre` separado: os dois existem (24/11)
+- [x] Fotos do Rodrigo (6, em 24/11)
+- [ ] Aprovar os textos de `docs/textos.md` (rascunho de 24/11)
 
 ## Redesenho: construção (tudo de uma vez)
 
