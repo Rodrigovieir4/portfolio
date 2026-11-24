@@ -98,6 +98,15 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   das fotos (o 3, braços cruzados, vai na abertura) e uma imagem por seção com
   paleta, fontes e textos fixos. Índice em `docs/estetica/LEIA-ME.md`;
   rosto fora do git porque o repositório é público.
+- **Construção** (24/11): branch `feat/redesenho`, que só vai para a `main`
+  inteiro e testado. Primeira etapa feita: tokens Grafite + vinho em OKLCH,
+  fontes Geist, Geist Mono e Anton, e as 9 seções do início em versão estática
+  (componentes em `apps/web/src/components/inicio/`). Os casos ainda vêm das
+  mensagens; o tipo Caso entra na próxima etapa. O retrato está em
+  `apps/web/public/images/retrato.webp`, **fora do git** (`.gitignore`) até o
+  Rodrigo aprovar o rosto num repositório público.
+- **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
+  esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
 
   | #   | Seção             | Escolha                                                                |

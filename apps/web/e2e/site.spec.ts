@@ -11,7 +11,7 @@ test.describe("navegador em português", () => {
     await page.goto("/")
     await expect(page).toHaveURL(/\/pt$/)
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Rodrigo",
+      "Sistemas que rodam no mundo real",
     )
   })
 })
@@ -24,32 +24,23 @@ test.describe("navegador em inglês", () => {
   })
 })
 
-test("o currículo tem a porta de entrada para o jogo", async ({ page }) => {
-  await page.goto("/pt")
-  await page.getByRole("banner").getByRole("link", { name: /Jogar/ }).click()
-  await expect(page).toHaveURL(/\/pt\/jogo$/)
-})
-
 /*
- * O quarto é o destino que se perde se ninguém clicar: a seção de projetos
- * está logo abaixo e chega de graça para quem rola. Por isso o convite tem
- * dois caminhos no alto da página, o botão e o pôster, e os dois são testados.
+ * O filtro dos certificados é a única lógica de navegador do início: a
+ * contagem do botão tem de bater com os cartões que ficam na tela.
  */
-test("o alto do currículo convida para o quarto pelo botão e pelo pôster", async ({
+test("o filtro dos certificados mostra só a categoria escolhida", async ({
   page,
 }) => {
   await page.goto("/pt")
+  const grade = page
+    .getByRole("heading", { name: "Certificados" })
+    .locator("..")
+  const filtro = grade.getByRole("button", { name: /Acadêmico \(\d+\)/ })
+  const total = Number((await filtro.textContent())?.match(/\d+/)?.[0])
 
-  await expect(
-    page.getByRole("link", { name: /Entrar no meu quarto/i }),
-  ).toBeVisible()
-
-  const cartao = page.getByRole("link", { name: /portfólio jogável/i })
-  await expect(cartao).toBeVisible()
-  await expect(cartao.getByAltText(/quarto isométrico/i)).toBeVisible()
-
-  await cartao.click()
-  await expect(page).toHaveURL(/\/pt\/jogo$/)
+  await filtro.click()
+  await expect(filtro).toHaveAttribute("aria-pressed", "true")
+  await expect(grade.getByRole("listitem")).toHaveCount(total)
 })
 
 test("as páginas de projeto existem nos três idiomas", async ({ page }) => {

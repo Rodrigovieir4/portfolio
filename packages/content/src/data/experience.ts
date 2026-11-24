@@ -34,7 +34,7 @@ const raw = [
     organization: "DBC Software",
     employment: "pj",
     mode: "remoto",
-    start: "2025-11",
+    start: "2025-10",
     end: null,
     location: "Remoto",
     summary: {
@@ -88,7 +88,7 @@ const raw = [
     employment: "freelance",
     mode: "remoto",
     start: "2025-10",
-    end: "2026-05",
+    end: "2026-07",
     location: "Remoto, Brasil e Portugal",
     summary: {
       pt: "Atuação remota em equipes distribuídas, com daily, revisão de código e trabalho por pull request. Foi aqui que aprendi a entrar em base grande escrita por outra pessoa e entregar sem quebrar nada.",
@@ -135,7 +135,7 @@ const raw = [
     },
     organization: "Universidade de São Paulo",
     organizationUrl: "https://www5.usp.br",
-    start: "2026-01", // CONFIRMAR o mês de início
+    start: "2026-02",
     end: null,
     location: "São Paulo, SP",
     summary: {
@@ -176,8 +176,8 @@ const raw = [
     },
     organization: "Universidade São Judas Tadeu",
     organizationUrl: "https://www.usjt.br",
-    start: "2023-02", // CONFIRMAR o mês
-    end: "2025-12", // CONFIRMAR o mês
+    start: "2023-02",
+    end: "2025-12",
     location: "São Paulo, SP",
     summary: {
       pt: "Graduação concluída, com dez unidades curriculares certificadas. Base em desenvolvimento full-stack com Java, Python e JavaScript, modelagem de software e sistemas distribuídos.",

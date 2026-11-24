@@ -39,37 +39,38 @@
   --color-faint: #4d5567;
 
   /*
-   * Camada semantica do shadcn/ui.
+   * Paleta do redesenho (24/11/2026): Grafite + vinho.
    *
-   * Os componentes gerados pelo shadcn referenciam nomes fixos: bg-background,
-   * text-muted-foreground, border-border, bg-primary. Em vez de manter dois
-   * vocabularios que nunca batem, os nomes deles sao apontados para a paleta
-   * Obsidiana. Assim um Select ou um ScrollArea recem-gerado ja nasce na cor
-   * certa, sem precisar editar o componente.
-   *
-   * Atencao ao par muted: no shadcn --color-muted e FUNDO e
-   * --color-muted-foreground e TEXTO. Por isso o cinza de texto do projeto
-   * mora em --color-muted-foreground, e nao em --color-muted.
+   * Tres cores: o grafite e a base, o vinho so aparece onde importa (brilho
+   * do fundo, blocos de destaque, cartao ativo, contato) e o creme e o texto e
+   * o preenchimento dos botoes. Os nomes semanticos do shadcn apontam para
+   * elas, entao componente gerado ja nasce na cor certa.
    */
-  --color-background: #050609;
-  --color-foreground: #eef1f6;
-  --color-card: #10131a;
-  --color-card-foreground: #eef1f6;
-  --color-popover: #0d1016;
-  --color-popover-foreground: #eef1f6;
-  --color-primary: #c8f751;
-  --color-primary-foreground: #050609;
-  --color-secondary: #171b24;
-  --color-secondary-foreground: #eef1f6;
-  --color-muted: #171b24;
-  --color-muted-foreground: #7d8698;
-  --color-accent: #1c2130;
-  --color-accent-foreground: #eef1f6;
-  --color-destructive: #f43f5e;
-  --color-destructive-foreground: #eef1f6;
-  --color-border: #232936;
-  --color-input: #232936;
-  --color-ring: #c8f751;
+  --color-grafite: oklch(0.17 0.006 320);
+  --color-vinho: oklch(0.42 0.15 15);
+  --color-creme: oklch(0.94 0.02 80);
+  /* Vinho para texto sobre o grafite: o vinho puro nao passa no contraste AA. */
+  --color-vinho-claro: oklch(0.66 0.17 15);
+
+  --color-background: var(--color-grafite);
+  --color-foreground: var(--color-creme);
+  --color-card: oklch(0.21 0.008 320);
+  --color-card-foreground: var(--color-creme);
+  --color-popover: oklch(0.21 0.008 320);
+  --color-popover-foreground: var(--color-creme);
+  --color-primary: var(--color-creme);
+  --color-primary-foreground: var(--color-grafite);
+  --color-secondary: oklch(0.24 0.01 320);
+  --color-secondary-foreground: var(--color-creme);
+  --color-muted: oklch(0.24 0.01 320);
+  --color-muted-foreground: oklch(0.94 0.02 80 / 0.62);
+  --color-accent: var(--color-vinho);
+  --color-accent-foreground: var(--color-creme);
+  --color-destructive: oklch(0.63 0.2 25);
+  --color-destructive-foreground: var(--color-creme);
+  --color-border: oklch(0.94 0.02 80 / 0.12);
+  --color-input: oklch(0.94 0.02 80 / 0.18);
+  --color-ring: var(--color-creme);
 
   /* ---- Acentos ---- */
   --color-signal: #c8f751;
@@ -86,15 +87,26 @@
   --color-danger: #f43f5e;
 
   /* ---- Tipografia ---- */
+  /* Titulos e texto em Geist, rotulos em Geist Mono, numeros em Anton. */
   --font-display:
-    var(--font-bricolage), "Bricolage Grotesque", ui-sans-serif, system-ui,
-    sans-serif;
-  --font-sans:
-    var(--font-inter), "Inter", ui-sans-serif, system-ui, -apple-system,
-    sans-serif;
+    var(--font-geist), "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
-    var(--font-jetbrains), "JetBrains Mono", ui-monospace, "SF Mono", Menlo,
+    var(--font-geist-mono), "Geist Mono", ui-monospace, "SF Mono", Menlo,
     monospace;
+  --font-numeros: var(--font-anton), "Anton", "Impact", sans-serif;
+
+  --animate-faixa: faixa 45s linear infinite;
+  --animate-faixa-reversa: faixa 45s linear infinite reverse;
+
+  @keyframes faixa {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
 
   /* Escala fluida: cresce com a viewport sem media query. */
   --text-fluid-sm: clamp(0.875rem, 0.83rem + 0.22vw, 1rem);
@@ -202,8 +214,8 @@
   }
 
   body {
-    background-color: var(--color-void);
-    color: var(--color-ink);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
@@ -336,4 +348,36 @@
   100% {
     transform: translateX(300%);
   }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Redesenho: fundos com o vinho                                              */
+/* -------------------------------------------------------------------------- */
+
+/* Brilho vinho atras do retrato da abertura. */
+@utility brilho-vinho {
+  background-image: radial-gradient(
+    55% 70% at 78% 45%,
+    color-mix(in oklch, var(--color-vinho) 75%, transparent),
+    transparent 72%
+  );
+}
+
+/* Bloco de contato: vinho com o centro mais claro, como a referencia. */
+@utility bloco-vinho {
+  background-image: radial-gradient(
+    70% 90% at 50% 35%,
+    color-mix(in oklch, var(--color-vinho), white 12%),
+    var(--color-vinho) 55%,
+    color-mix(in oklch, var(--color-vinho), black 35%)
+  );
+}
+
+/* Linha da trajetoria, com a ponta acesa em vinho. */
+@utility linha-vinho {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in oklch, var(--color-vinho) 35%, transparent),
+    var(--color-vinho-claro)
+  );
 }

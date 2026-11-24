@@ -31,13 +31,15 @@ Atualizado em 24/11/2026.
 
 ## Redesenho: construção (tudo de uma vez)
 
-- [ ] Tokens novos em `packages/ui` (paleta em OKLCH, fontes, raio, espaçamento)
+- [x] Tokens novos em `packages/ui` (paleta em OKLCH e fontes, 24/11)
 - [ ] Tipo Caso em `packages/content` com schema e os primeiros casos
 - [x] Imagens de referência por seção no Higgsfield (9, em 24/11)
 - [x] Retrato de estúdio a partir das fotos (4, em 24/11)
 - [ ] Mídia final: retrato tratado, vídeos e capas (cotar antes)
 - [ ] Blocos visuais em `packages/ui`
 - [ ] Todas as páginas e seções, no mesmo estilo
+  - [x] Início, versão estática das 9 seções (branch `feat/redesenho`, 24/11)
+  - [ ] `/casos`, `/casos/[caso]`, `/sobre`, `/ideias` e páginas de projeto
 - [ ] Movimento: GSAP, Lenis, 3D onde couber, versão leve e sem movimento
 - [ ] Três idiomas revisados
 - [ ] Checagem final: `bun run check`, ponta a ponta, desempenho em máquina fraca

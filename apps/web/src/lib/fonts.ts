@@ -1,34 +1,32 @@
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google"
+import { Anton, Geist, Geist_Mono } from "next/font/google"
 
 /**
- * Tres familias com papeis distintos:
- *   display  titulos, com a personalidade do site
- *   sans     texto corrido, escolhida por legibilidade em bloco
- *   mono     rotulos tecnicos, datas e numeros
+ * Tres familias com papeis distintos (redesenho de 24/11/2026):
+ *   Geist       titulos e texto corrido
+ *   Geist Mono  rotulos pequenos, datas e metadados
+ *   Anton       so os numeros grandes de destaque
  *
- * Todas sao variaveis, entao os pesos intermediarios saem de um unico arquivo
- * em vez de um download por peso. `display: 'swap'` garante que o texto apareca
- * na fonte do sistema enquanto a definitiva carrega, e nunca invisivel.
+ * `display: 'swap'` mostra o texto na fonte do sistema enquanto a definitiva
+ * carrega, e nunca invisivel.
  */
 
-export const fontDisplay = Bricolage_Grotesque({
-  subsets: ["latin"],
-  variable: "--font-bricolage",
+export const fontSans = Geist({
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin"],
+  variable: "--font-geist",
 })
 
-export const fontSans = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+export const fontMono = Geist_Mono({
   display: "swap",
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
 })
 
-export const fontMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
+export const fontNumeros = Anton({
   display: "swap",
-  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-anton",
+  weight: "400",
 })
 
-export const fontVariables = `${fontDisplay.variable} ${fontSans.variable} ${fontMono.variable}`
+export const fontVariables = `${fontSans.variable} ${fontMono.variable} ${fontNumeros.variable}`

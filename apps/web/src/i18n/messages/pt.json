@@ -344,5 +344,83 @@
       "cta": "Ver currículo",
       "force": "Jogar mesmo assim"
     }
+  },
+  "inicio": {
+    "nav": {
+      "casos": "Casos",
+      "projetos": "Projetos",
+      "sobre": "Sobre",
+      "contato": "Contato",
+      "pular": "Pular para o conteúdo"
+    },
+    "abertura": {
+      "rotulo": "Desenvolvedor Full Stack",
+      "tituloA": "Sistemas que rodam no",
+      "tituloB": "mundo real.",
+      "subtitulo": "Construo web, mobile e APIs que rodam no Brasil, em Portugal e na Irlanda, com pagamentos, segurança e desempenho de verdade.",
+      "disponivel": "Aberto a vagas e a projetos",
+      "falar": "Falar comigo",
+      "casos": "Ver casos",
+      "retratoAlt": "Retrato de Rodrigo Vieira de braços cruzados"
+    },
+    "sobre": {
+      "rotulo": "Sobre",
+      "texto": "Formado em Análise e Desenvolvimento de Sistemas e pós-graduando em Engenharia de Software na USP. Cuido de produto em produção",
+      "destaque": "de ponta a ponta.",
+      "mais": "Ver trajetória"
+    },
+    "casos": {
+      "titulo": "Casos",
+      "dica": "arraste para o lado",
+      "emBreve": "vídeo em breve",
+      "itens": [
+        ["O webhook que respondia ok", "Pix · NestJS"],
+        ["Duas pessoas, uma cota", "PostgreSQL · concorrência"],
+        ["90 ms para 3,5 ms sem tocar na consulta", "PostgreSQL · Supabase"],
+        ["O NULL que desfazia o sorteio", "PostgreSQL · SQL"],
+        ["Herdar um sistema em produção", "AWS · NestJS"],
+        ["O código que lê o recibo", "NestJS · pagamentos"]
+      ]
+    },
+    "numeros": {
+      "titulo": "Números reais",
+      "itens": [
+        ["3,5 ms", "consultas com RLS, antes 90,7 ms"],
+        ["87", "Lighthouse mobile, antes 49"],
+        ["277", "migrations revisadas na segurança do PostgreSQL"],
+        ["182", "testes automatizados com Jest"]
+      ]
+    },
+    "stack": {
+      "titulo": "Stack do dia a dia",
+      "nota": "o que uso em produção"
+    },
+    "trajetoria": {
+      "titulo": "Trajetória",
+      "hoje": "Hoje",
+      "hojeTexto": "produtos no Brasil, em Portugal e na Irlanda"
+    },
+    "certificados": {
+      "titulo": "Certificados",
+      "todos": "Todos",
+      "categorias": {
+        "academico": "Acadêmico",
+        "curso": "Cursos",
+        "idioma": "Idioma",
+        "cloud": "Cloud",
+        "outro": "Outros"
+      },
+      "abrir": "Abrir certificado"
+    },
+    "projetos": {
+      "titulo": "Projetos",
+      "ver": "Ver projeto"
+    },
+    "contato": {
+      "titulo": "Vamos conversar.",
+      "texto": "Procurando alguém que cuide do sistema até ele rodar em produção?",
+      "falar": "Falar comigo",
+      "curriculo": "Baixar currículo"
+    }
   }
 }

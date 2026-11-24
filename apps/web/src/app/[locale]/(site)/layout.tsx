@@ -1,10 +1,10 @@
 import type { ReactNode } from "react"
 
-import { Cursor, Grain, ScrollProgress, SmoothScroll } from "@portfolio/ui"
+import { SmoothScroll } from "@portfolio/ui"
 import { setRequestLocale } from "next-intl/server"
 
-import { Footer } from "@/components/layout/footer"
-import { Header } from "@/components/layout/header"
+import { Cabecalho } from "@/components/inicio/cabecalho"
+import { Rodape } from "@/components/inicio/rodape"
 
 /**
  * Moldura do site em modo currículo.
@@ -26,13 +26,9 @@ export default async function SiteLayout({
 
   return (
     <SmoothScroll>
-      <ScrollProgress />
-      <Grain />
-      <Cursor />
-
-      <Header />
+      <Cabecalho />
       <main id="conteudo">{children}</main>
-      <Footer />
+      <Rodape />
     </SmoothScroll>
   )
 }

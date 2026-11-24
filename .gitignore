@@ -40,3 +40,6 @@ playwright-report/
 
 # cache de lint
 .eslintcache
+
+# Retrato do redesenho: fica fora do git ate o Rodrigo aprovar o rosto num repositorio publico.
+apps/web/public/images/retrato.webp

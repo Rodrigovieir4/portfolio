@@ -344,5 +344,83 @@
       "cta": "View résumé",
       "force": "Play anyway"
     }
+  },
+  "inicio": {
+    "nav": {
+      "casos": "Cases",
+      "projetos": "Projects",
+      "sobre": "About",
+      "contato": "Contact",
+      "pular": "Skip to content"
+    },
+    "abertura": {
+      "rotulo": "Full Stack Developer",
+      "tituloA": "Systems that run in the",
+      "tituloB": "real world.",
+      "subtitulo": "I build web, mobile and APIs running in Brazil, Portugal and Ireland, with real payments, security and performance.",
+      "disponivel": "Open to jobs and projects",
+      "falar": "Get in touch",
+      "casos": "See cases",
+      "retratoAlt": "Portrait of Rodrigo Vieira with arms crossed"
+    },
+    "sobre": {
+      "rotulo": "About",
+      "texto": "Graduated in Systems Analysis and Development and pursuing a graduate degree in Software Engineering at USP. I take care of products in production",
+      "destaque": "from end to end.",
+      "mais": "See career"
+    },
+    "casos": {
+      "titulo": "Cases",
+      "dica": "drag sideways",
+      "emBreve": "video coming soon",
+      "itens": [
+        ["The webhook that answered ok", "Pix · NestJS"],
+        ["Two people, one quota", "PostgreSQL · concurrency"],
+        ["90 ms to 3.5 ms without touching the query", "PostgreSQL · Supabase"],
+        ["The NULL that undid the raffle", "PostgreSQL · SQL"],
+        ["Inheriting a system in production", "AWS · NestJS"],
+        ["The code that reads the receipt", "NestJS · payments"]
+      ]
+    },
+    "numeros": {
+      "titulo": "Real numbers",
+      "itens": [
+        ["3.5 ms", "RLS queries, down from 90.7 ms"],
+        ["87", "mobile Lighthouse, up from 49"],
+        ["277", "migrations reviewed in the PostgreSQL security work"],
+        ["182", "automated tests with Jest"]
+      ]
+    },
+    "stack": {
+      "titulo": "Everyday stack",
+      "nota": "what I use in production"
+    },
+    "trajetoria": {
+      "titulo": "Career",
+      "hoje": "Today",
+      "hojeTexto": "products in Brazil, Portugal and Ireland"
+    },
+    "certificados": {
+      "titulo": "Certificates",
+      "todos": "All",
+      "categorias": {
+        "academico": "Academic",
+        "curso": "Courses",
+        "idioma": "Language",
+        "cloud": "Cloud",
+        "outro": "Other"
+      },
+      "abrir": "Open certificate"
+    },
+    "projetos": {
+      "titulo": "Projects",
+      "ver": "See project"
+    },
+    "contato": {
+      "titulo": "Let's talk.",
+      "texto": "Looking for someone who takes the system all the way to production?",
+      "falar": "Get in touch",
+      "curriculo": "Download résumé"
+    }
   }
 }
