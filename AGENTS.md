@@ -15,7 +15,9 @@ Use o SocratiCode para localizar código e medir impacto (seção 9.3).
 ## Contexto e checklist
 
 Antes de qualquer tarefa, leia `docs/contexto.md` (decisões, preferências do
-Rodrigo e estado do trabalho) e `docs/checklist.md` (ordem do que falta). Ao
+Rodrigo e estado do trabalho) e `docs/checklist.md` (ordem do que falta). Para
+saber quem ele é e o que já fez, leia `docs/perfil.md`: fica só nesta máquina
+(fora do git, porque tem dados de clientes) e é a fonte para textos do site. Ao
 fechar uma etapa ou tomar uma decisão com ele, atualize os dois no mesmo
 commit. É o que permite retomar em outra conta sem perder o fio.
 

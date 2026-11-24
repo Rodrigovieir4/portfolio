@@ -43,3 +43,6 @@ playwright-report/
 
 # Retrato do redesenho: fica fora do git ate o Rodrigo aprovar o rosto num repositorio publico.
 apps/web/public/images/retrato.webp
+
+# Perfil completo do Rodrigo: detalhes de clientes e repositórios privados, so local.
+docs/perfil.md
