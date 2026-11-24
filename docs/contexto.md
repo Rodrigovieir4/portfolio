@@ -92,6 +92,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   branca, luz do quarto). Originais em `C:/Users/RoDfps/Downloads/New folder`,
   convertidas para JPEG em `D:/workspace/Claude outputs/portfolio-estetica/fotos/`.
   Fora do git. Servem de referência para o retrato de estúdio no Higgsfield.
+- **Abertura** (24/11): título "Sistemas que rodam no mundo real.", sem números
+  (ele não gostou dos três propostos).
+- **Referência visual final** (24/11): 4 retratos de estúdio gerados a partir
+  das fotos (o 3, braços cruzados, vai na abertura) e uma imagem por seção com
+  paleta, fontes e textos fixos. Índice em `docs/estetica/LEIA-ME.md`;
+  rosto fora do git porque o repositório é público.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
 
   | #   | Seção             | Escolha                                                                |
@@ -160,7 +166,6 @@ azul-noite + ciano, papel + laranja) ficaram para trás.
 
 - Aprovar os textos de `docs/textos.md` (escritos em 24/11 a partir do
   currículo) e escolher o título da abertura.
-- Gerar o retrato de estúdio e as imagens de referência de todas as seções.
 
 ## Posts do LinkedIn e vídeos (depois do site)
 

@@ -7,11 +7,7 @@ aprovados.
 
 ## Abertura
 
-**Título** (escolher um):
-
-1. Software que aguenta produção.
-2. Do banco ao deploy.
-3. Sistemas que rodam no mundo real.
+**Título** (escolhido em 24/11): Sistemas que rodam no mundo real.
 
 **Cargo:** Desenvolvedor Full Stack
 
@@ -22,11 +18,8 @@ na Irlanda, com pagamentos, segurança e desempenho de verdade.
 
 **Botões:** Falar comigo (principal) · Ver casos · Baixar currículo
 
-**Três números da abertura:**
-
-- 3 países em produção
-- 90,7 ms → 3,5 ms em consultas com RLS
-- Lighthouse mobile de 49 para 87
+**Números:** nenhum na abertura (o Rodrigo não gostou dos três propostos em
+24/11). Os números ficam só na seção de números.
 
 **Senioridade:** o currículo mostra pouco mais de um ano como full stack
 (DBC Software desde outubro de 2025, freela de outubro de 2025 a julho de

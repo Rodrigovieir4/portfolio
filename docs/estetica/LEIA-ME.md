@@ -59,3 +59,27 @@ fora do git, na pasta das originais.
 - Misturas:
   9. roxo, nome em duas camadas, partículas;
   10. blueprint ciano com título vermelho.
+
+## Rodada 4: referência final de cada seção (24/11)
+
+Geradas com a paleta Grafite + vinho, a tipografia escolhida e os textos de
+`docs/textos.md`. São a referência visual da construção. Estão em
+`secoes/secao-N.jpg`:
+
+2. sobre curto;
+3. casos em carrossel 3D;
+4. números em grade suíça;
+5. stack em faixa;
+6. trajetória horizontal;
+7. certificados em grade com filtro;
+8. projetos em bento;
+9. contato em bloco vinho.
+
+A abertura (1) e os 4 retratos de estúdio ficam **fora do git**, porque o
+repositório é público e eles mostram o rosto do Rodrigo. Estão em
+`D:/workspace/Claude outputs/portfolio-estetica/secoes/secao-1.png` e
+`.../retratos/retrato-1..4.png`. O retrato 3 (braços cruzados) é o da abertura.
+
+Textos inventados pela IA nas imagens não entram no site: selos de "premiado"
+ou "award-winning", descrições de projetos e certificados que não existem.
+O conteúdo real sai de `packages/content`.

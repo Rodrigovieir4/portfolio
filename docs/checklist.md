@@ -33,7 +33,8 @@ Atualizado em 24/11/2026.
 
 - [ ] Tokens novos em `packages/ui` (paleta em OKLCH, fontes, raio, espaçamento)
 - [ ] Tipo Caso em `packages/content` com schema e os primeiros casos
-- [ ] Imagens de referência por seção no Higgsfield (cotar antes)
+- [x] Imagens de referência por seção no Higgsfield (9, em 24/11)
+- [x] Retrato de estúdio a partir das fotos (4, em 24/11)
 - [ ] Mídia final: retrato tratado, vídeos e capas (cotar antes)
 - [ ] Blocos visuais em `packages/ui`
 - [ ] Todas as páginas e seções, no mesmo estilo
