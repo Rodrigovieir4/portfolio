@@ -113,7 +113,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   dois momentos fixos, o resto rola normal; versão leve no celular e para quem
   pede menos movimento.
 
-### Paleta: em decisão
+### Paleta: Grafite + vinho (escolhida em 24/11)
+
+**Escolha: opção 7, Grafite + vinho.** Fundo `#121013`, tom `#8c1730`,
+texto `#f2e9dc`. O vinho aparece só onde importa: degradê do fundo, blocos de
+destaque, cartão ativo dos casos e o bloco de contato.
 
 Em 24/11 o Rodrigo trouxe como referência uma peça de moda ("Aureon") com
 paleta **monocromática profunda**: campo vinho em degradê (mais claro no
@@ -144,7 +148,7 @@ azul-noite + ciano, papel + laranja) ficaram para trás.
 
 ### Pendências do redesenho
 
-- Paleta (três cores) e tipografia.
+- Tipografia.
 - 3 a 5 fotos do Rodrigo (frente, 3/4, perfil, boa luz). As aberturas
   escolhidas dependem do retrato recortado.
 - Confirmar: projeto com vários casos; tipo "Ideias" para posts de opinião;

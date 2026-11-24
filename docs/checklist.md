@@ -20,7 +20,7 @@ Atualizado em 24/11/2026.
 - [x] Esboço do esqueleto (`docs/estetica/esboco.html`)
 - [x] Opção escolhida para 8 seções do início
 - [x] Opção da seção de certificados (B, 24/11)
-- [ ] Paleta: fundo, texto e destaque
+- [x] Paleta: Grafite + vinho (`#121013`, `#8c1730`, `#f2e9dc`, 24/11)
 - [ ] Tipografia: título e texto
 - [ ] Confirmar o modelo projeto com vários casos
 - [ ] Decidir `/ideias` e `/sobre` separado
