@@ -1,7 +1,7 @@
 # Contexto do projeto
 
 Documento para retomar o trabalho em qualquer conta ou máquina sem perder o
-fio. Atualizado em 23/11/2026. O passo a passo do que falta está em
+fio. Atualizado em 24/11/2026. O passo a passo do que falta está em
 [`checklist.md`](checklist.md).
 
 ## Como retomar
@@ -92,7 +92,7 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   | 4   | Números reais     | A: grade suíça com números enormes (ref.: exemplo 4)                   |
   | 5   | Stack             | A: faixa rolando                                                       |
   | 6   | Trajetória        | B: linha horizontal que se desenha com a rolagem                       |
-  | 7   | Certificados      | seção nova pedida em 23/11; opção ainda não escolhida                  |
+  | 7   | Certificados      | B: grade com filtro por categoria e miniatura do PDF (24/11)           |
   | 8   | Projetos          | A: blocos (bento)                                                      |
   | 9   | Contato           | A: bloco grande na cor de destaque                                     |
 
@@ -113,17 +113,28 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   dois momentos fixos, o resto rola normal; versão leve no celular e para quem
   pede menos movimento.
 
-### Paleta: três cores (fundo, texto, destaque), em decisão
+### Paleta: em decisão
 
-Opções aplicadas no esboço:
+Em 24/11 o Rodrigo trouxe como referência uma peça de moda ("Aureon") com
+paleta **monocromática profunda**: campo vinho em degradê (mais claro no
+centro, quase preto nas bordas), texto creme e nenhuma cor competindo. As
+opções nessa família estão aplicadas no esboço e em `docs/estetica/paletas.html`:
 
-| Opção                   | Fundo     | Texto     | Destaque  | Veio de                    |
-| ----------------------- | --------- | --------- | --------- | -------------------------- |
-| Preto + vermelho        | `#0b0b0c` | `#f2f0eb` | `#ff2a2a` | exemplos 1, 3, 10          |
-| Grafite + limão         | `#0e100f` | `#edefea` | `#c8f751` | exemplos 2, 6; marca atual |
-| Roxo + violeta          | `#0d0618` | `#f4f1fa` | `#7b3cff` | exemplos 4, 9              |
-| Azul-noite + ciano      | `#070b14` | `#e8f1f5` | `#3ee0ff` | exemplo 5                  |
-| Papel + laranja (claro) | `#f6f4ef` | `#111111` | `#ff6a13` | exemplos 7, 8              |
+| Opção                 | Fundo     | Tom       | Texto     |
+| --------------------- | --------- | --------- | --------- |
+| Vinho (a referência)  | `#3d0913` | `#8c1730` | `#f2e6d3` |
+| Verde-garrafa         | `#0b241b` | `#1f5a43` | `#efe7d6` |
+| Marinho               | `#08132b` | `#22408a` | `#ece6da` |
+| Ameixa                | `#26092a` | `#64206b` | `#f3e6ee` |
+| Terracota             | `#3a1209` | `#a8401f` | `#f6e9dc` |
+| Petróleo              | `#05232a` | `#0f5f66` | `#eef1ea` |
+| Grafite + vinho       | `#121013` | `#8c1730` | `#f2e9dc` |
+| Creme + vinho (clara) | `#f2e9dc` | `#8c1730` | `#2a0810` |
+
+Na família monocromática, o "tom" faz o degradê do fundo e os blocos de
+destaque; os botões usam o texto claro como preenchimento. As paletas da
+rodada anterior (preto + vermelho, grafite + limão, roxo + violeta,
+azul-noite + ciano, papel + laranja) ficaram para trás.
 
 ### Material de referência
 
@@ -133,7 +144,6 @@ Opções aplicadas no esboço:
 
 ### Pendências do redesenho
 
-- Opção da seção de certificados.
 - Paleta (três cores) e tipografia.
 - 3 a 5 fotos do Rodrigo (frente, 3/4, perfil, boa luz). As aberturas
   escolhidas dependem do retrato recortado.

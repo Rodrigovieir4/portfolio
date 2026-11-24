@@ -7,6 +7,8 @@ versão final: pessoas e textos das imagens geradas são provisórios.
 Aqui ficam as cópias leves, versionadas no repositório. As originais em 2K
 estão fora do git, em `D:/workspace/Claude outputs/portfolio-estetica/`.
 
+`paletas.html` compara as paletas monocromáticas em decisão.
+
 `esboco.html` é o esqueleto interativo do site: abra no navegador (precisa de
 internet, carrega o React de um CDN).
 

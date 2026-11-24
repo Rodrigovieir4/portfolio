@@ -3,7 +3,7 @@
 Ordem de trabalho do portfólio. Detalhes e decisões em
 [`contexto.md`](contexto.md). Marque a caixa ao concluir e atualize a data.
 
-Atualizado em 23/11/2026.
+Atualizado em 24/11/2026.
 
 ## Base do repositório
 
@@ -19,7 +19,7 @@ Atualizado em 23/11/2026.
 - [x] Estrutura de páginas proposta
 - [x] Esboço do esqueleto (`docs/estetica/esboco.html`)
 - [x] Opção escolhida para 8 seções do início
-- [ ] Opção da seção de certificados
+- [x] Opção da seção de certificados (B, 24/11)
 - [ ] Paleta: fundo, texto e destaque
 - [ ] Tipografia: título e texto
 - [ ] Confirmar o modelo projeto com vários casos

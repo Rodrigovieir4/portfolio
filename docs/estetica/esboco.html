@@ -24,11 +24,11 @@
   .chip.on { background: var(--hi); color: var(--hi-fg); border-color: var(--hi); }
   .spacer { flex: 1; }
   .frame { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 0 auto; transition: max-width .2s;
-    background: var(--p-bg); color: var(--p-fg);
+    background: radial-gradient(120% 70% at 50% 0%, color-mix(in srgb, var(--p-hi) 70%, var(--p-bg)) 0%, var(--p-bg) 65%); color: var(--p-fg);
     --fg: var(--p-fg); --line: color-mix(in srgb, var(--p-fg) 16%, transparent); --muted: color-mix(in srgb, var(--p-fg) 55%, transparent);
     --box: color-mix(in srgb, var(--p-fg) 8%, transparent); --box2: color-mix(in srgb, var(--p-fg) 16%, transparent); }
   .frame .pill.hi { background: var(--p-hi); color: var(--p-on-hi); border-color: var(--p-hi); }
-  .frame .hi { color: var(--p-hi); }
+  .frame .hi { color: var(--p-fg); font-style: italic; }
   .sw { display: inline-flex; gap: 2px; vertical-align: middle; margin-right: 4px; }
   .sw i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; border: 1px solid #8884; }
   .chip .ok { font-weight: 700; }
@@ -200,11 +200,14 @@ const Ideias = () => html`<section class="s">
 </section>`
 
 const PALETTES = [
-  ["Preto + vermelho", "#0b0b0c", "#f2f0eb", "#ff2a2a", "#ffffff", "exemplos 1, 3, 10"],
-  ["Grafite + limão", "#0e100f", "#edefea", "#c8f751", "#0e100f", "exemplos 2, 6 · marca atual"],
-  ["Roxo + violeta", "#0d0618", "#f4f1fa", "#7b3cff", "#ffffff", "exemplos 4, 9"],
-  ["Azul-noite + ciano", "#070b14", "#e8f1f5", "#3ee0ff", "#070b14", "exemplo 5"],
-  ["Papel + laranja (claro)", "#f6f4ef", "#111111", "#ff6a13", "#111111", "exemplos 7, 8"],
+  ["Vinho (sua referência)", "#3d0913", "#f2e6d3", "#8c1730", "#f2e6d3", "campo vinho, creme quente"],
+  ["Verde-garrafa", "#0b241b", "#efe7d6", "#1f5a43", "#efe7d6", "verde profundo, creme"],
+  ["Marinho", "#08132b", "#ece6da", "#22408a", "#ece6da", "azul-marinho, marfim"],
+  ["Ameixa", "#26092a", "#f3e6ee", "#64206b", "#f3e6ee", "roxo-ameixa, rosado claro"],
+  ["Terracota", "#3a1209", "#f6e9dc", "#a8401f", "#f6e9dc", "telha queimada, areia"],
+  ["Petróleo", "#05232a", "#eef1ea", "#0f5f66", "#eef1ea", "azul-petróleo, osso"],
+  ["Grafite + vinho", "#121013", "#f2e9dc", "#8c1730", "#f2e9dc", "neutro escuro com o vinho só no destaque"],
+  ["Creme + vinho (claro)", "#f2e9dc", "#2a0810", "#8c1730", "#f2e9dc", "a referência invertida"],
 ]
 const PAGES = [["Início", Inicio], ["Casos", CasosIndex], ["Caso", CasoDetalhe], ["Projeto", Projeto], ["Sobre", Sobre], ["Ideias (opcional)", Ideias]]
 
