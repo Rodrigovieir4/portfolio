@@ -21,7 +21,9 @@ export async function Casos() {
             {t("titulo")}
           </h2>
           <p className="font-mono text-xs text-muted-foreground">
-            {String(cases.length).padStart(2, "0")} · {t("dica")} →
+            {String(cases.length).padStart(2, "0")} ·{" "}
+            <span className="lg:hidden">{t("dica")}</span>
+            <span className="max-lg:hidden">{t("dicaLargo")}</span> →
           </p>
         </div>
         <ol

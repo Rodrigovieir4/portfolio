@@ -52,6 +52,12 @@ export async function Projetos() {
           </li>
         ))}
       </ul>
+      <Link
+        href="/projetos"
+        className="mt-8 inline-block font-mono text-sm underline underline-offset-4"
+      >
+        {t("verTodos")} →
+      </Link>
     </section>
   )
 }

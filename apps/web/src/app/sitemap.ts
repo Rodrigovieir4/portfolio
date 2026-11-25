@@ -1,70 +1,64 @@
 import type { MetadataRoute } from "next"
 
-import { cases, projects } from "@portfolio/content"
+import { cases, ideas, projects } from "@portfolio/content"
 
-import { routing } from "@/i18n/routing"
-import { siteUrl } from "@/lib/site"
+import { alternativas } from "@/i18n/caminho"
+import { type AppPathname, routing } from "@/i18n/routing"
+
+type Entrada = {
+  rota: AppPathname
+  slug?: string
+  prioridade: number
+  frequencia: "monthly" | "yearly"
+  data?: string
+}
 
 /**
- * Sitemap com as tres versoes de idioma de cada pagina.
+ * Sitemap com as três versões de idioma de cada página.
  *
- * O campo `alternates.languages` diz ao buscador que /pt, /en e /es sao
- * traducoes da mesma pagina, e nao conteudo duplicado. Sem isso as versoes
- * competem entre si no indice.
+ * O campo `alternates.languages` diz ao buscador que /pt, /en e /es são
+ * traduções da mesma página, e não conteúdo duplicado. Sem isso as versões
+ * competem entre si no índice.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date()
+  const agora = new Date()
+  const entradas: Entrada[] = [
+    { frequencia: "monthly", prioridade: 1, rota: "/" },
+    { frequencia: "monthly", prioridade: 0.8, rota: "/casos" },
+    { frequencia: "monthly", prioridade: 0.8, rota: "/projetos" },
+    { frequencia: "monthly", prioridade: 0.8, rota: "/sobre" },
+    { frequencia: "monthly", prioridade: 0.6, rota: "/ideias" },
+    ...projects.map((p) => ({
+      frequencia: "monthly" as const,
+      prioridade: p.featured ? 0.8 : 0.6,
+      rota: "/projetos/[slug]" as const,
+      slug: p.slug,
+    })),
+    ...cases.map((c) => ({
+      data: c.publishedAt,
+      frequencia: "yearly" as const,
+      prioridade: 0.7,
+      rota: "/casos/[slug]" as const,
+      slug: c.slug,
+    })),
+    ...ideas.map((i) => ({
+      data: i.publishedAt,
+      frequencia: "yearly" as const,
+      prioridade: 0.6,
+      rota: "/ideias/[slug]" as const,
+      slug: i.slug,
+    })),
+  ]
 
-  function alternates(path: (locale: string) => string) {
-    return {
-      languages: Object.fromEntries(
-        routing.locales.map((locale) => [locale, `${siteUrl}${path(locale)}`]),
-      ),
-    }
-  }
-
-  const projectSegment: Record<string, string> = {
-    pt: "projetos",
-    en: "projects",
-    es: "proyectos",
-  }
-
-  const home: MetadataRoute.Sitemap = routing.locales.map((locale) => ({
-    url: `${siteUrl}/${locale}`,
-    lastModified: now,
-    changeFrequency: "monthly",
-    priority: 1,
-    alternates: alternates((l) => `/${l}`),
-  }))
-
-  const projectPages: MetadataRoute.Sitemap = routing.locales.flatMap(
-    (locale) =>
-      projects.map((project) => ({
-        url: `${siteUrl}/${locale}/${projectSegment[locale]}/${project.slug}`,
-        lastModified: now,
-        changeFrequency: "monthly" as const,
-        priority: project.featured ? 0.8 : 0.6,
-        alternates: alternates(
-          (l) => `/${l}/${projectSegment[l]}/${project.slug}`,
-        ),
-      })),
-  )
-
-  const casoSegment: Record<string, string> = {
-    pt: "casos",
-    en: "cases",
-    es: "casos",
-  }
-
-  const casePages: MetadataRoute.Sitemap = routing.locales.flatMap((locale) =>
-    cases.map((caso) => ({
-      url: `${siteUrl}/${locale}/${casoSegment[locale]}/${caso.slug}`,
-      lastModified: new Date(caso.publishedAt),
-      changeFrequency: "yearly" as const,
-      priority: 0.7,
-      alternates: alternates((l) => `/${l}/${casoSegment[l]}/${caso.slug}`),
+  return entradas.flatMap((e) =>
+    routing.locales.map((locale) => ({
+      alternates: {
+        languages: alternativas(e.rota, { locale, slug: e.slug }).languages,
+      },
+      changeFrequency: e.frequencia,
+      lastModified: e.data ? new Date(e.data) : agora,
+      priority: e.prioridade,
+      url: alternativas(e.rota, { locale, slug: e.slug }).canonical,
     })),
   )
-
-  return [...home, ...projectPages, ...casePages]
 }

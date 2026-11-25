@@ -8,6 +8,7 @@ import {
 import { getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
+import { formatarData } from "@/lib/data"
 
 type Props = { caso: Case; locale: Locale }
 
@@ -40,10 +41,7 @@ async function Topo({ caso, locale }: Props) {
         ) : null}
         <span>{caso.stack.join(" · ")}</span>
         <time dateTime={caso.publishedAt}>
-          {new Intl.DateTimeFormat(locale, {
-            dateStyle: "medium",
-            timeZone: "UTC",
-          }).format(new Date(caso.publishedAt))}
+          {formatarData(caso.publishedAt, locale)}
         </time>
         {caso.linkedinUrl ? (
           <a href={caso.linkedinUrl} target="_blank" rel="noreferrer">

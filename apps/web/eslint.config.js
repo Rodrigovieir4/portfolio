@@ -9,13 +9,12 @@ export default [
     /*
      * Código de terceiro, trazido para dentro do repositório.
      *
-     * src/components/ui vem do gerador do shadcn/ui e src/components/reactbits
-     * vem do React Bits. Os dois são reescritos quando o componente é
-     * atualizado pelo CLI, então corrigir estilo aqui é trabalho que se perde
-     * na próxima atualização. É a mesma lista que o DESIGN-SYSTEM libera para
-     * o código gerado em packages/ui.
+     * src/components/ui vem do gerador do shadcn/ui e é reescrito quando o
+     * componente é atualizado pelo CLI, então corrigir estilo aqui é trabalho
+     * que se perde na próxima atualização. É a mesma regra que o DESIGN-SYSTEM
+     * aplica ao código gerado em packages/ui.
      */
-    files: ["src/components/ui/**", "src/components/reactbits/**"],
+    files: ["src/components/ui/**"],
     rules: {
       "@stylistic/max-len": "off",
       "@typescript-eslint/max-params": "off",
@@ -53,13 +52,10 @@ export default [
   legado([
     "e2e/helpers.ts",
     "scripts/gerar-poster.mjs",
-    "src/app/[[]locale]/(site)/projetos/[[]slug]/page.tsx",
     "src/app/[[]locale]/not-found.tsx",
     "src/app/[[]locale]/opengraph-image.tsx",
     "src/app/not-found.tsx",
     "src/components/game/**",
-    "src/components/layout/**",
-    "src/components/sections/**",
     "src/i18n/request.ts",
     "src/lib/site.ts",
   ]),

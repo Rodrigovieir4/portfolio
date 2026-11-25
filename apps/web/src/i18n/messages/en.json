@@ -18,22 +18,6 @@
     "skipToContent": "Skip to content",
     "play": "Play"
   },
-  "hero": {
-    "scrollHint": "scroll to explore",
-    "ctaProjects": "See projects",
-    "ctaContact": "Get in touch",
-    "resume": "Download résumé",
-    "basedIn": "São Paulo, Brazil",
-    "play": "Enter my room",
-    "playCardTitle": "The playable portfolio",
-    "playCardBody": "An isometric room where you walk around, open the projects on the PC and kick the ball. Runs in the browser, nothing to install.",
-    "playCardAlt": "Isometric room of the playable portfolio, with a desk, certificates on the wall and a goal"
-  },
-  "about": {
-    "eyebrow": "who is on the other side",
-    "title": "From the pitch to the terminal.",
-    "statsTitle": "In numbers"
-  },
   "skills": {
     "eyebrow": "what I build with",
     "title": "The stack, no padding.",
@@ -55,80 +39,6 @@
       "basico": "Basic"
     },
     "marqueeLabel": "Technologies I use day to day"
-  },
-  "journey": {
-    "eyebrow": "how I got here",
-    "title": "A path that did not start in code.",
-    "description": "Six years of high-performance sport before the first line of code, and a year spent entering large codebases written by other people. None of it was left behind. It only changed field.",
-    "present": "present",
-    "kinds": {
-      "work": "Experience",
-      "education": "Education",
-      "athletics": "Sport",
-      "project": "Projects",
-      "certification": "Certification"
-    }
-  },
-  "projects": {
-    "eyebrow": "what I have built",
-    "title": "Products with people on the other side.",
-    "description": "Three of them are live right now, serving Brazil, Portugal and Ireland. The code is closed, so instead of a repository link the cards carry the numbers you can check and the product itself.",
-    "viewProject": "View project",
-    "viewAll": "View all projects",
-    "backToProjects": "Back to projects",
-    "repo": "Source",
-    "demo": "Live site",
-    "article": "Write-up",
-    "roleLabel": "My role",
-    "stackLabel": "Stack",
-    "highlightsLabel": "Highlights",
-    "status": {
-      "live": "live",
-      "wip": "in progress",
-      "archived": "archived",
-      "private": "private"
-    },
-    "clientLabel": "Client",
-    "privateCode": "Private code",
-    "liveSite": "Visit live site",
-    "periodLabel": "Period",
-    "present": "present",
-    "metricsLabel": "In numbers",
-    "groupClient": "Client products",
-    "groupPersonal": "Personal and study projects",
-    "engagement": {
-      "dbc": "through DBC Software",
-      "freelance": "Freelance",
-      "proprio": "Personal project",
-      "academico": "Study project"
-    }
-  },
-  "certificates": {
-    "eyebrow": "what I have studied",
-    "title": "Certificates and education.",
-    "description": "Degree completed, an MBA in progress at USP, technical courses and a language certification. Every file opens as a PDF.",
-    "open": "Open certificate",
-    "categories": {
-      "academico": "Academic",
-      "idioma": "Language",
-      "curso": "Course",
-      "cloud": "Cloud",
-      "outro": "Other"
-    }
-  },
-  "contact": {
-    "eyebrow": "next step",
-    "title": "Let us build something.",
-    "description": "I am open to opportunities, freelance work and a good conversation about architecture. I reply within one business day.",
-    "copyEmail": "Copy email",
-    "copied": "Copied",
-    "emailCta": "Send an email"
-  },
-  "footer": {
-    "builtWith": "Built with Next.js, Three.js and Turborepo.",
-    "sourceCode": "Source code",
-    "rights": "All rights reserved.",
-    "backToTop": "Back to top"
   },
   "notFound": {
     "title": "This page does not exist.",
@@ -351,7 +261,8 @@
       "projetos": "Projects",
       "sobre": "About",
       "contato": "Contact",
-      "pular": "Skip to content"
+      "pular": "Skip to content",
+      "ideias": "Ideas"
     },
     "abertura": {
       "rotulo": "Full Stack Developer",
@@ -367,14 +278,15 @@
       "rotulo": "About",
       "texto": "Graduated in Systems Analysis and Development and pursuing a graduate degree in Software Engineering at USP. I take care of products in production",
       "destaque": "from end to end.",
-      "mais": "See career",
+      "mais": "More about me",
       "ia": "I use AI every day to move faster. Architecture decisions, code review and what ships to production stay with me."
     },
     "casos": {
       "titulo": "Cases",
       "dica": "drag sideways",
       "emBreve": "video coming soon",
-      "verTodos": "See all cases"
+      "verTodos": "See all cases",
+      "dicaLargo": "scroll to see"
     },
     "numeros": {
       "titulo": "Real numbers",
@@ -408,7 +320,8 @@
     },
     "projetos": {
       "titulo": "Projects",
-      "ver": "See project"
+      "ver": "See project",
+      "verTodos": "See all projects"
     },
     "contato": {
       "titulo": "Let's talk.",
@@ -433,5 +346,83 @@
   "casosPagina": {
     "titulo": "Cases",
     "descricao": "Real engineering stories in production: the problem, the decision and the outcome of each one."
+  },
+  "projeto": {
+    "voltar": "All projects",
+    "papel": "My role",
+    "cliente": "Client",
+    "stack": "Stack",
+    "destaques": "Highlights",
+    "numeros": "In numbers",
+    "casos": "Cases from this project",
+    "verNoAr": "See it live",
+    "codigo": "Code",
+    "codigoPrivado": "Private code",
+    "anterior": "Previous project",
+    "proximo": "Next project",
+    "emBreve": "images coming soon",
+    "status": {
+      "live": "live",
+      "wip": "in progress",
+      "archived": "archived",
+      "private": "private"
+    },
+    "engagement": {
+      "dbc": "through DBC Software",
+      "freelance": "Freelance",
+      "proprio": "Personal project",
+      "academico": "Study project"
+    }
+  },
+  "projetosPagina": {
+    "titulo": "Projects",
+    "descricao": "Products live in Brazil, Portugal and Ireland, and the personal projects that came before them.",
+    "clientes": "For clients",
+    "proprios": "Personal and study"
+  },
+  "sobrePagina": {
+    "rotulo": "About",
+    "descricao": "Who Rodrigo Vieira is, how he works and the road so far.",
+    "cargo": "Full-stack developer in São Paulo, working remotely for Brazil and Europe.",
+    "retratoAlt": "Portrait of Rodrigo Vieira",
+    "comoTrabalho": "How I work",
+    "principios": [
+      [
+        "From database to deploy",
+        "I take care of the system until it runs in production, and keep taking care of it once it is live."
+      ],
+      [
+        "AI with guardrails",
+        "I use AI every day to move faster. I decide what goes in, review it, rehearse it and own the deploy."
+      ],
+      [
+        "Passed is not works",
+        "Tests against a real database, deploys rehearsed on a copy and a check of what actually reached production."
+      ],
+      [
+        "Measure before guessing",
+        "I improve what can be measured: query time, performance score, page weight."
+      ]
+    ],
+    "trajetoria": "Journey",
+    "stack": "Stack",
+    "idiomas": "Languages",
+    "hoje": "today",
+    "niveis": {
+      "nativo": "native",
+      "fluente": "fluent",
+      "avancado": "advanced",
+      "intermediario": "intermediate",
+      "basico": "basic"
+    },
+    "lerIdeia": "Read how I use AI"
+  },
+  "ideiasPagina": {
+    "titulo": "Ideas",
+    "descricao": "Opinion pieces on engineering, AI and working in production."
+  },
+  "ideia": {
+    "voltar": "All ideas",
+    "verPost": "See the LinkedIn post"
   }
 }

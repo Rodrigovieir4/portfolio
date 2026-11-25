@@ -43,11 +43,17 @@ test("o filtro dos certificados mostra só a categoria escolhida", async ({
   await expect(grade.getByRole("listitem")).toHaveCount(total)
 })
 
-test("as páginas de projeto existem nos três idiomas", async ({ page }) => {
+test("as páginas do site existem nos três idiomas", async ({ page }) => {
   for (const path of [
+    "/pt/projetos",
     "/pt/projetos/esplendido",
     "/en/projects/db-store",
     "/es/proyectos/db-connect",
+    "/pt/sobre",
+    "/en/about",
+    "/es/sobre-mi",
+    "/pt/ideias",
+    "/en/ideas/programo-com-ia-as-regras",
   ]) {
     const response = await page.goto(path)
     expect(response?.status(), path).toBe(200)
@@ -96,4 +102,19 @@ test("quem pede menos movimento vê tudo parado e visível", async ({
   )
   await expect(page.locator("#casos li.ativo")).toHaveCount(0)
   await contexto.close()
+})
+
+test("trocar de idioma mantém a página e traduz o caminho", async ({
+  page,
+}) => {
+  await page.goto("/pt/projetos/db-store")
+  await page
+    .getByRole("banner")
+    .getByRole("link", { exact: true, name: "en" })
+    .click()
+  await expect(page).toHaveURL(/\/en\/projects\/db-store$/)
+  await expect(page.locator("link[rel=canonical]")).toHaveAttribute(
+    "href",
+    /\/en\/projects\/db-store$/,
+  )
 })

@@ -26,7 +26,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { useLocale, useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 
-import { LocaleSwitcher } from "@/components/layout/header"
+import { LocaleSwitcher } from "@/components/game/locale-switcher"
 import {
   Select,
   SelectContent,

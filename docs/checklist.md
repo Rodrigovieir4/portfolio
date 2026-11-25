@@ -44,12 +44,14 @@ Atualizado em 24/11/2026.
 - [ ] Todas as páginas e seções, no mesmo estilo
   - [x] Início, versão estática das 9 seções (branch `feat/redesenho`, 24/11)
   - [x] `/casos` e `/casos/[caso]` nos três idiomas (24/11)
-  - [ ] `/sobre`, `/ideias` e páginas de projeto no visual novo
+  - [x] `/sobre`, `/ideias`, `/projetos` e páginas de projeto no visual novo (24/11)
 - [x] Movimento do início: GSAP + Lenis, versão leve e sem movimento (24/11)
-- [ ] Movimento nas outras páginas (`/casos`, `/sobre`, projetos) ao redesenhá-las
+- [x] Movimento nas outras páginas (24/11)
+- [ ] Menu no celular (hoje o cabeçalho só mostra os links a partir de 768 px)
 - [ ] Três idiomas revisados
 - [ ] Checagem final: `bun run check`, ponta a ponta, desempenho em máquina fraca
-- [ ] Remover o currículo antigo e a lista de legado que ele deixar
+- [x] Remover o currículo antigo (seções, cabeçalho e rodapé velhos, React Bits e textos sem uso, 24/11)
+- [ ] Reescrever o que ainda está na lista de legado do lint (jogo, páginas de erro, imagem de OG)
 
 ## Publicação
 

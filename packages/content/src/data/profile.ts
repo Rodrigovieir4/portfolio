@@ -8,7 +8,7 @@ import { type Profile, profileSchema } from "../schema"
  */
 const raw = {
   name: "Rodrigo Vieira de Sousa",
-  shortName: "Rodrigo Sousa",
+  shortName: "Rodrigo Vieira",
 
   headline: {
     pt: "Desenvolvedor Full-Stack",

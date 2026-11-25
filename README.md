@@ -109,7 +109,7 @@ mexer em ajuste.
 apps/
   web/                  Next.js 16 — App Router, i18n em /pt /en /es
     components/ui/      shadcn/ui, gerado pelo CLI oficial
-    components/reactbits/ React Bits, vendorizado pelo mesmo CLI
+    components/inicio/  Seções do início e o movimento (GSAP, em movimento.tsx)
 packages/
   content/              Dados profissionais tipados e validados com Zod
   game/                 Protótipo do portfólio jogável: quarto 3D com física

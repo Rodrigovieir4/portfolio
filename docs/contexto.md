@@ -128,6 +128,17 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   núcleos ou 2 GB: só entradas simples. O GSAP fixa um div interno de
   `#casos`, nunca um filho direto do `<main>` (o React perde o nó ao trocar
   de página).
+- **Páginas novas** (24/11): `/projetos` (lista em linhas, clientes e
+  próprios), `/projetos/[projeto]` (com os casos do projeto), `/sobre`
+  (bio, como trabalho, trajetória completa, stack, idiomas e contato) e
+  `/ideias` com a primeira ideia, tirada do post 4 ("Programo com IA: as
+  regras"). O post 20 fica de fora até ele preencher os trechos
+  `[RODRIGO: ...]`. Toda página declara canonical e versões de idioma por
+  `src/i18n/caminho.ts`; a troca de idioma mantém a página. Nome curto do
+  site passou a ser "Rodrigo Vieira", como ele assina.
+- **Limpeza** (24/11): saíram as seções, o cabeçalho e o rodapé do currículo
+  antigo, os componentes do React Bits e os textos sem uso. O seletor de
+  idioma do jogo foi para `components/game/locale-switcher.tsx`.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

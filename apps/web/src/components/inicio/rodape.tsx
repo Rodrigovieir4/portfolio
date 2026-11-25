@@ -1,6 +1,6 @@
-import { LOCALES, profile } from "@portfolio/content"
+import { profile } from "@portfolio/content"
 
-import { Link } from "@/i18n/navigation"
+import { Idiomas } from "./idiomas"
 
 export function Rodape() {
   return (
@@ -20,19 +20,7 @@ export function Rodape() {
           </li>
         ))}
       </ul>
-      <ul className="flex gap-3 font-mono text-xs uppercase">
-        {LOCALES.map((locale) => (
-          <li key={locale}>
-            <Link
-              href="/"
-              locale={locale}
-              className="text-muted-foreground hover:text-foreground"
-            >
-              {locale}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Idiomas />
     </footer>
   )
 }

@@ -18,22 +18,6 @@
     "skipToContent": "Pular para o conteúdo",
     "play": "Jogar"
   },
-  "hero": {
-    "scrollHint": "role para explorar",
-    "ctaProjects": "Ver projetos",
-    "ctaContact": "Falar comigo",
-    "resume": "Baixar currículo",
-    "basedIn": "São Paulo, Brasil",
-    "play": "Entrar no meu quarto",
-    "playCardTitle": "O portfólio jogável",
-    "playCardBody": "Um quarto isométrico onde você anda, abre os projetos no PC e chuta a bola. Roda no navegador, sem instalar nada.",
-    "playCardAlt": "Quarto isométrico do portfólio jogável, com mesa, certificados na parede e uma trave"
-  },
-  "about": {
-    "eyebrow": "quem está do outro lado",
-    "title": "Do gramado para o terminal.",
-    "statsTitle": "Em números"
-  },
   "skills": {
     "eyebrow": "com o que eu construo",
     "title": "A stack, sem enfeite.",
@@ -55,80 +39,6 @@
       "basico": "Básico"
     },
     "marqueeLabel": "Tecnologias que uso no dia a dia"
-  },
-  "journey": {
-    "eyebrow": "como cheguei aqui",
-    "title": "Uma trajetória que não começou no código.",
-    "description": "Seis anos de alto rendimento antes da primeira linha de código, e um ano entrando em base grande escrita por outra pessoa. Nada disso ficou para trás, só mudou de campo.",
-    "present": "hoje",
-    "kinds": {
-      "work": "Experiência",
-      "education": "Formação",
-      "athletics": "Esporte",
-      "project": "Projetos",
-      "certification": "Certificação"
-    }
-  },
-  "projects": {
-    "eyebrow": "o que eu construí",
-    "title": "Produtos com gente usando do outro lado.",
-    "description": "Três deles estão no ar agora, atendendo Brasil, Portugal e Irlanda. O código é fechado, então em vez de link de repositório os cards trazem os números que dá para conferir e o produto no ar.",
-    "viewProject": "Ver projeto",
-    "viewAll": "Ver todos os projetos",
-    "backToProjects": "Voltar aos projetos",
-    "repo": "Código",
-    "demo": "Ver no ar",
-    "article": "Artigo",
-    "roleLabel": "Meu papel",
-    "stackLabel": "Stack",
-    "highlightsLabel": "Destaques",
-    "status": {
-      "live": "no ar",
-      "wip": "em construção",
-      "archived": "arquivado",
-      "private": "privado"
-    },
-    "clientLabel": "Cliente",
-    "privateCode": "Código privado",
-    "liveSite": "Ver no ar",
-    "periodLabel": "Período",
-    "present": "hoje",
-    "metricsLabel": "Em números",
-    "groupClient": "Produtos de cliente",
-    "groupPersonal": "Projetos próprios e de estudo",
-    "engagement": {
-      "dbc": "via DBC Software",
-      "freelance": "Freelance",
-      "proprio": "Projeto próprio",
-      "academico": "Projeto de estudo"
-    }
-  },
-  "certificates": {
-    "eyebrow": "o que eu estudei",
-    "title": "Certificados e formação.",
-    "description": "Graduação concluída, MBA em andamento na USP, cursos técnicos e certificação de idioma. Todos os arquivos abrem em PDF.",
-    "open": "Abrir certificado",
-    "categories": {
-      "academico": "Acadêmico",
-      "idioma": "Idioma",
-      "curso": "Curso",
-      "cloud": "Cloud",
-      "outro": "Outro"
-    }
-  },
-  "contact": {
-    "eyebrow": "próximo passo",
-    "title": "Bora construir alguma coisa.",
-    "description": "Estou aberto a oportunidades, projeto freelance e conversa boa sobre arquitetura. Resposta em até um dia útil.",
-    "copyEmail": "Copiar e-mail",
-    "copied": "Copiado",
-    "emailCta": "Enviar e-mail"
-  },
-  "footer": {
-    "builtWith": "Construído com Next.js, Three.js e Turborepo.",
-    "sourceCode": "Código-fonte",
-    "rights": "Todos os direitos reservados.",
-    "backToTop": "Voltar ao topo"
   },
   "notFound": {
     "title": "Esta página não existe.",
@@ -351,7 +261,8 @@
       "projetos": "Projetos",
       "sobre": "Sobre",
       "contato": "Contato",
-      "pular": "Pular para o conteúdo"
+      "pular": "Pular para o conteúdo",
+      "ideias": "Ideias"
     },
     "abertura": {
       "rotulo": "Desenvolvedor Full Stack",
@@ -367,14 +278,15 @@
       "rotulo": "Sobre",
       "texto": "Formado em Análise e Desenvolvimento de Sistemas e pós-graduando em Engenharia de Software na USP. Cuido de produto em produção",
       "destaque": "de ponta a ponta.",
-      "mais": "Ver trajetória",
+      "mais": "Mais sobre mim",
       "ia": "Uso IA todos os dias para ir mais rápido. As decisões de arquitetura, a revisão do código e o que vai para produção continuam comigo."
     },
     "casos": {
       "titulo": "Casos",
       "dica": "arraste para o lado",
       "emBreve": "vídeo em breve",
-      "verTodos": "Ver todos os casos"
+      "verTodos": "Ver todos os casos",
+      "dicaLargo": "role para ver"
     },
     "numeros": {
       "titulo": "Números reais",
@@ -408,7 +320,8 @@
     },
     "projetos": {
       "titulo": "Projetos",
-      "ver": "Ver projeto"
+      "ver": "Ver projeto",
+      "verTodos": "Ver todos os projetos"
     },
     "contato": {
       "titulo": "Vamos conversar.",
@@ -433,5 +346,83 @@
   "casosPagina": {
     "titulo": "Casos",
     "descricao": "Histórias reais de engenharia em produção: o problema, a decisão e o resultado de cada uma."
+  },
+  "projeto": {
+    "voltar": "Todos os projetos",
+    "papel": "Meu papel",
+    "cliente": "Cliente",
+    "stack": "Stack",
+    "destaques": "Destaques",
+    "numeros": "Em números",
+    "casos": "Casos deste projeto",
+    "verNoAr": "Ver no ar",
+    "codigo": "Código",
+    "codigoPrivado": "Código privado",
+    "anterior": "Projeto anterior",
+    "proximo": "Próximo projeto",
+    "emBreve": "imagens em breve",
+    "status": {
+      "live": "no ar",
+      "wip": "em construção",
+      "archived": "arquivado",
+      "private": "privado"
+    },
+    "engagement": {
+      "dbc": "via DBC Software",
+      "freelance": "Freelance",
+      "proprio": "Projeto próprio",
+      "academico": "Projeto de estudo"
+    }
+  },
+  "projetosPagina": {
+    "titulo": "Projetos",
+    "descricao": "Produtos no ar no Brasil, em Portugal e na Irlanda, e os projetos próprios que vieram antes.",
+    "clientes": "Para clientes",
+    "proprios": "Próprios e de estudo"
+  },
+  "sobrePagina": {
+    "rotulo": "Sobre",
+    "descricao": "Quem é Rodrigo Vieira, como trabalha e o caminho até aqui.",
+    "cargo": "Desenvolvedor Full Stack em São Paulo, trabalhando remoto para o Brasil e a Europa.",
+    "retratoAlt": "Retrato de Rodrigo Vieira",
+    "comoTrabalho": "Como trabalho",
+    "principios": [
+      [
+        "Do banco ao deploy",
+        "Cuido do sistema até ele rodar em produção, e continuo cuidando depois que ele está no ar."
+      ],
+      [
+        "IA com travas",
+        "Uso IA todos os dias para ir mais rápido. Eu decido o que entra, reviso, ensaio e assumo o deploy."
+      ],
+      [
+        "Passou não é funciona",
+        "Testes contra banco real, deploy ensaiado numa cópia e conferência do que chegou em produção."
+      ],
+      [
+        "Medir antes de achar",
+        "Melhoro o que dá para medir: tempo de consulta, nota de desempenho, peso de página."
+      ]
+    ],
+    "trajetoria": "Trajetória",
+    "stack": "Stack",
+    "idiomas": "Idiomas",
+    "hoje": "hoje",
+    "niveis": {
+      "nativo": "nativo",
+      "fluente": "fluente",
+      "avancado": "avançado",
+      "intermediario": "intermediário",
+      "basico": "básico"
+    },
+    "lerIdeia": "Ler como uso IA"
+  },
+  "ideiasPagina": {
+    "titulo": "Ideias",
+    "descricao": "Textos de opinião sobre engenharia, IA e trabalho em produção."
+  },
+  "ideia": {
+    "voltar": "Todas as ideias",
+    "verPost": "Ver o post no LinkedIn"
   }
 }

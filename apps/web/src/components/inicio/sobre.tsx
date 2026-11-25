@@ -1,5 +1,7 @@
 import { getTranslations } from "next-intl/server"
 
+import { Link } from "@/i18n/navigation"
+
 export async function Sobre() {
   const t = await getTranslations("inicio.sobre")
 
@@ -21,12 +23,12 @@ export async function Sobre() {
         {t("ia")}
       </p>
       <div className="mt-12 flex justify-end">
-        <a
-          href="#trajetoria"
+        <Link
+          href="/sobre"
           className="font-mono text-sm underline underline-offset-4"
         >
           {t("mais")} →
-        </a>
+        </Link>
       </div>
     </section>
   )

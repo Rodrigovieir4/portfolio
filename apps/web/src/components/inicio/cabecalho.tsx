@@ -1,12 +1,21 @@
-import { LOCALES } from "@portfolio/content"
-import { getTranslations } from "next-intl/server"
+import { getLocale, getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
 
-const SECOES = ["casos", "projetos", "sobre", "contato"] as const
+import { Idiomas } from "./idiomas"
+
+const PAGINAS = [
+  ["casos", "/casos"],
+  ["projetos", "/projetos"],
+  ["sobre", "/sobre"],
+  ["ideias", "/ideias"],
+] as const
+
+const ITEM = "text-muted-foreground transition-colors hover:text-foreground"
 
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
+  const locale = await getLocale()
 
   return (
     <header className="absolute inset-x-0 top-0 z-20">
@@ -21,30 +30,21 @@ export async function Cabecalho() {
           Rodrigo Vieira
         </Link>
         <ul className="hidden gap-8 text-sm md:flex">
-          {SECOES.map((secao) => (
-            <li key={secao}>
-              <a
-                href={`#${secao}`}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {t(secao)}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <ul className="flex gap-3 font-mono text-xs uppercase">
-          {LOCALES.map((locale) => (
-            <li key={locale}>
-              <Link
-                href="/"
-                locale={locale}
-                className="text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {locale}
+          {PAGINAS.map(([chave, rota]) => (
+            <li key={chave}>
+              <Link href={rota} className={ITEM}>
+                {t(chave)}
               </Link>
             </li>
           ))}
+          <li>
+            {/* O contato fica no fim do início; toda página leva até lá. */}
+            <a href={`/${locale}#contato`} className={ITEM}>
+              {t("contato")}
+            </a>
+          </li>
         </ul>
+        <Idiomas />
       </nav>
     </header>
   )

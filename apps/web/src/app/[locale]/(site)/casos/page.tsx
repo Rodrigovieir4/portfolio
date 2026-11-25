@@ -4,6 +4,7 @@ import { type Locale, cases } from "@portfolio/content"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 
 import { CartaoCaso } from "@/components/casos/cartao-caso"
+import { alternativas } from "@/i18n/caminho"
 import { routing } from "@/i18n/routing"
 
 type Params = { locale: string }
@@ -19,7 +20,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "casosPagina" })
-  return { description: t("descricao"), title: t("titulo") }
+  return {
+    alternates: alternativas("/casos", { locale: locale as Locale }),
+    description: t("descricao"),
+    title: t("titulo"),
+  }
 }
 
 export default async function CasosPage({

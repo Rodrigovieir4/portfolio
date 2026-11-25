@@ -176,6 +176,34 @@ export const caseSchema = z.object({
   video: z.string().optional(),
 })
 
+/**
+ * Uma ideia: texto de opinião, vindo de um post do LinkedIn. O corpo é uma
+ * sequência de blocos para o site desenhar parágrafo, lista e passo a passo
+ * sem markdown.
+ */
+export const ideaSchema = z.object({
+  slug: z
+    .string()
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "slug deve ser kebab-case, sem acento",
+    ),
+  title: localizedString,
+  summary: localizedString,
+  blocks: z
+    .array(
+      z.object({
+        kind: z.enum(["paragrafo", "lista", "passos"]),
+        text: localizedList,
+      }),
+    )
+    .min(1),
+  publishedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "data no formato AAAA-MM-DD"),
+  linkedinUrl: z.string().url().optional(),
+})
+
 export const experienceSchema = z
   .object({
     id: z.string().min(1),
@@ -242,6 +270,7 @@ export type Experience = z.infer<typeof experienceSchema>
 export type Certification = z.infer<typeof certificationSchema>
 export type Language = z.infer<typeof languageSchema>
 export type Case = z.infer<typeof caseSchema>
+export type Idea = z.infer<typeof ideaSchema>
 
 /**
  * Valida uma coleção e enriquece o erro com o nome do arquivo de origem,

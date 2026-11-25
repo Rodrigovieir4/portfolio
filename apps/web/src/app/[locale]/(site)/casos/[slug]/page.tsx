@@ -10,8 +10,8 @@ import { setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 
 import { CasoDetalhe } from "@/components/casos/caso-detalhe"
+import { alternativas } from "@/i18n/caminho"
 import { routing } from "@/i18n/routing"
-import { siteUrl } from "@/lib/site"
 
 type Params = { locale: string; slug: string }
 
@@ -33,7 +33,10 @@ export async function generateMetadata({
   const title = traduzir(caso.title, locale as Locale)
   const description = traduzir(caso.summary, locale as Locale)
   return {
-    alternates: { canonical: `${siteUrl}/${locale}/casos/${slug}` },
+    alternates: alternativas("/casos/[slug]", {
+      locale: locale as Locale,
+      slug,
+    }),
     description,
     openGraph: { description, title, type: "article" },
     title,
