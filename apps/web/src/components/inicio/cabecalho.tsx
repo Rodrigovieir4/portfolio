@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server"
 
+import { ShinyText } from "@/components/reactbits/shiny-text"
 import { Link } from "@/i18n/navigation"
 
 import { Idiomas } from "./idiomas"
@@ -15,23 +16,26 @@ const PAGINAS = [
 const ITEM = "text-muted-foreground transition-colors hover:text-foreground"
 
 /**
- * Marca em forma de tag: <RodrigoVieira/>, como um componente. Os sinais
- * ficam um tom abaixo para o nome ter o destaque.
+ * Marca em forma de tag: <RodrigoVieira/>, como um componente. O ShinyText
+ * do React Bits passa um reflexo claro pelas letras a cada poucos segundos,
+ * com um halo suave; para quem pede menos movimento, fica parada.
  */
 function Marca() {
   return (
     <Link
       href="/"
       aria-label="Rodrigo Vieira"
-      className="w-fit text-xl font-extrabold tracking-tight text-vinho-claro transition-opacity brilho-marca hover:opacity-85 md:text-2xl"
+      className="w-fit text-xl font-extrabold tracking-tight transition-opacity hover:opacity-85 md:text-2xl"
     >
-      <span aria-hidden className="opacity-60">
-        {"<"}
-      </span>
-      RodrigoVieira
-      <span aria-hidden className="opacity-60">
-        {"/>"}
-      </span>
+      <ShinyText
+        color="#e8607a"
+        delay={2.5}
+        glow={0.45}
+        shineColor="#fff1f3"
+        shineWidth={30}
+        speed={2.2}
+        text="<RodrigoVieira/>"
+      />
     </Link>
   )
 }

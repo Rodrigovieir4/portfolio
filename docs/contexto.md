@@ -204,7 +204,7 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   cabeçalho inteiro é preto fosco (translúcido e desfocado), em todas as
   páginas: o feixe aparece borrado atrás e os links continuam legíveis.
   A marca à esquerda virou <RodrigoVieira/>, em Geist extranegrito, vinho
-  claro com brilho (utilitário brilho-marca), com os sinais um tom abaixo.
+  claro, com o ShinyText do React Bits (reflexo claro a cada 2,5 s e halo).
   O cabeçalho é fixo (acompanha a rolagem), sem borda embaixo; âncoras param
   logo abaixo dele (scroll-padding-top de 4rem).
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,
