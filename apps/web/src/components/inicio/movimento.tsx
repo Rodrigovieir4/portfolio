@@ -6,7 +6,7 @@ import { SplitText } from "gsap/SplitText"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
-import { IMPACTO } from "./laser"
+import { FOTO, IMPACTO } from "./laser"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -107,18 +107,39 @@ function quandoImpactar(acao: () => void) {
 }
 
 /**
- * No início, a abertura espera o laser bater no chão. Nas outras páginas,
- * o título e os textos entram logo.
+ * No início, a abertura acontece em três tempos: a foto aparece, o laser cai
+ * no topo da cabeça e escorre para os lados, e no impacto entra o resto.
+ * Nas outras páginas, o título e os textos entram logo.
  */
 function abertura(contexto: gsap.Context) {
   if (blocosDaAbertura().length === 0) {
     entradaSimples()
     return
   }
-  // contexto.add mantém as animações no matchMedia, para o revert desfazer.
-  return quandoImpactar(
-    contexto.add("revelarAbertura", revelarAbertura) as () => void,
+  let soltar: (() => void) | undefined
+  const linha = gsap.timeline()
+  revelarRetrato(linha)
+  // Com a foto quase pronta, solta o laser e passa a esperar o impacto.
+  linha.call(
+    () => {
+      // contexto.add mantém as animações no matchMedia, para o revert desfazer.
+      soltar = quandoImpactar(
+        contexto.add("revelarResto", revelarResto) as () => void,
+      )
+      document.documentElement.dataset.foto = ""
+      window.dispatchEvent(new Event(FOTO))
+    },
+    undefined,
+    0.55,
   )
+  return () => {
+    soltar?.()
+    // Saindo do início, as marcas da abertura não valem para a próxima vez.
+    const marcas = document.documentElement.dataset
+    delete marcas.foto
+    delete marcas.impacto
+    delete marcas.revelado
+  }
 }
 
 function entradaSimples() {
@@ -150,7 +171,8 @@ function entradaSimples() {
  * - o título gira de leve em profundidade ao subir;
  * - os textos entram por último e o botão principal ganha um pulso de brilho.
  */
-function revelarAbertura() {
+/** No impacto: a foto acende com a luz, o nome sai do feixe e entra o resto. */
+function revelarResto() {
   const linha = gsap.timeline({
     defaults: { ease: SAIDA },
     // Marca o fim da revelação animada; os testes de ponta a ponta esperam.
@@ -159,7 +181,15 @@ function revelarAbertura() {
     },
   })
   linha.set(blocosDaAbertura(), { autoAlpha: 1 })
-  revelarRetrato(linha)
+  const foto = um("retrato")
+  if (foto) {
+    linha.fromTo(
+      foto,
+      { filter: "brightness(1.6)" },
+      { clearProps: "filter", duration: 0.9, filter: "brightness(1)" },
+      0,
+    )
+  }
   revelarNome(linha)
 
   const palavras = palavrasDoTitulo()
@@ -174,13 +204,13 @@ function revelarAbertura() {
         transformPerspective: 600,
         yPercent: 110,
       },
-      0.45,
+      0.35,
     )
   }
   linha.from(
     todos("abertura"),
     { duration: 0.9, filter: "blur(8px)", opacity: 0, stagger: 0.07, y: 16 },
-    0.7,
+    0.6,
   )
   const botao = um("cta")
   if (botao) {
@@ -193,30 +223,28 @@ function revelarAbertura() {
         duration: 1.1,
         ease: "power2.out",
       },
-      1.3,
+      1.2,
     )
   }
 }
 
+/** A foto vem primeiro: sai do escuro, sobe um pouco e ganha foco. */
 function revelarRetrato(linha: gsap.core.Timeline) {
   const foto = um("retrato")
   if (!foto) return
+  linha.set(foto, { autoAlpha: 1 })
   linha.fromTo(
     foto,
+    { filter: "brightness(0.15) blur(10px)", scale: 1.03, y: 40 },
     {
-      clipPath: "inset(100% 0% 0% 0%)",
-      filter: "brightness(2.6) saturate(0.6) blur(6px)",
-      scale: 1.04,
-    },
-    {
-      clipPath: "inset(0% 0% 0% 0%)",
-      duration: 1.4,
-      // Sem filtro nem recorte no fim: filtro parado ainda força a foto
-      // numa camada própria e pode tirar nitidez.
-      clearProps: "filter,clipPath",
+      // Sem filtro no fim: filtro parado ainda força a foto numa camada
+      // própria e pode tirar nitidez.
+      clearProps: "filter",
+      duration: 1.1,
       ease: "power3.out",
-      filter: "brightness(1) saturate(1) blur(0px)",
+      filter: "brightness(1) blur(0px)",
       scale: 1,
+      y: 0,
     },
     0,
   )

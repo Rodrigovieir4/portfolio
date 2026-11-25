@@ -174,11 +174,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   celular o nome ocupa 2/3 da largura para as letras alargadas não saírem da
   tela. Retrato da abertura em resolução cheia (WebP 95, servido em qualidade
   92); ampliação 4K no Higgsfield cotada em 2 créditos, esperando o ok.
-- **Regra do retrato** (25/11, pedido do Rodrigo): nada pode ficar por cima da
-  foto dele, nem efeito de mouse, nem texto. O hero usa o retrato recortado
-  (`public/images/retrato-recorte.webp`, fundo removido localmente com a
-  biblioteca da IMG.LY, sem gastar crédito); laser, fumaça e nome ficam atrás.
-  O contador de 0 a 100 saiu, trocado pelo laser.
+- **Retrato e laser** (25/11, pedido do Rodrigo): texto e botões nunca ficam
+  por cima da foto. O laser passou a ficar na frente dela, no estilo "Twin
+  Falls" do React Bits: a foto aparece primeiro, o feixe cai no topo da
+  cabeça e a luz escorre em arco pelos dois lados; no impacto entram o nome e
+  os textos. A imagem (`public/images/retrato-abertura.webp`, 1540 × 2257)
+  começa no topo da cabeça e tem a cabeça no centro exato; o topo arredondado
+  (`rounded-t-full`) faz a superfície do laser virar um arco. Fundo removido
+  localmente com a biblioteca da IMG.LY, sem gastar crédito.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

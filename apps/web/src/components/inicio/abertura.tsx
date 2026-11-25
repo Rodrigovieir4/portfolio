@@ -72,16 +72,16 @@ async function Palco() {
         </div>
       </div>
       <Image
-        src="/images/retrato-recorte.webp"
+        src="/images/retrato-abertura.webp"
         alt={t("retratoAlt")}
-        width={1792}
-        height={2400}
+        width={1540}
+        height={2257}
         quality={92}
         priority
         data-revelar
         data-mov="retrato"
         sizes="(min-width: 768px) 45vw, 100vw"
-        className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 mask-b-from-85% md:h-5/6"
+        className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 rounded-t-full mask-b-from-85% md:h-3/4"
       />
     </div>
   )
