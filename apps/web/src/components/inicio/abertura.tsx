@@ -81,8 +81,11 @@ async function Palco() {
         data-revelar
         data-mov="retrato"
         sizes="(min-width: 768px) 45vw, 100vw"
-        className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 mask-b-from-85% md:h-5/6"
+        className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 md:h-5/6"
       />
+      {/* Chão do laser: a linha onde a foto termina. O feixe pousa aqui e não
+          desce além; no celular a foto acaba antes do fim da tela. */}
+      <div data-chao aria-hidden className="absolute inset-x-0 bottom-0" />
     </div>
   )
 }

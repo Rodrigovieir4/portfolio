@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useSyncExternalStore } from "react"
+import { useEffect, useRef, useSyncExternalStore } from "react"
 
 import { LaserFlow } from "@/components/reactbits/laser-flow"
 
@@ -35,10 +35,12 @@ export function Laser() {
     () => !maquinaLeve(),
     () => false,
   )
+  const chao = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     // Voltando ao início sem recarregar, o impacto anterior não vale mais.
     delete document.documentElement.dataset.impacto
+    chao.current = document.querySelector("[data-chao]")
     if (maquinaLeve()) avisar()
   }, [])
 
@@ -54,6 +56,8 @@ export function Laser() {
       color="#e0425f"
       dpr={1}
       onImpact={avisar}
+      // Pousa na base da foto: o feixe nunca aparece abaixo dela.
+      surfaceRef={chao}
     />
   )
 }
