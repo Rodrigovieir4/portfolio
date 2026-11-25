@@ -52,7 +52,8 @@ Atualizado em 24/11/2026.
 - [ ] Três idiomas revisados
 - [ ] Checagem final: `bun run check`, ponta a ponta, desempenho em máquina fraca
 - [x] Remover o currículo antigo (seções, cabeçalho e rodapé velhos, React Bits e textos sem uso, 24/11)
-- [ ] Reescrever o que ainda está na lista de legado do lint (jogo, páginas de erro, imagem de OG)
+- [x] Páginas de erro e cartão de compartilhamento no visual novo (25/11)
+- [ ] Reescrever o que ainda está na lista de legado do lint (jogo e scripts)
 
 ## Publicação
 

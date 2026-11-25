@@ -118,3 +118,11 @@ test("trocar de idioma mantém a página e traduz o caminho", async ({
     /\/en\/projects\/db-store$/,
   )
 })
+
+test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
+  const resposta = await page.goto("/en/nao-existe")
+  expect(resposta?.status()).toBe(404)
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "This page does not exist.",
+  )
+})

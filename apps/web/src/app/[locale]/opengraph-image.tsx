@@ -1,30 +1,138 @@
-import { type Locale, profile, t as translate } from "@portfolio/content"
+import { profile } from "@portfolio/content"
+import { getTranslations } from "next-intl/server"
 import { ImageResponse } from "next/og"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 
 import { routing } from "@/i18n/routing"
 
 /**
- * Cartão Open Graph, um por idioma.
+ * Cartão de compartilhamento, um por idioma, no visual do redesenho.
  *
- * É a primeira coisa que aparece quando o link é colado no LinkedIn, no
- * WhatsApp ou no Slack. Sem ele, o compartilhamento vira um retângulo cinza com
- * uma URL, que é o oposto do que um portfólio deveria provocar.
+ * É o que aparece quando o link é colado no LinkedIn, no WhatsApp ou no
+ * Slack. Gerado no build e servido como arquivo estático.
  *
- * A imagem é gerada no build e servida como arquivo estático. Nada é renderizado
- * em tempo de requisição.
- *
- * O layout é escrito com um subconjunto de CSS: o motor por trás do
- * ImageResponse não tem navegador, então nada de grid, de porcentagem em
- * transform, nem de fonte variável. Flexbox, cor sólida e tamanho absoluto
- * cobrem tudo que este cartão precisa.
+ * O motor do ImageResponse não é um navegador: só flexbox, cor sólida,
+ * degradê e posição absoluta com medidas explícitas. Por isso as cores estão
+ * em hexadecimal (as do tema são OKLCH) e o retrato vai em JPEG, porque o
+ * motor não lê WebP.
  */
 
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
-export const alt = "Rodrigo Vieira de Sousa — Desenvolvedor Full-Stack"
+export const alt = "Rodrigo Vieira, Desenvolvedor Full Stack"
+
+const GRAFITE = "#121013"
+const CREME = "#f2e9dc"
+const CREME_SUAVE = "rgba(242,233,220,0.65)"
+const VINHO_CLARO = "#dc5a6f"
+const TRANSPARENTE = "rgba(18,16,19,0)"
+const VINHO = "rgba(140,23,48,0.45)"
+const SEM_VINHO = "rgba(140,23,48,0)"
+
+type Camada = { fundo: string; left: number; width: number }
+
+// O retrato tem fundo próprio; estas camadas tingem de vinho e fundem as
+// bordas no grafite, como a máscara do retrato no site.
+const CAMADAS: Camada[] = [
+  {
+    fundo: `radial-gradient(400px 400px at 50% 45%, ${VINHO}, ${SEM_VINHO})`,
+    left: 640,
+    width: 560,
+  },
+  {
+    fundo: `linear-gradient(to right, ${GRAFITE} 0%, ${TRANSPARENTE} 100%)`,
+    left: 630,
+    width: 220,
+  },
+  {
+    fundo: `linear-gradient(to left, ${GRAFITE} 0%, ${TRANSPARENTE} 100%)`,
+    left: 1040,
+    width: 160,
+  },
+]
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
+}
+
+function Retrato({ src }: { src: string }) {
+  return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element -- só <img> */}
+      <img
+        src={src}
+        alt=""
+        height={696}
+        width={520}
+        style={{ left: 640, position: "absolute", top: 0 }}
+      />
+      {CAMADAS.map((camada) => (
+        <div
+          key={camada.left}
+          style={{
+            backgroundImage: camada.fundo,
+            display: "flex",
+            height: 630,
+            left: camada.left,
+            position: "absolute",
+            top: 0,
+            width: camada.width,
+          }}
+        />
+      ))}
+    </>
+  )
+}
+
+type Textos = { rotulo: string; subtitulo: string; titulo: string }
+
+function Texto({ rotulo, subtitulo, titulo }: Textos) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: 630,
+        justifyContent: "space-between",
+        padding: "64px 72px",
+        width: 680,
+      }}
+    >
+      <div
+        style={{
+          color: CREME_SUAVE,
+          display: "flex",
+          fontSize: 20,
+          letterSpacing: 4,
+          textTransform: "uppercase",
+        }}
+      >
+        {rotulo}
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+        <div
+          style={{
+            color: CREME,
+            display: "flex",
+            fontSize: 70,
+            letterSpacing: -2,
+            lineHeight: 1.05,
+          }}
+        >
+          {titulo}
+        </div>
+        <div style={{ color: CREME_SUAVE, display: "flex", fontSize: 26 }}>
+          {subtitulo}
+        </div>
+      </div>
+      <div style={{ display: "flex", fontSize: 24, gap: 16 }}>
+        <span style={{ color: CREME }}>{profile.shortName}</span>
+        <span style={{ color: VINHO_CLARO }}>·</span>
+        <span style={{ color: CREME_SUAVE }}>{profile.location.city}</span>
+      </div>
+    </div>
+  )
 }
 
 export default async function OpenGraphImage({
@@ -33,105 +141,27 @@ export default async function OpenGraphImage({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-
-  const headline = translate(profile.headline, locale as Locale)
-  const tagline = translate(profile.tagline, locale as Locale)
+  const t = await getTranslations({ locale, namespace: "inicio.abertura" })
+  const foto = await readFile(
+    join(process.cwd(), "public/images/retrato-og.jpg"),
+  )
 
   return new ImageResponse(
     <div
       style={{
-        width: "100%",
-        height: "100%",
+        backgroundColor: GRAFITE,
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        backgroundColor: "#050609",
-        padding: "72px 80px",
-        // Duas luzes de canto, que evitam o retangulo preto chapado.
-        backgroundImage:
-          "radial-gradient(900px 500px at 88% 8%, rgba(123,92,255,0.20), transparent 62%), radial-gradient(760px 460px at 6% 96%, rgba(200,247,81,0.16), transparent 60%)",
+        height: 630,
+        position: "relative",
+        width: 1200,
       }}
     >
-      <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 52,
-            height: 52,
-            borderRadius: 12,
-            backgroundColor: "#c8f751",
-            color: "#050609",
-            fontSize: 30,
-            fontWeight: 700,
-          }}
-        >
-          R
-        </div>
-        <div
-          style={{
-            display: "flex",
-            color: "#7d8698",
-            fontSize: 22,
-            letterSpacing: 3,
-            textTransform: "uppercase",
-          }}
-        >
-          {headline}
-        </div>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
-        <div
-          style={{
-            display: "flex",
-            color: "#eef1f6",
-            fontSize: 92,
-            fontWeight: 700,
-            lineHeight: 1.02,
-            letterSpacing: -3,
-          }}
-        >
-          {profile.name}
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            width: 132,
-            height: 5,
-            backgroundColor: "#c8f751",
-          }}
-        />
-
-        <div
-          style={{
-            display: "flex",
-            color: "#b6bdcb",
-            fontSize: 32,
-            lineHeight: 1.3,
-          }}
-        >
-          {tagline}
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          color: "#4d5567",
-          fontSize: 24,
-        }}
-      >
-        <div style={{ display: "flex" }}>github.com/Rodrigovieir4</div>
-        {/* Localização em vez de repetir o nome, que já domina o cartão. */}
-        <div style={{ display: "flex" }}>
-          {profile.location.city}, {profile.location.country}
-        </div>
-      </div>
+      <Retrato src={`data:image/jpeg;base64,${foto.toString("base64")}`} />
+      <Texto
+        rotulo={t("rotulo")}
+        subtitulo={t("subtitulo")}
+        titulo={`${t("tituloA")} ${t("tituloB")}`}
+      />
     </div>,
     size,
   )

@@ -36,10 +36,13 @@ export default [
       "react-hooks/exhaustive-deps": "off",
       "react-hooks/refs": "off",
       "react-hooks/set-state-in-effect": "off",
-      // O LogoLoop usa <img> quando o item traz src. O nosso uso passa node,
-      // então nenhuma imagem chega a ser renderizada por esse caminho.
-      "@next/next/no-img-element": "off",
     },
+  },
+  {
+    // O cartão de compartilhamento é desenhado pelo ImageResponse, que não
+    // lê classes: só o atributo style. Ali o estilo inline é a única via.
+    files: ["src/app/**/opengraph-image.tsx"],
+    rules: { "no-restricted-syntax": "off" },
   },
   {
     // Os testes leem window.__game, que só existe em modo de depuração e não
@@ -52,11 +55,7 @@ export default [
   legado([
     "e2e/helpers.ts",
     "scripts/gerar-poster.mjs",
-    "src/app/[[]locale]/not-found.tsx",
-    "src/app/[[]locale]/opengraph-image.tsx",
-    "src/app/not-found.tsx",
     "src/components/game/**",
     "src/i18n/request.ts",
-    "src/lib/site.ts",
   ]),
 ]

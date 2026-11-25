@@ -142,6 +142,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
 - **Menu do celular e main** (24/11): abaixo de 768 px o cabeçalho mostra
   "Menu", que abre a navegação em tela cheia com os idiomas. O redesenho foi
   junto na `main` no mesmo dia, depois do check e dos testes.
+- **404 e compartilhamento** (25/11): 404 traduzida (rota pega-tudo
+  `[locale]/[...resto]`; antes todo caminho errado caía na 404 global), 404
+  global nas cores novas e cartão de compartilhamento com título, subtítulo e
+  retrato (`public/images/retrato-og.jpg`, porque o gerador não lê WebP).
+  Título e descrição do site sem travessão, com o subtítulo da abertura.
+- **Foto do LinkedIn** (25/11): 4 retratos sérios gerados no Higgsfield (8
+  créditos), em `D:/workspace/Claude outputs/linkedin-perfil/`, fora do git.
+  Ele já trocou a foto do perfil.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
