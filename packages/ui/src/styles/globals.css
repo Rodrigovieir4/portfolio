@@ -440,12 +440,3 @@
   color: transparent;
   transition: --luz-x 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-/* Efeito "holofote" do mouse na abertura (em comparação): luz vinho suave. */
-@utility holofote {
-  background-image: radial-gradient(
-    520px circle at var(--holofote-x, -9999px) var(--holofote-y, -9999px),
-    color-mix(in oklch, var(--color-vinho) 45%, transparent),
-    transparent 70%
-  );
-}

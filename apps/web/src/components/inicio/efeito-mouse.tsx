@@ -1,16 +1,21 @@
 "use client"
 
-import { Cursor } from "@portfolio/ui"
-import { useEffect, useRef, useSyncExternalStore } from "react"
+import { useSyncExternalStore } from "react"
+
+import { GhostCursor } from "@/components/reactbits/ghost-cursor"
+import { GlowCursor } from "@/components/reactbits/glow-cursor"
+import { SplashCursor } from "@/components/reactbits/splash-cursor"
 
 import { Fumaca } from "./fumaca"
-import { Poeira } from "./poeira"
 
-type Efeito = "anel" | "fumaca" | "holofote" | "nenhum" | "poeira"
+type Efeito = "fumaca" | "ghost" | "glow" | "splash"
 
-const EFEITOS: Efeito[] = ["anel", "fumaca", "holofote", "nenhum", "poeira"]
+const EFEITOS: Efeito[] = ["fumaca", "ghost", "glow", "splash"]
 
-// O endereço não muda com a página aberta: nada a assinar.
+const VINHO = "#e0425f"
+const VINHO_ESCURO = "#8c1730"
+
+// O endereço e a máquina não mudam com a página aberta: nada a assinar.
 const semAssinatura = () => () => {}
 
 // shortcut: efeito escolhido por ?mouse= enquanto o Rodrigo compara; quando
@@ -20,67 +25,53 @@ function efeitoDaUrl(): Efeito {
   return EFEITOS.find((efeito) => efeito === pedido) ?? "fumaca"
 }
 
-/** Efeito do mouse na abertura, entre as opções em comparação. */
+function maquinaLeve() {
+  const nav = navigator as Navigator & { deviceMemory?: number }
+  return (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory ?? 8) <= 2
+}
+
+/**
+ * Efeito do mouse na abertura, entre as opções em comparação. Os do React
+ * Bits ficam atrás do retrato (camada -5, acima do laser) e na cor vinho;
+ * em máquina fraca nenhum é montado, porque todos são shader de tela cheia.
+ */
 export function EfeitoMouse() {
   const efeito = useSyncExternalStore(
     semAssinatura,
     efeitoDaUrl,
     () => "fumaca" as const,
   )
+  const leve = useSyncExternalStore(semAssinatura, maquinaLeve, () => true)
   if (efeito === "fumaca") return <Fumaca />
-  if (efeito === "poeira") return <Poeira />
-  if (efeito === "holofote") return <Holofote />
-  if (efeito === "anel") return <Cursor />
-  return null
-}
-
-/**
- * Holofote: uma luz vinho grande e suave segue o cursor no fundo, atrás do
- * retrato, com um pequeno atraso, como uma lanterna no escuro.
- */
-function Holofote() {
-  const luz = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const elemento = luz.current
-    if (!elemento) return
-    if (!window.matchMedia("(pointer: fine)").matches) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    const alvo = { x: 0, y: 0 }
-    const atual = { x: 0, y: 0 }
-    let quadro = 0
-    const seguir = () => {
-      // Aproxima 12% por quadro: chega macio, sem grudar no ponteiro.
-      atual.x += (alvo.x - atual.x) * 0.12
-      atual.y += (alvo.y - atual.y) * 0.12
-      elemento.style.setProperty("--holofote-x", `${atual.x}px`)
-      elemento.style.setProperty("--holofote-y", `${atual.y}px`)
-      const perto = Math.hypot(alvo.x - atual.x, alvo.y - atual.y) < 0.5
-      quadro = perto ? 0 : requestAnimationFrame(seguir)
-    }
-    const mover = (evento: PointerEvent) => {
-      const caixa = elemento.getBoundingClientRect()
-      alvo.x = evento.clientX - caixa.left
-      alvo.y = evento.clientY - caixa.top
-      if (!elemento.dataset.aceso) {
-        // Primeira vez: nasce onde o mouse está, sem atravessar a tela.
-        Object.assign(atual, alvo)
-        elemento.dataset.aceso = ""
-      }
-      if (!quadro) quadro = requestAnimationFrame(seguir)
-    }
-    window.addEventListener("pointermove", mover, { passive: true })
-    return () => {
-      cancelAnimationFrame(quadro)
-      window.removeEventListener("pointermove", mover)
-    }
-  }, [])
-
+  if (leve) return null
+  if (efeito === "ghost") {
+    return (
+      <GhostCursor
+        className="-z-5"
+        color={VINHO}
+        maxDevicePixelRatio={1}
+        zIndex={-5}
+      />
+    )
+  }
+  if (efeito === "glow") {
+    return (
+      <div className="pointer-events-none absolute inset-0 -z-5">
+        <GlowCursor
+          color={VINHO}
+          maxDevicePixelRatio={1}
+          secondaryColor={VINHO_ESCURO}
+        />
+      </div>
+    )
+  }
   return (
-    <div
-      ref={luz}
-      aria-hidden
-      className="pointer-events-none absolute inset-0 -z-10 holofote"
+    <SplashCursor
+      colors={[VINHO, VINHO_ESCURO]}
+      contained
+      quality="medium"
+      rainbow={false}
+      zIndex={-5}
     />
   )
 }
