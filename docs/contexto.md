@@ -179,6 +179,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   (`public/images/retrato-recorte.webp`, fundo removido localmente com a
   biblioteca da IMG.LY, sem gastar crédito); laser, fumaça e nome ficam atrás.
   O contador de 0 a 100 saiu, trocado pelo laser.
+- **Twin Falls descartado** (25/11): testados o laser "Twin Falls" do React
+  Bits caindo sobre o retrato (em arco e contornando a silhueta) e a foto
+  aparecendo antes do laser. O Rodrigo preferiu voltar ao laser atrás dele,
+  batendo no fim do hero, sem nada por cima da foto. Os commits foram
+  desfeitos com git revert; o código voltou ao estado do commit 6f45516.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
