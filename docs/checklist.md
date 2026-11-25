@@ -47,7 +47,8 @@ Atualizado em 24/11/2026.
   - [x] `/sobre`, `/ideias`, `/projetos` e páginas de projeto no visual novo (24/11)
 - [x] Movimento do início: GSAP + Lenis, versão leve e sem movimento (24/11)
 - [x] Movimento nas outras páginas (24/11)
-- [ ] Menu no celular (hoje o cabeçalho só mostra os links a partir de 768 px)
+- [x] Menu no celular, em tela cheia (24/11)
+- [x] Redesenho junto na `main` (24/11)
 - [ ] Três idiomas revisados
 - [ ] Checagem final: `bun run check`, ponta a ponta, desempenho em máquina fraca
 - [x] Remover o currículo antigo (seções, cabeçalho e rodapé velhos, React Bits e textos sem uso, 24/11)

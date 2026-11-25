@@ -28,3 +28,13 @@ test("no celular o joystick move o personagem", async ({ page }) => {
     Math.hypot(after.px - before.px, after.pz - before.pz),
   ).toBeGreaterThan(1)
 })
+
+test("no celular o menu abre, leva à página e fecha", async ({ page }) => {
+  await page.goto("/pt")
+  await page.getByRole("button", { name: "Menu" }).click()
+  const menu = page.getByRole("dialog", { name: "Menu" })
+  await menu.getByRole("link", { name: "Sobre" }).click()
+  await expect(page).toHaveURL(/\/pt\/sobre$/)
+  await expect(menu).toBeHidden()
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible()
+})

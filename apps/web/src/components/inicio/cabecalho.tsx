@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 
 import { Idiomas } from "./idiomas"
+import { MenuCelular } from "./menu-celular"
 
 const PAGINAS = [
   ["casos", "/casos"],
@@ -16,6 +17,7 @@ const ITEM = "text-muted-foreground transition-colors hover:text-foreground"
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
   const locale = await getLocale()
+  const contato = `/${locale}#contato`
 
   return (
     <header className="absolute inset-x-0 top-0 z-20">
@@ -39,12 +41,23 @@ export async function Cabecalho() {
           ))}
           <li>
             {/* O contato fica no fim do início; toda página leva até lá. */}
-            <a href={`/${locale}#contato`} className={ITEM}>
+            <a href={contato} className={ITEM}>
               {t("contato")}
             </a>
           </li>
         </ul>
-        <Idiomas />
+        <div className="max-md:hidden">
+          <Idiomas />
+        </div>
+        <MenuCelular
+          contato={{ href: contato, rotulo: t("contato") }}
+          fechar={t("fechar")}
+          menu={t("menu")}
+          paginas={PAGINAS.map(([chave, rota]) => ({
+            rota,
+            rotulo: t(chave),
+          }))}
+        />
       </nav>
     </header>
   )

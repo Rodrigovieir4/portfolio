@@ -139,6 +139,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
 - **Limpeza** (24/11): saíram as seções, o cabeçalho e o rodapé do currículo
   antigo, os componentes do React Bits e os textos sem uso. O seletor de
   idioma do jogo foi para `components/game/locale-switcher.tsx`.
+- **Menu do celular e main** (24/11): abaixo de 768 px o cabeçalho mostra
+  "Menu", que abre a navegação em tela cheia com os idiomas. O redesenho foi
+  junto na `main` no mesmo dia, depois do check e dos testes.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

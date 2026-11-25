@@ -262,7 +262,9 @@
       "sobre": "Sobre",
       "contato": "Contato",
       "pular": "Pular para o conteúdo",
-      "ideias": "Ideias"
+      "ideias": "Ideias",
+      "menu": "Menu",
+      "fechar": "Fechar"
     },
     "abertura": {
       "rotulo": "Desenvolvedor Full Stack",

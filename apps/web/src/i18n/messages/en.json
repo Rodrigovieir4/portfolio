@@ -262,7 +262,9 @@
       "sobre": "About",
       "contato": "Contact",
       "pular": "Skip to content",
-      "ideias": "Ideas"
+      "ideias": "Ideas",
+      "menu": "Menu",
+      "fechar": "Close"
     },
     "abertura": {
       "rotulo": "Full Stack Developer",
