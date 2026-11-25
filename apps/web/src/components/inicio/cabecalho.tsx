@@ -1,6 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server"
 
-import { ShinyText } from "@/components/reactbits/shiny-text"
 import { Link } from "@/i18n/navigation"
 
 import { Idiomas } from "./idiomas"
@@ -19,29 +18,23 @@ const ITEM =
   "relative text-muted-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-vinho-claro after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100 focus-visible:after:scale-x-100"
 
 /**
- * Marca em forma de tag: <RodrigoVieira/>, como um componente. O ShinyText
- * do React Bits passa um reflexo claro pelas letras a cada poucos segundos,
- * com um halo suave; para quem pede menos movimento, fica parada.
+ * Marca do cabeçalho, sóbria como o resto do site: creme, sem brilho nem
+ * animação, e só o fecho da tag em vinho. Provisória até a logo nova.
  */
 function Marca() {
   return (
     <Link
       href="/"
       aria-label="Rodrigo Vieira"
-      data-marca-link
-      className="w-fit text-xl font-extrabold tracking-tight transition-opacity hover:opacity-85 md:text-2xl"
+      className="w-fit text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80 md:text-xl"
     >
-      <ShinyText
-        color="#e8607a"
-        delay={2.5}
-        glow={0.45}
-        shineColor="#fff1f3"
-        shineWidth={30}
-        speed={2.2}
-      >
-        {/* O movimento.tsx decodifica este texto ao aparecer e no hover. */}
-        <span data-marca>{"<RodrigoVieira/>"}</span>
-      </ShinyText>
+      <span aria-hidden className="text-muted-foreground">
+        {"<"}
+      </span>
+      RodrigoVieira
+      <span aria-hidden className="text-vinho-claro">
+        {"/>"}
+      </span>
     </Link>
   )
 }

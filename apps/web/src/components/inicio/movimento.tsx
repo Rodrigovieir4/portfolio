@@ -44,13 +44,11 @@ export function Movimento() {
         if (!movimento) return
 
         const soltarAbertura = abertura(contexto)
-        const soltarMarca = marcaNoHover()
         entradas()
         linhaDoTempo(Boolean(medio))
         if (leve) {
           return () => {
             soltarAbertura?.()
-            soltarMarca?.()
           }
         }
 
@@ -60,7 +58,6 @@ export function Movimento() {
         const soltarArco = largo ? arco() : undefined
         return () => {
           soltarAbertura?.()
-          soltarMarca?.()
           soltarArco?.()
         }
       },
@@ -131,7 +128,6 @@ function abertura(contexto: gsap.Context) {
 }
 
 function entradaSimples() {
-  decodificarMarca(0.15)
   const palavras = palavrasDoTitulo()
   if (palavras) {
     gsap.from(palavras, {
@@ -178,7 +174,6 @@ function revelarAbertura() {
       { autoAlpha: 1, clearProps: "transform", duration: 0.9, y: 0 },
       0.5,
     )
-    linha.add(() => decodificarMarca(), 0.5)
   }
   revelarNome(linha)
 
@@ -267,50 +262,6 @@ function revelarTitulo(linha: gsap.core.Timeline, em: number) {
     { duration: 0.8, filter: "blur(10px)", opacity: 0, stagger: 0.025, y: 6 },
     em,
   )
-}
-
-const SINAIS = "/{}[]=+*#01_"
-
-/**
- * Decodifica o texto da marca: as letras chegam embaralhadas e se resolvem da
- * esquerda para a direita, como um terminal. Escreve só textContent (nada de
- * HTML), porque a marca tem < e >.
- */
-function decodificarMarca(atraso = 0) {
-  const alvos = gsap.utils.toArray<HTMLElement>("[data-marca]")
-  if (alvos.length === 0) return
-  const final = alvos[0]!.textContent ?? ""
-  const estado = { feito: 0 }
-  return gsap.to(estado, {
-    delay: atraso,
-    duration: 0.9,
-    ease: "none",
-    feito: final.length,
-    onComplete: () => {
-      for (const alvo of alvos) alvo.textContent = final
-    },
-    onUpdate: () => {
-      const pronto = Math.floor(estado.feito)
-      const resto = [...final.slice(pronto)]
-        .map(() => SINAIS[Math.floor(Math.random() * SINAIS.length)])
-        .join("")
-      for (const alvo of alvos)
-        alvo.textContent = final.slice(0, pronto) + resto
-    },
-  })
-}
-
-/** No hover, a marca decodifica de novo (uma vez por entrada do mouse). */
-function marcaNoHover() {
-  const link = document.querySelector<HTMLElement>("[data-marca-link]")
-  if (!link) return
-  let animacao: gsap.core.Tween | undefined
-  const decodificar = () => {
-    if (animacao?.isActive()) return
-    animacao = decodificarMarca()
-  }
-  link.addEventListener("pointerenter", decodificar)
-  return () => link.removeEventListener("pointerenter", decodificar)
 }
 
 function palavrasDoTitulo() {

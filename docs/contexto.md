@@ -203,11 +203,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   junto com o resto no impacto; o feixe desce desde o topo da página. O
   cabeçalho inteiro é preto fosco (translúcido e desfocado), em todas as
   páginas: o feixe aparece borrado atrás e os links continuam legíveis.
-  A marca à esquerda virou <RodrigoVieira/>, em Geist extranegrito, vinho
-  claro, com o ShinyText do React Bits (reflexo claro a cada 2,5 s e halo).
-  A marca decodifica (letras embaralhadas que se resolvem) quando o cabeçalho
-  aparece e no hover. O título da abertura entra com desfoque letra por letra
-  (comparado com decodificar, digitar e palavras subindo).
+  A marca à esquerda é <RodrigoVieira/> sóbria (creme, só o /> em vinho, sem
+  brilho nem animação), provisória até a logo nova. O título da abertura entra
+  com desfoque letra por letra.
+- **Logo e favicon** (25/11): 8 propostas em SVG geradas no Higgsfield (6
+  créditos aprovados), em `D:/workspace/Claude outputs/portfolio-estetica/logos/`
+  (folha.png compara A1 a D2). Esperando a escolha do Rodrigo; depois o
+  agente redesenha a escolhida em SVG limpo e gera os favicons.
   O cabeçalho é fixo (acompanha a rolagem), sem borda embaixo; âncoras param
   logo abaixo dele (scroll-padding-top de 4rem).
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,
