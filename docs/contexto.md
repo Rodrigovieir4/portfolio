@@ -206,13 +206,17 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   A marca à esquerda é um prompt de terminal: "❯ rodrigo-vieira" em Geist
   Mono, a seta em vinho e um cursor em barra fina. Ao aparecer, o nome é
   digitado letra por letra (uma vez por carregamento); o cursor pisca devagar
-  quatro vezes e fica parado. O título da abertura entra
+  quatro vezes e fica parado. Clicar no nome leva ao início; já no início, sobe ao topo.
+- **Convite para rolar** (25/11): 5 s depois da abertura, se ninguém rolou, um
+  botão "Role para baixo" aparece centralizado embaixo do hero (só no
+  computador); some ao rolar e leva à seção seguinte. O título da abertura entra
   com desfoque letra por letra.
 - **Logo e favicon** (25/11): 8 propostas em SVG geradas no Higgsfield (6
   créditos aprovados), em `D:/workspace/Claude outputs/portfolio-estetica/logos/`
   (folha.png compara A1 a D2) e 8 propostas "de dev" desenhadas em código
   (folha-dev.png). Ele recusou todas como ícone; escolheu o prompt para o
-  cabeçalho. Favicon ainda em aberto.
+  cabeçalho. Favicon ainda em aberto: 10 ideias em linguagem de terminal em
+  `folha-favicons.png`, na mesma pasta.
   O cabeçalho é fixo (acompanha a rolagem), sem borda embaixo; âncoras param
   logo abaixo dele (scroll-padding-top de 4rem).
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,

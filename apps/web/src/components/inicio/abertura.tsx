@@ -2,6 +2,7 @@ import { profile } from "@portfolio/content"
 import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 
+import { DicaRolar } from "./dica-rolar"
 import { EfeitoMouse } from "./efeito-mouse"
 import { Laser } from "./laser"
 import { NomeAbertura } from "./nome-abertura"
@@ -123,7 +124,9 @@ async function Chamada() {
  * nas laterais, os textos. O laser desce ao carregar; quando bate no fim do
  * hero, o conteúdo aparece.
  */
-export function Abertura() {
+export async function Abertura() {
+  const rolar = (await getTranslations("inicio.abertura"))("rolar")
+
   return (
     <section
       aria-labelledby="abertura-titulo"
@@ -137,6 +140,7 @@ export function Abertura() {
         <Palco />
         <Chamada />
       </div>
+      <DicaRolar texto={rolar} />
     </section>
   )
 }

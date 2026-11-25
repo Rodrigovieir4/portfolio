@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 
 import { Idiomas } from "./idiomas"
+import { Marca } from "./marca"
 import { MenuCelular } from "./menu-celular"
 
 const PAGINAS = [
@@ -16,34 +17,6 @@ const PAGINAS = [
 // embaixo do link.
 const ITEM =
   "relative text-muted-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-vinho-claro after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100 focus-visible:after:scale-x-100"
-
-/**
- * Marca do cabeçalho como um prompt de terminal: a seta em vinho, o nome
- * como comando e um cursor em barra fina. O movimento.tsx digita o nome ao
- * aparecer; o cursor pisca devagar uns segundos e depois fica parado.
- */
-function Marca() {
-  return (
-    <Link
-      href="/"
-      aria-label="Rodrigo Vieira"
-      className="flex w-fit items-center gap-2 font-mono text-base font-semibold text-foreground transition-opacity hover:opacity-80 md:text-lg"
-    >
-      <span aria-hidden className="text-vinho-claro">
-        ❯
-      </span>
-      <span aria-hidden>
-        <span data-prompt data-final="rodrigo-vieira">
-          rodrigo-vieira
-        </span>
-        <span
-          data-cursor
-          className="ml-0.5 inline-block h-[1.1em] w-0.5 translate-y-[0.2em] bg-vinho-claro"
-        />
-      </span>
-    </Link>
-  )
-}
 
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
