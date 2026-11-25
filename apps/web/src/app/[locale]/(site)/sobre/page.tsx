@@ -42,6 +42,22 @@ export async function generateMetadata({
   }
 }
 
+function RetratoSobre({ alt }: { alt: string }) {
+  return (
+    <Image
+      src="/images/retrato-sobre.webp"
+      alt={alt}
+      width={1792}
+      height={2400}
+      quality={92}
+      priority
+      sizes="(min-width: 1024px) 35vw, 90vw"
+      data-mov="retrato"
+      className="mx-auto w-full max-w-md self-start mask-t-from-85% mask-x-from-75% mask-b-from-70% lg:col-span-5"
+    />
+  )
+}
+
 async function Topo({ locale }: Props) {
   const t = await getTranslations("sobrePagina")
   const ia = (await getTranslations("inicio.sobre"))("ia")
@@ -89,17 +105,7 @@ async function Topo({ locale }: Props) {
             </p>
           </div>
         </div>
-        <Image
-          src="/images/retrato-sobre.webp"
-          alt={t("retratoAlt")}
-          width={1792}
-          height={2400}
-          quality={92}
-          priority
-          sizes="(min-width: 1024px) 35vw, 90vw"
-          data-mov="retrato"
-          className="mx-auto w-full max-w-md self-start mask-t-from-85% mask-x-from-75% mask-b-from-70% lg:col-span-5"
-        />
+        <RetratoSobre alt={t("retratoAlt")} />
       </div>
     </section>
   )
