@@ -28,6 +28,7 @@ function Marca() {
     <Link
       href="/"
       aria-label="Rodrigo Vieira"
+      data-marca-link
       className="w-fit text-xl font-extrabold tracking-tight transition-opacity hover:opacity-85 md:text-2xl"
     >
       <ShinyText
@@ -37,8 +38,10 @@ function Marca() {
         shineColor="#fff1f3"
         shineWidth={30}
         speed={2.2}
-        text="<RodrigoVieira/>"
-      />
+      >
+        {/* O movimento.tsx decodifica este texto ao aparecer e no hover. */}
+        <span data-marca>{"<RodrigoVieira/>"}</span>
+      </ShinyText>
     </Link>
   )
 }
