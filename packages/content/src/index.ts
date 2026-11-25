@@ -17,6 +17,7 @@ export {
   projectBySlug,
   projects,
 } from "./data/projects"
+export { caseBySlug, cases } from "./data/cases"
 export { experiences, workExperiences } from "./data/experience"
 export { certifications, certificationsByCategory } from "./data/certifications"
 export { languages } from "./data/languages"

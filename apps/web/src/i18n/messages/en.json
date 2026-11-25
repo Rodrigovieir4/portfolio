@@ -373,14 +373,7 @@
       "titulo": "Cases",
       "dica": "drag sideways",
       "emBreve": "video coming soon",
-      "itens": [
-        ["The webhook that answered ok", "Pix · NestJS"],
-        ["Two people, one quota", "PostgreSQL · concurrency"],
-        ["90 ms to 3.5 ms without touching the query", "PostgreSQL · Supabase"],
-        ["The NULL that undid the raffle", "PostgreSQL · SQL"],
-        ["Inheriting a system in production", "AWS · NestJS"],
-        ["The code that reads the receipt", "NestJS · payments"]
-      ]
+      "verTodos": "See all cases"
     },
     "numeros": {
       "titulo": "Real numbers",
@@ -422,5 +415,22 @@
       "falar": "Get in touch",
       "curriculo": "Download résumé"
     }
+  },
+  "caso": {
+    "voltar": "All cases",
+    "problema": "Problem",
+    "decisao": "Decision",
+    "resultado": "Outcome",
+    "licoes": "What stuck",
+    "numeros": "Numbers",
+    "projeto": "Project",
+    "verPost": "See the LinkedIn post",
+    "emBreve": "video coming soon",
+    "anterior": "Previous case",
+    "proximo": "Next case"
+  },
+  "casosPagina": {
+    "titulo": "Cases",
+    "descricao": "Real engineering stories in production: the problem, the decision and the outcome of each one."
   }
 }

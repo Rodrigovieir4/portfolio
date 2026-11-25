@@ -19,6 +19,12 @@ export const routing = defineRouting({
   localeDetection: true,
   pathnames: {
     "/": "/",
+    "/casos": { pt: "/casos", en: "/cases", es: "/casos" },
+    "/casos/[slug]": {
+      pt: "/casos/[slug]",
+      en: "/cases/[slug]",
+      es: "/casos/[slug]",
+    },
     "/jogo": {
       pt: "/jogo",
       en: "/play",

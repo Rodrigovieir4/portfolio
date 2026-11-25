@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-import { projects } from "@portfolio/content"
+import { cases, projects } from "@portfolio/content"
 
 import { routing } from "@/i18n/routing"
 import { siteUrl } from "@/lib/site"
@@ -50,5 +50,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       })),
   )
 
-  return [...home, ...projectPages]
+  const casoSegment: Record<string, string> = {
+    pt: "casos",
+    en: "cases",
+    es: "casos",
+  }
+
+  const casePages: MetadataRoute.Sitemap = routing.locales.flatMap((locale) =>
+    cases.map((caso) => ({
+      url: `${siteUrl}/${locale}/${casoSegment[locale]}/${caso.slug}`,
+      lastModified: new Date(caso.publishedAt),
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
+      alternates: alternates((l) => `/${l}/${casoSegment[l]}/${caso.slug}`),
+    })),
+  )
+
+  return [...home, ...projectPages, ...casePages]
 }

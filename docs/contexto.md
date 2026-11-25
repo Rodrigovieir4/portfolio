@@ -105,6 +105,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   mensagens; o tipo Caso entra na próxima etapa. O retrato está em
   `apps/web/public/images/retrato.webp`, **fora do git** (`.gitignore`) até o
   Rodrigo aprovar o rosto num repositório público.
+- **Casos** (25/11): tipo `Case` em `packages/content/src/data/cases.ts`, com 6
+  casos tirados dos posts 2, 3, 8, 11, 12 e 14, nos três idiomas. Páginas
+  `/casos` e `/casos/[caso]` (`/en/cases`), no sitemap. Ainda mostram todos,
+  inclusive os de data futura: falta decidir se entram só na data do post.
+- **Servidor de desenvolvimento** (25/11): site na porta 3400 (a 3300 passou a
+  ser do Daisy), API na 3001.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

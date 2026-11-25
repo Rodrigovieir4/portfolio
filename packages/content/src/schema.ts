@@ -149,6 +149,33 @@ export const projectSchema = z.object({
   accent: z.enum(["signal", "plasma", "ember", "cyan"]).default("signal"),
 })
 
+/**
+ * Um caso: uma história real de engenharia, contada num post do LinkedIn e
+ * aprofundada no site. Pertence a um projeto e entra no ar na data do post.
+ */
+export const caseSchema = z.object({
+  slug: z
+    .string()
+    .regex(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "slug deve ser kebab-case, sem acento",
+    ),
+  title: localizedString,
+  summary: localizedString,
+  problem: localizedString,
+  decision: localizedString,
+  outcome: localizedString,
+  lessons: localizedList,
+  metrics: z.array(metricSchema).default([]),
+  stack: z.array(z.string().min(1)).min(1),
+  project: z.string().min(1),
+  publishedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, "data no formato AAAA-MM-DD"),
+  linkedinUrl: z.string().url().optional(),
+  video: z.string().optional(),
+})
+
 export const experienceSchema = z
   .object({
     id: z.string().min(1),
@@ -214,6 +241,7 @@ export type Project = z.infer<typeof projectSchema>
 export type Experience = z.infer<typeof experienceSchema>
 export type Certification = z.infer<typeof certificationSchema>
 export type Language = z.infer<typeof languageSchema>
+export type Case = z.infer<typeof caseSchema>
 
 /**
  * Valida uma coleção e enriquece o erro com o nome do arquivo de origem,

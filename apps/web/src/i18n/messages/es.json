@@ -373,14 +373,7 @@
       "titulo": "Casos",
       "dica": "desliza hacia el lado",
       "emBreve": "video próximamente",
-      "itens": [
-        ["El webhook que respondía ok", "Pix · NestJS"],
-        ["Dos personas, una cuota", "PostgreSQL · concurrencia"],
-        ["De 90 ms a 3,5 ms sin tocar la consulta", "PostgreSQL · Supabase"],
-        ["El NULL que deshacía el sorteo", "PostgreSQL · SQL"],
-        ["Heredar un sistema en producción", "AWS · NestJS"],
-        ["El código que lee el recibo", "NestJS · pagos"]
-      ]
+      "verTodos": "Ver todos los casos"
     },
     "numeros": {
       "titulo": "Números reales",
@@ -422,5 +415,22 @@
       "falar": "Hablemos",
       "curriculo": "Descargar currículum"
     }
+  },
+  "caso": {
+    "voltar": "Todos los casos",
+    "problema": "Problema",
+    "decisao": "Decisión",
+    "resultado": "Resultado",
+    "licoes": "Lo que quedó",
+    "numeros": "Números",
+    "projeto": "Proyecto",
+    "verPost": "Ver el post en LinkedIn",
+    "emBreve": "video próximamente",
+    "anterior": "Caso anterior",
+    "proximo": "Siguiente caso"
+  },
+  "casosPagina": {
+    "titulo": "Casos",
+    "descricao": "Historias reales de ingeniería en producción: el problema, la decisión y el resultado de cada una."
   }
 }

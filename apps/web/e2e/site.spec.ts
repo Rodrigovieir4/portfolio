@@ -53,3 +53,23 @@ test("as páginas de projeto existem nos três idiomas", async ({ page }) => {
     expect(response?.status(), path).toBe(200)
   }
 })
+
+test("o cartão do caso no início abre a história completa", async ({
+  page,
+}) => {
+  await page.goto("/pt")
+  await page
+    .locator("#casos")
+    .getByRole("link", { name: /Duas pessoas, uma cota/ })
+    .click()
+  await expect(page).toHaveURL(/\/pt\/casos\/duas-pessoas-uma-cota$/)
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Duas pessoas, uma cota",
+  )
+  for (const parte of ["Problema", "Decisão", "Resultado"]) {
+    await expect(page.getByRole("heading", { name: parte })).toBeVisible()
+  }
+
+  await page.getByRole("link", { name: /Próximo caso/ }).click()
+  await expect(page).toHaveURL(/\/pt\/casos\/o-webhook-que-respondia-ok$/)
+})

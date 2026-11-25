@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test"
 
 import {
+  cases,
   certifications,
   experiences,
   LOCALES,
@@ -56,5 +57,12 @@ describe("conteudo", () => {
   it("ordena a linha do tempo da mais recente para a mais antiga", () => {
     const ends = experiences.map((item) => item.end ?? "9999-12")
     expect([...ends].sort().reverse()).toEqual(ends)
+  })
+
+  it("liga cada caso a um projeto que existe, sem slug repetido", () => {
+    const slugs = cases.map((item) => item.slug)
+    expect(new Set(slugs).size).toBe(slugs.length)
+    const projetos = new Set(projects.map((project) => project.slug))
+    for (const item of cases) expect(projetos.has(item.project)).toBe(true)
   })
 })
