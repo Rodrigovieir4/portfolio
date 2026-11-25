@@ -48,7 +48,8 @@ function ScrollBar({
     >
       <ScrollAreaPrimitive.ScrollAreaThumb
         data-slot="scroll-area-thumb"
-        className="relative flex-1 rounded-full bg-border"
+        // Mesmo visual da barra da página: vinho discreto que acende no hover.
+        className="relative flex-1 rounded-full bg-vinho-claro/35 transition-colors hover:bg-vinho-claro"
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   )

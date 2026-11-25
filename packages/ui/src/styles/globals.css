@@ -237,23 +237,47 @@
     border-radius: 2px;
   }
 
+  /*
+   * Barra de rolagem no visual do portfólio, igual ao ScrollArea do shadcn:
+   * fina, arredondada, alça vinho discreta que acende no hover e trilho que
+   * some no grafite. A página continua rolando pela janela (o Lenis e o GSAP
+   * dependem disso); só a aparência muda.
+   */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background: var(--color-void);
+    background: var(--color-background);
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-line);
+    background: color-mix(in oklch, var(--color-vinho-claro) 35%, transparent);
     border-radius: 999px;
-    border: 2px solid var(--color-void);
+    /* A borda da cor do trilho afina a alça sem mudar a área de clique. */
+    border: 3px solid var(--color-background);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-line-strong);
+    background: var(--color-vinho-claro);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--color-background);
+  }
+
+  /* Firefox não lê as regras acima: usa as propriedades padrão. */
+  @supports (-moz-appearance: none) {
+    html {
+      scrollbar-color: color-mix(
+          in oklch,
+          var(--color-vinho-claro) 45%,
+          transparent
+        )
+        var(--color-background);
+      scrollbar-width: thin;
+    }
   }
 }
 
