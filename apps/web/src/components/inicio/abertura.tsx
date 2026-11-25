@@ -31,7 +31,7 @@ async function Topo() {
           data-mov="titulo"
           className="text-3xl font-semibold tracking-tight text-balance md:text-5xl"
         >
-          {t("tituloA")} <em>{t("tituloB")}</em>
+          {t("tituloA")} {t("tituloB")}
         </h1>
       </div>
       <p
