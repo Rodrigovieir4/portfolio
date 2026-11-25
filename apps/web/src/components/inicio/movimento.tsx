@@ -74,6 +74,11 @@ function um(seletor: string) {
   return document.querySelector<HTMLElement>(`[data-mov="${seletor}"]`)
 }
 
+/** Blocos da abertura que nascem escondidos até o impacto do laser. */
+function blocosDaAbertura() {
+  return gsap.utils.toArray<HTMLElement>("[data-revelar]")
+}
+
 function todos(seletor: string) {
   return gsap.utils.toArray<HTMLElement>(`[data-mov="${seletor}"]`)
 }
@@ -106,7 +111,7 @@ function quandoImpactar(acao: () => void) {
  * o título e os textos entram logo.
  */
 function abertura(contexto: gsap.Context) {
-  if (todos("revelar").length === 0) {
+  if (blocosDaAbertura().length === 0) {
     entradaSimples()
     return
   }
@@ -138,68 +143,112 @@ function entradaSimples() {
 }
 
 /**
- * Coreografia do impacto: a luz sobe pelo retrato de baixo para cima, o
- * nome abre do centro para as pontas saindo do desfoque, e depois entram o
- * título e os textos. Tudo dentro de 1,6 s.
+ * Coreografia do impacto, em cerca de 1,8 s:
+ * - o retrato sobe com a luz, de baixo para cima, saindo de um brilho forte;
+ * - as letras do nome saem de dentro do feixe (centro da tela) e se espalham
+ *   até o lugar delas, saindo do desfoque;
+ * - o título gira de leve em profundidade ao subir;
+ * - os textos entram por último e o botão principal ganha um pulso de brilho.
  */
 function revelarAbertura() {
   const linha = gsap.timeline({ defaults: { ease: SAIDA } })
-  linha.set(todos("revelar"), { autoAlpha: 1 })
+  linha.set(blocosDaAbertura(), { autoAlpha: 1 })
+  revelarRetrato(linha)
+  revelarNome(linha)
 
-  const foto = um("retrato")
-  if (foto) {
-    linha.fromTo(
-      foto,
+  const palavras = palavrasDoTitulo()
+  if (palavras) {
+    linha.from(
+      palavras,
       {
-        clipPath: "inset(100% 0% 0% 0%)",
-        filter: "brightness(2.2) blur(10px)",
-        y: 30,
+        duration: 1,
+        rotationX: -70,
+        stagger: 0.05,
+        transformOrigin: "50% 100%",
+        transformPerspective: 600,
+        yPercent: 110,
       },
-      {
-        clipPath: "inset(0% 0% 0% 0%)",
-        duration: 1.2,
-        filter: "brightness(1) blur(0px)",
-        y: 0,
-      },
-      0,
+      0.45,
     )
   }
   linha.from(
-    todos("letra").filter((letra) => letra.offsetParent),
-    {
-      duration: 1,
-      filter: "blur(14px)",
-      opacity: 0,
-      stagger: { each: 0.04, from: "center" },
-      yPercent: 40,
-    },
-    0.15,
-  )
-  const palavras = palavrasDoTitulo()
-  if (palavras) {
-    linha.from(palavras, { duration: 0.9, stagger: 0.05, yPercent: 110 }, 0.4)
-  }
-  linha.from(
     todos("abertura"),
+    { duration: 0.9, filter: "blur(8px)", opacity: 0, stagger: 0.07, y: 16 },
+    0.7,
+  )
+  const botao = um("cta")
+  if (botao) {
+    linha.fromTo(
+      botao,
+      { boxShadow: "0 0 0 0 rgba(220, 66, 95, 0.7)" },
+      {
+        boxShadow: "0 0 0 18px rgba(220, 66, 95, 0)",
+        clearProps: "boxShadow",
+        duration: 1.1,
+        ease: "power2.out",
+      },
+      1.3,
+    )
+  }
+}
+
+function revelarRetrato(linha: gsap.core.Timeline) {
+  const foto = um("retrato")
+  if (!foto) return
+  linha.fromTo(
+    foto,
     {
-      duration: 0.8,
-      filter: "blur(6px)",
-      opacity: 0,
-      stagger: 0.06,
-      y: 18,
+      clipPath: "inset(100% 0% 0% 0%)",
+      filter: "brightness(2.6) saturate(0.6) blur(6px)",
+      scale: 1.04,
     },
-    0.55,
+    {
+      clipPath: "inset(0% 0% 0% 0%)",
+      duration: 1.4,
+      ease: "power3.out",
+      filter: "brightness(1) saturate(1) blur(0px)",
+      scale: 1,
+    },
+    0,
+  )
+}
+
+/** As letras nascem empilhadas no feixe, no centro, e se espalham. */
+function revelarNome(linha: gsap.core.Timeline) {
+  const letras = todos("letra").filter((letra) => letra.offsetParent)
+  if (letras.length === 0) return
+  const centro = window.innerWidth / 2
+  const distancia = letras.map((letra) => {
+    const caixa = letra.getBoundingClientRect()
+    return centro - (caixa.left + caixa.width / 2)
+  })
+  linha.from(
+    letras,
+    {
+      duration: 1.3,
+      ease: "expo.out",
+      filter: "blur(18px)",
+      opacity: 0,
+      scale: 0.4,
+      stagger: { each: 0.025, from: "center" },
+      x: (indice: number) => distancia[indice] ?? 0,
+    },
+    0.1,
   )
 }
 
 function palavrasDoTitulo() {
   const titulo = um("titulo")
   if (!titulo) return null
-  return SplitText.create(titulo, {
+  const partes = SplitText.create(titulo, {
     mask: "words",
     tag: "span",
     type: "words",
-  }).words
+  })
+  // <span> é em linha, e o navegador ignora transform e corte em elemento em
+  // linha: sem isto a palavra não se mexe nem some atrás da máscara.
+  gsap.set([...partes.masks, ...partes.words], { display: "inline-block" })
+  return partes.words
 }
 
 /** Entradas ao rolar: em lote, para quem chega junto subir em sequência. */

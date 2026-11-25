@@ -165,3 +165,20 @@ test("nada fica por cima do retrato da abertura", async ({ page }) => {
     expect(topo, `ponto ${fx},${fy}`).toContain("retrato-recorte")
   }
 })
+
+test("a abertura é revelada pela animação, não só pela reserva", async ({
+  page,
+}) => {
+  await page.goto("/pt")
+  // A animação de entrada recorta o retrato de baixo para cima; a reserva
+  // em CSS só troca a visibilidade. Recorte aplicado = a animação rodou.
+  await expect
+    .poll(
+      () =>
+        page
+          .locator('img[src*="retrato-recorte"]')
+          .evaluate((foto) => foto.style.clipPath),
+      { timeout: 15_000 },
+    )
+    .not.toBe("")
+})

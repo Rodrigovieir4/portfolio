@@ -99,6 +99,7 @@ async function Chamada() {
       <div data-mov="abertura" className="flex items-center gap-6">
         <a
           href="#contato"
+          data-mov="cta"
           className="rounded-full bg-vinho px-6 py-3 font-medium text-foreground transition-transform active:scale-95"
         >
           {t("falar")} →

@@ -162,6 +162,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   menu centralizados em grade de três colunas, e entrada coreografada no
   impacto (foto sobe com a luz de baixo para cima, nome abre do centro saindo
   do desfoque, depois título e textos; cerca de 1,6 s).
+  Ainda em 25/11: as letras do nome saem de dentro do feixe e se espalham, o
+  título gira de leve ao subir e o botão principal dá um pulso de brilho.
+  Corrigidos dois bugs antigos: a revelação procurava os blocos por um
+  atributo errado (só a reserva de 2,5 s mostrava o conteúdo) e as palavras
+  do título não se mexiam (elemento em linha ignora transform).
 - **Regra do retrato** (25/11, pedido do Rodrigo): nada pode ficar por cima da
   foto dele, nem efeito de mouse, nem texto. O hero usa o retrato recortado
   (`public/images/retrato-recorte.webp`, fundo removido localmente com a
