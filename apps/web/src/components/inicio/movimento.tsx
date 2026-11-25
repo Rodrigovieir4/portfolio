@@ -151,7 +151,13 @@ function entradaSimples() {
  * - os textos entram por último e o botão principal ganha um pulso de brilho.
  */
 function revelarAbertura() {
-  const linha = gsap.timeline({ defaults: { ease: SAIDA } })
+  const linha = gsap.timeline({
+    defaults: { ease: SAIDA },
+    // Marca o fim da revelação animada; os testes de ponta a ponta esperam.
+    onComplete: () => {
+      document.documentElement.dataset.revelado = ""
+    },
+  })
   linha.set(blocosDaAbertura(), { autoAlpha: 1 })
   revelarRetrato(linha)
   revelarNome(linha)
@@ -205,6 +211,9 @@ function revelarRetrato(linha: gsap.core.Timeline) {
     {
       clipPath: "inset(0% 0% 0% 0%)",
       duration: 1.4,
+      // Sem filtro nem recorte no fim: filtro parado ainda força a foto
+      // numa camada própria e pode tirar nitidez.
+      clearProps: "filter,clipPath",
       ease: "power3.out",
       filter: "brightness(1) saturate(1) blur(0px)",
       scale: 1,

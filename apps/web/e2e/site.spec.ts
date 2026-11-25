@@ -1,4 +1,11 @@
-import { expect, test } from "@playwright/test"
+import { type Page, expect, test } from "@playwright/test"
+
+/** Espera a coreografia da abertura terminar (laser, foto, nome e textos). */
+async function esperarAbertura(page: Page) {
+  await expect(page.locator("html[data-revelado]")).toHaveCount(1, {
+    timeout: 15_000,
+  })
+}
 
 /*
  * A raiz escolhe o idioma pelo Accept-Language do navegador. Cada caso fixa
@@ -129,6 +136,7 @@ test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
 
 test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
   await page.goto("/pt")
+  await esperarAbertura(page)
   const letra = page.locator("[data-peso]:visible").first()
   const caixa = await letra.boundingBox()
   if (!caixa) throw new Error("letra sem caixa")
@@ -146,6 +154,7 @@ test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
 
 test("nada fica por cima do retrato da abertura", async ({ page }) => {
   await page.goto("/pt")
+  await esperarAbertura(page)
   const retrato = page.locator('img[src*="retrato-recorte"]')
   await expect(retrato).toBeVisible()
   const caixa = await retrato.boundingBox()
@@ -170,15 +179,6 @@ test("a abertura é revelada pela animação, não só pela reserva", async ({
   page,
 }) => {
   await page.goto("/pt")
-  // A animação de entrada recorta o retrato de baixo para cima; a reserva
-  // em CSS só troca a visibilidade. Recorte aplicado = a animação rodou.
-  await expect
-    .poll(
-      () =>
-        page
-          .locator('img[src*="retrato-recorte"]')
-          .evaluate((foto) => foto.style.clipPath),
-      { timeout: 15_000 },
-    )
-    .not.toBe("")
+  // A reserva em CSS só troca a visibilidade; a animação marca o <html>.
+  await esperarAbertura(page)
 })

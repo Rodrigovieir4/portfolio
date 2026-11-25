@@ -19,6 +19,9 @@ const config: NextConfig = {
 
   images: {
     formats: ["image/avif", "image/webp"],
+    // 92 só para o retrato da abertura, onde pele e cabelo pedem nitidez;
+    // o resto fica no padrão de 75.
+    qualities: [75, 92],
   },
 
   experimental: {

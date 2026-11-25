@@ -70,12 +70,13 @@ async function Palco() {
       <Image
         src="/images/retrato-recorte.webp"
         alt={t("retratoAlt")}
-        width={1200}
-        height={1607}
+        width={1792}
+        height={2400}
+        quality={92}
         priority
         data-revelar
         data-mov="retrato"
-        sizes="(min-width: 768px) 40vw, 90vw"
+        sizes="(min-width: 768px) 45vw, 100vw"
         className="absolute bottom-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2 mask-b-from-85% md:h-5/6"
       />
     </div>
