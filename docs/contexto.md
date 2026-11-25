@@ -150,6 +150,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
 - **Foto do LinkedIn** (25/11): 4 retratos sérios gerados no Higgsfield (8
   créditos), em `D:/workspace/Claude outputs/linkedin-perfil/`, fora do git.
   Ele já trocou a foto do perfil.
+- **Hero interativo** (25/11, branch `feat/hero-interativo`): o Rodrigo achou
+  a abertura fraca e mandou uma referência do Instagram (post DbwBRpLTWYw,
+  portfólio "JISHNU"). Montado: contador de 0 a 100 na primeira visita da
+  sessão (só CSS), nome gigante "RODRIGO VIEIRA" cujas letras engrossam perto
+  do mouse (Geist variável), fumaça vinho seguindo o cursor (canvas 2D) e o
+  retrato centralizado atrás do nome. Esperando ele ver antes de ir para a
+  `main`. Próximas ideias da referência: texto com máscara de imagem
+  (filosofia), cartões de projeto com print e entradas com desfoque.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

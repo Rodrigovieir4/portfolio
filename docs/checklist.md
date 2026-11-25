@@ -55,6 +55,12 @@ Atualizado em 24/11/2026.
 - [x] Páginas de erro e cartão de compartilhamento no visual novo (25/11)
 - [ ] Reescrever o que ainda está na lista de legado do lint (jogo e scripts)
 
+## Redesenho: rodada interativa (25/11)
+
+- [x] Hero interativo na branch `feat/hero-interativo`
+- [ ] Rodrigo aprovar o hero e juntar na `main`
+- [ ] Levar o mesmo nível de interação para as outras seções
+
 ## Publicação
 
 - [ ] Domínio

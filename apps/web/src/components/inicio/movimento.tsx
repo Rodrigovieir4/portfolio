@@ -72,8 +72,15 @@ function todos(seletor: string) {
   return gsap.utils.toArray<HTMLElement>(`[data-mov="${seletor}"]`)
 }
 
+/** Se a cortina do contador está na tela, a abertura espera ela subir. */
+function atrasoDaIntro() {
+  const cortina = document.querySelector(".intro")
+  return cortina && getComputedStyle(cortina).display !== "none" ? 1.9 : 0
+}
+
 /** Título sobe palavra por palavra de trás de uma máscara; o resto atrás. */
 function abertura() {
+  const atraso = atrasoDaIntro()
   const titulo = um("titulo")
   if (titulo) {
     const partes = SplitText.create(titulo, {
@@ -82,15 +89,27 @@ function abertura() {
       type: "words",
     })
     gsap.from(partes.words, {
-      delay: 0.1,
+      delay: atraso + 0.1,
       duration: 1.2,
       ease: SAIDA,
       stagger: 0.07,
       yPercent: 110,
     })
   }
+  // O nome gigante sobe letra por letra, só a versão visível.
+  gsap.from(
+    todos("letra").filter((letra) => letra.offsetParent),
+    {
+      delay: atraso,
+      duration: 1.3,
+      ease: SAIDA,
+      stagger: 0.04,
+      yPercent: 60,
+      opacity: 0,
+    },
+  )
   gsap.from(todos("abertura"), {
-    delay: 0.55,
+    delay: atraso + 0.55,
     duration: 1,
     ease: SAIDA,
     opacity: 0,
@@ -161,7 +180,13 @@ function linhaDoTempo(horizontal: boolean) {
 function retrato() {
   const foto = um("retrato")
   if (!foto) return
-  gsap.from(foto, { duration: 1.8, ease: SAIDA, opacity: 0, scale: 1.08 })
+  gsap.from(foto, {
+    delay: atrasoDaIntro(),
+    duration: 1.8,
+    ease: SAIDA,
+    opacity: 0,
+    scale: 1.08,
+  })
   gsap.to(foto, {
     ease: "none",
     scrollTrigger: {

@@ -1,9 +1,11 @@
+import { profile } from "@portfolio/content"
 import { setRequestLocale } from "next-intl/server"
 
 import { Abertura } from "@/components/inicio/abertura"
 import { Casos } from "@/components/inicio/casos"
 import { Certificados } from "@/components/inicio/certificados"
 import { Contato } from "@/components/inicio/contato"
+import { Intro } from "@/components/inicio/intro"
 import { Numeros } from "@/components/inicio/numeros"
 import { Projetos } from "@/components/inicio/projetos"
 import { Sobre } from "@/components/inicio/sobre"
@@ -29,6 +31,7 @@ export default async function HomePage({
 
   return (
     <>
+      <Intro nome={profile.shortName} />
       <Abertura />
       <Sobre />
       <Casos />

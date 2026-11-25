@@ -126,3 +126,20 @@ test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
     "This page does not exist.",
   )
 })
+
+test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
+  await page.goto("/pt")
+  const letra = page.locator("[data-peso]:visible").first()
+  const caixa = await letra.boundingBox()
+  if (!caixa) throw new Error("letra sem caixa")
+  await page.mouse.move(caixa.x + caixa.width / 2, caixa.y + caixa.height / 2)
+  await expect
+    .poll(async () =>
+      Number(
+        (await letra.evaluate((el) => el.style.fontVariationSettings)).match(
+          /\d+/,
+        )?.[0],
+      ),
+    )
+    .toBeGreaterThan(700)
+})

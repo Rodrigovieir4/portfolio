@@ -381,3 +381,82 @@
     var(--color-vinho-claro)
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/* Redesenho: abertura com contador                                           */
+/* -------------------------------------------------------------------------- */
+
+/*
+ * Só CSS, de propósito: o contador anima uma propriedade registrada e a
+ * cortina sobe sozinha no fim, então funciona sem JavaScript e nunca prende
+ * ninguém atrás dela. Um script em linha marca a sessão para a abertura
+ * aparecer só na primeira visita.
+ */
+@property --intro {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes intro-contar {
+  to {
+    --intro: 100;
+  }
+}
+
+@keyframes intro-linha {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes intro-sair {
+  to {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+@utility intro {
+  animation: intro-sair 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.7s forwards;
+
+  [data-intro="visto"] & {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+@utility intro-numero {
+  animation: intro-contar 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  counter-reset: intro var(--intro);
+
+  &::after {
+    content: counter(intro);
+  }
+}
+
+@utility intro-linha {
+  animation: intro-linha 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  transform-origin: left;
+}
+
+/* Nome gigante da abertura: ocupa a largura toda sem passar da tela. */
+@utility texto-nome {
+  font-size: 20vw;
+
+  @media (width >= 48rem) {
+    font-size: min(9.4vw, 12rem);
+  }
+}
+
+/* Entrelinha e espaço entre palavras do nome gigante, em em: crescem com ele. */
+@utility leading-nome {
+  line-height: 0.82;
+}
+
+@utility gap-x-nome {
+  column-gap: 0.22em;
+}
