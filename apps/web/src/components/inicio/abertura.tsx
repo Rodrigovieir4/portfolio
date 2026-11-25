@@ -2,7 +2,7 @@ import { profile } from "@portfolio/content"
 import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 
-import { Fumaca } from "./fumaca"
+import { EfeitoMouse } from "./efeito-mouse"
 import { Laser } from "./laser"
 import { NomeAbertura } from "./nome-abertura"
 
@@ -131,7 +131,7 @@ export function Abertura() {
     >
       <script dangerouslySetInnerHTML={{ __html: ESCONDER_ATE_O_IMPACTO }} />
       <Laser />
-      <Fumaca />
+      <EfeitoMouse />
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between gap-6 px-4 pt-28 pb-10 lg:px-8">
         <Topo />
         <Palco />
