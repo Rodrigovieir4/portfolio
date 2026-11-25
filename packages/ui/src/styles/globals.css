@@ -466,8 +466,8 @@
 }
 
 /*
- * Cursor do prompt na marca: pisca como num terminal, aceso e apagado de uma
- * vez (sem esmaecer), cerca de uma vez por segundo.
+ * Cursor do prompt na marca: depois da digitação, pisca como num terminal
+ * (aceso e apagado de uma vez), devagar e só quatro vezes; depois fica parado.
  */
 @keyframes cursor-terminal {
   50% {
@@ -476,5 +476,5 @@
 }
 
 @utility cursor-terminal {
-  animation: cursor-terminal 1.06s steps(1) infinite;
+  animation: cursor-terminal 1.2s steps(1) 4;
 }

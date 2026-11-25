@@ -43,7 +43,12 @@ export function Movimento() {
         const { largo, medio, movimento } = contexto.conditions ?? {}
         if (!movimento) return
 
-        const soltarAbertura = abertura(contexto)
+        const soltarAberturaBruta = abertura(contexto)
+        const soltarAbertura = () => {
+          soltarAberturaBruta?.()
+          // Se a página sair no meio da digitação, o nome volta inteiro.
+          promptCompleto()
+        }
         entradas()
         linhaDoTempo(Boolean(medio))
         if (leve) {
@@ -128,6 +133,7 @@ function abertura(contexto: gsap.Context) {
 }
 
 function entradaSimples() {
+  digitarPrompt(0.2)
   const palavras = palavrasDoTitulo()
   if (palavras) {
     gsap.from(palavras, {
@@ -174,6 +180,7 @@ function revelarAbertura() {
       { autoAlpha: 1, clearProps: "transform", duration: 0.9, y: 0 },
       0.5,
     )
+    linha.add(() => digitarPrompt(), 0.6)
   }
   revelarNome(linha)
 
@@ -262,6 +269,41 @@ function revelarTitulo(linha: gsap.core.Timeline, em: number) {
     { duration: 0.8, filter: "blur(10px)", opacity: 0, stagger: 0.025, y: 6 },
     em,
   )
+}
+
+/**
+ * Digita o nome do prompt do cabeçalho, letra por letra, como num terminal.
+ * Uma vez por carregamento: trocando de página, o cabeçalho já está escrito.
+ */
+function digitarPrompt(atraso = 0) {
+  const alvo = document.querySelector<HTMLElement>("[data-prompt]")
+  const marcas = document.documentElement.dataset
+  if (!alvo || "promptDigitado" in marcas) return
+  const final = alvo.dataset.final ?? ""
+  alvo.textContent = ""
+  // Enquanto digita o cursor fica firme; pisca só quando termina.
+  document.querySelector("[data-cursor]")?.classList.remove("cursor-terminal")
+  const estado = { letras: 0 }
+  gsap.to(estado, {
+    delay: atraso,
+    duration: final.length * 0.055,
+    ease: "none",
+    letras: final.length,
+    onComplete: () => {
+      marcas.promptDigitado = ""
+      promptCompleto()
+    },
+    onUpdate: () => {
+      alvo.textContent = final.slice(0, Math.round(estado.letras))
+    },
+  })
+}
+
+/** Nome inteiro e cursor piscando devagar uns segundos, depois parado. */
+function promptCompleto() {
+  const alvo = document.querySelector<HTMLElement>("[data-prompt]")
+  if (alvo) alvo.textContent = alvo.dataset.final ?? alvo.textContent
+  document.querySelector("[data-cursor]")?.classList.add("cursor-terminal")
 }
 
 function palavrasDoTitulo() {

@@ -204,7 +204,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   cabeçalho inteiro é preto fosco (translúcido e desfocado), em todas as
   páginas: o feixe aparece borrado atrás e os links continuam legíveis.
   A marca à esquerda é um prompt de terminal: "❯ rodrigo-vieira" em Geist
-  Mono, a seta em vinho e um cursor em bloco piscando como num terminal. O título da abertura entra
+  Mono, a seta em vinho e um cursor em barra fina. Ao aparecer, o nome é
+  digitado letra por letra (uma vez por carregamento); o cursor pisca devagar
+  quatro vezes e fica parado. O título da abertura entra
   com desfoque letra por letra.
 - **Logo e favicon** (25/11): 8 propostas em SVG geradas no Higgsfield (6
   créditos aprovados), em `D:/workspace/Claude outputs/portfolio-estetica/logos/`

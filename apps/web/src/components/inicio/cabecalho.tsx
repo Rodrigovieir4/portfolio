@@ -19,7 +19,8 @@ const ITEM =
 
 /**
  * Marca do cabeçalho como um prompt de terminal: a seta em vinho, o nome
- * como comando e um cursor em bloco piscando como num terminal de verdade.
+ * como comando e um cursor em barra fina. O movimento.tsx digita o nome ao
+ * aparecer; o cursor pisca devagar uns segundos e depois fica parado.
  */
 function Marca() {
   return (
@@ -32,8 +33,13 @@ function Marca() {
         ❯
       </span>
       <span aria-hidden>
-        rodrigo-vieira
-        <span className="ml-0.5 inline-block h-[1.05em] w-[0.55em] translate-y-[0.15em] cursor-terminal bg-vinho-claro" />
+        <span data-prompt data-final="rodrigo-vieira">
+          rodrigo-vieira
+        </span>
+        <span
+          data-cursor
+          className="ml-0.5 inline-block h-[1.1em] w-0.5 translate-y-[0.2em] bg-vinho-claro"
+        />
       </span>
     </Link>
   )
