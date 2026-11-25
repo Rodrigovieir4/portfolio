@@ -222,16 +222,43 @@ function revelarRetrato(linha: gsap.core.Timeline) {
   )
 }
 
-/** No impacto, a luz do nome se abre do feixe para as pontas. */
+/**
+ * No impacto o nome nasce dentro do feixe: começa comprimido no centro, com
+ * as letras juntas e desfocadas, e se abre para os lados até o lugar dele,
+ * enquanto a luz se espalha do feixe para as pontas. Sem quebrar em letras,
+ * para não perder o degradê da luz (background-clip: text).
+ */
 function revelarNome(linha: gsap.core.Timeline) {
   const nomes = gsap.utils
     .toArray<HTMLElement>("[data-luz]")
     .filter((nome) => nome.offsetParent)
+  if (nomes.length === 0) return
+  const espaco = getComputedStyle(nomes[0]!).letterSpacing
+  linha.fromTo(
+    nomes,
+    {
+      clipPath: "inset(0% 46% 0% 46%)",
+      filter: "blur(16px)",
+      letterSpacing: "-0.28em",
+      opacity: 0,
+    },
+    {
+      clearProps: "clipPath,filter,letterSpacing",
+      clipPath: "inset(0% 0% 0% 0%)",
+      duration: 1.6,
+      // Abertura bem distribuída: com expo.out ela acabava em 0,2 s.
+      ease: "power2.inOut",
+      filter: "blur(0px)",
+      letterSpacing: espaco,
+      opacity: 1,
+    },
+    0.05,
+  )
   linha.fromTo(
     nomes,
     { "--luz-raio": "0%" },
-    { "--luz-raio": "46%", duration: 1.6, ease: "power2.out" },
-    0.05,
+    { "--luz-raio": "46%", duration: 1.8, ease: "power2.out" },
+    0.15,
   )
 }
 
