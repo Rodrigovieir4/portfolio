@@ -392,7 +392,8 @@
  * impacto do laser. A animação de reserva mostra tudo depois de 2,5 s mesmo
  * que o JavaScript falhe, para ninguém ficar diante de uma tela vazia.
  */
-[data-abertura] [data-revelar] {
+[data-abertura] [data-revelar],
+[data-abertura] [data-cabecalho] {
   visibility: hidden;
   animation: revelar-reserva 0s 2.5s forwards;
 }

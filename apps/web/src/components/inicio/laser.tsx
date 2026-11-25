@@ -50,9 +50,9 @@ export function Laser() {
     <LaserFlow
       aria-hidden
       beamPosition={0.5}
-      // Nasce logo abaixo da barra do topo, com a borda esfumada, para o
-      // feixe não passar por trás dos links.
-      className="absolute inset-x-0 top-16 bottom-0 -z-10 mask-t-from-85%"
+      // Desce desde o topo da página: o cabeçalho só aparece depois do
+      // impacto, então o feixe não compete com os links na queda.
+      className="absolute inset-0 -z-10"
       color="#e0425f"
       dpr={1}
       onImpact={avisar}

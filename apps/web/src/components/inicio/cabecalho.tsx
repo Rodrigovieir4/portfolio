@@ -20,7 +20,7 @@ export async function Cabecalho() {
   const contato = `/${locale}#contato`
 
   return (
-    <header className="absolute inset-x-0 top-0 z-20">
+    <header data-cabecalho className="absolute inset-x-0 top-0 z-20">
       <a
         href="#conteudo"
         className="sr-only rounded-full bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:top-4 focus:left-4"
@@ -31,7 +31,7 @@ export async function Cabecalho() {
         <Link href="/" className="font-mono text-sm">
           Rodrigo Vieira
         </Link>
-        <ul className="hidden gap-8 justify-self-center text-sm md:flex">
+        <ul className="hidden gap-8 justify-self-center rounded-full border border-border bg-background/70 px-6 py-2 text-sm backdrop-blur-md md:flex">
           {PAGINAS.map(([chave, rota]) => (
             <li key={chave}>
               <Link href={rota} className={ITEM}>

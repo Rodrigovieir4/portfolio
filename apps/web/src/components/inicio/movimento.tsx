@@ -112,6 +112,8 @@ function quandoImpactar(acao: () => void) {
  */
 function abertura(contexto: gsap.Context) {
   if (blocosDaAbertura().length === 0) {
+    // Fora do início, o cabeçalho não espera laser nenhum.
+    delete document.documentElement.dataset.abertura
     entradaSimples()
     return
   }
@@ -160,6 +162,15 @@ function revelarAbertura() {
   })
   linha.set(blocosDaAbertura(), { autoAlpha: 1 })
   revelarRetrato(linha)
+  const cabecalho = document.querySelector("[data-cabecalho]")
+  if (cabecalho) {
+    linha.fromTo(
+      cabecalho,
+      { autoAlpha: 0, y: -16 },
+      { autoAlpha: 1, clearProps: "transform", duration: 0.9, y: 0 },
+      0.5,
+    )
+  }
   revelarNome(linha)
 
   const palavras = palavrasDoTitulo()

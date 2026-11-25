@@ -199,6 +199,10 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   menos pixels no sombreamento, sem granulado, posição da área guardada, só
   com mouse e fora de máquina fraca. Segue o cursor sem abertura própria nem
   deriva, soma luz ao laser (blend screen) e tem fiapos nas bordas.
+- **Cabeçalho e laser** (25/11): no início o cabeçalho nasce escondido e desce
+  junto com o resto no impacto; o feixe desce desde o topo da página. Os links
+  do menu ficam numa cápsula escura translúcida para continuarem legíveis
+  sobre o feixe.
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,
   aprovada) saiu menos nítida que o original no tamanho de tela (o ampliador
   alisou pele e cabelo) e foi descartada; o arquivo está em
