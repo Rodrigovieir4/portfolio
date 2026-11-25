@@ -72,9 +72,9 @@ async function Palco() {
         </div>
       </div>
       <Image
-        src="/images/retrato-recorte.webp"
+        src="/images/retrato-cabeca.webp"
         alt={t("retratoAlt")}
-        width={1792}
+        width={1896}
         height={2400}
         quality={92}
         priority

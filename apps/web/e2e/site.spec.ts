@@ -155,7 +155,7 @@ test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
 test("nada fica por cima do retrato da abertura", async ({ page }) => {
   await page.goto("/pt")
   await esperarAbertura(page)
-  const retrato = page.locator('img[src*="retrato-recorte"]')
+  const retrato = page.locator('img[src*="retrato-cabeca"]')
   await expect(retrato).toBeVisible()
   const caixa = await retrato.boundingBox()
   if (!caixa) throw new Error("retrato sem caixa")
@@ -171,7 +171,7 @@ test("nada fica por cima do retrato da abertura", async ({ page }) => {
       ({ x, y }) => document.elementFromPoint(x, y)?.getAttribute("src") ?? "",
       { x: caixa.x + caixa.width * fx, y: caixa.y + caixa.height * fy },
     )
-    expect(topo, `ponto ${fx},${fy}`).toContain("retrato-recorte")
+    expect(topo, `ponto ${fx},${fy}`).toContain("retrato-cabeca")
   }
 })
 
@@ -181,4 +181,34 @@ test("a abertura é revelada pela animação, não só pela reserva", async ({
   await page.goto("/pt")
   // A reserva em CSS só troca a visibilidade; a animação marca o <html>.
   await esperarAbertura(page)
+})
+
+test("o feixe do laser cai no centro do topo da cabeça", async ({ page }) => {
+  await page.goto("/pt")
+  await esperarAbertura(page)
+  // Lê a transparência da foto na tela e acha o centro do cabelo, no topo.
+  const { cabeca, feixe } = await page.evaluate(() => {
+    const foto = document.querySelector<HTMLImageElement>(
+      'img[src*="retrato-cabeca"]',
+    )!
+    const caixa = foto.getBoundingClientRect()
+    const tela = document.createElement("canvas")
+    tela.width = foto.naturalWidth
+    tela.height = foto.naturalHeight
+    const ctx = tela.getContext("2d")!
+    ctx.drawImage(foto, 0, 0)
+    const { data, width } = ctx.getImageData(0, 0, tela.width, tela.height)
+    const opaco = (x: number, y: number) => data[(y * width + x) * 4 + 3]! > 128
+    let topo = 0
+    while (![...Array(width).keys()].some((x) => opaco(x, topo))) topo++
+    const linha = topo + 20
+    const xs = [...Array(width).keys()].filter((x) => opaco(x, linha))
+    const centro = (xs[0]! + xs.at(-1)!) / 2
+    const secao = foto.closest("section")!.getBoundingClientRect()
+    return {
+      cabeca: caixa.left + centro * (caixa.width / width),
+      feixe: secao.left + secao.width / 2,
+    }
+  })
+  expect(Math.abs(cabeca - feixe)).toBeLessThan(6)
 })
