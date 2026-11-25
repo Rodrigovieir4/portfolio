@@ -47,7 +47,7 @@ export function Fumaca() {
     <canvas
       ref={tela}
       aria-hidden
-      className="pointer-events-none absolute inset-0 size-full mix-blend-screen blur-xl"
+      className="pointer-events-none absolute inset-0 -z-10 size-full mix-blend-screen blur-xl"
     />
   )
 }

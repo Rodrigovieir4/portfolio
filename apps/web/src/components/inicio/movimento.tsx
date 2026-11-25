@@ -6,6 +6,8 @@ import { SplitText } from "gsap/SplitText"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
+import { IMPACTO } from "./laser"
+
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
 const SAIDA = "expo.out"
@@ -41,15 +43,19 @@ export function Movimento() {
         const { largo, medio, movimento } = contexto.conditions ?? {}
         if (!movimento) return
 
-        abertura()
+        const soltarAbertura = abertura(contexto)
         entradas()
         linhaDoTempo(Boolean(medio))
-        if (leve) return
+        if (leve) return soltarAbertura
 
         retrato()
         leitura()
         contato()
-        if (largo) return arco()
+        const soltarArco = largo ? arco() : undefined
+        return () => {
+          soltarAbertura?.()
+          soltarArco?.()
+        }
       },
     )
 
@@ -72,49 +78,71 @@ function todos(seletor: string) {
   return gsap.utils.toArray<HTMLElement>(`[data-mov="${seletor}"]`)
 }
 
-/** Se a cortina do contador está na tela, a abertura espera ela subir. */
-function atrasoDaIntro() {
-  const cortina = document.querySelector(".intro")
-  return cortina && getComputedStyle(cortina).display !== "none" ? 1.9 : 0
+/**
+ * Roda a ação quando o laser da abertura bate no chão. Se o laser não vier
+ * (sem WebGL, máquina fraca), a reserva libera do mesmo jeito.
+ */
+function quandoImpactar(acao: () => void) {
+  if ("impacto" in document.documentElement.dataset) {
+    acao()
+    return
+  }
+  let feito = false
+  const uma = () => {
+    if (feito) return
+    feito = true
+    acao()
+  }
+  window.addEventListener(IMPACTO, uma, { once: true })
+  const reserva = setTimeout(uma, 1800)
+  return () => {
+    clearTimeout(reserva)
+    window.removeEventListener(IMPACTO, uma)
+  }
 }
 
-/** Título sobe palavra por palavra de trás de uma máscara; o resto atrás. */
-function abertura() {
-  const atraso = atrasoDaIntro()
-  const titulo = um("titulo")
-  if (titulo) {
-    const partes = SplitText.create(titulo, {
-      mask: "words",
-      tag: "span",
-      type: "words",
-    })
-    gsap.from(partes.words, {
-      delay: atraso + 0.1,
-      duration: 1.2,
-      ease: SAIDA,
-      stagger: 0.07,
-      yPercent: 110,
-    })
-  }
-  // O nome gigante sobe letra por letra, só a versão visível.
-  gsap.from(
-    todos("letra").filter((letra) => letra.offsetParent),
-    {
-      delay: atraso,
-      duration: 1.3,
-      ease: SAIDA,
-      stagger: 0.04,
-      yPercent: 60,
-      opacity: 0,
-    },
+/** Revela a abertura no impacto: título, nome, retrato e o resto. */
+function abertura(contexto: gsap.Context) {
+  if (todos("revelar").length === 0) return
+  return quandoImpactar(
+    // contexto.add mantém as animações no matchMedia, para o revert desfazer.
+    contexto.add("revelarAbertura", () => {
+      gsap.fromTo(
+        todos("revelar"),
+        { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.5, ease: SAIDA },
+      )
+      tituloPorPalavra()
+      gsap.from(
+        todos("letra").filter((letra) => letra.offsetParent),
+        { duration: 1.1, ease: SAIDA, opacity: 0, stagger: 0.03, yPercent: 60 },
+      )
+      gsap.from(um("retrato"), { duration: 1.4, ease: SAIDA, y: 60 })
+      gsap.from(todos("abertura"), {
+        delay: 0.3,
+        duration: 0.9,
+        ease: SAIDA,
+        opacity: 0,
+        stagger: 0.06,
+        y: 24,
+      })
+    }) as () => void,
   )
-  gsap.from(todos("abertura"), {
-    delay: atraso + 0.55,
-    duration: 1,
+}
+
+function tituloPorPalavra() {
+  const titulo = um("titulo")
+  if (!titulo) return
+  const partes = SplitText.create(titulo, {
+    mask: "words",
+    tag: "span",
+    type: "words",
+  })
+  gsap.from(partes.words, {
+    duration: 1.1,
     ease: SAIDA,
-    opacity: 0,
-    stagger: 0.08,
-    y: 24,
+    stagger: 0.06,
+    yPercent: 110,
   })
 }
 
@@ -176,17 +204,10 @@ function linhaDoTempo(horizontal: boolean) {
   )
 }
 
-/** Retrato entra devagar e desce um pouco mais lento que a página. */
+/** O retrato desce um pouco mais devagar que a página. */
 function retrato() {
   const foto = um("retrato")
   if (!foto) return
-  gsap.from(foto, {
-    delay: atrasoDaIntro(),
-    duration: 1.8,
-    ease: SAIDA,
-    opacity: 0,
-    scale: 1.08,
-  })
   gsap.to(foto, {
     ease: "none",
     scrollTrigger: {

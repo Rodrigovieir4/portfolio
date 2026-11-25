@@ -9,12 +9,12 @@ export default [
     /*
      * Código de terceiro, trazido para dentro do repositório.
      *
-     * src/components/ui vem do gerador do shadcn/ui e é reescrito quando o
-     * componente é atualizado pelo CLI, então corrigir estilo aqui é trabalho
-     * que se perde na próxima atualização. É a mesma regra que o DESIGN-SYSTEM
-     * aplica ao código gerado em packages/ui.
+     * src/components/ui vem do gerador do shadcn/ui e src/components/reactbits
+     * do registro do React Bits; os dois são reescritos quando o componente é
+     * atualizado, então corrigir estilo aqui é trabalho que se perde. É a
+     * mesma regra que o DESIGN-SYSTEM aplica ao código gerado em packages/ui.
      */
-    files: ["src/components/ui/**"],
+    files: ["src/components/ui/**", "src/components/reactbits/**"],
     rules: {
       "@stylistic/max-len": "off",
       "@typescript-eslint/max-params": "off",

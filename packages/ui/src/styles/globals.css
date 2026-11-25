@@ -383,64 +383,24 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* Redesenho: abertura com contador                                           */
+/* Redesenho: abertura com laser                                              */
 /* -------------------------------------------------------------------------- */
 
 /*
- * Só CSS, de propósito: o contador anima uma propriedade registrada e a
- * cortina sobe sozinha no fim, então funciona sem JavaScript e nunca prende
- * ninguém atrás dela. Um script em linha marca a sessão para a abertura
- * aparecer só na primeira visita.
+ * Um script em linha marca o <html> com data-abertura quando há movimento;
+ * aí o conteúdo da abertura nasce escondido e o movimento.tsx revela no
+ * impacto do laser. A animação de reserva mostra tudo depois de 2,5 s mesmo
+ * que o JavaScript falhe, para ninguém ficar diante de uma tela vazia.
  */
-@property --intro {
-  syntax: "<integer>";
-  inherits: true;
-  initial-value: 0;
+[data-abertura] [data-revelar] {
+  visibility: hidden;
+  animation: revelar-reserva 0s 2.5s forwards;
 }
 
-@keyframes intro-contar {
+@keyframes revelar-reserva {
   to {
-    --intro: 100;
+    visibility: visible;
   }
-}
-
-@keyframes intro-linha {
-  from {
-    transform: scaleX(0);
-  }
-}
-
-@keyframes intro-sair {
-  to {
-    clip-path: inset(0 0 100% 0);
-    visibility: hidden;
-  }
-}
-
-@utility intro {
-  animation: intro-sair 0.9s cubic-bezier(0.76, 0, 0.24, 1) 1.7s forwards;
-
-  [data-intro="visto"] & {
-    display: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    display: none;
-  }
-}
-
-@utility intro-numero {
-  animation: intro-contar 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  counter-reset: intro var(--intro);
-
-  &::after {
-    content: counter(intro);
-  }
-}
-
-@utility intro-linha {
-  animation: intro-linha 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  transform-origin: left;
 }
 
 /* Nome gigante da abertura: ocupa a largura toda sem passar da tela. */

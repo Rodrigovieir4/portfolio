@@ -152,12 +152,16 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   Ele já trocou a foto do perfil.
 - **Hero interativo** (25/11, branch `feat/hero-interativo`): o Rodrigo achou
   a abertura fraca e mandou uma referência do Instagram (post DbwBRpLTWYw,
-  portfólio "JISHNU"). Montado: contador de 0 a 100 na primeira visita da
-  sessão (só CSS), nome gigante "RODRIGO VIEIRA" cujas letras engrossam perto
-  do mouse (Geist variável), fumaça vinho seguindo o cursor (canvas 2D) e o
-  retrato centralizado atrás do nome. Esperando ele ver antes de ir para a
-  `main`. Próximas ideias da referência: texto com máscara de imagem
-  (filosofia), cartões de projeto com print e entradas com desfoque.
+  portfólio "JISHNU"). Hoje: ao carregar, o LaserFlow do React Bits
+  (`components/reactbits/laser-flow.tsx`, com a prop `onImpact` nossa) desce
+  e, quando bate no fim do hero (cerca de 1 s), o conteúdo aparece. O nome
+  gigante "RODRIGO VIEIRA" engrossa perto do mouse (Geist variável) e fica
+  atrás do retrato; a fumaça vinho segue o cursor, também atrás.
+- **Regra do retrato** (25/11, pedido do Rodrigo): nada pode ficar por cima da
+  foto dele, nem efeito de mouse, nem texto. O hero usa o retrato recortado
+  (`public/images/retrato-recorte.webp`, fundo removido localmente com a
+  biblioteca da IMG.LY, sem gastar crédito); laser, fumaça e nome ficam atrás.
+  O contador de 0 a 100 saiu, trocado pelo laser.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
