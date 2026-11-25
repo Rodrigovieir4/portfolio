@@ -190,6 +190,8 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    /* O cabeçalho é fixo: âncoras param logo abaixo dele, não atrás. */
+    scroll-padding-top: 4rem;
   }
 
   /*

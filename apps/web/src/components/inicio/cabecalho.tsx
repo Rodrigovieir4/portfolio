@@ -45,7 +45,7 @@ export async function Cabecalho() {
     <header
       data-cabecalho
       // Preto fosco: translúcido e desfocado, o feixe aparece borrado atrás.
-      className="absolute inset-x-0 top-0 z-20 border-b border-foreground/8 bg-background/60 backdrop-blur-xl backdrop-saturate-150"
+      className="fixed inset-x-0 top-0 z-40 bg-background/60 backdrop-blur-xl backdrop-saturate-150"
     >
       <a
         href="#conteudo"
