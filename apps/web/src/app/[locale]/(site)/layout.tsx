@@ -4,6 +4,7 @@ import { SmoothScroll } from "@portfolio/ui"
 import { setRequestLocale } from "next-intl/server"
 
 import { Cabecalho } from "@/components/inicio/cabecalho"
+import { Movimento } from "@/components/inicio/movimento"
 import { Rodape } from "@/components/inicio/rodape"
 
 /**
@@ -29,6 +30,7 @@ export default async function SiteLayout({
       <Cabecalho />
       <main id="conteudo">{children}</main>
       <Rodape />
+      <Movimento />
     </SmoothScroll>
   )
 }

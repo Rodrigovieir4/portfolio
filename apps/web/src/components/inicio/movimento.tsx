@@ -1,0 +1,291 @@
+"use client"
+
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { SplitText } from "gsap/SplitText"
+import { usePathname } from "next/navigation"
+import { useEffect } from "react"
+
+gsap.registerPlugin(ScrollTrigger, SplitText)
+
+const SAIDA = "expo.out"
+
+/**
+ * Movimento do site, num lugar só.
+ *
+ * As seções continuam componentes de servidor e só marcam os elementos com
+ * `data-mov`. Este componente procura as marcas e liga as animações. Sem
+ * JavaScript, com menos movimento pedido no sistema ou antes de hidratar, a
+ * página aparece inteira e parada: nada nasce escondido no HTML.
+ *
+ * Três níveis:
+ * - menos movimento: nada anima;
+ * - máquina leve (até 2 núcleos ou 2 GB): só entradas simples, sem rolagem
+ *   atrelada a cada quadro;
+ * - o resto: tudo, e o carrossel em arco fixo na tela a partir de 1024 px.
+ */
+export function Movimento() {
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const leve = maquinaLeve()
+    const mm = gsap.matchMedia()
+
+    mm.add(
+      {
+        largo: "(min-width: 1024px)",
+        medio: "(min-width: 768px)",
+        movimento: "(prefers-reduced-motion: no-preference)",
+      },
+      (contexto) => {
+        const { largo, medio, movimento } = contexto.conditions ?? {}
+        if (!movimento) return
+
+        abertura()
+        entradas()
+        linhaDoTempo(Boolean(medio))
+        if (leve) return
+
+        retrato()
+        leitura()
+        contato()
+        if (largo) return arco()
+      },
+    )
+
+    return () => mm.revert()
+  }, [pathname])
+
+  return null
+}
+
+function maquinaLeve() {
+  const nav = navigator as Navigator & { deviceMemory?: number }
+  return (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory ?? 8) <= 2
+}
+
+function um(seletor: string) {
+  return document.querySelector<HTMLElement>(`[data-mov="${seletor}"]`)
+}
+
+function todos(seletor: string) {
+  return gsap.utils.toArray<HTMLElement>(`[data-mov="${seletor}"]`)
+}
+
+/** Título sobe palavra por palavra de trás de uma máscara; o resto atrás. */
+function abertura() {
+  const titulo = um("titulo")
+  if (titulo) {
+    const partes = SplitText.create(titulo, {
+      mask: "words",
+      tag: "span",
+      type: "words",
+    })
+    gsap.from(partes.words, {
+      delay: 0.1,
+      duration: 1.2,
+      ease: SAIDA,
+      stagger: 0.07,
+      yPercent: 110,
+    })
+  }
+  gsap.from(todos("abertura"), {
+    delay: 0.55,
+    duration: 1,
+    ease: SAIDA,
+    opacity: 0,
+    stagger: 0.08,
+    y: 24,
+  })
+}
+
+/** Entradas ao rolar: em lote, para quem chega junto subir em sequência. */
+function entradas() {
+  lote("subir", { de: { opacity: 0, y: 40 }, para: { opacity: 1, y: 0 } })
+  lote("numero", {
+    de: { clipPath: "inset(0% 0% 100% 0%)", yPercent: 40 },
+    para: { clipPath: "inset(0% 0% 0% 0%)", yPercent: 0 },
+  })
+}
+
+function lote(
+  seletor: string,
+  { de, para }: { de: gsap.TweenVars; para: gsap.TweenVars },
+) {
+  const itens = todos(seletor)
+  if (itens.length === 0) return
+  gsap.set(itens, de)
+  ScrollTrigger.batch(itens, {
+    once: true,
+    onEnter: (grupo) =>
+      gsap.to(grupo, { ...para, duration: 1.1, ease: SAIDA, stagger: 0.09 }),
+    start: "top 90%",
+  })
+}
+
+/** A linha se desenha com a rolagem e cada marco acende quando ela passa. */
+function linhaDoTempo(horizontal: boolean) {
+  const linha = um("linha")
+  const marcos = todos("marco")
+  if (!linha?.parentElement) return
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      end: horizontal ? "bottom 55%" : "bottom 70%",
+      scrub: 0.6,
+      start: "top 80%",
+      trigger: linha.parentElement,
+    },
+  })
+  tl.from(linha, {
+    duration: 1,
+    ease: "none",
+    ...(horizontal
+      ? { scaleX: 0, transformOrigin: "left center" }
+      : { scaleY: 0, transformOrigin: "center top" }),
+  })
+  tl.from(
+    marcos,
+    {
+      duration: 0.2,
+      ease: "none",
+      opacity: 0.15,
+      stagger: 0.8 / Math.max(marcos.length - 1, 1),
+      y: 16,
+    },
+    0,
+  )
+}
+
+/** Retrato entra devagar e desce um pouco mais lento que a página. */
+function retrato() {
+  const foto = um("retrato")
+  if (!foto) return
+  gsap.from(foto, { duration: 1.8, ease: SAIDA, opacity: 0, scale: 1.08 })
+  gsap.to(foto, {
+    ease: "none",
+    scrollTrigger: {
+      end: "bottom top",
+      scrub: true,
+      start: "top top",
+      trigger: foto.closest("section"),
+    },
+    yPercent: 14,
+  })
+}
+
+/** O texto do sobre acende palavra por palavra enquanto é lido. */
+function leitura() {
+  const texto = um("leitura")
+  if (!texto) return
+  const partes = SplitText.create(texto, { tag: "span", type: "words" })
+  gsap.from(partes.words, {
+    ease: "none",
+    opacity: 0.15,
+    scrollTrigger: {
+      end: "bottom 50%",
+      scrub: true,
+      start: "top 85%",
+      trigger: texto,
+    },
+    stagger: 0.1,
+  })
+}
+
+/** O bloco de contato cresce até ocupar o espaço dele. */
+function contato() {
+  const bloco = um("contato")
+  if (!bloco) return
+  gsap.from(bloco, {
+    borderRadius: 64,
+    ease: "none",
+    scale: 0.86,
+    scrollTrigger: {
+      end: "top 35%",
+      scrub: true,
+      start: "top bottom",
+      trigger: bloco,
+    },
+  })
+}
+
+/**
+ * Carrossel em arco: a seção fica fixa e a rolagem passa os cartões da
+ * direita para a esquerda. O cartão do centro fica de frente; os outros giram
+ * e afundam conforme se afastam, como numa curva.
+ */
+function arco() {
+  const secao = um("arco")
+  const trilho = um("arco-trilho")
+  const cartoes = trilho ? gsap.utils.toArray<HTMLElement>(trilho.children) : []
+  if (!secao || !trilho || cartoes.length < 2) return
+
+  const primeiro = cartoes[0]!
+  let centros: number[] = []
+  let distancia = 0
+
+  function medir() {
+    const largura = primeiro.offsetWidth
+    const folga = (window.innerWidth - largura) / 2
+    gsap.set(trilho, { paddingLeft: folga, paddingRight: folga })
+    centros = cartoes.map(
+      (cartao) => cartao.offsetLeft - primeiro.offsetLeft + folga + largura / 2,
+    )
+    distancia = centros.at(-1)! - centros[0]!
+  }
+
+  function desenhar(progresso: number) {
+    const deslocamento = -progresso * distancia
+    const meio = window.innerWidth / 2
+    // Cartões com espaço igual: o do centro é o progresso arredondado.
+    const ativo = Math.round(progresso * (cartoes.length - 1))
+    for (const [indice, cartao] of cartoes.entries()) {
+      const d = (centros[indice]! + deslocamento - meio) / window.innerWidth
+      posicionar(cartao, { d, x: deslocamento })
+      cartao.classList.toggle("ativo", indice === ativo)
+    }
+  }
+
+  gsap.set(secao, {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    minHeight: "100vh",
+    overflowX: "clip",
+  })
+  gsap.set(trilho, { overflow: "visible", perspective: 1400 })
+  medir()
+
+  const estado = { progresso: 0 }
+  gsap.to(estado, {
+    ease: "none",
+    onUpdate: () => desenhar(estado.progresso),
+    progresso: 1,
+    scrollTrigger: {
+      end: () => `+=${distancia * 1.4}`,
+      invalidateOnRefresh: true,
+      onRefreshInit: medir,
+      pin: true,
+      scrub: 0.8,
+      start: "top top",
+      trigger: secao,
+    },
+  })
+  desenhar(0)
+
+  return () => {
+    for (const cartao of cartoes) cartao.classList.remove("ativo")
+  }
+}
+
+/** `d` é a distância do centro da tela, em larguras de tela (0 = no meio). */
+function posicionar(cartao: HTMLElement, { d, x }: { d: number; x: number }) {
+  const longe = Math.min(Math.abs(d), 1)
+  gsap.set(cartao, {
+    opacity: 1 - longe * 0.55,
+    rotationY: d * -38,
+    x,
+    y: longe * longe * 140,
+    z: -longe * 380,
+  })
+}

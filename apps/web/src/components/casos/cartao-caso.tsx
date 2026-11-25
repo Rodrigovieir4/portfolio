@@ -17,6 +17,8 @@ export function CartaoCaso({ caso, destaque, emBreve, locale }: Props) {
       className={cn(
         "flex h-full flex-col gap-3 rounded-2xl border border-border bg-card p-6 transition-colors hover:border-vinho-claro",
         destaque && "border-vinho-claro",
+        // O carrossel em arco marca o cartão do centro com .ativo no <li>.
+        "in-[.ativo]:border-vinho-claro",
       )}
     >
       <div className="mb-3 flex aspect-video w-full items-end rounded-xl bloco-vinho p-3">

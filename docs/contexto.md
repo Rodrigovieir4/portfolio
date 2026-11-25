@@ -117,6 +117,17 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   depois, não agora.
 - **IA** (24/11): o site diz que ele trabalha com IA no dia a dia, mas sem
   depender dela (frase no sobre, nos três idiomas).
+- **Movimento** (24/11): GSAP 3.15 (ScrollTrigger e SplitText) num componente
+  só, `apps/web/src/components/inicio/movimento.tsx`, montado no layout do
+  site. As seções marcam elementos com `data-mov` e continuam de servidor.
+  Abertura: título sobe palavra por palavra, retrato entra e desce mais
+  devagar. Sobre: texto acende com a leitura. Casos: carrossel em arco fixo na
+  tela a partir de 1024 px (no celular, arrasta). Números sobem de trás de uma
+  máscara. Trajetória: linha se desenha e acende os marcos. Contato: bloco
+  cresce. Sem movimento pedido no sistema: tudo parado; máquina com até 2
+  núcleos ou 2 GB: só entradas simples. O GSAP fixa um div interno de
+  `#casos`, nunca um filho direto do `<main>` (o React perde o nó ao trocar
+  de página).
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

@@ -22,18 +22,23 @@ export async function Trajetoria() {
       id="trajetoria"
       className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32"
     >
-      <h2 className="text-5xl font-semibold tracking-tight md:text-6xl">
+      <h2
+        data-mov="subir"
+        className="text-5xl font-semibold tracking-tight md:text-6xl"
+      >
         {t("titulo")}
       </h2>
       <div className="relative mt-16">
         <div
           aria-hidden
+          data-mov="linha"
           className="absolute top-0 left-2 h-full w-px linha-vinho md:top-1.5 md:left-0 md:h-px md:w-full"
         />
         <ol className="relative grid gap-10 md:grid-cols-5 md:gap-6">
           {todos.map((marco) => (
             <li
               key={marco.id}
+              data-mov="marco"
               className="relative flex flex-col gap-2 pl-8 md:pt-10 md:pl-0"
             >
               <span

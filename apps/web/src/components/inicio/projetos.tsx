@@ -16,13 +16,17 @@ export async function Projetos() {
       id="projetos"
       className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32"
     >
-      <h2 className="text-5xl font-semibold tracking-tight md:text-6xl">
+      <h2
+        data-mov="subir"
+        className="text-5xl font-semibold tracking-tight md:text-6xl"
+      >
         {t("titulo")}
       </h2>
       <ul className="mt-12 grid auto-rows-fr gap-4 md:grid-cols-3">
         {VITRINE.map((projeto, indice) => (
           <li
             key={projeto.slug}
+            data-mov="subir"
             className={cn(
               indice === 0 && "md:col-span-2 md:row-span-2",
               indice === 2 && "rounded-2xl bloco-vinho",

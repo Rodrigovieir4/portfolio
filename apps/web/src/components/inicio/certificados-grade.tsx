@@ -113,7 +113,10 @@ export function CertificadosGrade({
           />
         ))}
       </div>
-      <ul className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <ul
+        data-mov="subir"
+        className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
+      >
         {visiveis.map((item) => (
           <Cartao key={item.id} item={item} abrir={rotulos.abrir} />
         ))}

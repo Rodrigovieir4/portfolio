@@ -10,7 +10,9 @@ export async function Numeros() {
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32">
-      <h2 className="text-3xl font-semibold tracking-tight">{t("titulo")}</h2>
+      <h2 data-mov="subir" className="text-3xl font-semibold tracking-tight">
+        {t("titulo")}
+      </h2>
       <dl className="mt-10 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
         {itens.map(([valor, legenda], indice) => (
           <div
@@ -21,6 +23,7 @@ export async function Numeros() {
               {legenda}
             </dt>
             <dd
+              data-mov="numero"
               className={cn(
                 "font-numeros text-6xl leading-none whitespace-nowrap lg:text-7xl",
                 indice === 1 && "text-vinho-claro",

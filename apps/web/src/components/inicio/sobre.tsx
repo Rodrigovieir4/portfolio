@@ -11,7 +11,10 @@ export async function Sobre() {
       <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
         {t("rotulo")}
       </p>
-      <p className="mt-8 max-w-5xl text-3xl font-medium tracking-tight text-balance md:text-5xl">
+      <p
+        data-mov="leitura"
+        className="mt-8 max-w-5xl text-3xl font-medium tracking-tight text-balance md:text-5xl"
+      >
         {t("texto")} <span className="text-vinho-claro">{t("destaque")}</span>
       </p>
       <p className="mt-8 max-w-3xl text-xl text-pretty text-muted-foreground">
