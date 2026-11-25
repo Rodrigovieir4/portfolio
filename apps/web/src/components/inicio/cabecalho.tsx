@@ -13,7 +13,10 @@ const PAGINAS = [
   ["ideias", "/ideias"],
 ] as const
 
-const ITEM = "text-muted-foreground transition-colors hover:text-foreground"
+// No hover (e no foco do teclado), uma barra vermelha cresce do centro
+// embaixo do link.
+const ITEM =
+  "relative text-muted-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-vinho-claro after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100 focus-visible:after:scale-x-100"
 
 /**
  * Marca em forma de tag: <RodrigoVieira/>, como um componente. O ShinyText
