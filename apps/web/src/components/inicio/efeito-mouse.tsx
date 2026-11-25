@@ -14,6 +14,8 @@ const EFEITOS: Efeito[] = ["fumaca", "ghost", "glow", "splash"]
 
 const VINHO = "#e0425f"
 const VINHO_ESCURO = "#8c1730"
+const ROSA = "#ff8fa3"
+const ROSA_CLARO = "#f6c1cb"
 
 // O endereço e a máquina não mudam com a página aberta: nada a assinar.
 const semAssinatura = () => () => {}
@@ -47,9 +49,19 @@ export function EfeitoMouse() {
   if (efeito === "ghost") {
     return (
       <GhostCursor
+        // Mais contido e leve que o padrão: menor, mais curto, menos brilho e
+        // menos pixels por quadro (o laser já é outro shader na mesma tela),
+        // e menos inércia para seguir o mouse sem parecer arrastado.
+        bloomStrength={0.35}
+        brightness={0.75}
         className="-z-5"
         color={VINHO}
+        inertia={0.3}
         maxDevicePixelRatio={1}
+        size={55}
+        targetPixels={350_000}
+        trailLength={34}
+        turbulence={0.35}
         zIndex={-5}
       />
     )
@@ -67,10 +79,19 @@ export function EfeitoMouse() {
   }
   return (
     <SplashCursor
-      colors={[VINHO, VINHO_ESCURO]}
+      // Mais rico que o padrão: quatro tons de vinho e rosa alternando,
+      // brilho, relevo e redemoinhos mais fortes, e o rastro dura mais.
+      colors={[VINHO, ROSA, VINHO_ESCURO, ROSA_CLARO]}
+      colorSpeed={0.6}
       contained
-      quality="medium"
+      glow={0.7}
+      intensity={1.3}
+      quality="high"
       rainbow={false}
+      shading={1.4}
+      size={1.2}
+      swirl={6}
+      trail={1.4}
       zIndex={-5}
     />
   )
