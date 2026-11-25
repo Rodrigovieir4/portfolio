@@ -203,13 +203,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   junto com o resto no impacto; o feixe desce desde o topo da página. O
   cabeçalho inteiro é preto fosco (translúcido e desfocado), em todas as
   páginas: o feixe aparece borrado atrás e os links continuam legíveis.
-  A marca à esquerda é <RodrigoVieira/> sóbria (creme, só o /> em vinho, sem
-  brilho nem animação), provisória até a logo nova. O título da abertura entra
+  A marca à esquerda é um prompt de terminal: "❯ rodrigo-vieira" em Geist
+  Mono, a seta em vinho e um cursor em bloco piscando como num terminal. O título da abertura entra
   com desfoque letra por letra.
 - **Logo e favicon** (25/11): 8 propostas em SVG geradas no Higgsfield (6
   créditos aprovados), em `D:/workspace/Claude outputs/portfolio-estetica/logos/`
-  (folha.png compara A1 a D2). Esperando a escolha do Rodrigo; depois o
-  agente redesenha a escolhida em SVG limpo e gera os favicons.
+  (folha.png compara A1 a D2) e 8 propostas "de dev" desenhadas em código
+  (folha-dev.png). Ele recusou todas como ícone; escolheu o prompt para o
+  cabeçalho. Favicon ainda em aberto.
   O cabeçalho é fixo (acompanha a rolagem), sem borda embaixo; âncoras param
   logo abaixo dele (scroll-padding-top de 4rem).
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,

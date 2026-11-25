@@ -18,22 +18,22 @@ const ITEM =
   "relative text-muted-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-vinho-claro after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100 focus-visible:after:scale-x-100"
 
 /**
- * Marca do cabeçalho, sóbria como o resto do site: creme, sem brilho nem
- * animação, e só o fecho da tag em vinho. Provisória até a logo nova.
+ * Marca do cabeçalho como um prompt de terminal: a seta em vinho, o nome
+ * como comando e um cursor em bloco piscando como num terminal de verdade.
  */
 function Marca() {
   return (
     <Link
       href="/"
       aria-label="Rodrigo Vieira"
-      className="w-fit text-lg font-semibold tracking-tight text-foreground transition-opacity hover:opacity-80 md:text-xl"
+      className="flex w-fit items-center gap-2 font-mono text-base font-semibold text-foreground transition-opacity hover:opacity-80 md:text-lg"
     >
-      <span aria-hidden className="text-muted-foreground">
-        {"<"}
-      </span>
-      RodrigoVieira
       <span aria-hidden className="text-vinho-claro">
-        {"/>"}
+        ❯
+      </span>
+      <span aria-hidden>
+        rodrigo-vieira
+        <span className="ml-0.5 inline-block h-[1.05em] w-[0.55em] translate-y-[0.15em] cursor-terminal bg-vinho-claro" />
       </span>
     </Link>
   )

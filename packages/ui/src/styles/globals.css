@@ -464,3 +464,17 @@
 @utility pulso-cta {
   animation: pulso-cta 2.8s ease-out 3.2s infinite;
 }
+
+/*
+ * Cursor do prompt na marca: pisca como num terminal, aceso e apagado de uma
+ * vez (sem esmaecer), cerca de uma vez por segundo.
+ */
+@keyframes cursor-terminal {
+  50% {
+    opacity: 0;
+  }
+}
+
+@utility cursor-terminal {
+  animation: cursor-terminal 1.06s steps(1) infinite;
+}
