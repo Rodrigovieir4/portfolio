@@ -188,7 +188,8 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   que incham, alargam e ficam rosa, com onda) não combinava com o hero.
   Comparou quatro estilos e escolheu o "luz": nome fino e parado em Geist,
   aceso no centro como se o feixe o iluminasse, apagando para as pontas; no
-  impacto a luz se abre do feixe para as pontas e depois segue o mouse
+  impacto a luz se abre do feixe para as pontas e depois segue o mouse. Peso
+  fino (300) e letras um pouco separadas, a pedido dele
   (`components/inicio/nome-abertura.tsx`, utilitário `nome-luz`). Saíram o
   TextPressure e a fonte Roboto Flex.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e

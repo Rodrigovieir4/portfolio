@@ -46,7 +46,7 @@ function NomeLuz({ linhas }: { linhas: string[] }) {
       ref={texto}
       aria-label={linhas.join(" ")}
       data-luz
-      className="nome-luz text-center texto-nome leading-none font-extralight tracking-tight whitespace-nowrap uppercase"
+      className="nome-luz text-center texto-nome leading-none font-light tracking-wide whitespace-nowrap uppercase"
     >
       {linhas.map((linha) => (
         <span key={linha} aria-hidden className="block">

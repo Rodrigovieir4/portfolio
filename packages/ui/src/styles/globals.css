@@ -421,7 +421,7 @@
 }
 
 @utility texto-nome {
-  font-size: 21vw;
+  font-size: 17.5vw;
 
   @media (width >= 48rem) {
     font-size: min(8.6vw, 8.5rem);
