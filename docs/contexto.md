@@ -39,7 +39,7 @@ fio. Atualizado em 24/11/2026. O passo a passo do que falta está em
   legado do lint até ser reescrito.
 - SocratiCode indexado (`.socraticode.json`).
 - Ainda não publicado: o deploy na Vercel espera o domínio.
-- Servidores de desenvolvimento: site na porta 3300 e API na 3001 (as portas
+- Servidores de desenvolvimento: site na porta 3400 e API na 3001 (as portas
   3000 e 3100 costumam estar ocupadas por outros projetos).
 
 ## Higgsfield
@@ -103,14 +103,20 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   fontes Geist, Geist Mono e Anton, e as 9 seções do início em versão estática
   (componentes em `apps/web/src/components/inicio/`). Os casos ainda vêm das
   mensagens; o tipo Caso entra na próxima etapa. O retrato está em
-  `apps/web/public/images/retrato.webp`, **fora do git** (`.gitignore`) até o
-  Rodrigo aprovar o rosto num repositório público.
-- **Casos** (25/11): tipo `Case` em `packages/content/src/data/cases.ts`, com 6
+  `apps/web/public/images/retrato.webp` e entra no git: o Rodrigo aprovou o
+  rosto no repositório público (24/11).
+- **Casos** (24/11): tipo `Case` em `packages/content/src/data/cases.ts`, com 6
   casos tirados dos posts 2, 3, 8, 11, 12 e 14, nos três idiomas. Páginas
-  `/casos` e `/casos/[caso]` (`/en/cases`), no sitemap. Ainda mostram todos,
-  inclusive os de data futura: falta decidir se entram só na data do post.
-- **Servidor de desenvolvimento** (25/11): site na porta 3400 (a 3300 passou a
+  `/casos` e `/casos/[caso]` (`/en/cases`), no sitemap. Mostram todos, inclusive
+  os de data futura (decisão B do Rodrigo, 24/11).
+- **Servidor de desenvolvimento** (24/11): site na porta 3400 (a 3300 passou a
   ser do Daisy), API na 3001.
+- **Currículo e projetos** (24/11): vale o currículo atualizado (DBC desde
+  out/2025; freela de out/2025 a jul/2026). Daisy e ELOS Imobiliária entraram
+  em `projects.ts`. Prints e vídeos dos projetos: o agente tira e monta
+  depois, não agora.
+- **IA** (24/11): o site diz que ele trabalha com IA no dia a dia, mas sem
+  depender dela (frase no sobre, nos três idiomas).
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
@@ -180,7 +186,8 @@ azul-noite + ciano, papel + laranja) ficaram para trás.
 ### Pendências do redesenho
 
 - Aprovar os textos de `docs/textos.md` (escritos em 24/11 a partir do
-  currículo) e escolher o título da abertura.
+  currículo; o título da abertura já foi escolhido).
+- Prints e vídeos dos projetos para o bento e as páginas de projeto (depois).
 
 ## Posts do LinkedIn e vídeos (depois do site)
 

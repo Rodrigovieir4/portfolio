@@ -305,6 +305,88 @@ const raw = [
   },
 
   {
+    slug: "daisy",
+    markets: ["PT"],
+    name: "Daisy",
+    year: "2026",
+    start: "2026-10",
+    end: null,
+    client: "DBC Software",
+    engagement: "dbc",
+    status: "live",
+    codeVisibility: "private",
+    accent: "plasma",
+    role: {
+      pt: "Desenvolvedor full stack, unificação e segurança",
+      en: "Full-stack developer, unification and security",
+      es: "Desarrollador full stack, unificación y seguridad",
+    },
+    summary: {
+      pt: "Assistente de IA para empreiteiros de construção civil em Portugal, que juntou três produtos num só app.",
+      en: "An AI assistant for construction contractors in Portugal that merged three products into a single app.",
+      es: "Asistente de IA para contratistas de construcción en Portugal que unió tres productos en una sola app.",
+    },
+    description: {
+      pt: [
+        "A Daisy reúne num só lugar a conta do empreiteiro, o painel da empresa e a Comunidade DBC, que antes eram três produtos separados, cada um com seu login.",
+        "Conduzi a unificação em fases: uma entrada única por e-mail ou telefone, a migração das contas em lotes e a importação da comunidade, com fórum, encontros, aulas e o assistente, sem tirar ninguém do ar.",
+        "Também cuidei do painel de gestão (CRM em kanban, finanças, agenda e equipe de vendas) e do endurecimento de segurança: sessões revogáveis, CSP, cofre cifrado e proteção contra sequestro de número de WhatsApp.",
+      ],
+      en: [
+        "Daisy brings together the contractor account, the company dashboard and the DBC Community, which used to be three separate products, each with its own login.",
+        "I led the unification in phases: a single sign-in by email or phone, account migration in batches and the import of the community, with forum, meetups, lessons and the assistant, without taking anyone offline.",
+        "I also worked on the management dashboard (kanban CRM, finance, calendar and sales team) and on security hardening: revocable sessions, CSP, an encrypted vault and protection against WhatsApp number hijacking.",
+      ],
+      es: [
+        "Daisy reúne en un solo lugar la cuenta del contratista, el panel de la empresa y la Comunidad DBC, que antes eran tres productos separados, cada uno con su login.",
+        "Conduje la unificación por fases: un acceso único por correo o teléfono, la migración de cuentas por lotes y la importación de la comunidad, con foro, encuentros, clases y el asistente, sin dejar a nadie fuera de línea.",
+        "También trabajé en el panel de gestión (CRM en kanban, finanzas, agenda y equipo de ventas) y en el refuerzo de seguridad: sesiones revocables, CSP, una bóveda cifrada y protección contra el secuestro de número de WhatsApp.",
+      ],
+    },
+    highlights: {
+      pt: [
+        "Três produtos unificados num só app, em fases e sem parada",
+        "Entrada única por e-mail ou telefone e migração de contas em lotes",
+        "CRM em kanban, finanças, agenda e equipe de vendas",
+        "Sessões revogáveis, CSP, cofre cifrado e proteção do número de WhatsApp",
+      ],
+      en: [
+        "Three products merged into one app, in phases and with no downtime",
+        "Single sign-in by email or phone and batched account migration",
+        "Kanban CRM, finance, calendar and sales team",
+        "Revocable sessions, CSP, an encrypted vault and WhatsApp number protection",
+      ],
+      es: [
+        "Tres productos unificados en una sola app, por fases y sin interrupción",
+        "Acceso único por correo o teléfono y migración de cuentas por lotes",
+        "CRM en kanban, finanzas, agenda y equipo de ventas",
+        "Sesiones revocables, CSP, bóveda cifrada y protección del número de WhatsApp",
+      ],
+    },
+    metrics: [
+      {
+        value: "3",
+        label: {
+          pt: "Produtos num só app",
+          en: "Products in one app",
+          es: "Productos en una sola app",
+        },
+      },
+    ],
+    stack: [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Supabase",
+      "Prisma",
+      "Stripe",
+      "Turborepo",
+    ],
+    links: { demo: "https://daisy.dbcsoftware.pt" },
+  },
+
+  {
     slug: "memoreba",
     markets: ["BR"],
     name: "Memoreba",
@@ -471,6 +553,86 @@ const raw = [
       },
     ],
     stack: ["TypeScript", "Next.js", "React", "Supabase", "Turborepo"],
+    links: {},
+  },
+
+  {
+    slug: "elos-imobiliaria",
+    markets: ["PT"],
+    name: "ELOS Imobiliária",
+    year: "2026",
+    start: "2026-10",
+    end: null,
+    client: "ELOS Real Estate",
+    engagement: "freelance",
+    status: "wip",
+    codeVisibility: "private",
+    accent: "cyan",
+    role: {
+      pt: "Desenvolvedor full stack, painel e infraestrutura",
+      en: "Full-stack developer, dashboard and infrastructure",
+      es: "Desarrollador full stack, panel e infraestructura",
+    },
+    summary: {
+      pt: "Site de imóveis e workspace interno de uma imobiliária em Portugal, com CRM, negócios, financeiro e comissões.",
+      en: "Property website and internal workspace for a real estate agency in Portugal, with CRM, deals, finance and commissions.",
+      es: "Sitio de inmuebles y espacio de trabajo interno de una inmobiliaria en Portugal, con CRM, negocios, finanzas y comisiones.",
+    },
+    description: {
+      pt: [
+        "A plataforma tem duas partes: o site público de imóveis e o workspace onde a equipe trabalha, com CRM, angariação, negócios, financeiro, agenda e relatórios.",
+        "Comecei reorganizando o projeto em monorepo e dando base à infraestrutura: migrations com isolamento por cliente, script de migração idempotente, backup diário com retenção e validação no gateway contra alteração ou exclusão sem filtro.",
+        "No produto, trabalhei no funil de leads, no financeiro e nas comissões, e no redesenho do painel. Antes de entregar, revisei 50 rotas em 12 tamanhos de tela, em tema claro e escuro, e fiz auditorias de segurança e de desempenho.",
+      ],
+      en: [
+        "The platform has two parts: the public property website and the workspace where the team works, with CRM, listings, deals, finance, calendar and reports.",
+        "I started by restructuring the project into a monorepo and laying the infrastructure groundwork: tenant-isolated migrations, an idempotent migration script, daily backups with retention, and gateway validation against unfiltered updates or deletes.",
+        "On the product side, I worked on the lead funnel, finance and commissions, and the dashboard redesign. Before delivery, I reviewed 50 routes at 12 screen sizes, in light and dark themes, and ran security and performance audits.",
+      ],
+      es: [
+        "La plataforma tiene dos partes: el sitio público de inmuebles y el espacio de trabajo del equipo, con CRM, captación, negocios, finanzas, agenda e informes.",
+        "Empecé reorganizando el proyecto en un monorepo y sentando la base de infraestructura: migrations con aislamiento por cliente, script de migración idempotente, copia de seguridad diaria con retención y validación en el gateway contra cambios o borrados sin filtro.",
+        "En el producto, trabajé en el embudo de leads, las finanzas y las comisiones, y en el rediseño del panel. Antes de entregar, revisé 50 rutas en 12 tamaños de pantalla, en tema claro y oscuro, e hice auditorías de seguridad y de rendimiento.",
+      ],
+    },
+    highlights: {
+      pt: [
+        "Monorepo, migrations isoladas por cliente e backup diário",
+        "Funil de leads, negócios, financeiro e comissões",
+        "50 rotas revisadas em 12 tamanhos de tela",
+        "Auditorias de segurança e de desempenho com correções",
+      ],
+      en: [
+        "Monorepo, tenant-isolated migrations and daily backups",
+        "Lead funnel, deals, finance and commissions",
+        "50 routes reviewed at 12 screen sizes",
+        "Security and performance audits with fixes",
+      ],
+      es: [
+        "Monorepo, migrations aisladas por cliente y copia de seguridad diaria",
+        "Embudo de leads, negocios, finanzas y comisiones",
+        "50 rutas revisadas en 12 tamaños de pantalla",
+        "Auditorías de seguridad y de rendimiento con correcciones",
+      ],
+    },
+    metrics: [
+      {
+        value: "50",
+        label: {
+          pt: "Rotas revisadas em 12 tamanhos de tela",
+          en: "Routes reviewed at 12 screen sizes",
+          es: "Rutas revisadas en 12 tamaños de pantalla",
+        },
+      },
+    ],
+    stack: [
+      "TypeScript",
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Node.js",
+      "Turborepo",
+    ],
     links: {},
   },
 

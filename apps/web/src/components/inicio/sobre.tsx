@@ -14,6 +14,9 @@ export async function Sobre() {
       <p className="mt-8 max-w-5xl text-3xl font-medium tracking-tight text-balance md:text-5xl">
         {t("texto")} <span className="text-vinho-claro">{t("destaque")}</span>
       </p>
+      <p className="mt-8 max-w-3xl text-xl text-pretty text-muted-foreground">
+        {t("ia")}
+      </p>
       <div className="mt-12 flex justify-end">
         <a
           href="#trajetoria"

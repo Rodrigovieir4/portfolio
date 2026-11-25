@@ -33,6 +33,10 @@ Engenharia de Software na USP. Cuido de produto em produção de ponta a ponta:
 pagamentos via Pix, segurança no PostgreSQL, infraestrutura na AWS e
 desempenho que o usuário sente.
 
+**IA (24/11, pedido do Rodrigo):** ele trabalha com IA mas não depende dela.
+Frase no sobre: "Uso IA todos os dias para ir mais rápido. As decisões de
+arquitetura, a revisão do código e o que vai para produção continuam comigo."
+
 ## Números reais (seção 4)
 
 Escolher 4 a 6:

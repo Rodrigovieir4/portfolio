@@ -32,14 +32,18 @@ Atualizado em 24/11/2026.
 ## Redesenho: construção (tudo de uma vez)
 
 - [x] Tokens novos em `packages/ui` (paleta em OKLCH e fontes, 24/11)
-- [x] Tipo Caso em `packages/content` com schema e os primeiros casos (6, 25/11)
+- [x] Tipo Caso em `packages/content` com schema e os primeiros casos (6, 24/11)
 - [x] Imagens de referência por seção no Higgsfield (9, em 24/11)
 - [x] Retrato de estúdio a partir das fotos (4, em 24/11)
-- [ ] Mídia final: retrato tratado, vídeos e capas (cotar antes)
+- [x] Retrato aprovado para o repositório público (24/11)
+- [x] Daisy e ELOS no conteúdo; datas pelo currículo atualizado (24/11)
+- [x] Frase sobre IA no sobre: usa, mas não depende (24/11)
+- [ ] Prints e vídeos dos projetos, feitos pelo agente (depois)
+- [ ] Mídia final: vídeos e capas (cotar antes)
 - [ ] Blocos visuais em `packages/ui`
 - [ ] Todas as páginas e seções, no mesmo estilo
   - [x] Início, versão estática das 9 seções (branch `feat/redesenho`, 24/11)
-  - [x] `/casos` e `/casos/[caso]` nos três idiomas (25/11)
+  - [x] `/casos` e `/casos/[caso]` nos três idiomas (24/11)
   - [ ] `/sobre`, `/ideias` e páginas de projeto no visual novo
 - [ ] Movimento: GSAP, Lenis, 3D onde couber, versão leve e sem movimento
 - [ ] Três idiomas revisados
