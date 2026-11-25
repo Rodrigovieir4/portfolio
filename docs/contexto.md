@@ -167,6 +167,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   Corrigidos dois bugs antigos: a revelação procurava os blocos por um
   atributo errado (só a reserva de 2,5 s mostrava o conteúdo) e as palavras
   do título não se mexiam (elemento em linha ignora transform).
+  Ainda em 25/11: o nome gigante passou a usar o TextPressure do React Bits
+  (`components/reactbits/text-pressure.tsx`), com a fonte Roboto Flex pelo
+  next/font (eixos de peso e largura): perto do mouse as letras engrossam,
+  alargam e ficam vinho; parado, uma onda passa; clique solta uma onda. No
+  celular o nome ocupa 2/3 da largura para as letras alargadas não saírem da
+  tela. Retrato da abertura em resolução cheia (WebP 95, servido em qualidade
+  92); ampliação 4K no Higgsfield cotada em 2 créditos, esperando o ok.
 - **Regra do retrato** (25/11, pedido do Rodrigo): nada pode ficar por cima da
   foto dele, nem efeito de mouse, nem texto. O hero usa o retrato recortado
   (`public/images/retrato-recorte.webp`, fundo removido localmente com a

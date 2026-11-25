@@ -1,4 +1,4 @@
-import { Anton, Geist, Geist_Mono } from "next/font/google"
+import { Anton, Geist, Geist_Mono, Roboto_Flex } from "next/font/google"
 
 /**
  * Tres familias com papeis distintos (redesenho de 24/11/2026):
@@ -29,4 +29,13 @@ export const fontNumeros = Anton({
   weight: "400",
 })
 
-export const fontVariables = `${fontSans.variable} ${fontMono.variable} ${fontNumeros.variable}`
+// Só o nome gigante da abertura (TextPressure): precisa do eixo de largura,
+// que a Geist não tem, além do peso.
+export const fontPressao = Roboto_Flex({
+  axes: ["wdth"],
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-pressao",
+})
+
+export const fontVariables = `${fontSans.variable} ${fontMono.variable} ${fontNumeros.variable} ${fontPressao.variable}`

@@ -224,7 +224,9 @@ function revelarRetrato(linha: gsap.core.Timeline) {
 
 /** As letras nascem empilhadas no feixe, no centro, e se espalham. */
 function revelarNome(linha: gsap.core.Timeline) {
-  const letras = todos("letra").filter((letra) => letra.offsetParent)
+  const letras = gsap.utils
+    .toArray<HTMLElement>("[data-nome] [data-char]")
+    .filter((letra) => letra.offsetParent)
   if (letras.length === 0) return
   const centro = window.innerWidth / 2
   const distancia = letras.map((letra) => {
@@ -237,7 +239,6 @@ function revelarNome(linha: gsap.core.Timeline) {
       duration: 1.3,
       ease: "expo.out",
       filter: "blur(18px)",
-      opacity: 0,
       scale: 0.4,
       stagger: { each: 0.025, from: "center" },
       x: (indice: number) => distancia[indice] ?? 0,

@@ -21,6 +21,7 @@ export default [
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "better-tailwindcss/no-restricted-classes": "off",
+      "better-tailwindcss/no-unknown-classes": "off",
       eqeqeq: "off",
       "jsx-a11y/anchor-has-content": "off",
       "jsx-a11y/anchor-is-valid": "off",

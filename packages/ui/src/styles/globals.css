@@ -402,21 +402,3 @@
     visibility: visible;
   }
 }
-
-/* Nome gigante da abertura: ocupa a largura toda sem passar da tela. */
-@utility texto-nome {
-  font-size: 20vw;
-
-  @media (width >= 48rem) {
-    font-size: min(9.4vw, 12rem);
-  }
-}
-
-/* Entrelinha e espaço entre palavras do nome gigante, em em: crescem com ele. */
-@utility leading-nome {
-  line-height: 0.82;
-}
-
-@utility gap-x-nome {
-  column-gap: 0.22em;
-}

@@ -137,7 +137,7 @@ test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
 test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
   await page.goto("/pt")
   await esperarAbertura(page)
-  const letra = page.locator("[data-peso]:visible").first()
+  const letra = page.locator("[data-nome] [data-char]:visible").first()
   const caixa = await letra.boundingBox()
   if (!caixa) throw new Error("letra sem caixa")
   await page.mouse.move(caixa.x + caixa.width / 2, caixa.y + caixa.height / 2)
