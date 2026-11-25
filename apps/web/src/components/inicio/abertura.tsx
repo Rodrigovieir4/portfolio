@@ -104,7 +104,7 @@ async function Chamada() {
         <a
           href="#contato"
           data-mov="cta"
-          className="rounded-full bg-vinho px-6 py-3 font-medium text-foreground transition-transform active:scale-95"
+          className="pulso-cta rounded-full bg-vinho px-6 py-3 font-medium text-foreground transition-transform active:scale-95"
         >
           {t("falar")} →
         </a>

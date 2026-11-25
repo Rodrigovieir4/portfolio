@@ -443,3 +443,24 @@
   color: transparent;
   transition: --luz-x 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/*
+ * Pulso do botão "Falar comigo": um anel vinho que se expande e some, e
+ * depois uma pausa. Começa logo depois da abertura e se repete para manter a
+ * atenção no botão. Em CSS para não prender a linha do tempo da abertura.
+ */
+@keyframes pulso-cta {
+  0% {
+    box-shadow: 0 0 0 0
+      color-mix(in oklch, var(--color-vinho-claro) 70%, transparent);
+  }
+
+  40%,
+  100% {
+    box-shadow: 0 0 0 18px transparent;
+  }
+}
+
+@utility pulso-cta {
+  animation: pulso-cta 2.8s ease-out 3.2s infinite;
+}

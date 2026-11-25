@@ -188,20 +188,6 @@ function revelarAbertura() {
     { duration: 0.9, filter: "blur(8px)", opacity: 0, stagger: 0.07, y: 16 },
     0.7,
   )
-  const botao = um("cta")
-  if (botao) {
-    linha.fromTo(
-      botao,
-      { boxShadow: "0 0 0 0 rgba(220, 66, 95, 0.7)" },
-      {
-        boxShadow: "0 0 0 18px rgba(220, 66, 95, 0)",
-        clearProps: "boxShadow",
-        duration: 1.1,
-        ease: "power2.out",
-      },
-      1.3,
-    )
-  }
 }
 
 function revelarRetrato(linha: gsap.core.Timeline) {
