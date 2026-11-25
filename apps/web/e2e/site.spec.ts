@@ -154,7 +154,7 @@ test("a luz do nome segue o mouse", async ({ page }) => {
 test("nada fica por cima do retrato da abertura", async ({ page }) => {
   await page.goto("/pt")
   await esperarAbertura(page)
-  const retrato = page.locator('img[src*="retrato-cabeca"]')
+  const retrato = page.locator('img[src*="retrato-nitido"]')
   await expect(retrato).toBeVisible()
   const caixa = await retrato.boundingBox()
   if (!caixa) throw new Error("retrato sem caixa")
@@ -170,7 +170,7 @@ test("nada fica por cima do retrato da abertura", async ({ page }) => {
       ({ x, y }) => document.elementFromPoint(x, y)?.getAttribute("src") ?? "",
       { x: caixa.x + caixa.width * fx, y: caixa.y + caixa.height * fy },
     )
-    expect(topo, `ponto ${fx},${fy}`).toContain("retrato-cabeca")
+    expect(topo, `ponto ${fx},${fy}`).toContain("retrato-nitido")
   }
 })
 
@@ -188,7 +188,7 @@ test("o feixe do laser cai no centro do topo da cabeça", async ({ page }) => {
   // Lê a transparência da foto na tela e acha o centro do cabelo, no topo.
   const { cabeca, feixe } = await page.evaluate(() => {
     const foto = document.querySelector<HTMLImageElement>(
-      'img[src*="retrato-cabeca"]',
+      'img[src*="retrato-nitido"]',
     )!
     const caixa = foto.getBoundingClientRect()
     const tela = document.createElement("canvas")

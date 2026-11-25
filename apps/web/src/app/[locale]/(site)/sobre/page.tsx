@@ -90,10 +90,11 @@ async function Topo({ locale }: Props) {
           </div>
         </div>
         <Image
-          src="/images/retrato.webp"
+          src="/images/retrato-sobre.webp"
           alt={t("retratoAlt")}
-          width={1200}
-          height={1607}
+          width={1792}
+          height={2400}
+          quality={92}
           priority
           sizes="(min-width: 1024px) 35vw, 90vw"
           data-mov="retrato"

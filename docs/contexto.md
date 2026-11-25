@@ -199,6 +199,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   menos pixels no sombreamento, sem granulado, posição da área guardada, só
   com mouse e fora de máquina fraca. Segue o cursor sem abertura própria nem
   deriva, soma luz ao laser (blend screen) e tem fiapos nas bordas.
+- **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,
+  aprovada) saiu menos nítida que o original no tamanho de tela (o ampliador
+  alisou pele e cabelo) e foi descartada; o arquivo está em
+  `D:/workspace/Claude outputs/portfolio-estetica/retratos/retrato-3-4k.png`.
+  O site já entregava a foto inteira; o que melhorou foi um realce de
+  nitidez leve no arquivo (sharp, sigma 0,9): `retrato-nitido.webp` na
+  abertura e `retrato-sobre.webp` (1792 × 2400, qualidade 92) no /sobre.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):
