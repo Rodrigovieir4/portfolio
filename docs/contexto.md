@@ -192,6 +192,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   fino (300) e letras um pouco separadas, a pedido dele
   (`components/inicio/nome-abertura.tsx`, utilitário `nome-luz`). Saíram o
   TextPressure e a fonte Roboto Flex.
+- **Efeito do mouse** (25/11): depois de recusar fumaça, holofote, poeira,
+  anel e Glow, e de achar o Splash simples, o Rodrigo escolheu o Ghost Cursor
+  do React Bits (`components/reactbits/ghost-cursor.tsx`, montado em
+  `components/inicio/efeito-mouse.tsx`). Otimizado: metade da resolução,
+  menos pixels no sombreamento, sem granulado, posição da área guardada, só
+  com mouse e fora de máquina fraca. Segue o cursor sem abertura própria nem
+  deriva, soma luz ao laser (blend screen) e tem fiapos nas bordas.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

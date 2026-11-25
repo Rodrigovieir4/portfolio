@@ -20,10 +20,6 @@ export default [
       "@typescript-eslint/max-params": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/ban-ts-comment": "off",
-      // O GlowCursor tem uma função local chamada use (ativa o shader): a regra
-      // de hooks confunde com o use() do React.
-      "react-hooks/rules-of-hooks": "off",
       "better-tailwindcss/no-restricted-classes": "off",
       eqeqeq: "off",
       "jsx-a11y/anchor-has-content": "off",

@@ -30,15 +30,29 @@ function NomeLuz({ linhas }: { linhas: string[] }) {
   useEffect(() => {
     const elemento = texto.current
     if (!elemento) return
-    // A luz acompanha o mouse na horizontal; a transição fica no CSS.
+    // A luz acompanha o mouse na horizontal; a transição fica no CSS. Lê e
+    // escreve uma vez por quadro, e não a cada evento do mouse.
+    let quadro = 0
+    let x = 0
+    const aplicar = () => {
+      quadro = 0
+      const caixa = elemento.getBoundingClientRect()
+      const posicao = ((x - caixa.left) / caixa.width) * 100
+      elemento.style.setProperty(
+        "--luz-x",
+        `${Math.max(0, Math.min(100, posicao))}%`,
+      )
+    }
     const mover = (evento: PointerEvent) => {
       if (evento.pointerType !== "mouse") return
-      const caixa = elemento.getBoundingClientRect()
-      const x = ((evento.clientX - caixa.left) / caixa.width) * 100
-      elemento.style.setProperty("--luz-x", `${Math.max(0, Math.min(100, x))}%`)
+      x = evento.clientX
+      if (!quadro) quadro = requestAnimationFrame(aplicar)
     }
     window.addEventListener("pointermove", mover, { passive: true })
-    return () => window.removeEventListener("pointermove", mover)
+    return () => {
+      cancelAnimationFrame(quadro)
+      window.removeEventListener("pointermove", mover)
+    }
   }, [])
 
   return (

@@ -1,7 +1,7 @@
-// @ts-nocheck -- shortcut: código do React Bits em comparação, sem tipos estritos; ao escolher, o vencedor ganha os tipos e os outros saem.
 /*
  * GhostCursor, do React Bits (https://reactbits.dev), trazido pelo registro em
- * 25/11/2026 (GhostCursor-TS-TW), sem mudanças.
+ * 25/11/2026 (GhostCursor-TS-TW). Mudanças: tipos estritos e a posição da
+ * área guardada em vez de medida a cada movimento do mouse.
  */
 "use client"
 
@@ -56,7 +56,52 @@ interface Settings {
   budget: number
 }
 
-type Uniforms = Record<string, null | WebGLUniformLocation>
+// Nomes conhecidos dos uniforms: com o índice aberto, cada leitura viraria
+// "talvez undefined" na checagem estrita do projeto.
+type NomeUniform =
+  | "uBloom"
+  | "uBloom0"
+  | "uBloom1"
+  | "uBloom2"
+  | "uBrightness"
+  | "uColor"
+  | "uDecay"
+  | "uDetail"
+  | "uDirection"
+  | "uDrag"
+  | "uDrift"
+  | "uDt"
+  | "uEdge"
+  | "uFlow"
+  | "uFrom"
+  | "uGrain"
+  | "uHead"
+  | "uHeadAmount"
+  | "uHeadSize"
+  | "uIdle"
+  | "uNoiseScale"
+  | "uPresence"
+  | "uPuff"
+  | "uRadius"
+  | "uShade"
+  | "uShadeSize"
+  | "uSimSize"
+  | "uSize"
+  | "uSource"
+  | "uState"
+  | "uSwirl"
+  | "uTexel"
+  | "uTheme"
+  | "uThreshold"
+  | "uTime"
+  | "uTo"
+  | "uTrail"
+  | "uTurbulence"
+  | "uVelocity"
+  | "uView"
+  | "uWeights"
+type Uniforms = Partial<Record<string, null | WebGLUniformLocation>> &
+  Record<NomeUniform, null | WebGLUniformLocation>
 
 interface Program {
   program: WebGLProgram
@@ -388,9 +433,9 @@ const parseColor = (value: string): number[] => {
   const hex = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(text)
   if (hex) {
     const full =
-      hex[1].length === 3
-        ? hex[1].replace(/./g, (digit) => digit + digit)
-        : hex[1]
+      hex[1]!.length === 3
+        ? hex[1]!.replace(/./g, (digit) => digit + digit)
+        : hex[1]!
     return [0, 2, 4].map(
       (index) => parseInt(full.slice(index, index + 2), 16) / 255,
     )
@@ -398,7 +443,7 @@ const parseColor = (value: string): number[] => {
   const rgb = /^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/i.exec(text)
   if (rgb)
     return [rgb[1], rgb[2], rgb[3]].map((channel) =>
-      clamp(parseFloat(channel) / 255, 0, 1),
+      clamp(parseFloat(channel ?? "0") / 255, 0, 1),
     )
   return [0.706, 0.592, 0.812]
 }
@@ -426,7 +471,7 @@ const link = (
   gl.attachShader(program, fragment)
   gl.bindAttribLocation(program, 0, "aPosition")
   gl.linkProgram(program)
-  return { program, fragment, uniforms: {} }
+  return { program, fragment, uniforms: {} as Uniforms }
 }
 
 const inspect = (
@@ -719,9 +764,17 @@ const GhostCursor = ({
     let introLive = settingsRef.current.intro && !reduced && generation === 0
     let introStart = -1
 
+    // Posição da área guardada: medir a cada movimento do mouse força o
+    // navegador a recalcular o layout no meio do quadro. (mudança do portfólio)
+    let box = container.getBoundingClientRect()
+    const medirCaixa = () => {
+      box = container.getBoundingClientRect()
+    }
+
     const resize = () => {
       const s = settingsRef.current
       const rect = container.getBoundingClientRect()
+      box = rect
       const width = Math.max(1, Math.round(rect.width))
       const height = Math.max(1, Math.round(rect.height))
       const ratio = Math.min(window.devicePixelRatio || 1, s.maxRatio)
@@ -741,23 +794,23 @@ const GhostCursor = ({
       let w = Math.max(4, Math.round(sw / 2))
       let h = Math.max(4, Math.round(sh / 2))
       for (let i = 0; i < 3; i++) {
-        allocate(downs[i], w, h)
-        allocate(blurs[i], w, h)
+        allocate(downs[i]!, w, h)
+        allocate(blurs[i]!, w, h)
         w = Math.max(2, Math.round(w / 2))
         h = Math.max(2, Math.round(h / 2))
       }
       view.sim = Math.min(0.35, 220 / Math.max(width, height))
       const simW = Math.max(16, Math.round(width * view.sim))
       const simH = Math.max(16, Math.round(height * view.sim))
-      allocate(sims[0], simW, simH)
-      allocate(sims[1], simW, simH)
+      allocate(sims[0]!, simW, simH)
+      allocate(sims[1]!, simW, simH)
       dirty = true
     }
 
     const simulate = (dt: number, active: boolean) => {
       const s = settingsRef.current
-      const src = sims[current]
-      const dst = sims[1 - current]
+      const src = sims[current]!
+      const dst = sims[1 - current]!
       const scale = view.sim
       const sigma = s.size * scale * 0.3
       const decay = Math.exp(-dt / (0.12 + s.trail * 0.022))
@@ -797,9 +850,9 @@ const GhostCursor = ({
     const render = () => {
       const s = settingsRef.current
       let u = pass(shade, programs.shade)
-      bind(0, sims[current].texture)
+      bind(0, sims[current]!.texture)
       gl.uniform1i(u.uState, 0)
-      gl.uniform2f(u.uSimSize, sims[current].width, sims[current].height)
+      gl.uniform2f(u.uSimSize, sims[current]!.width, sims[current]!.height)
       gl.uniform2f(u.uView, view.width, view.height)
       gl.uniform2f(u.uHead, ghost.x, view.height - ghost.y)
       gl.uniform1f(u.uHeadSize, s.size * 0.38)
@@ -815,30 +868,30 @@ const GhostCursor = ({
 
       let source = shade
       for (let i = 0; i < 3; i++) {
-        u = pass(downs[i], programs.down)
+        u = pass(downs[i]!, programs.down)
         bind(0, source.texture)
         gl.uniform1i(u.uSource, 0)
         gl.uniform2f(u.uTexel, 1 / source.width, 1 / source.height)
         gl.uniform1f(u.uThreshold, i === 0 ? s.threshold : 0)
         gl.drawArrays(gl.TRIANGLES, 0, 3)
-        u = pass(blurs[i], programs.blur)
-        bind(0, downs[i].texture)
+        u = pass(blurs[i]!, programs.blur)
+        bind(0, downs[i]!.texture)
         gl.uniform1i(u.uSource, 0)
-        gl.uniform2f(u.uDirection, 1 / downs[i].width, 0)
+        gl.uniform2f(u.uDirection, 1 / downs[i]!.width, 0)
         gl.drawArrays(gl.TRIANGLES, 0, 3)
-        u = pass(downs[i], programs.blur)
-        bind(0, blurs[i].texture)
+        u = pass(downs[i]!, programs.blur)
+        bind(0, blurs[i]!.texture)
         gl.uniform1i(u.uSource, 0)
-        gl.uniform2f(u.uDirection, 0, 1 / blurs[i].height)
+        gl.uniform2f(u.uDirection, 0, 1 / blurs[i]!.height)
         gl.drawArrays(gl.TRIANGLES, 0, 3)
-        source = downs[i]
+        source = downs[i]!
       }
 
       u = pass(null, programs.composite)
       bind(0, shade.texture)
-      bind(1, downs[0].texture)
-      bind(2, downs[1].texture)
-      bind(3, downs[2].texture)
+      bind(1, downs[0]!.texture)
+      bind(2, downs[1]!.texture)
+      bind(3, downs[2]!.texture)
       gl.uniform1i(u.uShade, 0)
       gl.uniform1i(u.uBloom0, 1)
       gl.uniform1i(u.uBloom1, 2)
@@ -981,7 +1034,7 @@ const GhostCursor = ({
     wakeRef.current = wake
 
     const locate = (event: PointerEvent) => {
-      const rect = container.getBoundingClientRect()
+      const rect = box
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
       return {
@@ -1034,6 +1087,10 @@ const GhostCursor = ({
     }
 
     window.addEventListener("pointermove", onPointerMove, { passive: true })
+    window.addEventListener("scroll", medirCaixa, {
+      capture: true,
+      passive: true,
+    })
     window.addEventListener("pointerdown", onPointerDown, { passive: true })
     document.documentElement.addEventListener("pointerleave", onLeave)
 
@@ -1073,6 +1130,7 @@ const GhostCursor = ({
       resizeObserver.disconnect()
       intersection.disconnect()
       window.removeEventListener("pointermove", onPointerMove)
+      window.removeEventListener("scroll", medirCaixa, { capture: true })
       window.removeEventListener("pointerdown", onPointerDown)
       document.documentElement.removeEventListener("pointerleave", onLeave)
       document.removeEventListener("visibilitychange", onVisibility)
