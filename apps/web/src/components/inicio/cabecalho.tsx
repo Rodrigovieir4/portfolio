@@ -14,6 +14,28 @@ const PAGINAS = [
 
 const ITEM = "text-muted-foreground transition-colors hover:text-foreground"
 
+/**
+ * Marca em forma de tag: <RodrigoVieira/>, como um componente. Os sinais
+ * ficam um tom abaixo para o nome ter o destaque.
+ */
+function Marca() {
+  return (
+    <Link
+      href="/"
+      aria-label="Rodrigo Vieira"
+      className="w-fit text-xl font-extrabold tracking-tight text-vinho-claro transition-opacity brilho-marca hover:opacity-85 md:text-2xl"
+    >
+      <span aria-hidden className="opacity-60">
+        {"<"}
+      </span>
+      RodrigoVieira
+      <span aria-hidden className="opacity-60">
+        {"/>"}
+      </span>
+    </Link>
+  )
+}
+
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
   const locale = await getLocale()
@@ -32,9 +54,7 @@ export async function Cabecalho() {
         {t("pular")}
       </a>
       <nav className="mx-auto grid h-16 max-w-7xl grid-cols-2 items-center px-4 md:grid-cols-3 lg:px-8">
-        <Link href="/" className="font-mono text-sm">
-          Rodrigo Vieira
-        </Link>
+        <Marca />
         <ul className="hidden gap-8 justify-self-center text-sm md:flex">
           {PAGINAS.map(([chave, rota]) => (
             <li key={chave}>

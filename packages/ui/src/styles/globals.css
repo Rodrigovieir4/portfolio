@@ -441,3 +441,10 @@
   color: transparent;
   transition: --luz-x 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Marca do cabeçalho: brilho vinho em volta das letras, como letreiro aceso. */
+@utility brilho-marca {
+  text-shadow:
+    0 0 14px color-mix(in oklch, var(--color-vinho-claro) 55%, transparent),
+    0 0 2px color-mix(in oklch, var(--color-vinho-claro) 40%, transparent);
+}

@@ -203,6 +203,8 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   junto com o resto no impacto; o feixe desce desde o topo da página. O
   cabeçalho inteiro é preto fosco (translúcido e desfocado), em todas as
   páginas: o feixe aparece borrado atrás e os links continuam legíveis.
+  A marca à esquerda virou <RodrigoVieira/>, em Geist extranegrito, vinho
+  claro com brilho (utilitário brilho-marca), com os sinais um tom abaixo.
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,
   aprovada) saiu menos nítida que o original no tamanho de tela (o ampliador
   alisou pele e cabelo) e foi descartada; o arquivo está em
