@@ -35,7 +35,7 @@ export function MenuCelular({ contato, fechar, menu, paginas }: Props) {
 
   return (
     <Sheet open={aberto} onOpenChange={setAberto}>
-      <SheetTrigger className="font-mono text-sm md:hidden">
+      <SheetTrigger className="justify-self-end font-mono text-sm md:hidden">
         {menu}
       </SheetTrigger>
       <SheetContent

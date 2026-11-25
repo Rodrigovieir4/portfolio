@@ -27,11 +27,11 @@ export async function Cabecalho() {
       >
         {t("pular")}
       </a>
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-8">
+      <nav className="mx-auto grid h-16 max-w-7xl grid-cols-2 items-center px-4 md:grid-cols-3 lg:px-8">
         <Link href="/" className="font-mono text-sm">
           Rodrigo Vieira
         </Link>
-        <ul className="hidden gap-8 text-sm md:flex">
+        <ul className="hidden gap-8 justify-self-center text-sm md:flex">
           {PAGINAS.map(([chave, rota]) => (
             <li key={chave}>
               <Link href={rota} className={ITEM}>
@@ -46,7 +46,7 @@ export async function Cabecalho() {
             </a>
           </li>
         </ul>
-        <div className="max-md:hidden">
+        <div className="justify-self-end max-md:hidden">
           <Idiomas />
         </div>
         <MenuCelular

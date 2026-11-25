@@ -37,6 +37,8 @@ export function Laser() {
   )
 
   useEffect(() => {
+    // Voltando ao início sem recarregar, o impacto anterior não vale mais.
+    delete document.documentElement.dataset.impacto
     if (maquinaLeve()) avisar()
   }, [])
 
@@ -45,7 +47,10 @@ export function Laser() {
   return (
     <LaserFlow
       aria-hidden
-      className="absolute inset-0 -z-10"
+      beamPosition={0.5}
+      // Nasce logo abaixo da barra do topo, com a borda esfumada, para o
+      // feixe não passar por trás dos links.
+      className="absolute inset-x-0 top-16 bottom-0 -z-10 mask-t-from-85%"
       color="#e0425f"
       dpr={1}
       onImpact={avisar}

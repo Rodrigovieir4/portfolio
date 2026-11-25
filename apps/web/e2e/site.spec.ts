@@ -159,8 +159,8 @@ test("nada fica por cima do retrato da abertura", async ({ page }) => {
     [0.4, 0.6],
   ] as const) {
     const topo = await page.evaluate(
-      ([x, y]) => document.elementFromPoint(x, y)?.getAttribute("src") ?? "",
-      [caixa.x + caixa.width * fx, caixa.y + caixa.height * fy],
+      ({ x, y }) => document.elementFromPoint(x, y)?.getAttribute("src") ?? "",
+      { x: caixa.x + caixa.width * fx, y: caixa.y + caixa.height * fy },
     )
     expect(topo, `ponto ${fx},${fy}`).toContain("retrato-recorte")
   }

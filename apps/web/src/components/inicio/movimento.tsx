@@ -101,49 +101,105 @@ function quandoImpactar(acao: () => void) {
   }
 }
 
-/** Revela a abertura no impacto: título, nome, retrato e o resto. */
+/**
+ * No início, a abertura espera o laser bater no chão. Nas outras páginas,
+ * o título e os textos entram logo.
+ */
 function abertura(contexto: gsap.Context) {
-  if (todos("revelar").length === 0) return
+  if (todos("revelar").length === 0) {
+    entradaSimples()
+    return
+  }
+  // contexto.add mantém as animações no matchMedia, para o revert desfazer.
   return quandoImpactar(
-    // contexto.add mantém as animações no matchMedia, para o revert desfazer.
-    contexto.add("revelarAbertura", () => {
-      gsap.fromTo(
-        todos("revelar"),
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.5, ease: SAIDA },
-      )
-      tituloPorPalavra()
-      gsap.from(
-        todos("letra").filter((letra) => letra.offsetParent),
-        { duration: 1.1, ease: SAIDA, opacity: 0, stagger: 0.03, yPercent: 60 },
-      )
-      gsap.from(um("retrato"), { duration: 1.4, ease: SAIDA, y: 60 })
-      gsap.from(todos("abertura"), {
-        delay: 0.3,
-        duration: 0.9,
-        ease: SAIDA,
-        opacity: 0,
-        stagger: 0.06,
-        y: 24,
-      })
-    }) as () => void,
+    contexto.add("revelarAbertura", revelarAbertura) as () => void,
   )
 }
 
-function tituloPorPalavra() {
+function entradaSimples() {
+  const palavras = palavrasDoTitulo()
+  if (palavras) {
+    gsap.from(palavras, {
+      delay: 0.1,
+      duration: 1.2,
+      ease: SAIDA,
+      stagger: 0.07,
+      yPercent: 110,
+    })
+  }
+  gsap.from(todos("abertura"), {
+    delay: 0.55,
+    duration: 1,
+    ease: SAIDA,
+    opacity: 0,
+    stagger: 0.08,
+    y: 24,
+  })
+}
+
+/**
+ * Coreografia do impacto: a luz sobe pelo retrato de baixo para cima, o
+ * nome abre do centro para as pontas saindo do desfoque, e depois entram o
+ * título e os textos. Tudo dentro de 1,6 s.
+ */
+function revelarAbertura() {
+  const linha = gsap.timeline({ defaults: { ease: SAIDA } })
+  linha.set(todos("revelar"), { autoAlpha: 1 })
+
+  const foto = um("retrato")
+  if (foto) {
+    linha.fromTo(
+      foto,
+      {
+        clipPath: "inset(100% 0% 0% 0%)",
+        filter: "brightness(2.2) blur(10px)",
+        y: 30,
+      },
+      {
+        clipPath: "inset(0% 0% 0% 0%)",
+        duration: 1.2,
+        filter: "brightness(1) blur(0px)",
+        y: 0,
+      },
+      0,
+    )
+  }
+  linha.from(
+    todos("letra").filter((letra) => letra.offsetParent),
+    {
+      duration: 1,
+      filter: "blur(14px)",
+      opacity: 0,
+      stagger: { each: 0.04, from: "center" },
+      yPercent: 40,
+    },
+    0.15,
+  )
+  const palavras = palavrasDoTitulo()
+  if (palavras) {
+    linha.from(palavras, { duration: 0.9, stagger: 0.05, yPercent: 110 }, 0.4)
+  }
+  linha.from(
+    todos("abertura"),
+    {
+      duration: 0.8,
+      filter: "blur(6px)",
+      opacity: 0,
+      stagger: 0.06,
+      y: 18,
+    },
+    0.55,
+  )
+}
+
+function palavrasDoTitulo() {
   const titulo = um("titulo")
-  if (!titulo) return
-  const partes = SplitText.create(titulo, {
+  if (!titulo) return null
+  return SplitText.create(titulo, {
     mask: "words",
     tag: "span",
     type: "words",
-  })
-  gsap.from(partes.words, {
-    duration: 1.1,
-    ease: SAIDA,
-    stagger: 0.06,
-    yPercent: 110,
-  })
+  }).words
 }
 
 /** Entradas ao rolar: em lote, para quem chega junto subir em sequência. */

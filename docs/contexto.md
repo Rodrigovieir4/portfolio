@@ -157,6 +157,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   e, quando bate no fim do hero (cerca de 1 s), o conteúdo aparece. O nome
   gigante "RODRIGO VIEIRA" engrossa perto do mouse (Geist variável) e fica
   atrás do retrato; a fumaça vinho segue o cursor, também atrás.
+  Em 25/11: feixe no centro exato da página, nascendo logo abaixo da barra do
+  topo (com a borda esfumada, para não passar por trás dos links), links do
+  menu centralizados em grade de três colunas, e entrada coreografada no
+  impacto (foto sobe com a luz de baixo para cima, nome abre do centro saindo
+  do desfoque, depois título e textos; cerca de 1,6 s).
 - **Regra do retrato** (25/11, pedido do Rodrigo): nada pode ficar por cima da
   foto dele, nem efeito de mouse, nem texto. O hero usa o retrato recortado
   (`public/images/retrato-recorte.webp`, fundo removido localmente com a
