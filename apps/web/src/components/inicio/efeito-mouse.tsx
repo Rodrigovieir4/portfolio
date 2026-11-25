@@ -50,18 +50,22 @@ export function EfeitoMouse() {
     return (
       <GhostCursor
         // Mais contido e leve que o padrão: menor, mais curto, menos brilho e
-        // menos pixels por quadro (o laser já é outro shader na mesma tela),
-        // e menos inércia para seguir o mouse sem parecer arrastado.
+        // menos pixels por quadro (o laser já é outro shader na mesma tela).
+        // Para grudar no cursor: sem a abertura própria (andava sozinho ao
+        // carregar), sem deriva (a fumaça subia e saía de cima do cursor) e
+        // com inércia quase zero (a mola fica firme e não balança).
         bloomStrength={0.35}
         brightness={0.75}
         className="-z-5"
         color={VINHO}
-        inertia={0.3}
+        drift={0}
+        inertia={0.05}
+        intro={false}
         maxDevicePixelRatio={1}
         size={55}
         targetPixels={350_000}
         trailLength={34}
-        turbulence={0.35}
+        turbulence={0.25}
         zIndex={-5}
       />
     )
