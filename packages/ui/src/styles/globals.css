@@ -404,7 +404,7 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* Nome gigante da abertura: estilos "luz" e "contorno" (em comparação)       */
+/* Nome gigante da abertura: estilo "luz"                                     */
 /* -------------------------------------------------------------------------- */
 
 /* Registradas para a transição e o GSAP animarem a luz. */
@@ -439,10 +439,4 @@
   background-clip: text;
   color: transparent;
   transition: --luz-x 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@utility nome-contorno {
-  color: transparent;
-  -webkit-text-stroke: 1.5px
-    color-mix(in oklch, var(--color-foreground) 85%, transparent);
 }

@@ -222,67 +222,16 @@ function revelarRetrato(linha: gsap.core.Timeline) {
   )
 }
 
-/** Entrada do nome no impacto, conforme o estilo escolhido. */
+/** No impacto, a luz do nome se abre do feixe para as pontas. */
 function revelarNome(linha: gsap.core.Timeline) {
-  const visiveis = (seletor: string) =>
-    gsap.utils.toArray<HTMLElement>(seletor).filter((el) => el.offsetParent)
-  const estilo =
-    document.querySelector<HTMLElement>("[data-estilo]")?.dataset.estilo
-  if (estilo === "luz") {
-    // A luz se abre do feixe para as pontas.
-    linha.fromTo(
-      visiveis("[data-luz]"),
-      { "--luz-raio": "0%" },
-      { "--luz-raio": "46%", duration: 1.6, ease: "power2.out" },
-      0.05,
-    )
-    return
-  }
-  if (estilo === "contorno") {
-    linha.fromTo(
-      visiveis("[data-contorno]"),
-      { clipPath: "inset(0% 50% 0% 50%)" },
-      {
-        clearProps: "clipPath",
-        clipPath: "inset(0% 0% 0% 0%)",
-        duration: 1.3,
-        ease: "expo.out",
-      },
-      0.05,
-    )
-    return
-  }
-  const letras = visiveis("[data-nome] [data-char]")
-  if (estilo === "sobrio") {
-    linha.from(
-      letras,
-      {
-        duration: 1.1,
-        filter: "blur(12px)",
-        opacity: 0,
-        stagger: { each: 0.03, from: "center" },
-      },
-      0.1,
-    )
-    return
-  }
-  // TextPressure completo: as letras nascem no feixe e se espalham.
-  const centro = window.innerWidth / 2
-  const distancia = letras.map((letra) => {
-    const caixa = letra.getBoundingClientRect()
-    return centro - (caixa.left + caixa.width / 2)
-  })
-  linha.from(
-    letras,
-    {
-      duration: 1.3,
-      ease: "expo.out",
-      filter: "blur(18px)",
-      scale: 0.4,
-      stagger: { each: 0.025, from: "center" },
-      x: (indice: number) => distancia[indice] ?? 0,
-    },
-    0.1,
+  const nomes = gsap.utils
+    .toArray<HTMLElement>("[data-luz]")
+    .filter((nome) => nome.offsetParent)
+  linha.fromTo(
+    nomes,
+    { "--luz-raio": "0%" },
+    { "--luz-raio": "46%", duration: 1.6, ease: "power2.out" },
+    0.05,
   )
 }
 

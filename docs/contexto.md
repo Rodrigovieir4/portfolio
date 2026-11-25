@@ -184,6 +184,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   aparecendo antes do laser. O Rodrigo preferiu voltar ao laser atrás dele,
   batendo no fim do hero, sem nada por cima da foto. Os commits foram
   desfeitos com git revert; o código voltou ao estado do commit 6f45516.
+- **Nome da abertura** (25/11): o Rodrigo achou que o TextPressure (letras
+  que incham, alargam e ficam rosa, com onda) não combinava com o hero.
+  Comparou quatro estilos e escolheu o "luz": nome fino e parado em Geist,
+  aceso no centro como se o feixe o iluminasse, apagando para as pontas; no
+  impacto a luz se abre do feixe para as pontas e depois segue o mouse
+  (`components/inicio/nome-abertura.tsx`, utilitário `nome-luz`). Saíram o
+  TextPressure e a fonte Roboto Flex.
 - **Higgsfield** (24/11): não gerar os vídeos dos casos por enquanto; avisar e
   esperar o ok antes de qualquer gasto de crédito.
 - **Seções do início e opção escolhida** (ver `docs/estetica/esboco.html`):

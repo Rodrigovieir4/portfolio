@@ -134,22 +134,21 @@ test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
   )
 })
 
-test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
+test("a luz do nome segue o mouse", async ({ page }) => {
   await page.goto("/pt")
   await esperarAbertura(page)
-  const letra = page.locator("[data-nome] [data-char]:visible").first()
-  const caixa = await letra.boundingBox()
-  if (!caixa) throw new Error("letra sem caixa")
-  await page.mouse.move(caixa.x + caixa.width / 2, caixa.y + caixa.height / 2)
+  const nome = page.locator("[data-luz]:visible").first()
+  const caixa = await nome.boundingBox()
+  if (!caixa) throw new Error("nome sem caixa")
+  // Mouse na ponta esquerda do nome: a luz tem de ir para perto de 0%.
+  await page.mouse.move(caixa.x + 10, caixa.y + caixa.height / 2)
   await expect
     .poll(async () =>
-      Number(
-        (await letra.evaluate((el) => el.style.fontVariationSettings)).match(
-          /\d+/,
-        )?.[0],
+      parseFloat(
+        await nome.evaluate((el) => el.style.getPropertyValue("--luz-x")),
       ),
     )
-    .toBeGreaterThan(700)
+    .toBeLessThan(10)
 })
 
 test("nada fica por cima do retrato da abertura", async ({ page }) => {
