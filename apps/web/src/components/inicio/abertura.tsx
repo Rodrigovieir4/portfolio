@@ -4,7 +4,7 @@ import Image from "next/image"
 
 import { Fumaca } from "./fumaca"
 import { Laser } from "./laser"
-import { NomePressao } from "./nome-pressao"
+import { NomeAbertura } from "./nome-abertura"
 
 // Roda antes da pintura: com movimento permitido, o conteúdo da abertura
 // nasce escondido e só aparece quando o laser bate no chão (movimento.tsx).
@@ -61,15 +61,11 @@ async function Palco() {
         data-nome
         className="absolute inset-x-0 top-0 md:top-1/2 md:-translate-y-1/2"
       >
-        <div className="mx-auto max-w-7xl px-4 max-md:hidden lg:px-8">
-          <NomePressao texto={profile.shortName} />
-        </div>
-        {/* Mais estreito no celular: as letras alargam perto do toque e
-            precisam de folga para não sair da tela. */}
-        <div className="mx-auto flex w-2/3 flex-col md:hidden">
-          <NomePressao texto={nome ?? ""} />
-          <NomePressao texto={sobrenome ?? ""} />
-        </div>
+        <NomeAbertura
+          completo={profile.shortName}
+          nome={nome ?? ""}
+          sobrenome={sobrenome ?? ""}
+        />
       </div>
       <Image
         src="/images/retrato-cabeca.webp"
