@@ -3,11 +3,10 @@
 import { useEffect, useRef, useSyncExternalStore } from "react"
 
 import { LaserFlow } from "@/components/reactbits/laser-flow"
+import { cn } from "@/lib/utils"
 
 /** Evento que libera o conteúdo da abertura (ver movimento.tsx). */
 export const IMPACTO = "abertura:impacto"
-/** Evento de quando a foto apareceu: é a deixa para o laser cair. */
-export const FOTO = "abertura:foto"
 
 function avisar() {
   // A marca serve a quem começar a ouvir depois do impacto.
@@ -20,33 +19,20 @@ function maquinaLeve() {
   return (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory ?? 8) <= 2
 }
 
-// A capacidade da máquina não muda com a página aberta: nada a assinar.
+// A capacidade da máquina e o endereço não mudam com a página aberta.
 const semAssinatura = () => () => {}
 
-function ouvirFoto(mudou: () => void) {
-  window.addEventListener(FOTO, mudou)
-  // Reserva: se a animação da foto não rodar, o laser cai assim mesmo.
-  const reserva = setTimeout(() => {
-    document.documentElement.dataset.foto = ""
-    mudou()
-  }, 2500)
-  return () => {
-    window.removeEventListener(FOTO, mudou)
-    clearTimeout(reserva)
-  }
-}
-
-const fotoPronta = () =>
-  "foto" in document.documentElement.dataset ||
-  window.matchMedia("(prefers-reduced-motion: reduce)").matches
+// shortcut: prévia do preset "Twin Falls" do React Bits, ligada por
+// ?laser=twin; vira padrão (ou some) quando o Rodrigo decidir.
+const previaTwin = () =>
+  new URLSearchParams(window.location.search).get("laser") === "twin"
 
 /**
- * Laser da abertura, no estilo "Twin Falls" do React Bits: depois que a
- * foto aparece, o feixe cai no centro, bem no topo da cabeça, e a luz se
- * divide e escorre pelos dois lados do retrato. O impacto revela o resto.
+ * Feixe de laser da abertura: desce do topo, bate no fim do hero e espalha.
+ * O impacto dispara o evento que revela o conteúdo.
  *
- * A superfície é o próprio retrato: a imagem começa no topo da cabeça e tem
- * o topo arredondado, então a luz desce num arco em volta dele.
+ * Na prévia "Twin Falls", o feixe cai sobre o retrato e a luz escorre pelos
+ * dois lados dele, por cima da foto.
  *
  * Em máquina com até 2 núcleos ou 2 GB o laser não é montado (é um shader
  * de tela cheia) e o conteúdo aparece logo.
@@ -58,34 +44,32 @@ export function Laser() {
     () => !maquinaLeve(),
     () => false,
   )
-  const solto = useSyncExternalStore(ouvirFoto, fotoPronta, () => false)
+  const twin = useSyncExternalStore(semAssinatura, previaTwin, () => false)
   const retrato = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     // Voltando ao início sem recarregar, o impacto anterior não vale mais.
     delete document.documentElement.dataset.impacto
-    retrato.current = document.querySelector('img[src*="retrato-abertura"]')
+    retrato.current = document.querySelector('img[src*="retrato-recorte"]')
     if (maquinaLeve()) avisar()
   }, [])
 
-  if (!ligado || !solto) return null
+  if (!ligado) return null
 
   return (
     <LaserFlow
       aria-hidden
       beamPosition={0.5}
       // Nasce logo abaixo da barra do topo, com a borda esfumada, para o
-      // feixe não passar por trás dos links. Fica na frente do retrato para
-      // a luz escorrer por cima dele.
-      className="absolute inset-x-0 top-16 bottom-0 z-5 mask-t-from-85%"
+      // feixe não passar por trás dos links.
+      className={cn(
+        "absolute inset-x-0 top-16 bottom-0 mask-t-from-85%",
+        twin ? "z-5" : "-z-10",
+      )}
       color="#e0425f"
       dpr={1}
-      // Um pouco abaixo do padrão: com a superfície perto, a luz estourava
-      // em branco em volta do retrato.
-      flare={1.2}
-      intensity={1.4}
       onImpact={avisar}
-      surfaceRef={retrato}
+      surfaceRef={twin ? retrato : undefined}
     />
   )
 }

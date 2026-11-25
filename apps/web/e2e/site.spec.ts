@@ -152,16 +152,16 @@ test("o nome da abertura engrossa onde o mouse passa", async ({ page }) => {
     .toBeGreaterThan(700)
 })
 
-test("nenhum texto nem botão fica por cima do retrato", async ({ page }) => {
+test("nada fica por cima do retrato da abertura", async ({ page }) => {
   await page.goto("/pt")
   await esperarAbertura(page)
-  const retrato = page.locator('img[src*="retrato-abertura"]')
+  const retrato = page.locator('img[src*="retrato-recorte"]')
   await expect(retrato).toBeVisible()
   const caixa = await retrato.boundingBox()
   if (!caixa) throw new Error("retrato sem caixa")
   // Rosto e peito: o elemento no topo, nesses pontos, tem de ser a foto.
-  // O laser passa por cima de propósito (Twin Falls); elementFromPoint
-  // ignora o canvas dele, que não recebe clique, e pega texto e botão.
+  // shortcut: elementFromPoint ignora camadas com pointer-events none (os
+  // canvas do laser e da fumaça); essas a ordem de camadas garante.
   for (const [fx, fy] of [
     [0.5, 0.2],
     [0.5, 0.45],
@@ -171,7 +171,7 @@ test("nenhum texto nem botão fica por cima do retrato", async ({ page }) => {
       ({ x, y }) => document.elementFromPoint(x, y)?.getAttribute("src") ?? "",
       { x: caixa.x + caixa.width * fx, y: caixa.y + caixa.height * fy },
     )
-    expect(topo, `ponto ${fx},${fy}`).toContain("retrato-abertura")
+    expect(topo, `ponto ${fx},${fy}`).toContain("retrato-recorte")
   }
 })
 
