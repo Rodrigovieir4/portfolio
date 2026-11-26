@@ -638,14 +638,13 @@
 }
 
 /*
- * Recuo de uma faixa que ocupa a tela toda, para o começo e o fim dela ficarem
- * alinhados ao conteúdo (max-w-7xl com px-4, e px-8 a partir do lg).
+ * Recuo de uma faixa que ocupa a tela toda: o mesmo respiro das bordas do
+ * site (px-4, e px-8 a partir do lg), sem acompanhar o contêiner centralizado.
  */
 @utility recuo-conteudo {
-  --recuo: 1rem;
-  padding-inline: max(var(--recuo), calc((100% - 80rem) / 2 + var(--recuo)));
+  padding-inline: 1rem;
 
   @media (width >= 64rem) {
-    --recuo: 2rem;
+    padding-inline: 2rem;
   }
 }

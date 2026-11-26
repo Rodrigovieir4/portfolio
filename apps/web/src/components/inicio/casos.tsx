@@ -100,8 +100,8 @@ export async function Casos() {
               {TOTAL} · {t("dica")} →
             </p>
           </div>
-          {/* A faixa vai de uma ponta à outra da tela; o primeiro cartão começa
-              alinhado ao título (recuo-conteudo). */}
+          {/* A faixa vai de uma ponta à outra da tela, com o respiro das
+              bordas do site (recuo-conteudo). */}
           <CarouselContent className="mt-12 recuo-conteudo">
             {cases.map((caso, indice) => (
               <CarouselItem key={caso.slug} className="basis-80 md:basis-96">
