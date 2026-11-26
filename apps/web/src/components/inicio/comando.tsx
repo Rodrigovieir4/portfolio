@@ -5,21 +5,24 @@ import { cn } from "@/lib/utils"
  * prompt do cabeçalho: a seta em vinho, o comando e o cursor fino. O
  * movimento.tsx digita o comando quando a seção entra na tela; sem movimento,
  * ele já aparece inteiro. É enfeite: o título da seção é que tem o conteúdo.
- * Sobre fundo vinho (`sobreVinho`), seta e cursor ficam claros.
+ * Sobre fundo vinho (`sobreVinho`), seta e cursor ficam claros. Com
+ * `manual`, quem digita é a coreografia da seção, não a entrada na tela.
  */
 export function Comando({
   className,
+  manual = false,
   sobreVinho = false,
   texto,
 }: {
   className?: string
+  manual?: boolean
   sobreVinho?: boolean
   texto: string
 }) {
   return (
     <p
       aria-hidden
-      data-mov="comando"
+      data-mov={manual ? "comando-manual" : "comando"}
       className={cn("font-mono text-sm text-muted-foreground", className)}
     >
       <span className={sobreVinho ? "text-foreground" : "text-vinho-claro"}>

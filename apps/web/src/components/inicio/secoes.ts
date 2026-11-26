@@ -3,20 +3,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SplitText } from "gsap/SplitText"
 
 import { digitar } from "./digitar"
+import { cenaSobre } from "./sobre-cena"
 
 /**
  * Movimento das seções depois da abertura (a rodada interativa de 25/11).
  * Chamado pelo movimento.tsx dentro do matchMedia, só com movimento permitido:
  * sem ele, tudo aparece pronto e parado.
  */
-export function secoes(contexto: gsap.Context) {
+export function secoes(contexto: gsap.Context, { fixar }: { fixar: boolean }) {
   const soltarComandos = comandos(contexto)
+  const soltarSobre = cenaSobre({ contexto, fixar })
   const soltarHolofote = holofote()
   const soltarNumeros = numeros()
   const soltarFaixas = faixas()
   tituloContato()
   return () => {
     soltarComandos()
+    soltarSobre()
     soltarHolofote()
     soltarNumeros()
     soltarFaixas()

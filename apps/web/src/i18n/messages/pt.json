@@ -280,7 +280,22 @@
       "texto": "Formado em Análise e Desenvolvimento de Sistemas e pós-graduando em Engenharia de Software na USP. Cuido de produto em produção",
       "destaque": "de ponta a ponta.",
       "mais": "Mais sobre mim",
-      "ia": "Uso IA todos os dias para ir mais rápido. As decisões de arquitetura, a revisão do código e o que vai para produção continuam comigo."
+      "ia": "Uso IA todos os dias para ir mais rápido. As decisões de arquitetura, a revisão do código e o que vai para produção continuam comigo.",
+      "fundo": "Sobre mim",
+      "itens": [
+        [
+          "Formação",
+          "Análise e Desenvolvimento de Sistemas na São Judas, concluído em 2025. MBA em Engenharia de Software na USP, até 2027."
+        ],
+        [
+          "Produção",
+          "Pagamentos com Pix, regras de acesso dentro do banco e desempenho medido, em produtos no ar."
+        ],
+        [
+          "IA",
+          "Uso IA todos os dias para ir mais rápido. As decisões de arquitetura, a revisão do código e o que vai para produção continuam comigo."
+        ]
+      ]
     },
     "casos": {
       "titulo": "Casos",

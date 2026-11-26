@@ -280,7 +280,22 @@
       "texto": "Graduado en Análisis y Desarrollo de Sistemas y cursando un posgrado en Ingeniería de Software en la USP. Cuido productos en producción",
       "destaque": "de punta a punta.",
       "mais": "Más sobre mí",
-      "ia": "Uso IA todos los días para ir más rápido. Las decisiones de arquitectura, la revisión del código y lo que llega a producción siguen siendo mías."
+      "ia": "Uso IA todos los días para ir más rápido. Las decisiones de arquitectura, la revisión del código y lo que llega a producción siguen siendo mías.",
+      "fundo": "Sobre mí",
+      "itens": [
+        [
+          "Formación",
+          "Análisis y Desarrollo de Sistemas en la São Judas, concluido en 2025. MBA en Ingeniería de Software en la USP, hasta 2027."
+        ],
+        [
+          "Producción",
+          "Pagos con Pix, reglas de acceso dentro de la base de datos y rendimiento medido, en productos en vivo."
+        ],
+        [
+          "IA",
+          "Uso IA todos los días para ir más rápido. Las decisiones de arquitectura, la revisión del código y lo que llega a producción siguen siendo mías."
+        ]
+      ]
     },
     "casos": {
       "titulo": "Casos",

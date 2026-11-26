@@ -230,8 +230,17 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   - certificados: a troca de filtro anima a grade (GSAP Flip);
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.
-    Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
-    das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
+    - sobre como cena (26/11, referência: post da echo__builds no Instagram):
+      no computador a seção fica presa enquanto rola; um "Sobre mim" gigante,
+      só contorno, atravessa por cima de um cartão grafite que cresce do canto
+      até a tela inteira, com um feixe vinho cruzando; aí o comando é digitado,
+      o texto acende palavra por palavra e três itens entram com os rótulos se
+      decodificando ("01 / 03 · Formação", "Produção", "IA"). No celular, em
+      máquina fraca ou sem movimento, é uma seção comum com os mesmos textos
+      (`sobre.tsx`, `sobre-cena.ts`). Os textos dos itens são novos
+      (`inicio.sobre.itens`) e precisam da aprovação do Rodrigo.
+      Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
+      das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
 - **Máquina sem placa de vídeo** (25/11): o laser e a névoa do mouse só montam
   onde o WebGL roda numa placa de vídeo (`components/inicio/capacidade.ts`:
   `failIfMajorPerformanceCaveat` e o nome do renderizador, que pega SwiftShader

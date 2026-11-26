@@ -4,32 +4,88 @@ import { Link } from "@/i18n/navigation"
 
 import { Comando } from "./comando"
 
+type Item = [rotulo: string, texto: string]
+
+/** Um item: o rótulo numerado ("01 / 03 · Formação") se decodifica. */
+function ItemSobre({ item, numero }: { item: Item; numero: string }) {
+  const [rotulo, texto] = item
+  return (
+    <li
+      data-sobre-item
+      className="flex flex-col gap-3 border-t border-border pt-4"
+    >
+      <p
+        data-decodificar
+        className="font-mono text-xs tracking-widest text-vinho-claro uppercase"
+      >
+        {numero} · {rotulo}
+      </p>
+      <p className="text-pretty text-muted-foreground">{texto}</p>
+    </li>
+  )
+}
+
+/**
+ * Sobre, como uma cena (rodada interativa de 26/11). No computador, com
+ * movimento, a seção fica fixa enquanto rola: um "Sobre mim" gigante desliza
+ * ao fundo e um painel grafite, com um feixe vinho, cresce do canto até ocupar
+ * a tela; depois o texto acende e os três itens se decodificam (secoes.ts).
+ * No celular, em máquina fraca ou sem movimento, é uma seção comum.
+ */
 export async function Sobre() {
   const t = await getTranslations("inicio.sobre")
   const c = await getTranslations("inicio.comandos")
+  const itens = t.raw("itens") as Item[]
+  const total = String(itens.length).padStart(2, "0")
 
   return (
-    <section
-      id="sobre"
-      className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-40"
-    >
-      <Comando texto={c("sobre")} />
-      <p
-        data-mov="leitura"
-        className="mt-8 max-w-5xl text-3xl font-medium tracking-tight text-balance md:text-5xl"
+    <section id="sobre">
+      <div
+        data-sobre-palco
+        className="relative overflow-hidden px-4 py-24 lg:h-dvh lg:p-0"
       >
-        {t("texto")} <span className="text-vinho-claro">{t("destaque")}</span>
-      </p>
-      <p className="mt-8 max-w-3xl text-xl text-pretty text-muted-foreground">
-        {t("ia")}
-      </p>
-      <div className="mt-12 flex justify-end">
-        <Link
-          href="/sobre"
-          className="font-mono text-sm underline underline-offset-4"
+        <p
+          aria-hidden
+          data-sobre-fundo
+          className="pointer-events-none absolute top-1/2 left-0 z-10 -translate-y-1/2 texto-gigante leading-none font-semibold whitespace-nowrap texto-contorno uppercase max-lg:hidden"
         >
-          {t("mais")} →
-        </Link>
+          {t("fundo")} · {t("fundo")}
+        </p>
+        <div
+          data-sobre-painel
+          className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0"
+        >
+          <div aria-hidden className="feixe-sobre" />
+          <div
+            data-sobre-conteudo
+            className="relative mx-auto flex h-full max-w-7xl flex-col justify-center gap-10 px-6 py-16 lg:px-8 lg:pt-28"
+          >
+            <Comando manual texto={c("sobre")} />
+            <p
+              data-sobre-titulo
+              className="max-w-5xl text-3xl font-medium tracking-tight text-balance md:text-5xl"
+            >
+              {t("texto")}{" "}
+              <span className="text-vinho-claro">{t("destaque")}</span>
+            </p>
+            <ol className="grid gap-8 md:grid-cols-3">
+              {itens.map((item, indice) => (
+                <ItemSobre
+                  key={item[0]}
+                  item={item}
+                  numero={`${String(indice + 1).padStart(2, "0")} / ${total}`}
+                />
+              ))}
+            </ol>
+            <Link
+              href="/sobre"
+              data-sobre-mais
+              className="self-end font-mono text-sm underline underline-offset-4"
+            >
+              {t("mais")} →
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   )

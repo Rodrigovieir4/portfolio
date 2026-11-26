@@ -61,7 +61,9 @@ export function Movimento() {
         }
         entradas()
         linhaDoTempo(Boolean(medio))
-        const soltarSecoes = secoes(contexto)
+        const soltarSecoes = secoes(contexto, {
+          fixar: Boolean(largo) && !leve,
+        })
         if (leve) {
           return () => {
             soltarAbertura?.()
@@ -70,7 +72,6 @@ export function Movimento() {
         }
 
         retrato()
-        leitura()
         contato()
         const soltarArco = largo ? arco() : undefined
         // O arco fixa a tela e alonga a página, mas é criado depois dos
@@ -437,24 +438,6 @@ function retrato() {
       trigger: foto.closest("section"),
     },
     yPercent: 14,
-  })
-}
-
-/** O texto do sobre acende palavra por palavra enquanto é lido. */
-function leitura() {
-  const texto = um("leitura")
-  if (!texto) return
-  const partes = SplitText.create(texto, { tag: "span", type: "words" })
-  gsap.from(partes.words, {
-    ease: "none",
-    opacity: 0.15,
-    scrollTrigger: {
-      end: "bottom 50%",
-      scrub: true,
-      start: "top 85%",
-      trigger: texto,
-    },
-    stagger: 0.1,
   })
 }
 
