@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useSyncExternalStore } from "react"
+import { useEffect, useRef, useState, useSyncExternalStore } from "react"
 
 import { LaserFlow } from "@/components/reactbits/laser-flow"
 
@@ -36,10 +36,15 @@ export function Laser() {
     () => false,
   )
   const chao = useRef<HTMLElement | null>(null)
+  // A queda roda uma vez por carregamento. Voltando ao início sem recarregar
+  // (a marca vale até recarregar), o feixe já nasce pousado.
+  const [cair] = useState(
+    () =>
+      typeof document === "undefined" ||
+      !("impacto" in document.documentElement.dataset),
+  )
 
   useEffect(() => {
-    // Voltando ao início sem recarregar, o impacto anterior não vale mais.
-    delete document.documentElement.dataset.impacto
     chao.current = document.querySelector("[data-chao]")
     if (maquinaLeve()) avisar()
   }, [])
@@ -55,6 +60,7 @@ export function Laser() {
       className="absolute inset-0 -z-10"
       color="#e0425f"
       dpr={1}
+      intro={cair}
       onImpact={avisar}
       // Pousa na base da foto: o feixe nunca aparece abaixo dela.
       surfaceRef={chao}

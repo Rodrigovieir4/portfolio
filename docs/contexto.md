@@ -209,6 +209,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   quatro vezes e fica parado. Clicar no nome leva ao início; já no início, sobe ao topo.
   À direita, um botão "Falar comigo" fixo (Button do shadcn, vinho, sem pulsar),
   no computador e no celular, levando ao contato.
+- **Sem recarregar** (25/11, pedido do Rodrigo): navegar pelo site nunca
+  recarrega a página, e a abertura do início (laser, revelação, convite para
+  rolar) roda uma vez por carregamento. Voltando ao início, tudo já está no
+  lugar e o feixe nasce pousado (marcas `impacto`/`revelado` no `<html>`, que
+  valem até recarregar). Os links de contato usam o Link do app. A troca de
+  idioma é o único link que recarrega de propósito, e aí a abertura volta.
 - **ScrollArea** (25/11, pedido do Rodrigo): o site rola dentro do ScrollArea do
   shadcn (`components/inicio/rolagem.tsx`, seletor ROLAGEM), com a barra no
   visual do portfólio. O Lenis usa a área como wrapper, o GSAP como scroller

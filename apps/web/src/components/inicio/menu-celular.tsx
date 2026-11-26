@@ -16,7 +16,7 @@ import { Idiomas } from "./idiomas"
 type Rota = "/casos" | "/ideias" | "/projetos" | "/sobre"
 
 interface Props {
-  contato: { href: string; rotulo: string }
+  contato: string
   fechar: string
   menu: string
   paginas: { rota: Rota; rotulo: string }[]
@@ -63,9 +63,12 @@ export function MenuCelular({ contato, fechar, menu, paginas }: Props) {
             ))}
             <li>
               <SheetClose asChild>
-                <a href={contato.href} className={ITEM}>
-                  {contato.rotulo}
-                </a>
+                <Link
+                  href={{ hash: "contato", pathname: "/" }}
+                  className={ITEM}
+                >
+                  {contato}
+                </Link>
               </SheetClose>
             </li>
           </ul>

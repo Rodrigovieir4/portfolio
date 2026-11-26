@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from "next-intl/server"
+import { getTranslations } from "next-intl/server"
 
 import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
@@ -14,6 +14,9 @@ const PAGINAS = [
   ["ideias", "/ideias"],
 ] as const
 
+/** Contato no fim do início, por navegação do app: a página não recarrega. */
+const CONTATO = { hash: "contato", pathname: "/" } as const
+
 // No hover (e no foco do teclado), uma barra vermelha cresce do centro
 // embaixo do link.
 const ITEM =
@@ -22,8 +25,6 @@ const ITEM =
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
   const falar = (await getTranslations("inicio.abertura"))("falar")
-  const locale = await getLocale()
-  const contato = `/${locale}#contato`
 
   return (
     <header
@@ -49,9 +50,9 @@ export async function Cabecalho() {
           ))}
           <li>
             {/* O contato fica no fim do início; toda página leva até lá. */}
-            <a href={contato} className={ITEM}>
+            <Link href={CONTATO} className={ITEM}>
               {t("contato")}
-            </a>
+            </Link>
           </li>
         </ul>
         <div className="flex items-center gap-4 justify-self-end md:gap-6">
@@ -64,10 +65,10 @@ export async function Cabecalho() {
             size="sm"
             className="rounded-full bg-vinho px-4 text-foreground hover:bg-vinho-claro"
           >
-            <a href={contato}>{falar}</a>
+            <Link href={CONTATO}>{falar}</Link>
           </Button>
           <MenuCelular
-            contato={{ href: contato, rotulo: t("contato") }}
+            contato={t("contato")}
             fechar={t("fechar")}
             menu={t("menu")}
             paginas={PAGINAS.map(([chave, rota]) => ({

@@ -126,6 +126,35 @@ test("trocar de idioma mantém a página e traduz o caminho", async ({
   )
 })
 
+test("navegar não recarrega nem repete a abertura; trocar de idioma sim", async ({
+  page,
+}) => {
+  await page.goto("/pt")
+  await esperarAbertura(page)
+  // Some se a página recarregar.
+  await page.evaluate(() => {
+    ;(window as Window & { mesmaPagina?: boolean }).mesmaPagina = true
+  })
+  const mesmaPagina = () =>
+    page.evaluate(
+      () => (window as Window & { mesmaPagina?: boolean }).mesmaPagina === true,
+    )
+  const cabecalho = page.getByRole("banner")
+
+  await cabecalho.getByRole("link", { exact: true, name: "Sobre" }).click()
+  await expect(page).toHaveURL(/\/pt\/sobre$/)
+  await cabecalho.getByRole("link", { name: "Falar comigo" }).click()
+  await expect(page).toHaveURL(/\/pt#contato$/)
+  expect(await mesmaPagina()).toBe(true)
+  // A abertura já vista fica parada: nada nasce escondido esperando o laser.
+  await expect(page.locator("html[data-abertura]")).toHaveCount(0)
+  await expect(page.locator('[data-mov="retrato"]')).toHaveCSS("opacity", "1")
+
+  await cabecalho.getByRole("link", { exact: true, name: "en" }).click()
+  await expect(page).toHaveURL(/\/en$/)
+  expect(await mesmaPagina()).toBe(false)
+})
+
 test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
   const resposta = await page.goto("/en/nao-existe")
   expect(resposta?.status()).toBe(404)

@@ -21,6 +21,9 @@ export function DicaRolar({ texto }: { texto: string }) {
   const [visivel, setVisivel] = useState(false)
 
   useEffect(() => {
+    const marcas = document.documentElement.dataset
+    // Quem já rolou não vê o convite de novo até recarregar a página.
+    if ("rolou" in marcas) return
     let espera = 0
     let reserva = 0
     let agendada = false
@@ -31,6 +34,7 @@ export function DicaRolar({ texto }: { texto: string }) {
     const esconder = () => {
       if (!rolou()) return
       encerrada = true
+      marcas.rolou = ""
       window.clearTimeout(espera)
       setVisivel(false)
     }

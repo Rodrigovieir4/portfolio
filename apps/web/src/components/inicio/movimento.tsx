@@ -123,7 +123,11 @@ function quandoImpactar(acao: () => void) {
  * o título e os textos entram logo.
  */
 function abertura(contexto: gsap.Context) {
-  if (blocosDaAbertura().length === 0) {
+  const naAbertura = blocosDaAbertura().length > 0
+  // De volta ao início sem recarregar: a abertura já foi vista e fica parada.
+  // Só recarregar a página (como na troca de idioma) a mostra de novo.
+  if (naAbertura && "revelado" in document.documentElement.dataset) return
+  if (!naAbertura) {
     // Fora do início, o cabeçalho não espera laser nenhum.
     delete document.documentElement.dataset.abertura
     entradaSimples()
@@ -170,7 +174,10 @@ function revelarAbertura() {
     defaults: { ease: SAIDA },
     // Marca o fim da revelação animada; os testes de ponta a ponta esperam.
     onComplete: () => {
-      document.documentElement.dataset.revelado = ""
+      const marcas = document.documentElement.dataset
+      marcas.revelado = ""
+      // Revelado de vez: nada mais nasce escondido até recarregar.
+      delete marcas.abertura
     },
   })
   linha.set(blocosDaAbertura(), { autoAlpha: 1 })
