@@ -66,27 +66,22 @@ export function DicaRolar({ texto }: { texto: string }) {
       aria-hidden={!visivel}
       tabIndex={visivel ? 0 : -1}
       className={cn(
-        "group absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-3 font-mono text-xs tracking-widest text-foreground/75 uppercase transition-all duration-1000 ease-out hover:text-foreground md:flex",
+        "group absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 font-mono text-xs tracking-widest text-foreground/45 uppercase transition-all duration-1000 ease-out hover:text-foreground/80 md:flex",
         visivel
           ? "translate-y-0 opacity-100 blur-none"
           : "pointer-events-none translate-y-6 opacity-0 blur-sm",
       )}
     >
-      <span className="text-center leading-relaxed whitespace-pre-line">
-        {texto}
-      </span>
+      <span>{texto}</span>
       <LinhaRolar />
     </a>
   )
 }
 
-/** Linha fina com uma luz vinho descendo, como uma gota, sem parar. */
+/** Só uma luz vinho descendo por um trilho invisível, sem parar. */
 function LinhaRolar() {
   return (
-    <span
-      aria-hidden
-      className="relative h-20 w-px overflow-hidden bg-foreground/15"
-    >
+    <span aria-hidden className="relative h-12 w-px overflow-hidden">
       <span className="absolute inset-x-0 top-0 h-1/2 linha-rolar bg-linear-to-b from-transparent via-vinho-claro to-transparent" />
     </span>
   )

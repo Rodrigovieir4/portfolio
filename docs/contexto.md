@@ -214,9 +214,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   Radix virou bloco (o carrossel alargava a página).
 - **Convite para rolar** (25/11): 5 s depois da abertura, se ninguém rolou, um
   convite aparece centralizado embaixo do hero (só no computador); some ao rolar
-  e leva à seção seguinte. Visual pedido por referência: "ROLE PARA / VER MAIS"
-  em mono pequeno e maiúsculo sobre uma linha fina vertical, com uma luz vinho
-  descendo por ela sem parar; entra subindo e saindo do desfoque. O título da abertura entra
+  e leva à seção seguinte. Versão minimalista pedida: uma palavra só ("ROLAR"),
+  mono pequeno e apagado, e embaixo só uma luz vinho descendo por um trilho
+  invisível; entra subindo e saindo do desfoque. O título da abertura entra
   com desfoque letra por letra.
 - **Logo e favicon** (25/11): 8 propostas em SVG geradas no Higgsfield (6
   créditos aprovados), em `D:/workspace/Claude outputs/portfolio-estetica/logos/`
