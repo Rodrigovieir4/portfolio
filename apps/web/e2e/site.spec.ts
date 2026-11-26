@@ -154,7 +154,18 @@ test("navegar não recarrega nem repete a abertura; trocar de idioma sim", async
   // Subiu e clicou de novo, com o endereço já em #contato: desce de novo.
   await page
     .locator('[data-rolagem] [data-slot="scroll-area-viewport"]')
-    .evaluate((area) => area.scrollTo({ top: 0 }))
+    // Espera o evento de rolagem chegar ao Lenis antes do clique.
+    .evaluate(
+      (area) =>
+        new Promise<void>((pronto) => {
+          area.addEventListener(
+            "scroll",
+            () => requestAnimationFrame(() => pronto()),
+            { once: true },
+          )
+          area.scrollTo({ top: 0 })
+        }),
+    )
   await falar.click()
   await expect(page.locator("#contato")).toBeInViewport()
 

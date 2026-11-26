@@ -235,8 +235,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   créditos aprovados), em `D:/workspace/Claude outputs/portfolio-estetica/logos/`
   (folha.png compara A1 a D2) e 8 propostas "de dev" desenhadas em código
   (folha-dev.png). Ele recusou todas como ícone; escolheu o prompt para o
-  cabeçalho. Favicon ainda em aberto: 10 ideias em linguagem de terminal em
-  `folha-favicons.png`, na mesma pasta.
+  cabeçalho. Favicon escolhido (25/11): a "3a", janela de terminal grafite com
+  três pontos (o primeiro vinho) e "❯RV" (seta vinho, letras claras em Geist
+  Mono 800 convertidas em contorno). Caminho até ela: `folha-favicons.png` →
+  `folha-terminal.png` → `folha-rv.png` → `folha-rv-3.png`, na mesma pasta.
+  Arquivos: `app/icon.svg`, `app/favicon.ico` (16/32/48), `app/apple-icon.png`
+  (180) e `app/manifest.ts` com `public/icones/` (192/512). Para refazer, o
+  gerador fica na pasta de logos como `gerar-favicon.mjs`.
   O cabeçalho é fixo (acompanha a rolagem), sem borda embaixo; âncoras param
   logo abaixo dele (scroll-padding-top de 4rem).
 - **Qualidade da foto** (25/11): a ampliação 4K no Higgsfield (2 créditos,
