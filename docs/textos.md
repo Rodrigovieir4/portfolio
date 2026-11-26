@@ -7,7 +7,9 @@ aprovados.
 
 ## Abertura
 
-**Título** (escolhido em 24/11): Sistemas que rodam no mundo real.
+**Título** (trocado em 25/11): Código que aguenta produção. Em inglês, "Code
+that holds up in production."; em espanhol, "Código que aguanta en producción."
+O anterior era "Sistemas que rodam no mundo real.".
 
 **Cargo:** Desenvolvedor Full Stack
 

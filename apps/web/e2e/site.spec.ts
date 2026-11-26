@@ -18,7 +18,7 @@ test.describe("navegador em português", () => {
     await page.goto("/")
     await expect(page).toHaveURL(/\/pt$/)
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Sistemas que rodam no mundo real",
+      "Código que aguenta produção.",
     )
   })
 })
