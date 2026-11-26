@@ -257,7 +257,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       refeito pelo preview em cima do Carousel do shadcn, em `packages/ui`):
       cartões altos alternando grafite e vinho, rótulo da stack e título no
       alto, resumo, número e botão redondo de seta; arraste livre e setas
-      embaixo, à direita. No computador, a rolagem dá uma travadinha na seção
+      embaixo, à direita. A faixa ocupa a largura toda da tela, de ponta a ponta
+      (pedido dele); o primeiro cartão começa alinhado ao título
+      (`recuo-conteudo`), e o título e as setas seguem no contêiner do site. No computador, a rolagem dá uma travadinha na seção
       (`travarCasos`). Antes dele foi testado o Flex Carousel do React Bits
       (WebGL, com capas geradas por código); saiu junto com o arco fixo.
       Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos

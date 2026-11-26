@@ -636,3 +636,16 @@
   background-size: 26px 26px;
   mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
 }
+
+/*
+ * Recuo de uma faixa que ocupa a tela toda, para o começo e o fim dela ficarem
+ * alinhados ao conteúdo (max-w-7xl com px-4, e px-8 a partir do lg).
+ */
+@utility recuo-conteudo {
+  --recuo: 1rem;
+  padding-inline: max(var(--recuo), calc((100% - 80rem) / 2 + var(--recuo)));
+
+  @media (width >= 64rem) {
+    --recuo: 2rem;
+  }
+}

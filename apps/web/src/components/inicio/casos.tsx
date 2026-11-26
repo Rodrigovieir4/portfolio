@@ -85,11 +85,8 @@ export async function Casos() {
       {/* O GSAP prende este div, não a seção: se prendesse um filho direto do
           <main>, o React não acharia o nó ao trocar de página. */}
       <div data-mov="arco" className="py-24 lg:py-32">
-        <Carousel
-          opts={{ align: "start", dragFree: true }}
-          className="mx-auto w-full max-w-7xl px-4 lg:px-8"
-        >
-          <div className="flex items-end justify-between gap-6">
+        <Carousel opts={{ align: "start", dragFree: true }} className="w-full">
+          <div className="mx-auto flex max-w-7xl items-end justify-between gap-6 px-4 lg:px-8">
             <div>
               <Comando texto={c("casos")} className="mb-4" />
               <h2
@@ -103,14 +100,16 @@ export async function Casos() {
               {TOTAL} · {t("dica")} →
             </p>
           </div>
-          <CarouselContent className="mt-12">
+          {/* A faixa vai de uma ponta à outra da tela; o primeiro cartão começa
+              alinhado ao título (recuo-conteudo). */}
+          <CarouselContent className="mt-12 recuo-conteudo">
             {cases.map((caso, indice) => (
               <CarouselItem key={caso.slug} className="basis-80 md:basis-96">
                 <CartaoVitrine caso={caso} indice={indice} locale={locale} />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="mt-8 flex items-center justify-between gap-6">
+          <div className="mx-auto mt-8 flex max-w-7xl items-center justify-between gap-6 px-4 lg:px-8">
             <Link
               href="/casos"
               className="font-mono text-sm underline underline-offset-4"
