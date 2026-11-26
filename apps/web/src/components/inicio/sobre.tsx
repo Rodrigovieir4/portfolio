@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 
 import { Comando } from "./comando"
-import { FundoSobre } from "./fundo-sobre"
 
 type Item = [rotulo: string, texto: string]
 
@@ -78,7 +77,12 @@ export async function Sobre() {
           data-sobre-painel
           className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0"
         >
-          <FundoSobre />
+          {/* Fundo minimalista (escolha do Rodrigo, 26/11): uma grade de
+              pontos discreta, que some nas bordas. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 fundo-pontos"
+          />
           <div
             data-sobre-conteudo
             className="relative mx-auto flex h-full max-w-7xl flex-col justify-center gap-10 px-6 py-16 lg:px-8 lg:pt-28"
