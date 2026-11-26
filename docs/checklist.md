@@ -74,6 +74,9 @@ Atualizado em 24/11/2026.
 
 ## Depois do site
 
-- [ ] Revisar os posts 2 a 20 e gerar os vídeos (ficha do personagem antes)
+- [x] Calendário dos posts do LinkedIn: três por semana, de 30/11 a 27/01
+- [ ] Ficha do personagem no Higgsfield e vídeo do post 1 (sai em 30/11)
+- [ ] Post 20 reescrito como abertura (sai em 02/12)
+- [ ] Revisar os outros posts e gerar os vídeos, uma semana antes de cada data
 - [ ] Jogo no tema CS, com modelos próprios
 - [ ] Admin no `apps/api`

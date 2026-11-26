@@ -363,14 +363,24 @@ azul-noite + ciano, papel + laranja) ficaram para trás.
 
 ## Posts do LinkedIn e vídeos (depois do site)
 
-- 20 posts de 17/11/2026 a 04/02/2027 em
-  `D:/workspace/Claude outputs/20-posts-linkedin-com-videos.docx` (cópia de
-  11/11; a versão viva está no OneDrive dele) e prompts em
-  `prompts-higgsfield-20-posts.docx` na mesma pasta.
+- Versão de trabalho: `docs/linkedin-posts.md`, fora do git (cita clientes),
+  com o calendário, os ajustes sugeridos e o texto dos 20 posts. Veio do PDF
+  de 26/11; a versão viva está no OneDrive dele. Cópias antigas em
+  `D:/workspace/Claude outputs/` (`20-posts-linkedin-com-videos.docx` e
+  `prompts-higgsfield-20-posts.docx`).
+- **Decisões de 26/11:** nada publicado ainda; três posts por semana (segunda,
+  quarta e sexta) de 30/11/2026 a 27/01/2027, com pausa de 21/12 a 01/01; o
+  post 20 (busca de vaga) vira a abertura, em 02/12; o post 5 (o jogo deste
+  repositório) fecha a série e espera o deploy; autorizações dos clientes
+  pedidas; o post 6 vai para 22/01 porque a conta Apple Developer vence em
+  02/12 sem renovação confirmada.
 - Só o post 1 está como ele quer; os demais precisam de revisão.
 - Antes do primeiro vídeo: ficha do personagem a partir de 3 a 5 fotos dele.
 - Modelo sugerido: Kling 3.0 (cerca de 64 créditos o post 1; cerca de 1.400 os
   20). Seedance 2.5 em 1080p só em cena especial.
+- Ficha do personagem: rota "foto como rosto" do `/character-sheet`, estilo
+  Realism, `gpt_image_2_6` 16:9 em 2K, cerca de 2 a 3 créditos por tentativa
+  (cotado em 26/11). Saldo em 26/11: 2.918,5 créditos.
 - Para editar o Word online: login Microsoft no perfil do Orca ou o app do
   OneDrive sincronizando a pasta (a decidir).
 
