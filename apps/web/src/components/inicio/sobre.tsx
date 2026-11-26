@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 
 import { Comando } from "./comando"
+import { LaserSobre } from "./laser-sobre"
 
 type Item = [rotulo: string, texto: string]
 
@@ -72,6 +73,7 @@ export async function Sobre() {
         data-sobre-palco
         className="relative overflow-hidden px-4 py-24 lg:h-dvh lg:p-0"
       >
+        <LaserSobre />
         <CapaSobre a={t("fundoA")} b={t("fundoB")} />
         <div
           data-sobre-painel
