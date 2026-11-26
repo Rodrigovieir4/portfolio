@@ -73,6 +73,10 @@ export function Movimento() {
         leitura()
         contato()
         const soltarArco = largo ? arco() : undefined
+        // O arco fixa a tela e alonga a página, mas é criado depois dos
+        // gatilhos das seções de baixo: sem reordenar, eles disparam cedo.
+        ScrollTrigger.sort()
+        ScrollTrigger.refresh()
         return () => {
           soltarAbertura?.()
           soltarSecoes()
@@ -354,13 +358,32 @@ function lote(
   })
 }
 
-/** A linha se desenha com a rolagem e cada marco acende quando ela passa. */
+/**
+ * A linha se desenha com a rolagem, com uma luz vinho correndo na ponta, e
+ * cada marco aparece e acende o ponto quando ela passa.
+ */
 function linhaDoTempo(horizontal: boolean) {
   const linha = um("linha")
+  const ponta = um("ponta")
   const marcos = todos("marco")
   if (!linha?.parentElement) return
 
+  // Onde cada marco fica ao longo da linha, de 0 a 1, pela posição real.
+  const caixa = linha.parentElement
+  const posicoes = marcos.map((marco) =>
+    horizontal
+      ? marco.offsetLeft / caixa.offsetWidth
+      : marco.offsetTop / caixa.offsetHeight,
+  )
+  const acender = (progresso: number) => {
+    for (const [indice, marco] of marcos.entries()) {
+      marco.dataset.passou = String(progresso >= (posicoes[indice] ?? 0))
+    }
+  }
+  acender(0)
+
   const tl = gsap.timeline({
+    onUpdate: () => acender(tl.progress()),
     scrollTrigger: {
       end: horizontal ? "bottom 55%" : "bottom 70%",
       scrub: 0.6,
@@ -386,6 +409,19 @@ function linhaDoTempo(horizontal: boolean) {
     },
     0,
   )
+  if (ponta) {
+    tl.set(ponta, { display: "block" }, 0)
+    tl.fromTo(
+      ponta,
+      horizontal ? { left: "0%" } : { top: "0%" },
+      {
+        duration: 1,
+        ease: "none",
+        ...(horizontal ? { left: "100%" } : { top: "100%" }),
+      },
+      0,
+    )
+  }
 }
 
 /** O retrato desce um pouco mais devagar que a página. */

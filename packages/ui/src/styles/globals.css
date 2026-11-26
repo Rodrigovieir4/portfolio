@@ -586,3 +586,15 @@
     opacity: 1;
   }
 }
+
+/* Brilho vinho em volta de um ponto de luz (ponta da linha do tempo). */
+@utility luz-vinho {
+  box-shadow: 0 0 18px 6px
+    color-mix(in oklch, var(--color-vinho-claro) 50%, transparent);
+}
+
+/* O mesmo brilho, mais contido (marco já aceso). */
+@utility luz-vinho-fraca {
+  box-shadow: 0 0 12px 2px
+    color-mix(in oklch, var(--color-vinho-claro) 40%, transparent);
+}
