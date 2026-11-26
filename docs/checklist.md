@@ -63,7 +63,9 @@ Atualizado em 24/11/2026.
       dos certificados e cartões do site trocados pelos do shadcn
 - [ ] Botões caseiros do jogo: ficam para o jogo novo (tema CS)
 - [x] Rodrigo aprovou o hero (25/11) e ele entrou na `main`
-- [ ] Levar o mesmo nível de interação para as outras seções
+- [x] Levar o mesmo nível de interação para as outras seções (branch
+      `feat/secoes-interativas`)
+- [ ] Rodrigo aprovar as seções e juntar na `main`
 
 ## Publicação
 

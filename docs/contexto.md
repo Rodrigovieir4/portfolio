@@ -215,6 +215,23 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   celular. Na página que já tem a seção de contato (início e Sobre), o botão
   rola até ela suavemente, mesmo clicando de novo; nas outras, navega até o
   contato do início sem recarregar.
+- **Seções interativas** (26/11, branch `feat/secoes-interativas`, aguardando
+  aprovação): a linguagem do hero levada para as outras seções, só com CSS e
+  GSAP (nada de WebGL novo), tudo parado para quem pede menos movimento:
+  - comando de terminal acima de cada título (`cat sobre.md`, `ls casos/`,
+    `git log --oneline`, `./contato.sh`...), digitado quando a seção entra,
+    nos três idiomas (`inicio.comandos`; saiu o rótulo "Sobre");
+  - holofote: luz vinho que segue o mouse nos cartões que são link e acende a
+    borda perto do cursor (`holofote` no globals.css, ouvinte em `secoes.ts`);
+  - números reais contam do zero (o leitor de tela ouve só o valor final);
+  - faixas da stack aceleram e inclinam com a velocidade da rolagem; o hover
+    pausa a faixa e acende a tecnologia;
+  - trajetória: uma luz vinho corre na ponta da linha e acende cada marco;
+  - certificados: a troca de filtro anima a grade (GSAP Flip);
+  - contato: título letra por letra, botões magnéticos e luz clara que segue o
+    mouse no bloco vinho.
+    Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
+    das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
 - **Máquina sem placa de vídeo** (25/11): o laser e a névoa do mouse só montam
   onde o WebGL roda numa placa de vídeo (`components/inicio/capacidade.ts`:
   `failIfMajorPerformanceCaveat` e o nome do renderizador, que pega SwiftShader
