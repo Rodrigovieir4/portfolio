@@ -18,6 +18,7 @@
         "$TURBO_DEFAULT$",
         "src/**",
         "public/**",
+        "assets/**",
         "next.config.ts",
         "postcss.config.mjs",
         "!**/*.test.ts",
@@ -48,6 +49,10 @@
     },
     "clean": {
       "cache": false
+    },
+    "@portfolio/web#typecheck": {
+      "dependsOn": ["^build", "@portfolio/web#build"],
+      "outputs": []
     }
   }
 }

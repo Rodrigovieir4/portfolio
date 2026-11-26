@@ -242,6 +242,21 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       máquina fraca ou sem movimento, é uma seção comum com os mesmos textos
       (`sobre.tsx`, `sobre-cena.ts`). Os textos dos itens são novos
       (`inicio.sobre.itens`) e precisam da aprovação do Rodrigo.
+      Texto do item Produção (26/11, escrito pelo agente a pedido dele): "O que
+      não pode falhar fica comigo: Pix que confirma uma vez só, acesso
+      decidido dentro do banco e telas que abrem rápido no celular."
+    - ilustração do sobre (26/11): 8 imagens no Higgsfield (6 créditos
+      aprovados), dois estilos, em `D:/workspace/Claude outputs/portfolio-estetica/sobre/`
+      (`folha.png` e `mockups.png` atrás de "Sobre / Mim"): linhas finas em
+      fluxo (fluxo-1 a 4) e gravura noturna (gravura-1 a 4). Falta ele escolher.
+    - casos no Flex Carousel do React Bits (26/11, pedido dele): faixa de capas
+      que se dobra num vidro líquido nas pontas; arrastar, setas e passagem
+      sozinha a cada 5 s; clicar no do meio abre o caso. WebGL (`ogl`): só
+      com placa de vídeo e movimento; monta quando a seção chega perto. Sem
+      isso, ficam os cartões e o arco fixo de antes, que também seguem na
+      página para leitor de tela. As capas são geradas no build por código
+      (`app/capas/[locale]/[arquivo]`, Geist em `assets/fontes`), no visual do
+      site, até cada caso ter print ou vídeo.
       Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
       das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
 - **Máquina sem placa de vídeo** (25/11): o laser e a névoa do mouse só montam

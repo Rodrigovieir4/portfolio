@@ -39,9 +39,10 @@ export default [
     },
   },
   {
-    // O cartão de compartilhamento é desenhado pelo ImageResponse, que não
-    // lê classes: só o atributo style. Ali o estilo inline é a única via.
-    files: ["src/app/**/opengraph-image.tsx"],
+    // O cartão de compartilhamento e as capas dos casos são desenhados pelo
+    // ImageResponse, que não lê classes: só o atributo style. Ali o estilo
+    // inline é a única via.
+    files: ["src/app/**/opengraph-image.tsx", "src/app/capas/**"],
     rules: { "no-restricted-syntax": "off" },
   },
   {

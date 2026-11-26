@@ -6,7 +6,7 @@ import { SplitText } from "gsap/SplitText"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
-import { maquinaLeve } from "./capacidade"
+import { aguentaShader, maquinaLeve } from "./capacidade"
 import { digitar } from "./digitar"
 import { IMPACTO } from "./laser"
 import { areaDeRolagem } from "./rolagem"
@@ -464,6 +464,9 @@ function contato() {
  * e afundam conforme se afastam, como numa curva.
  */
 function arco() {
+  // Com placa de vídeo, os casos vão no Flex Carousel (carrossel-casos.tsx),
+  // que tem o próprio movimento: o arco fixo fica para quem não tem.
+  if (aguentaShader()) return
   const secao = um("arco")
   const trilho = um("arco-trilho")
   const cartoes = trilho ? gsap.utils.toArray<HTMLElement>(trilho.children) : []
