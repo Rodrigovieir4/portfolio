@@ -27,13 +27,17 @@ export async function Numeros() {
               {legenda}
             </dt>
             <dd
-              data-mov="numero"
               className={cn(
                 "font-numeros text-6xl leading-none whitespace-nowrap lg:text-7xl",
                 indice === 1 && "text-vinho-claro",
               )}
             >
-              {valor}
+              {/* O número visível conta do zero (secoes.ts); o leitor de tela
+                  ouve só o valor final. */}
+              <span aria-hidden data-mov="numero" className="block">
+                {valor}
+              </span>
+              <span className="sr-only">{valor}</span>
             </dd>
           </div>
         ))}

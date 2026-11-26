@@ -11,9 +11,11 @@ import { digitar } from "./digitar"
 export function secoes(contexto: gsap.Context) {
   const soltarComandos = comandos(contexto)
   const soltarHolofote = holofote()
+  const soltarNumeros = numeros()
   return () => {
     soltarComandos()
     soltarHolofote()
+    soltarNumeros()
   }
 }
 
@@ -73,4 +75,45 @@ function holofote() {
   }
   document.addEventListener("pointermove", mover, { passive: true })
   return () => document.removeEventListener("pointermove", mover)
+}
+
+/**
+ * Os números reais contam do zero até o valor quando a seção aparece, com a
+ * mesma vírgula e a mesma unidade do texto ("3,5 ms" passa por "1,2 ms").
+ */
+function numeros() {
+  const partes: {
+    escrever: (n: number) => void
+    item: HTMLElement
+    texto: string
+    valor: number
+  }[] = []
+  for (const item of gsap.utils.toArray<HTMLElement>('[data-mov="numero"]')) {
+    const texto = item.textContent ?? ""
+    const achado = /^(\d+)(?:([.,])(\d+))?(.*)$/.exec(texto)
+    if (!achado) continue
+    const [, inteiro = "", separador = ",", fracao = "", resto = ""] = achado
+    const escrever = (n: number) => {
+      const numero = n.toFixed(fracao.length).replace(".", separador)
+      item.textContent = `${numero}${resto}`
+    }
+    const valor = Number(`${inteiro}.${fracao || 0}`)
+    partes.push({ escrever, item, texto, valor })
+  }
+
+  for (const { escrever, item, valor } of partes) {
+    escrever(0)
+    const estado = { n: 0 }
+    gsap.to(estado, {
+      duration: 1.6,
+      ease: "expo.out",
+      n: valor,
+      onUpdate: () => escrever(estado.n),
+      scrollTrigger: { once: true, start: "top 88%", trigger: item },
+    })
+  }
+
+  return () => {
+    for (const { item, texto } of partes) item.textContent = texto
+  }
 }
