@@ -6,6 +6,7 @@ import { setRequestLocale } from "next-intl/server"
 import { Cabecalho } from "@/components/inicio/cabecalho"
 import { Movimento } from "@/components/inicio/movimento"
 import { Rodape } from "@/components/inicio/rodape"
+import { ROLAGEM, Rolagem } from "@/components/inicio/rolagem"
 
 /**
  * Moldura do site em modo currículo.
@@ -26,10 +27,12 @@ export default async function SiteLayout({
   setRequestLocale((await params).locale)
 
   return (
-    <SmoothScroll>
+    <SmoothScroll wrapper={ROLAGEM}>
       <Cabecalho />
-      <main id="conteudo">{children}</main>
-      <Rodape />
+      <Rolagem>
+        <main id="conteudo">{children}</main>
+        <Rodape />
+      </Rolagem>
       <Movimento />
     </SmoothScroll>
   )

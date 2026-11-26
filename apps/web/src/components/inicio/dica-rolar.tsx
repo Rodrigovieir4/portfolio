@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 import { IMPACTO } from "./laser"
+import { areaDeRolagem } from "./rolagem"
 
 const ESPERA = 5000
 const ROLOU = 40
@@ -25,7 +26,8 @@ export function DicaRolar({ texto }: { texto: string }) {
     let reserva = 0
     let agendada = false
     let encerrada = false
-    const rolou = () => window.scrollY > ROLOU
+    const area = areaDeRolagem()
+    const rolou = () => (area ? area.scrollTop : window.scrollY) > ROLOU
 
     const esconder = () => {
       if (!rolou()) return
@@ -48,13 +50,14 @@ export function DicaRolar({ texto }: { texto: string }) {
       window.addEventListener(IMPACTO, agendar, { once: true })
       reserva = window.setTimeout(agendar, 1800)
     }
-    window.addEventListener("scroll", esconder, { passive: true })
+    const alvo = area ?? window
+    alvo.addEventListener("scroll", esconder, { passive: true })
 
     return () => {
       window.clearTimeout(espera)
       window.clearTimeout(reserva)
       window.removeEventListener(IMPACTO, agendar)
-      window.removeEventListener("scroll", esconder)
+      alvo.removeEventListener("scroll", esconder)
     }
   }, [])
 

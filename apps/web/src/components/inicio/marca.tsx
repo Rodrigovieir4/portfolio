@@ -6,6 +6,8 @@ import { useLenis } from "@portfolio/ui"
 
 import { Link, usePathname } from "@/i18n/navigation"
 
+import { areaDeRolagem } from "./rolagem"
+
 /**
  * Marca do cabeçalho como um prompt de terminal: a seta em vinho, o nome
  * como comando e um cursor em barra fina. O movimento.tsx digita o nome ao
@@ -22,7 +24,7 @@ export function Marca() {
     evento.preventDefault()
     const instancia = lenis()
     if (instancia) instancia.scrollTo(0)
-    else window.scrollTo({ behavior: "smooth", top: 0 })
+    else (areaDeRolagem() ?? window).scrollTo({ behavior: "smooth", top: 0 })
   }
 
   return (

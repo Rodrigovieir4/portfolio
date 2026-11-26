@@ -39,7 +39,14 @@ export function useLenis(): () => Lenis | null {
  *   - o autoRaf fica desligado e o Lenis roda no proprio requestAnimationFrame,
  *     para o clique em ancora e o React compartilharem o mesmo relogio.
  */
-export function SmoothScroll({ children }: { children: ReactNode }) {
+export function SmoothScroll({
+  children,
+  wrapper,
+}: {
+  children: ReactNode
+  /** Seletor da área que rola, quando não é a janela (ex.: um ScrollArea). */
+  wrapper?: string
+}) {
   const reduced = useReducedMotion()
   const instanceRef = useRef<Lenis | null>(null)
   // useCallback, e nao useRef: ler ref.current durante a renderizacao e
@@ -51,7 +58,14 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (reduced) return
 
+    const area = wrapper ? document.querySelector<HTMLElement>(wrapper) : null
     const instance = new Lenis({
+      ...(area
+        ? {
+            content: (area.firstElementChild as HTMLElement | null) ?? area,
+            wrapper: area,
+          }
+        : {}),
       duration: 1.05,
       // Curva exponencial: arranca rapido e assenta devagar, que e o
       // comportamento que o olho le como "peso".
@@ -77,7 +91,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       instance.destroy()
       instanceRef.current = null
     }
-  }, [reduced])
+  }, [reduced, wrapper])
 
   return (
     <LenisContext.Provider value={getInstance}>

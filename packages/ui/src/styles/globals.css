@@ -502,3 +502,25 @@
 @utility cursor-terminal {
   animation: cursor-terminal 1.2s steps(1) 4;
 }
+
+/*
+ * O site rola dentro do ScrollArea (componentes/inicio/rolagem.tsx): âncoras
+ * param logo abaixo do cabeçalho fixo, e a raiz, que não rola mais, não
+ * reserva espaço para barra.
+ */
+[data-rolagem] [data-slot="scroll-area-viewport"] {
+  scroll-padding-top: 4rem;
+}
+
+/*
+ * O Radix envolve o conteúdo numa camada display: table, que se alarga até o
+ * conteúdo mais largo (o carrossel transbordando alargava a página inteira).
+ * Como bloco, ela fica na largura da área.
+ */
+[data-rolagem] [data-slot="scroll-area-viewport"] > div {
+  display: block !important;
+}
+
+:root:has([data-rolagem]) {
+  scrollbar-gutter: auto;
+}

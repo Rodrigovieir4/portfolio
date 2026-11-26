@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
 import { IMPACTO } from "./laser"
+import { areaDeRolagem } from "./rolagem"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -31,6 +32,8 @@ export function Movimento() {
 
   useEffect(() => {
     const leve = maquinaLeve()
+    // Os gatilhos de rolagem ouvem a área do ScrollArea, não a janela.
+    ScrollTrigger.defaults({ scroller: areaDeRolagem() ?? window })
     const mm = gsap.matchMedia()
 
     mm.add(
