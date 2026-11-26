@@ -248,10 +248,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     - ilustração do sobre (26/11): 8 imagens no Higgsfield (6 créditos
       aprovados), dois estilos, em `D:/workspace/Claude outputs/portfolio-estetica/sobre/`
       (`folha.png` e `mockups.png` atrás de "Sobre / Mim"): linhas finas em
-      fluxo (fluxo-1 a 4) e gravura noturna (gravura-1 a 4). Falta ele escolher.
+      fluxo (fluxo-1 a 4) e gravura noturna (gravura-1 a 4). Ele não gostou das gravuras; viu o fluxo e preferiu o sobre sem ilustração.
     - casos no Flex Carousel do React Bits (26/11, pedido dele): faixa de capas
-      que se dobra num vidro líquido nas pontas; arrastar, setas e passagem
-      sozinha a cada 5 s; clicar no do meio abre o caso. WebGL (`ogl`): só
+      que se dobra num vidro líquido nas pontas; arrastar, setas ou gesto de lado
+      no trackpad; clicar no do meio abre o caso. Não anda sozinho nem com a
+      rolagem (a passagem automática saiu a pedido dele). WebGL (`ogl`): só
       com placa de vídeo e movimento; monta quando a seção chega perto. Sem
       isso, ficam os cartões e o arco fixo de antes, que também seguem na
       página para leitor de tela. As capas são geradas no build por código

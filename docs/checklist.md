@@ -65,7 +65,6 @@ Atualizado em 24/11/2026.
 - [x] Rodrigo aprovou o hero (25/11) e ele entrou na `main`
 - [x] Levar o mesmo nível de interação para as outras seções (branch
       `feat/secoes-interativas`)
-- [ ] Rodrigo escolher a ilustração do sobre (fluxo ou gravura)
 - [ ] Rodrigo aprovar as seções e juntar na `main`
 
 ## Publicação

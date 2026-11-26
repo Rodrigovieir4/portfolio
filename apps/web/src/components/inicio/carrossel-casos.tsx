@@ -49,7 +49,8 @@ function usePerto(ligado: boolean) {
 /**
  * Casos no Flex Carousel do React Bits (pedido do Rodrigo, 26/11): as capas
  * correm numa faixa que se dobra num vidro líquido nas pontas. Arrastar ou
- * usar as setas passa os casos; clicar no do meio abre o caso.
+ * usar as setas passa os casos; clicar no do meio abre o caso. Não anda
+ * sozinho nem com a rolagem da página: só quando a pessoa mexe.
  *
  * É WebGL: só liga com placa de vídeo e com movimento permitido, e só monta
  * quando a seção chega perto da tela. Fora disso, ficam os cartões de sempre
@@ -77,13 +78,11 @@ export function CarrosselCasos({
           {perto ? (
             <FlexCarousel
               ariaLabel={rotulo}
-              autoplay
               captions={false}
               captureWheel={false}
               cardHeight={0.62}
               fit="portrait"
               focusOnClick={false}
-              interval={5}
               items={itens}
               ofWord={de}
               onSelect={(indice) => {
