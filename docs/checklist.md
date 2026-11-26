@@ -62,7 +62,7 @@ Atualizado em 24/11/2026.
 - [x] Fase 6 do padrão: shadcn em `packages/ui` (radix-nova); botões, filtro
       dos certificados e cartões do site trocados pelos do shadcn
 - [ ] Botões caseiros do jogo: ficam para o jogo novo (tema CS)
-- [ ] Rodrigo aprovar o hero e juntar na `main`
+- [x] Rodrigo aprovou o hero (25/11) e ele entrou na `main`
 - [ ] Levar o mesmo nível de interação para as outras seções
 
 ## Publicação
