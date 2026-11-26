@@ -1,14 +1,14 @@
 "use client"
 
-import { useState } from "react"
-
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@portfolio/ui/components/sheet"
+import { useState } from "react"
+
 import { Link } from "@/i18n/navigation"
 
 import { Idiomas } from "./idiomas"
@@ -41,7 +41,8 @@ export function MenuCelular({ fechar, menu, paginas }: Props) {
         side="top"
         showCloseButton={false}
         aria-describedby={undefined}
-        className="h-dvh gap-0 border-none px-4 pt-4 pb-10"
+        // Tela cheia: a altura vai pela variante do lado, a mesma do Sheet.
+        className="gap-0 border-none px-4 pt-4 pb-10 data-[side=top]:h-dvh"
       >
         <div className="flex h-12 items-center justify-between">
           <SheetTitle className="font-mono text-sm font-normal">

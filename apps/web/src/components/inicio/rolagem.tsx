@@ -2,9 +2,9 @@
 
 import type { ReactNode } from "react"
 
+import { ScrollArea } from "@portfolio/ui/components/scroll-area"
 import { useEffect } from "react"
 
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { usePathname } from "@/i18n/navigation"
 
 /** Seletor da área que rola o site (o viewport do ScrollArea). */

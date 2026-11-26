@@ -33,6 +33,10 @@ test("no celular o menu abre, leva à página e fecha", async ({ page }) => {
   await page.goto("/pt")
   await page.getByRole("button", { name: "Menu" }).click()
   const menu = page.getByRole("dialog", { name: "Menu" })
+  // O menu cobre a tela inteira, não só o topo.
+  await expect(menu).toBeVisible()
+  const caixa = await menu.boundingBox()
+  expect(caixa?.height).toBeCloseTo(page.viewportSize()?.height ?? 0, 0)
   await menu.getByRole("link", { name: "Sobre" }).click()
   await expect(page).toHaveURL(/\/pt\/sobre$/)
   await expect(menu).toBeHidden()

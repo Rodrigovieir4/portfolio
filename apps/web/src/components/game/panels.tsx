@@ -16,19 +16,18 @@ import {
   COMMIT_IDS,
   useGameStore,
 } from "@portfolio/game/state"
-import { Download, FileText, Lock, Mail, MapPin, Trophy } from "lucide-react"
-import { useLocale, useTranslations } from "next-intl"
-import Image from "next/image"
-
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@portfolio/ui/components/badge"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { ScrollArea } from "@/components/ui/scroll-area"
+} from "@portfolio/ui/components/dialog"
+import { ScrollArea } from "@portfolio/ui/components/scroll-area"
+import { Download, FileText, Lock, Mail, MapPin, Trophy } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
+import Image from "next/image"
 
 import { formatDuration } from "./career-stats"
 
@@ -52,11 +51,11 @@ export function GamePanels() {
       open={panel !== null}
       onOpenChange={(open) => !open && closePanel()}
     >
-      <DialogContent className="max-h-[88dvh] border-line bg-popover/95 backdrop-blur-xl sm:max-w-2xl">
+      <DialogContent className="max-h-[88dvh] gap-4 rounded-lg border border-line bg-popover/95 p-6 text-base ring-0 backdrop-blur-xl sm:max-w-2xl">
         {panel && (
           <>
             <DialogHeader>
-              <DialogTitle className="font-display text-2xl tracking-tight text-ink">
+              <DialogTitle className="font-display text-2xl font-semibold tracking-tight text-ink">
                 {t(`panels.${panel}.title`)}
               </DialogTitle>
               <DialogDescription className="font-mono text-xs tracking-[0.1em] text-muted-foreground uppercase">

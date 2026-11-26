@@ -12,6 +12,13 @@ import {
   useGameStore,
 } from "@portfolio/game/state"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@portfolio/ui/components/select"
+import {
   FileText,
   Hand,
   HelpCircle,
@@ -27,13 +34,6 @@ import { useLocale, useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 
 import { LocaleSwitcher } from "@/components/game/locale-switcher"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Link } from "@/i18n/navigation"
 
 import { careerStats, formatDuration } from "./career-stats"

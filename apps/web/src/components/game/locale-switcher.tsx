@@ -2,11 +2,6 @@
 
 import { type Locale, LOCALE_META, LOCALES } from "@portfolio/content"
 import { cn } from "@portfolio/ui"
-import { Check, Globe } from "lucide-react"
-import { useLocale, useTranslations } from "next-intl"
-import { useParams } from "next/navigation"
-import { useTransition } from "react"
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +9,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@portfolio/ui/components/dropdown-menu"
+import { Check, Globe } from "lucide-react"
+import { useLocale, useTranslations } from "next-intl"
+import { useParams } from "next/navigation"
+import { useTransition } from "react"
+
 import { usePathname, useRouter } from "@/i18n/navigation"
 
 /**

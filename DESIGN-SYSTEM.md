@@ -1432,7 +1432,6 @@ igual ao padrão; o que é próprio do projeto (marca, telas, decisões) entra a
 | Geist e Geist Mono, no máximo 2 famílias | Bricolage Grotesque, Inter e JetBrains Mono | Mesmo motivo: visual aprovado. | Redesenho do currículo. |
 | Geist e Geist Mono, no máximo 2 famílias (redesenho) | Geist nos títulos e no texto, Geist Mono nos rótulos e **Anton só nos números grandes** | Escolha do Rodrigo em 24/11/2026: a Anton condensada dá o peso dos números de destaque. Bricolage Grotesque fica como alternativa para os títulos. | Permanente, enquanto os números de destaque existirem. |
 | Claro e escuro com `next-themes` | Só escuro | Mesmo motivo. | Redesenho do currículo. |
-| shadcn em `packages/ui`, estilo `radix-nova` | Em `apps/web/src/components/ui`, estilo `new-york` | A seção 4.3 proíbe trocar o estilo de projeto existente. Mover os componentes regenera todos, e isso vai junto com o redesenho. | Redesenho do currículo (fase 6). |
 | Efeitos (partículas, brilho, gradiente) só com pedido explícito | Partículas em WebGL, cursor, granulado e brilho no currículo; scroll interativo com GSAP no redesenho | Pedido explícito do Rodrigo em 2026-11-18. | Permanente. |
 | Animação com `tw-animate-css`; `motion` só com física ou gestos | `motion` e `lenis` no currículo; GSAP com ScrollTrigger no redesenho | Pedido explícito: landing com scroll interativo em GSAP. | Revisar no redesenho. |
 | Stack sem biblioteca 3D | `three` e React Three Fiber em `packages/game` e `packages/gl` | O jogo e a cena do topo são 3D. | Permanente para o jogo. |

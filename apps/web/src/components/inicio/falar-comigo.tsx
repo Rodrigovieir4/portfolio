@@ -3,8 +3,8 @@
 import type { MouseEvent } from "react"
 
 import { useLenis } from "@portfolio/ui"
+import { Button } from "@portfolio/ui/components/button"
 
-import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
 
 /** Altura do cabeçalho fixo: o contato para logo abaixo dele (h-16). */
@@ -31,7 +31,6 @@ export function FalarComigo({ rotulo }: { rotulo: string }) {
   return (
     <Button
       asChild
-      size="sm"
       className="rounded-full bg-vinho px-4 text-foreground hover:bg-vinho-claro"
     >
       <Link href={{ hash: "contato", pathname: "/" }} onClick={aoClicar}>
