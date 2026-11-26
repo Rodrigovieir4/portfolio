@@ -537,3 +537,52 @@
 @utility linha-rolar {
   animation: linha-rolar 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
+
+/*
+ * Holofote dos cartões: uma luz vinho segue o mouse dentro do cartão e a borda
+ * acende perto do cursor. Só em cartão que é link. A posição vem do
+ * secoes.ts (--holofote-x e --holofote-y, em px); sem ela, fica no centro.
+ */
+@utility holofote {
+  isolation: isolate;
+  position: relative;
+
+  &::before,
+  &::after {
+    border-radius: inherit;
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: opacity 400ms ease;
+  }
+
+  &::before {
+    background: radial-gradient(
+      420px circle at var(--holofote-x, 50%) var(--holofote-y, 50%),
+      color-mix(in oklch, var(--color-vinho-claro) 14%, transparent),
+      transparent 70%
+    );
+    inset: 0;
+    z-index: -1;
+  }
+
+  /* A borda: um anel de 1 px por cima da borda real, aceso perto do cursor. */
+  &::after {
+    background: radial-gradient(
+      260px circle at var(--holofote-x, 50%) var(--holofote-y, 50%),
+      var(--color-vinho-claro),
+      transparent 65%
+    );
+    inset: -1px;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    padding: 1px;
+  }
+
+  &:is(a):hover::before,
+  &:is(a):hover::after {
+    opacity: 1;
+  }
+}

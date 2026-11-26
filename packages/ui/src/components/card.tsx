@@ -6,7 +6,8 @@ import * as React from "react"
 /**
  * Card do shadcn/ui. Além do gerado, aceita `asChild` (o cartão do site
  * costuma ser o próprio link) e a variante `contorno`: o cartão do portfólio,
- * de borda fina, que acende em vinho no hover quando é um link.
+ * de borda fina, que no hover de um link ganha o holofote (uma luz vinho que
+ * segue o mouse e acende a borda perto dele; ver globals.css).
  */
 const cardVariants = cva(
   "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
@@ -16,7 +17,7 @@ const cardVariants = cva(
       variant: {
         default: "",
         contorno:
-          "rounded-2xl border border-border text-base ring-0 transition-colors [a]:hover:border-vinho-claro",
+          "holofote overflow-visible rounded-2xl border border-border text-base ring-0 transition-colors [a]:hover:border-vinho-claro/40",
       },
     },
   },

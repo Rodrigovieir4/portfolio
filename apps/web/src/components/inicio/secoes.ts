@@ -10,8 +10,10 @@ import { digitar } from "./digitar"
  */
 export function secoes(contexto: gsap.Context) {
   const soltarComandos = comandos(contexto)
+  const soltarHolofote = holofote()
   return () => {
     soltarComandos()
+    soltarHolofote()
   }
 }
 
@@ -52,4 +54,23 @@ function comandos(contexto: gsap.Context) {
   return () => {
     for (const { alvo, final } of partes) alvo.textContent = final
   }
+}
+
+/**
+ * O holofote dos cartões (utilitário `holofote` no globals.css) segue o
+ * mouse: um ouvinte só para a página inteira, que move a luz do cartão que
+ * estiver embaixo do ponteiro. Em tela de toque não há o que seguir.
+ */
+function holofote() {
+  if (!window.matchMedia("(pointer: fine)").matches) return () => {}
+  const mover = (evento: PointerEvent) => {
+    if (!(evento.target instanceof Element)) return
+    const cartao = evento.target.closest<HTMLElement>(".holofote")
+    if (!cartao) return
+    const caixa = cartao.getBoundingClientRect()
+    cartao.style.setProperty("--holofote-x", `${evento.clientX - caixa.left}px`)
+    cartao.style.setProperty("--holofote-y", `${evento.clientY - caixa.top}px`)
+  }
+  document.addEventListener("pointermove", mover, { passive: true })
+  return () => document.removeEventListener("pointermove", mover)
 }
