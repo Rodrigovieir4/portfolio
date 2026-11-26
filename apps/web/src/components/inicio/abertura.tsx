@@ -1,4 +1,5 @@
 import { profile } from "@portfolio/content"
+import { Button } from "@portfolio/ui/components/button"
 import { getTranslations } from "next-intl/server"
 import Image from "next/image"
 
@@ -102,13 +103,11 @@ async function Chamada() {
         {t("subtitulo")}
       </p>
       <div data-mov="abertura" className="flex items-center gap-6">
-        <a
-          href="#contato"
-          data-mov="cta"
-          className="pulso-cta rounded-full bg-vinho px-6 py-3 font-medium text-foreground transition-transform active:scale-95"
-        >
-          {t("falar")} →
-        </a>
+        <Button asChild variant="vinho" size="cta" className="pulso-cta">
+          <a href="#contato" data-mov="cta">
+            {t("falar")} →
+          </a>
+        </Button>
         <a href="#casos" className="underline underline-offset-4">
           {t("casos")}
         </a>

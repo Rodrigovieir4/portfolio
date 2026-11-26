@@ -1,3 +1,4 @@
+import { Button } from "@portfolio/ui/components/button"
 import { useTranslations } from "next-intl"
 
 import { Link } from "@/i18n/navigation"
@@ -16,12 +17,9 @@ export default function NotFound() {
       <p className="max-w-md text-lg text-pretty text-muted-foreground">
         {t("description")}
       </p>
-      <Link
-        href="/"
-        className="mt-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-transform active:scale-95"
-      >
-        {t("back")}
-      </Link>
+      <Button asChild size="cta" className="mt-2">
+        <Link href="/">{t("back")}</Link>
+      </Button>
     </div>
   )
 }

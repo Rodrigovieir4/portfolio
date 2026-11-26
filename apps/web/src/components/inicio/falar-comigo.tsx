@@ -29,10 +29,7 @@ export function FalarComigo({ rotulo }: { rotulo: string }) {
   }
 
   return (
-    <Button
-      asChild
-      className="rounded-full bg-vinho px-4 text-foreground hover:bg-vinho-claro"
-    >
+    <Button asChild variant="vinho" size="pilula">
       <Link href={{ hash: "contato", pathname: "/" }} onClick={aoClicar}>
         {rotulo}
       </Link>

@@ -1,4 +1,5 @@
 import { type Locale, profile, t as traduzir } from "@portfolio/content"
+import { Button } from "@portfolio/ui/components/button"
 import { getLocale, getTranslations } from "next-intl/server"
 
 const LINKEDIN = profile.socials.find((s) => s.platform === "linkedin")
@@ -18,21 +19,20 @@ export async function Contato() {
         </h2>
         <p className="max-w-2xl text-xl text-pretty">{t("texto")}</p>
         <div className="flex flex-wrap gap-4">
-          <a
-            href={LINKEDIN?.url ?? `mailto:${profile.email}`}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-full bg-primary px-8 py-4 text-lg font-medium text-primary-foreground transition-transform active:scale-95"
-          >
-            {t("falar")}
-          </a>
-          <a
-            href={traduzir(profile.resumeUrl, locale)}
-            download
-            className="rounded-full border border-foreground px-8 py-4 text-lg font-medium transition-colors hover:bg-foreground hover:text-accent"
-          >
-            {t("curriculo")}
-          </a>
+          <Button asChild size="cta-lg">
+            <a
+              href={LINKEDIN?.url ?? `mailto:${profile.email}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t("falar")}
+            </a>
+          </Button>
+          <Button asChild variant="contorno" size="cta-lg">
+            <a href={traduzir(profile.resumeUrl, locale)} download>
+              {t("curriculo")}
+            </a>
+          </Button>
         </div>
       </div>
     </section>

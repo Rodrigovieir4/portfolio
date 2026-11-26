@@ -5,6 +5,7 @@ import {
   projects,
   t as traduzir,
 } from "@portfolio/content"
+import { Button } from "@portfolio/ui/components/button"
 import { getTranslations } from "next-intl/server"
 
 import { CartaoCaso } from "@/components/casos/cartao-caso"
@@ -22,14 +23,11 @@ async function Acoes({ projeto }: { projeto: Project }) {
   return (
     <div data-mov="abertura" className="flex flex-wrap items-center gap-4">
       {projeto.links.demo ? (
-        <a
-          href={projeto.links.demo}
-          target="_blank"
-          rel="noreferrer"
-          className="rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition-transform active:scale-95"
-        >
-          {t("verNoAr")} ↗
-        </a>
+        <Button asChild size="cta">
+          <a href={projeto.links.demo} target="_blank" rel="noreferrer">
+            {t("verNoAr")} ↗
+          </a>
+        </Button>
       ) : null}
       {privado ? (
         <span className="font-mono text-xs text-muted-foreground">

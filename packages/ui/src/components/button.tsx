@@ -3,6 +3,11 @@ import { cn } from "cn"
 import { Slot } from "radix-ui"
 import * as React from "react"
 
+/**
+ * Button do shadcn/ui. Além das variantes do gerador, as do portfólio:
+ * `vinho` e `contorno` na cor, e os tamanhos em pílula (`pilula`, `cta` e
+ * `cta-lg`) dos botões de chamada do site.
+ */
 const buttonVariants = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
@@ -18,6 +23,9 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        vinho: "bg-vinho text-foreground hover:bg-vinho-claro",
+        contorno:
+          "border-foreground text-foreground hover:bg-foreground hover:text-accent",
       },
       size: {
         default:
@@ -31,6 +39,9 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
+        pilula: "h-8 gap-1.5 rounded-full px-4",
+        cta: "h-12 gap-2 rounded-full px-6 text-base active:scale-95",
+        "cta-lg": "h-15 gap-2 rounded-full px-8 text-lg active:scale-95",
       },
     },
     defaultVariants: {
