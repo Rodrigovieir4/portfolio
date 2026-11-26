@@ -301,9 +301,9 @@
     "casos": {
       "titulo": "Cases",
       "dica": "drag sideways",
-      "emBreve": "video coming soon",
       "verTodos": "See all cases",
-      "de": "of"
+      "anterior": "Previous case",
+      "proximo": "Next case"
     },
     "numeros": {
       "titulo": "Real numbers",

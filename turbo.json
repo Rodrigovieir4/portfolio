@@ -18,7 +18,6 @@
         "$TURBO_DEFAULT$",
         "src/**",
         "public/**",
-        "assets/**",
         "next.config.ts",
         "postcss.config.mjs",
         "!**/*.test.ts",

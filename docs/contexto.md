@@ -235,8 +235,10 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       "Sobre" (creme, cheio) em cima de "Mim" (contorno vinho), gigantes; ao
       rolar, uma linha de laser cruza entre eles, "Sobre" vai para a esquerda e
       "Mim" para a direita, e o painel abre a partir da linha até a tela inteira.
-      O painel é grafite com um feixe vinho em diagonal (ele chegou a pedir para
-      tirar e depois pediu de volta, como estava). O cartão no canto, da primeira
+      Fundo do painel (26/11): o minimalista, uma grade de pontos discreta que
+      some nas bordas (`fundo-pontos`). Ele comparou o feixe vinho em diagonal,
+      a grade e três do React Bits (Dot Grid, Faulty Terminal, Threads) por
+      ?fundo= e escolheu a grade; os outros saíram. O cartão no canto, da primeira
       versão, saiu a pedido dele ("quadrado esquisito"). Aí o comando é digitado,
       o texto acende palavra por palavra e três itens entram com os rótulos se
       decodificando ("01 / 03 · Formação", "Produção", "IA"). No celular, em
@@ -250,17 +252,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       aprovados), dois estilos, em `D:/workspace/Claude outputs/portfolio-estetica/sobre/`
       (`folha.png` e `mockups.png` atrás de "Sobre / Mim"): linhas finas em
       fluxo (fluxo-1 a 4) e gravura noturna (gravura-1 a 4). Ele não gostou das gravuras; viu o fluxo e preferiu o sobre sem ilustração.
-    - casos no Flex Carousel do React Bits (26/11, pedido dele): faixa de capas
-      que se dobra num vidro líquido nas pontas; arrastar, setas ou gesto de lado
-      no trackpad; clicar no do meio abre o caso. Não anda sozinho nem com a
-      rolagem (a passagem automática saiu a pedido dele).
-      No computador, a seção dá só uma travadinha: fica presa no meio da tela
-      por meia tela de rolagem, sem nada se mexer (`travarCasos`). WebGL (`ogl`): só
-      com placa de vídeo e movimento; monta quando a seção chega perto. Sem
-      isso, ficam os cartões e o arco fixo de antes, que também seguem na
-      página para leitor de tela. As capas são geradas no build por código
-      (`app/capas/[locale]/[arquivo]`, Geist em `assets/fontes`), no visual do
-      site, até cada caso ter print ou vídeo.
+    - casos no carrossel de cartões (26/11, pedido dele, a partir do "Apple
+      Card Carousel" da shadcnspace no 21st.dev, cujo código exige login: foi
+      refeito pelo preview em cima do Carousel do shadcn, em `packages/ui`):
+      cartões altos alternando grafite e vinho, rótulo da stack e título no
+      alto, resumo, número e botão redondo de seta; arraste livre e setas
+      embaixo, à direita. No computador, a rolagem dá uma travadinha na seção
+      (`travarCasos`). Antes dele foi testado o Flex Carousel do React Bits
+      (WebGL, com capas geradas por código); saiu junto com o arco fixo.
       Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
       das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
 - **Laser no sobre, testado e descartado** (26/11): foram testados um segundo

@@ -1,22 +1,80 @@
-import { type Locale, cases, t as traduzir } from "@portfolio/content"
+import {
+  type Case,
+  type Locale,
+  cases,
+  t as traduzir,
+} from "@portfolio/content"
+import { Card } from "@portfolio/ui/components/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@portfolio/ui/components/carousel"
+import { ArrowUpRight } from "lucide-react"
 import { getLocale, getTranslations } from "next-intl/server"
 
-import { CartaoCaso } from "@/components/casos/cartao-caso"
 import { Link } from "@/i18n/navigation"
+import { cn } from "@/lib/utils"
 
-import { CarrosselCasos } from "./carrossel-casos"
 import { Comando } from "./comando"
 
-/** A capa de cada caso no idioma da página (ver app/capas). */
-function capas(locale: Locale) {
-  return cases.map((caso) => ({
-    alt: traduzir(caso.summary, locale),
-    slug: caso.slug,
-    src: `/capas/${locale}/${caso.slug}.png`,
-    title: traduzir(caso.title, locale),
-  }))
+const TOTAL = String(cases.length).padStart(2, "0")
+
+/**
+ * Um caso como cartão alto, no estilo do "Apple Card Carousel" (shadcnspace,
+ * 21st.dev, pedido do Rodrigo em 26/11): rótulo pequeno e título grande no
+ * alto, botão redondo de seta no canto. Os cartões alternam grafite e vinho
+ * até cada caso ter imagem ou vídeo próprio.
+ */
+function CartaoVitrine({
+  caso,
+  indice,
+  locale,
+}: {
+  caso: Case
+  indice: number
+  locale: Locale
+}) {
+  return (
+    <Card
+      asChild
+      variant="contorno"
+      className={cn(
+        "group relative h-112 gap-0 rounded-3xl p-8",
+        indice % 2 === 1 && "bloco-vinho",
+      )}
+    >
+      <Link href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}>
+        <span className="font-mono text-xs text-foreground/70">
+          {caso.stack.slice(0, 2).join(" · ")}
+        </span>
+        <span className="mt-4 text-3xl font-semibold tracking-tight text-balance">
+          {traduzir(caso.title, locale)}
+        </span>
+        <span className="mt-4 line-clamp-4 text-sm text-pretty text-foreground/65">
+          {traduzir(caso.summary, locale)}
+        </span>
+        <span className="mt-auto font-mono text-xs text-foreground/50">
+          {String(indice + 1).padStart(2, "0")} / {TOTAL}
+        </span>
+        <span
+          aria-hidden
+          className="absolute right-6 bottom-6 flex size-11 items-center justify-center rounded-full bg-foreground text-background transition-transform duration-300 group-hover:scale-110"
+        >
+          <ArrowUpRight className="size-5" />
+        </span>
+      </Link>
+    </Card>
+  )
 }
 
+/**
+ * Casos num carrossel de cartões altos (Carousel do shadcn, com arraste
+ * livre): passam arrastando, com as setas embaixo ou com o teclado. No
+ * computador, a rolagem dá uma travadinha na seção (movimento.tsx).
+ */
 export async function Casos() {
   const t = await getTranslations("inicio.casos")
   const c = await getTranslations("inicio.comandos")
@@ -24,48 +82,53 @@ export async function Casos() {
 
   return (
     <section id="casos">
-      {/* O GSAP fixa e embrulha este div, não a seção: se embrulhasse um filho
-          direto do <main>, o React não acharia o nó ao trocar de página. */}
+      {/* O GSAP prende este div, não a seção: se prendesse um filho direto do
+          <main>, o React não acharia o nó ao trocar de página. */}
       <div data-mov="arco" className="py-24 lg:py-32">
-        <div className="mx-auto flex w-full max-w-7xl items-end justify-between gap-6 px-4 lg:px-8">
-          <div>
-            <Comando texto={c("casos")} className="mb-4" />
-            <h2
-              data-mov="subir"
-              className="text-5xl font-semibold tracking-tight md:text-6xl"
-            >
-              {t("titulo")}
-            </h2>
+        <Carousel
+          opts={{ align: "start", dragFree: true }}
+          className="mx-auto w-full max-w-7xl px-4 lg:px-8"
+        >
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <Comando texto={c("casos")} className="mb-4" />
+              <h2
+                data-mov="subir"
+                className="text-5xl font-semibold tracking-tight md:text-6xl"
+              >
+                {t("titulo")}
+              </h2>
+            </div>
+            <p className="font-mono text-xs text-muted-foreground">
+              {TOTAL} · {t("dica")} →
+            </p>
           </div>
-          <p className="font-mono text-xs text-muted-foreground">
-            {String(cases.length).padStart(2, "0")} · {t("dica")} →
-          </p>
-        </div>
-        <CarrosselCasos de={t("de")} itens={capas(locale)} rotulo={t("titulo")}>
-          <ol
-            data-mov="arco-trilho"
-            className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden px-4 pb-6 lg:px-8"
-          >
+          <CarouselContent className="mt-12">
             {cases.map((caso, indice) => (
-              <li key={caso.slug} className="w-72 shrink-0 snap-start md:w-80">
-                <CartaoCaso
-                  caso={caso}
-                  destaque={indice === 0}
-                  emBreve={t("emBreve")}
-                  locale={locale}
-                />
-              </li>
+              <CarouselItem key={caso.slug} className="basis-80 md:basis-96">
+                <CartaoVitrine caso={caso} indice={indice} locale={locale} />
+              </CarouselItem>
             ))}
-          </ol>
-        </CarrosselCasos>
-        <div className="mx-auto mt-6 w-full max-w-7xl px-4 lg:px-8">
-          <Link
-            href="/casos"
-            className="font-mono text-sm underline underline-offset-4"
-          >
-            {t("verTodos")} →
-          </Link>
-        </div>
+          </CarouselContent>
+          <div className="mt-8 flex items-center justify-between gap-6">
+            <Link
+              href="/casos"
+              className="font-mono text-sm underline underline-offset-4"
+            >
+              {t("verTodos")} →
+            </Link>
+            <div className="flex gap-3">
+              <CarouselPrevious
+                aria-label={t("anterior")}
+                className="static size-11"
+              />
+              <CarouselNext
+                aria-label={t("proximo")}
+                className="static size-11"
+              />
+            </div>
+          </div>
+        </Carousel>
       </div>
     </section>
   )

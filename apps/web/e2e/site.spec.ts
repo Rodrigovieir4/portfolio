@@ -90,13 +90,15 @@ test("o cartão do caso no início abre a história completa", async ({
   await expect(page).toHaveURL(/\/pt\/casos\/o-webhook-que-respondia-ok$/)
 })
 
-test("com movimento, o carrossel em arco marca o cartão do centro", async ({
-  page,
-}) => {
-  await page.setViewportSize({ height: 900, width: 1440 })
+test("o carrossel dos casos passa com as setas", async ({ page }) => {
   await page.goto("/pt")
-  await page.locator("#casos").scrollIntoViewIfNeeded()
-  await expect(page.locator("#casos li.ativo")).toHaveCount(1)
+  const casos = page.locator("#casos")
+  const anterior = casos.getByRole("button", { name: "Caso anterior" })
+  await casos.scrollIntoViewIfNeeded()
+  // No começo não há para onde voltar; depois de avançar, há.
+  await expect(anterior).toBeDisabled()
+  await casos.getByRole("button", { name: "Próximo caso" }).click()
+  await expect(anterior).toBeEnabled()
 })
 
 test("quem pede menos movimento vê tudo parado e visível", async ({
@@ -110,7 +112,6 @@ test("quem pede menos movimento vê tudo parado e visível", async ({
     "style",
     /opacity/,
   )
-  await expect(page.locator("#casos li.ativo")).toHaveCount(0)
   await contexto.close()
 })
 

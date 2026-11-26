@@ -6,23 +6,13 @@ import { cn } from "@/lib/utils"
 
 interface Props {
   caso: Case
-  destaque?: boolean
   emBreve: string
   locale: Locale
 }
 
-export function CartaoCaso({ caso, destaque, emBreve, locale }: Props) {
+export function CartaoCaso({ caso, emBreve, locale }: Props) {
   return (
-    <Card
-      asChild
-      variant="contorno"
-      className={cn(
-        "h-full gap-3 p-6",
-        destaque && "border-vinho-claro",
-        // O carrossel em arco marca o cartão do centro com .ativo no <li>.
-        "in-[.ativo]:border-vinho-claro",
-      )}
-    >
+    <Card asChild variant="contorno" className={cn("h-full gap-3 p-6")}>
       <Link href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}>
         <div className="mb-3 flex aspect-video w-full items-end rounded-xl bloco-vinho p-3">
           <span className="font-mono text-xs">{emBreve}</span>

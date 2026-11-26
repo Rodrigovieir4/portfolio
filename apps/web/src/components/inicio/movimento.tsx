@@ -6,7 +6,7 @@ import { SplitText } from "gsap/SplitText"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
-import { aguentaShader, maquinaLeve } from "./capacidade"
+import { maquinaLeve } from "./capacidade"
 import { digitar } from "./digitar"
 import { IMPACTO } from "./laser"
 import { areaDeRolagem } from "./rolagem"
@@ -32,7 +32,7 @@ const SAIDA = "expo.out"
  * - menos movimento: nada anima;
  * - máquina leve (até 2 núcleos ou 2 GB): só entradas simples, sem rolagem
  *   atrelada a cada quadro;
- * - o resto: tudo, e o carrossel em arco fixo na tela a partir de 1024 px.
+ * - o resto: tudo, e a travadinha nos casos a partir de 1024 px.
  */
 export function Movimento() {
   const pathname = usePathname()
@@ -73,15 +73,14 @@ export function Movimento() {
 
         retrato()
         contato()
-        const soltarArco = largo ? arco() : undefined
-        // O arco fixa a tela e alonga a página, mas é criado depois dos
-        // gatilhos das seções de baixo: sem reordenar, eles disparam cedo.
+        if (largo) travarCasos()
+        // A trava dos casos alonga a página, mas é criada depois dos gatilhos
+        // das seções de baixo: sem reordenar, eles disparam cedo.
         ScrollTrigger.sort()
         ScrollTrigger.refresh()
         return () => {
           soltarAbertura?.()
           soltarSecoes()
-          soltarArco?.()
         }
       },
     )
@@ -459,9 +458,9 @@ function contato() {
 }
 
 /**
- * Com o Flex Carousel, a rolagem só dá uma travadinha nos casos: a seção fica
- * presa no meio da tela por meia tela de rolagem, para o carrossel ser visto,
- * e nada se mexe com a rolagem.
+ * A rolagem dá só uma travadinha nos casos: a seção fica presa no meio da
+ * tela por meia tela de rolagem, para o carrossel ser visto, e nada se mexe
+ * com a rolagem.
  */
 function travarCasos() {
   const secao = um("arco")
@@ -471,92 +470,5 @@ function travarCasos() {
     pin: true,
     start: "center center",
     trigger: secao,
-  })
-}
-
-/**
- * Carrossel em arco: a seção fica fixa e a rolagem passa os cartões da
- * direita para a esquerda. O cartão do centro fica de frente; os outros giram
- * e afundam conforme se afastam, como numa curva.
- */
-function arco() {
-  // Com placa de vídeo, os casos vão no Flex Carousel (carrossel-casos.tsx),
-  // que tem o próprio movimento: o arco fixo fica para quem não tem.
-  if (aguentaShader()) {
-    travarCasos()
-    return
-  }
-  const secao = um("arco")
-  const trilho = um("arco-trilho")
-  const cartoes = trilho ? gsap.utils.toArray<HTMLElement>(trilho.children) : []
-  if (!secao || !trilho || cartoes.length < 2) return
-
-  const primeiro = cartoes[0]!
-  let centros: number[] = []
-  let distancia = 0
-
-  function medir() {
-    const largura = primeiro.offsetWidth
-    const folga = (window.innerWidth - largura) / 2
-    gsap.set(trilho, { paddingLeft: folga, paddingRight: folga })
-    centros = cartoes.map(
-      (cartao) => cartao.offsetLeft - primeiro.offsetLeft + folga + largura / 2,
-    )
-    distancia = centros.at(-1)! - centros[0]!
-  }
-
-  function desenhar(progresso: number) {
-    const deslocamento = -progresso * distancia
-    const meio = window.innerWidth / 2
-    // Cartões com espaço igual: o do centro é o progresso arredondado.
-    const ativo = Math.round(progresso * (cartoes.length - 1))
-    for (const [indice, cartao] of cartoes.entries()) {
-      const d = (centros[indice]! + deslocamento - meio) / window.innerWidth
-      posicionar(cartao, { d, x: deslocamento })
-      cartao.classList.toggle("ativo", indice === ativo)
-    }
-  }
-
-  gsap.set(secao, {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    minHeight: "100vh",
-    overflowX: "clip",
-  })
-  gsap.set(trilho, { overflow: "visible", perspective: 1400 })
-  medir()
-
-  const estado = { progresso: 0 }
-  gsap.to(estado, {
-    ease: "none",
-    onUpdate: () => desenhar(estado.progresso),
-    progresso: 1,
-    scrollTrigger: {
-      end: () => `+=${distancia * 1.4}`,
-      invalidateOnRefresh: true,
-      onRefreshInit: medir,
-      pin: true,
-      scrub: 0.8,
-      start: "top top",
-      trigger: secao,
-    },
-  })
-  desenhar(0)
-
-  return () => {
-    for (const cartao of cartoes) cartao.classList.remove("ativo")
-  }
-}
-
-/** `d` é a distância do centro da tela, em larguras de tela (0 = no meio). */
-function posicionar(cartao: HTMLElement, { d, x }: { d: number; x: number }) {
-  const longe = Math.min(Math.abs(d), 1)
-  gsap.set(cartao, {
-    opacity: 1 - longe * 0.55,
-    rotationY: d * -38,
-    x,
-    y: longe * longe * 140,
-    z: -longe * 380,
   })
 }

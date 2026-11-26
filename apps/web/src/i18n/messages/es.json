@@ -301,9 +301,9 @@
     "casos": {
       "titulo": "Casos",
       "dica": "desliza hacia el lado",
-      "emBreve": "video próximamente",
       "verTodos": "Ver todos los casos",
-      "de": "de"
+      "anterior": "Caso anterior",
+      "proximo": "Siguiente caso"
     },
     "numeros": {
       "titulo": "Números reales",
