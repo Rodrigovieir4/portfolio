@@ -231,9 +231,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.
     - sobre como cena (26/11, referência: post da echo__builds no Instagram):
-      no computador a seção fica presa enquanto rola; um "Sobre mim" gigante,
-      só contorno, atravessa por cima de um cartão grafite que cresce do canto
-      até a tela inteira, com um feixe vinho cruzando; aí o comando é digitado,
+      no computador a seção fica presa enquanto rola. Antes de rolar, só
+      "Sobre" (creme, cheio) em cima de "Mim" (contorno vinho), gigantes; ao
+      rolar, uma linha de laser cruza entre eles, "Sobre" vai para a esquerda e
+      "Mim" para a direita, e o painel grafite (com um feixe vinho) abre a
+      partir da linha até a tela inteira. O cartão no canto, da primeira
+      versão, saiu a pedido dele ("quadrado esquisito"). Aí o comando é digitado,
       o texto acende palavra por palavra e três itens entram com os rótulos se
       decodificando ("01 / 03 · Formação", "Produção", "IA"). No celular, em
       máquina fraca ou sem movimento, é uma seção comum com os mesmos textos
