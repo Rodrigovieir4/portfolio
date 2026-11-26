@@ -208,7 +208,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   digitado letra por letra (uma vez por carregamento); o cursor pisca devagar
   quatro vezes e fica parado. Clicar no nome leva ao início; já no início, sobe ao topo.
   À direita, um botão "Falar comigo" fixo (Button do shadcn, vinho, sem pulsar),
-  no computador e no celular, levando ao contato.
+  no computador e no celular, levando ao contato. É o único caminho para o
+  contato no cabeçalho: o link "Contato" saiu da navegação e do menu do
+  celular. Na página que já tem a seção de contato (início e Sobre), o botão
+  rola até ela suavemente, mesmo clicando de novo; nas outras, navega até o
+  contato do início sem recarregar.
 - **Sem recarregar** (25/11, pedido do Rodrigo): navegar pelo site nunca
   recarrega a página, e a abertura do início (laser, revelação, convite para
   rolar) roda uma vez por carregamento. Voltando ao início, tudo já está no

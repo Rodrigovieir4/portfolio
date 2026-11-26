@@ -16,7 +16,6 @@ import { Idiomas } from "./idiomas"
 type Rota = "/casos" | "/ideias" | "/projetos" | "/sobre"
 
 interface Props {
-  contato: string
   fechar: string
   menu: string
   paginas: { rota: Rota; rotulo: string }[]
@@ -30,7 +29,7 @@ const ITEM =
  * cabeçalho. Cada link fecha o menu, porque o cabeçalho vive no layout e não
  * desmonta quando a página troca.
  */
-export function MenuCelular({ contato, fechar, menu, paginas }: Props) {
+export function MenuCelular({ fechar, menu, paginas }: Props) {
   const [aberto, setAberto] = useState(false)
 
   return (
@@ -61,16 +60,6 @@ export function MenuCelular({ contato, fechar, menu, paginas }: Props) {
                 </SheetClose>
               </li>
             ))}
-            <li>
-              <SheetClose asChild>
-                <Link
-                  href={{ hash: "contato", pathname: "/" }}
-                  className={ITEM}
-                >
-                  {contato}
-                </Link>
-              </SheetClose>
-            </li>
           </ul>
         </nav>
         <Idiomas />

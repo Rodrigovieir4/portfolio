@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server"
 
-import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
 
+import { FalarComigo } from "./falar-comigo"
 import { Idiomas } from "./idiomas"
 import { Marca } from "./marca"
 import { MenuCelular } from "./menu-celular"
@@ -13,9 +13,6 @@ const PAGINAS = [
   ["sobre", "/sobre"],
   ["ideias", "/ideias"],
 ] as const
-
-/** Contato no fim do início, por navegação do app: a página não recarrega. */
-const CONTATO = { hash: "contato", pathname: "/" } as const
 
 // No hover (e no foco do teclado), uma barra vermelha cresce do centro
 // embaixo do link.
@@ -48,27 +45,15 @@ export async function Cabecalho() {
               </Link>
             </li>
           ))}
-          <li>
-            {/* O contato fica no fim do início; toda página leva até lá. */}
-            <Link href={CONTATO} className={ITEM}>
-              {t("contato")}
-            </Link>
-          </li>
         </ul>
         <div className="flex items-center gap-4 justify-self-end md:gap-6">
           <div className="max-md:hidden">
             <Idiomas />
           </div>
-          {/* Contato sempre à mão, em qualquer ponto da rolagem. */}
-          <Button
-            asChild
-            size="sm"
-            className="rounded-full bg-vinho px-4 text-foreground hover:bg-vinho-claro"
-          >
-            <Link href={CONTATO}>{falar}</Link>
-          </Button>
+          {/* O único caminho para o contato no cabeçalho, sempre à mão: leva
+              ao fim do início, de qualquer página. */}
+          <FalarComigo rotulo={falar} />
           <MenuCelular
-            contato={t("contato")}
             fechar={t("fechar")}
             menu={t("menu")}
             paginas={PAGINAS.map(([chave, rota]) => ({

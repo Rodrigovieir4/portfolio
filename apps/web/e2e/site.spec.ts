@@ -141,14 +141,22 @@ test("navegar não recarrega nem repete a abertura; trocar de idioma sim", async
     )
   const cabecalho = page.getByRole("banner")
 
-  await cabecalho.getByRole("link", { exact: true, name: "Sobre" }).click()
-  await expect(page).toHaveURL(/\/pt\/sobre$/)
-  await cabecalho.getByRole("link", { name: "Falar comigo" }).click()
+  const falar = cabecalho.getByRole("link", { name: "Falar comigo" })
+  await cabecalho.getByRole("link", { exact: true, name: "Projetos" }).click()
+  await expect(page).toHaveURL(/\/pt\/projetos$/)
+  await falar.click()
   await expect(page).toHaveURL(/\/pt#contato$/)
   expect(await mesmaPagina()).toBe(true)
   // A abertura já vista fica parada: nada nasce escondido esperando o laser.
   await expect(page.locator("html[data-abertura]")).toHaveCount(0)
   await expect(page.locator('[data-mov="retrato"]')).toHaveCSS("opacity", "1")
+
+  // Subiu e clicou de novo, com o endereço já em #contato: desce de novo.
+  await page
+    .locator('[data-rolagem] [data-slot="scroll-area-viewport"]')
+    .evaluate((area) => area.scrollTo({ top: 0 }))
+  await falar.click()
+  await expect(page.locator("#contato")).toBeInViewport()
 
   await cabecalho.getByRole("link", { exact: true, name: "en" }).click()
   await expect(page).toHaveURL(/\/en$/)
