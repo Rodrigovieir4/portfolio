@@ -225,6 +225,17 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   padrão; trocando de página a área volta ao topo. A camada display: table do
   Radix virou bloco (o carrossel alargava a página). A barra fica acima do
   cabeçalho fixo (z-50), como a barra nativa.
+- **Tudo do shadcn** (25/11, pedido do Rodrigo, opção A): o shadcn mora em
+  `packages/ui` no estilo `radix-nova` (gerado pela CLI dentro do pacote) e o
+  app importa de `@portfolio/ui/components/*`. Trocados, um tipo por vez e com
+  o visual comparado foto a foto: botões (`Button` com as variantes `vinho` e
+  `contorno` e os tamanhos `pilula`, `cta` e `cta-lg`), o filtro dos
+  certificados (`ToggleGroup`, escolha única que não desmarca) e os cartões
+  (`Card` com `asChild` e a variante `contorno`). As bordas entre seções
+  são borda de contêiner, não separador, e ficaram como estão. O jogo usa o
+  Dialog, Select, DropdownMenu e Badge novos com o visual antigo; os botões
+  caseiros dele ficam para o jogo novo. Diferença aceita: o fundo do diálogo
+  do jogo agora desfoca de leve (é do Dialog do nova).
 - **Convite para rolar** (25/11): 5 s depois da abertura, se ninguém rolou, um
   convite aparece centralizado embaixo do hero (só no computador); some ao rolar
   e leva à seção seguinte. Versão minimalista pedida: uma palavra só ("ROLAR"),
