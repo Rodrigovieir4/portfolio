@@ -524,3 +524,18 @@
 :root:has([data-rolagem]) {
   scrollbar-gutter: auto;
 }
+
+/* Convite para rolar: uma luz desce pela linha fina, sem parar. */
+@keyframes linha-rolar {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(200%);
+  }
+}
+
+@utility linha-rolar {
+  animation: linha-rolar 1.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
