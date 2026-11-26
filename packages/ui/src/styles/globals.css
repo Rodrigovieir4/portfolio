@@ -540,8 +540,9 @@
 
 /*
  * Holofote dos cartões: uma luz vinho segue o mouse dentro do cartão e a borda
- * acende perto do cursor. Só em cartão que é link. A posição vem do
- * secoes.ts (--holofote-x e --holofote-y, em px); sem ela, fica no centro.
+ * acende perto do cursor. Acende no hover de link ou de bloco marcado com
+ * data-holofote. A posição vem do secoes.ts (--holofote-x e --holofote-y, em
+ * px); sem ela, fica no centro. A cor sai de --holofote-cor (holofote-claro).
  */
 @utility holofote {
   isolation: isolate;
@@ -560,7 +561,11 @@
   &::before {
     background: radial-gradient(
       420px circle at var(--holofote-x, 50%) var(--holofote-y, 50%),
-      color-mix(in oklch, var(--color-vinho-claro) 14%, transparent),
+      color-mix(
+        in oklch,
+        var(--holofote-cor, var(--color-vinho-claro)) 14%,
+        transparent
+      ),
       transparent 70%
     );
     inset: 0;
@@ -571,7 +576,7 @@
   &::after {
     background: radial-gradient(
       260px circle at var(--holofote-x, 50%) var(--holofote-y, 50%),
-      var(--color-vinho-claro),
+      var(--holofote-cor, var(--color-vinho-claro)),
       transparent 65%
     );
     inset: -1px;
@@ -581,10 +586,15 @@
     padding: 1px;
   }
 
-  &:is(a):hover::before,
-  &:is(a):hover::after {
+  &:is(a, [data-holofote]):hover::before,
+  &:is(a, [data-holofote]):hover::after {
     opacity: 1;
   }
+}
+
+/* Holofote claro, para fundo vinho (o bloco de contato). */
+@utility holofote-claro {
+  --holofote-cor: var(--color-foreground);
 }
 
 /* Brilho vinho em volta de um ponto de luz (ponta da linha do tempo). */

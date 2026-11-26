@@ -42,7 +42,9 @@ export function Magnetic({
   const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.42 })
 
   useEffect(() => {
-    if (reduced) return
+    // Em tela de toque não há cursor para seguir: um toque perto moveria o
+    // botão sem motivo.
+    if (reduced || !window.matchMedia(FINE_POINTER).matches) return
     const element = ref.current
     if (!element) return
 

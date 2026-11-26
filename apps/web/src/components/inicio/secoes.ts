@@ -1,5 +1,6 @@
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { SplitText } from "gsap/SplitText"
 
 import { digitar } from "./digitar"
 
@@ -13,6 +14,7 @@ export function secoes(contexto: gsap.Context) {
   const soltarHolofote = holofote()
   const soltarNumeros = numeros()
   const soltarFaixas = faixas()
+  tituloContato()
   return () => {
     soltarComandos()
     soltarHolofote()
@@ -167,4 +169,23 @@ function faixas() {
     for (const animacao of animacoes) animacao.playbackRate = 1
     gsap.set(molduras, { clearProps: "transform" })
   }
+}
+
+/** "Vamos conversar." sobe letra por letra, de dentro de cada linha. */
+function tituloContato() {
+  const titulo = document.querySelector<HTMLElement>(
+    '[data-mov="contato-titulo"]',
+  )
+  if (!titulo) return
+  const partes = SplitText.create(titulo, {
+    mask: "lines",
+    type: "lines,chars",
+  })
+  gsap.from(partes.chars, {
+    duration: 0.9,
+    ease: "expo.out",
+    scrollTrigger: { once: true, start: "top 80%", trigger: titulo },
+    stagger: 0.025,
+    yPercent: 110,
+  })
 }

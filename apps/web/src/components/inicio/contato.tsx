@@ -1,4 +1,5 @@
 import { type Locale, profile, t as traduzir } from "@portfolio/content"
+import { Magnetic } from "@portfolio/ui"
 import { Button } from "@portfolio/ui/components/button"
 import { getLocale, getTranslations } from "next-intl/server"
 
@@ -15,32 +16,40 @@ export async function Contato() {
     <section id="contato" className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
       <div
         data-mov="contato"
-        className="flex flex-col gap-8 rounded-3xl bloco-vinho px-6 py-16 md:px-12 md:py-24"
+        data-holofote
+        className="holofote flex flex-col gap-8 rounded-3xl bloco-vinho px-6 py-16 holofote-claro md:px-12 md:py-24"
       >
         <Comando
           texto={c("contato")}
           sobreVinho
           className="text-foreground/75"
         />
-        <h2 className="text-6xl font-semibold tracking-tight md:text-8xl">
+        <h2
+          data-mov="contato-titulo"
+          className="text-6xl font-semibold tracking-tight md:text-8xl"
+        >
           {t("titulo")}
         </h2>
         <p className="max-w-2xl text-xl text-pretty">{t("texto")}</p>
         <div className="flex flex-wrap gap-4">
-          <Button asChild size="cta-lg">
-            <a
-              href={LINKEDIN?.url ?? `mailto:${profile.email}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {t("falar")}
-            </a>
-          </Button>
-          <Button asChild variant="contorno" size="cta-lg">
-            <a href={traduzir(profile.resumeUrl, locale)} download>
-              {t("curriculo")}
-            </a>
-          </Button>
+          <Magnetic strength={0.2}>
+            <Button asChild size="cta-lg">
+              <a
+                href={LINKEDIN?.url ?? `mailto:${profile.email}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {t("falar")}
+              </a>
+            </Button>
+          </Magnetic>
+          <Magnetic strength={0.2}>
+            <Button asChild variant="contorno" size="cta-lg">
+              <a href={traduzir(profile.resumeUrl, locale)} download>
+                {t("curriculo")}
+              </a>
+            </Button>
+          </Magnetic>
         </div>
       </div>
     </section>
