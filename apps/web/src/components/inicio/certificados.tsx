@@ -31,6 +31,7 @@ export async function Certificados() {
           categorias: Object.fromEntries(
             categorias.map((c) => [c, t(`categorias.${c}`)]),
           ),
+          titulo: t("titulo"),
           todos: t("todos"),
         }}
       />

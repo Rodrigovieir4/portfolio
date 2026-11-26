@@ -1,5 +1,9 @@
 "use client"
 
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@portfolio/ui/components/toggle-group"
 import { useState } from "react"
 
 import { cn } from "@/lib/utils"
@@ -16,36 +20,16 @@ export interface Certificado {
 interface Rotulos {
   abrir: string
   categorias: Record<string, string>
+  titulo: string
   todos: string
 }
 
-function Filtro({
-  ativo,
-  aoEscolher,
-  contagem,
-  rotulo,
-}: {
-  ativo: boolean
-  aoEscolher: () => void
-  contagem: number
-  rotulo: string
-}) {
-  return (
-    <button
-      type="button"
-      aria-pressed={ativo}
-      onClick={aoEscolher}
-      className={cn(
-        "h-11 rounded-full border border-border px-4 text-sm transition-colors lg:h-9",
-        ativo
-          ? "bg-primary text-primary-foreground"
-          : "text-muted-foreground hover:text-foreground",
-      )}
-    >
-      {rotulo} ({contagem})
-    </button>
-  )
-}
+/** Valor do filtro que mostra todas as categorias. */
+const TODOS = "todos"
+
+// Pílula do filtro: contorno discreto; a escolhida fica preenchida.
+const FILTRO =
+  "h-11 rounded-full border border-border px-4 font-normal text-muted-foreground hover:bg-transparent hover:text-foreground data-[state=on]:bg-primary data-[state=on]:text-primary-foreground lg:h-9"
 
 function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
   const conteudo = (
@@ -88,31 +72,32 @@ export function CertificadosGrade({
   itens: Certificado[]
   rotulos: Rotulos
 }) {
-  const [filtro, setFiltro] = useState<null | string>(null)
-  const visiveis = filtro
-    ? itens.filter((item) => item.categoria === filtro)
-    : itens
+  const [filtro, setFiltro] = useState(TODOS)
+  const visiveis =
+    filtro === TODOS ? itens : itens.filter((i) => i.categoria === filtro)
   const categorias = Object.keys(rotulos.categorias)
 
   return (
     <>
-      <div className="mt-8 flex flex-wrap gap-3">
-        <Filtro
-          ativo={filtro === null}
-          aoEscolher={() => setFiltro(null)}
-          contagem={itens.length}
-          rotulo={rotulos.todos}
-        />
+      <ToggleGroup
+        type="single"
+        value={filtro}
+        // Clicar de novo na escolhida não desmarca: sempre há um filtro.
+        onValueChange={(valor) => valor && setFiltro(valor)}
+        spacing={3}
+        aria-label={rotulos.titulo}
+        className="mt-8 w-full flex-wrap"
+      >
+        <ToggleGroupItem value={TODOS} className={FILTRO}>
+          {rotulos.todos} ({itens.length})
+        </ToggleGroupItem>
         {categorias.map((categoria) => (
-          <Filtro
-            key={categoria}
-            ativo={filtro === categoria}
-            aoEscolher={() => setFiltro(categoria)}
-            contagem={itens.filter((i) => i.categoria === categoria).length}
-            rotulo={rotulos.categorias[categoria] ?? categoria}
-          />
+          <ToggleGroupItem key={categoria} value={categoria} className={FILTRO}>
+            {rotulos.categorias[categoria] ?? categoria} (
+            {itens.filter((i) => i.categoria === categoria).length})
+          </ToggleGroupItem>
         ))}
-      </div>
+      </ToggleGroup>
       <ul
         data-mov="subir"
         className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"

@@ -42,11 +42,14 @@ test("o filtro dos certificados mostra só a categoria escolhida", async ({
   const grade = page
     .getByRole("heading", { name: "Certificados" })
     .locator("..")
-  const filtro = grade.getByRole("button", { name: /Acadêmico \(\d+\)/ })
+  const filtro = grade.getByRole("radio", { name: /Acadêmico \(\d+\)/ })
   const total = Number((await filtro.textContent())?.match(/\d+/)?.[0])
 
   await filtro.click()
-  await expect(filtro).toHaveAttribute("aria-pressed", "true")
+  await expect(filtro).toHaveAttribute("aria-checked", "true")
+  // Clicar de novo não desmarca: continua só a categoria escolhida.
+  await filtro.click()
+  await expect(filtro).toHaveAttribute("aria-checked", "true")
   await expect(grade.getByRole("listitem")).toHaveCount(total)
 })
 
