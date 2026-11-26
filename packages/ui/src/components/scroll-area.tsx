@@ -19,7 +19,10 @@ function ScrollArea({
         data-slot="scroll-area-viewport"
         // O Radix envolve o conteúdo numa camada display: table, que se alarga
         // até o conteúdo mais largo; como bloco, fica na largura da área.
-        className="size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 [&>div]:block!"
+        // relative: elemento absoluto lá dentro (um sr-only, por exemplo) se
+        // posiciona aqui e é cortado pela rolagem; sem isso ele escapa até a
+        // raiz, alonga a página e aparece uma segunda barra, a do navegador.
+        className="relative size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1 [&>div]:block!"
       >
         {children}
       </ScrollAreaPrimitive.Viewport>

@@ -177,6 +177,19 @@ test("navegar não recarrega nem repete a abertura; trocar de idioma sim", async
   expect(await mesmaPagina()).toBe(false)
 })
 
+test("só o ScrollArea rola: a página não ganha uma segunda barra", async ({
+  page,
+}) => {
+  await page.goto("/pt")
+  await esperarAbertura(page)
+  // Elemento absoluto que escapa da área de rolagem alonga o documento e o
+  // navegador desenha a barra dele ao lado da do ScrollArea.
+  const sobra = await page.evaluate(
+    () => document.documentElement.scrollHeight - window.innerHeight,
+  )
+  expect(sobra).toBeLessThanOrEqual(0)
+})
+
 test("caminho desconhecido mostra a 404 no idioma certo", async ({ page }) => {
   const resposta = await page.goto("/en/nao-existe")
   expect(resposta?.status()).toBe(404)
