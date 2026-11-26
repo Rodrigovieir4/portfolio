@@ -26,10 +26,38 @@ function ItemSobre({ item, numero }: { item: Item; numero: string }) {
 }
 
 /**
+ * Só na cena fixa (sobre-cena.ts mostra): "Sobre" em cima de "Mim" e, ao
+ * rolar, um vai para cada lado enquanto o painel abre entre eles, a partir de
+ * uma linha de laser.
+ */
+function CapaSobre({ a, b }: { a: string; b: string }) {
+  return (
+    <>
+      <div
+        aria-hidden
+        data-sobre-fundo
+        className="pointer-events-none absolute inset-0 z-10 hidden flex-col items-center justify-center texto-gigante font-semibold whitespace-nowrap uppercase"
+      >
+        <span data-sobre-palavra>{a}</span>
+        <span data-sobre-palavra className="texto-contorno-vinho">
+          {b}
+        </span>
+      </div>
+      <div
+        aria-hidden
+        data-sobre-linha
+        className="pointer-events-none absolute inset-x-0 top-1/2 z-10 hidden h-px bg-vinho-claro luz-vinho"
+      />
+    </>
+  )
+}
+
+/**
  * Sobre, como uma cena (rodada interativa de 26/11). No computador, com
- * movimento, a seção fica fixa enquanto rola: um "Sobre mim" gigante desliza
- * ao fundo e um painel grafite, com um feixe vinho, cresce do canto até ocupar
- * a tela; depois o texto acende e os três itens se decodificam (secoes.ts).
+ * movimento, a seção fica fixa enquanto rola: "Sobre" e "Mim", gigantes, se
+ * afastam para os lados enquanto um painel grafite, com um feixe vinho, abre a
+ * partir de uma linha de laser até a tela; depois o texto acende e os três
+ * itens se decodificam (sobre-cena.ts).
  * No celular, em máquina fraca ou sem movimento, é uma seção comum.
  */
 export async function Sobre() {
@@ -44,13 +72,7 @@ export async function Sobre() {
         data-sobre-palco
         className="relative overflow-hidden px-4 py-24 lg:h-dvh lg:p-0"
       >
-        <p
-          aria-hidden
-          data-sobre-fundo
-          className="pointer-events-none absolute top-1/2 left-0 z-10 -translate-y-1/2 texto-gigante leading-none font-semibold whitespace-nowrap texto-contorno uppercase max-lg:hidden"
-        >
-          {t("fundo")} · {t("fundo")}
-        </p>
+        <CapaSobre a={t("fundoA")} b={t("fundoB")} />
         <div
           data-sobre-painel
           className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0"

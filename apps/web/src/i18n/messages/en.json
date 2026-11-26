@@ -281,7 +281,6 @@
       "destaque": "from end to end.",
       "mais": "More about me",
       "ia": "I use AI every day to move faster. Architecture decisions, code review and what ships to production stay with me.",
-      "fundo": "About me",
       "itens": [
         [
           "Education",
@@ -295,7 +294,9 @@
           "AI",
           "I use AI every day to move faster. Architecture decisions, code review and what ships to production stay with me."
         ]
-      ]
+      ],
+      "fundoA": "About",
+      "fundoB": "Me"
     },
     "casos": {
       "titulo": "Cases",

@@ -163,7 +163,40 @@ function revelacao({
   }
 }
 
-/** Computador: a rolagem conduz a cena com a seção presa na tela. */
+/** "Sobre" vai para a esquerda, "Mim" para a direita, e o laser acende. */
+function separarPalavras({
+  fundo,
+  linha,
+  palco,
+}: {
+  fundo: HTMLElement | null
+  linha: gsap.core.Timeline
+  palco: HTMLElement
+}) {
+  const laser = palco.querySelector("[data-sobre-linha]")
+  const [sobre, mim] = gsap.utils.toArray<HTMLElement>(
+    "[data-sobre-palavra]",
+    palco,
+  )
+  if (fundo) linha.set(fundo, { display: "flex" }, 0)
+  if (sobre && mim) {
+    linha.fromTo(sobre, { xPercent: 0 }, { duration: 0.55, xPercent: -75 }, 0)
+    linha.fromTo(mim, { xPercent: 0 }, { duration: 0.55, xPercent: 75 }, 0)
+    linha.to([sobre, mim], { duration: 0.1, opacity: 0 }, 0.4)
+  }
+  if (laser) {
+    linha.set(laser, { display: "block" }, 0)
+    linha.fromTo(laser, { scaleX: 0 }, { duration: 0.12, scaleX: 1 }, 0.02)
+    linha.to(laser, { duration: 0.1, opacity: 0 }, 0.3)
+  }
+}
+
+/**
+ * Computador: a rolagem conduz a cena com a seção presa na tela. Antes de
+ * rolar, só "Sobre" em cima de "Mim". Ao rolar, uma linha de laser cruza a
+ * tela entre as duas palavras, elas se afastam (uma para cada lado) e o painel
+ * abre a partir da linha até a tela inteira; aí o texto entra.
+ */
 function cenaFixa({
   palco,
   partes: { conteudo, fundo, itens, mais, painel, palavras },
@@ -183,22 +216,12 @@ function cenaFixa({
       trigger: palco,
     },
   })
-  // O "Sobre mim" atravessa a tela por cima do cartão e some quando o
-  // painel enche a tela, para não brigar com o texto.
-  if (fundo) {
-    linha.fromTo(fundo, { xPercent: 8 }, { duration: 0.6, xPercent: -30 }, 0)
-    linha.to(fundo, { duration: 0.1, opacity: 0 }, 0.38)
-  }
-  // O painel nasce como um cartão no canto direito e cresce até a tela.
+  separarPalavras({ fundo, linha, palco })
   linha.fromTo(
     painel,
-    { clipPath: "inset(22% 5% 22% 56% round 28px)" },
-    {
-      clipPath: "inset(0% 0% 0% 0% round 0px)",
-      duration: 0.5,
-      ease: "power2.inOut",
-    },
-    0.05,
+    { clipPath: "inset(50% 0% 50% 0%)" },
+    { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "power2.inOut" },
+    0.1,
   )
   // O texto só aparece com o painel quase cheio: cortado, ele vira ruído.
   if (conteudo) {
@@ -217,8 +240,9 @@ function cenaFixa({
     { duration: 0.15, opacity: 1, stagger: 0.05, y: 0 },
     0.72,
   )
-  if (mais)
+  if (mais) {
     linha.fromTo(mais, { opacity: 0 }, { duration: 0.05, opacity: 1 }, 0.92)
+  }
 }
 
 /** Celular ou máquina fraca: os mesmos efeitos na entrada, sem prender. */

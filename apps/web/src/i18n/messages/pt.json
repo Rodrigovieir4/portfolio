@@ -281,7 +281,6 @@
       "destaque": "de ponta a ponta.",
       "mais": "Mais sobre mim",
       "ia": "Uso IA todos os dias para ir mais rápido. As decisões de arquitetura, a revisão do código e o que vai para produção continuam comigo.",
-      "fundo": "Sobre mim",
       "itens": [
         [
           "Formação",
@@ -295,7 +294,9 @@
           "IA",
           "Uso IA todos os dias para ir mais rápido. As decisões de arquitetura, a revisão do código e o que vai para produção continuam comigo."
         ]
-      ]
+      ],
+      "fundoA": "Sobre",
+      "fundoB": "Mim"
     },
     "casos": {
       "titulo": "Casos",
