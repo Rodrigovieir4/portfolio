@@ -1,4 +1,5 @@
 import { type Locale, projects, t as traduzir } from "@portfolio/content"
+import { Card } from "@portfolio/ui/components/card"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
@@ -32,23 +33,28 @@ export async function Projetos() {
               indice === 2 && "rounded-2xl bloco-vinho",
             )}
           >
-            <Link
-              href={{
-                params: { slug: projeto.slug },
-                pathname: "/projetos/[slug]",
-              }}
-              className="flex h-full min-h-56 flex-col justify-end gap-3 rounded-2xl border border-border p-6 transition-colors hover:border-vinho-claro"
+            <Card
+              asChild
+              variant="contorno"
+              className="h-full min-h-56 justify-end gap-3 bg-transparent p-6"
             >
-              <span className="text-3xl font-semibold tracking-tight">
-                {projeto.name} →
-              </span>
-              <span className="max-w-md text-sm text-pretty text-muted-foreground">
-                {traduzir(projeto.summary, locale)}
-              </span>
-              <span className="font-mono text-xs text-muted-foreground">
-                {projeto.stack.slice(0, 3).join(" · ")}
-              </span>
-            </Link>
+              <Link
+                href={{
+                  params: { slug: projeto.slug },
+                  pathname: "/projetos/[slug]",
+                }}
+              >
+                <span className="text-3xl font-semibold tracking-tight">
+                  {projeto.name} →
+                </span>
+                <span className="max-w-md text-sm text-pretty text-muted-foreground">
+                  {traduzir(projeto.summary, locale)}
+                </span>
+                <span className="font-mono text-xs text-muted-foreground">
+                  {projeto.stack.slice(0, 3).join(" · ")}
+                </span>
+              </Link>
+            </Card>
           </li>
         ))}
       </ul>

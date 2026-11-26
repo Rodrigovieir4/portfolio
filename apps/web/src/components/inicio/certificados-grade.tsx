@@ -1,5 +1,6 @@
 "use client"
 
+import { Card } from "@portfolio/ui/components/card"
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -46,21 +47,27 @@ function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
       </span>
     </>
   )
-  const classe =
-    "flex flex-col rounded-2xl border border-border bg-card p-3 transition-colors sm:p-4"
+  const classe = "gap-0 p-3 sm:p-4"
 
-  if (!item.link) return <li className={classe}>{conteudo}</li>
+  if (!item.link) {
+    return (
+      <Card asChild variant="contorno" className={classe}>
+        <li>{conteudo}</li>
+      </Card>
+    )
+  }
   return (
     <li>
-      <a
-        href={item.link}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`${abrir}: ${item.nome}`}
-        className={cn(classe, "h-full hover:border-vinho-claro")}
-      >
-        {conteudo}
-      </a>
+      <Card asChild variant="contorno" className={cn(classe, "h-full")}>
+        <a
+          href={item.link}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${abrir}: ${item.nome}`}
+        >
+          {conteudo}
+        </a>
+      </Card>
     </li>
   )
 }

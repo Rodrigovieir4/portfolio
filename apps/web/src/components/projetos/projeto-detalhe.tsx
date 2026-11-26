@@ -6,6 +6,7 @@ import {
   t as traduzir,
 } from "@portfolio/content"
 import { Button } from "@portfolio/ui/components/button"
+import { Card } from "@portfolio/ui/components/card"
 import { getTranslations } from "next-intl/server"
 
 import { CartaoCaso } from "@/components/casos/cartao-caso"
@@ -196,21 +197,26 @@ async function Navegacao({ projeto }: Props) {
     <nav className="grid gap-4 border-t border-border pt-8 sm:grid-cols-2">
       {vizinhos.map(([chave, vizinho]) =>
         vizinho ? (
-          <Link
+          <Card
             key={chave}
-            href={{
-              params: { slug: vizinho.slug },
-              pathname: "/projetos/[slug]",
-            }}
-            className="flex flex-col gap-1 rounded-2xl border border-border p-5 transition-colors last:text-right hover:border-vinho-claro"
+            asChild
+            variant="contorno"
+            className="gap-1 bg-transparent p-5 last:text-right"
           >
-            <span className="font-mono text-xs text-muted-foreground">
-              {t(chave)}
-            </span>
-            <span className="text-2xl font-semibold tracking-tight">
-              {vizinho.name}
-            </span>
-          </Link>
+            <Link
+              href={{
+                params: { slug: vizinho.slug },
+                pathname: "/projetos/[slug]",
+              }}
+            >
+              <span className="font-mono text-xs text-muted-foreground">
+                {t(chave)}
+              </span>
+              <span className="text-2xl font-semibold tracking-tight">
+                {vizinho.name}
+              </span>
+            </Link>
+          </Card>
         ) : (
           <span key={chave} />
         ),

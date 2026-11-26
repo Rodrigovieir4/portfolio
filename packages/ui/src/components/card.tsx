@@ -1,19 +1,45 @@
+import { type VariantProps, cva } from "class-variance-authority"
 import { cn } from "cn"
+import { Slot } from "radix-ui"
 import * as React from "react"
 
+/**
+ * Card do shadcn/ui. Além do gerado, aceita `asChild` (o cartão do site
+ * costuma ser o próprio link) e a variante `contorno`: o cartão do portfólio,
+ * de borda fina, que acende em vinho no hover quando é um link.
+ */
+const cardVariants = cva(
+  "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+  {
+    defaultVariants: { variant: "default" },
+    variants: {
+      variant: {
+        default: "",
+        contorno:
+          "rounded-2xl border border-border text-base ring-0 transition-colors [a]:hover:border-vinho-claro",
+      },
+    },
+  },
+)
+
 function Card({
+  asChild = false,
   className,
   size = "default",
+  variant,
   ...props
-}: React.ComponentProps<"div"> & { size?: "default" | "sm" }) {
+}: React.ComponentProps<"div"> &
+  VariantProps<typeof cardVariants> & {
+    asChild?: boolean
+    size?: "default" | "sm"
+  }) {
+  const Comp = asChild ? Slot.Root : "div"
+
   return (
-    <div
+    <Comp
       data-slot="card"
       data-size={size}
-      className={cn(
-        "group/card flex flex-col gap-(--card-spacing) overflow-hidden rounded-xl bg-card py-(--card-spacing) text-sm text-card-foreground ring-1 ring-foreground/10 [--card-spacing:--spacing(4)] has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 data-[size=sm]:[--card-spacing:--spacing(3)] data-[size=sm]:has-data-[slot=card-footer]:pb-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
-        className,
-      )}
+      className={cn(cardVariants({ variant }), className)}
       {...props}
     />
   )
