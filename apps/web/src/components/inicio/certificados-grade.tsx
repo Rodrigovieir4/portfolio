@@ -5,7 +5,9 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@portfolio/ui/components/toggle-group"
-import { useState } from "react"
+import gsap from "gsap"
+import { Flip } from "gsap/Flip"
+import { type RefObject, useLayoutEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -72,6 +74,50 @@ function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
   )
 }
 
+gsap.registerPlugin(Flip)
+
+/**
+ * Troca de filtro com movimento: os cartões que ficam deslizam até o lugar
+ * novo e os que chegam sobem saindo do transparente (GSAP Flip). Guarda o
+ * retrato da grade antes da troca e anima depois que o React redesenha.
+ * Sem movimento pedido no sistema, a grade só troca.
+ */
+function useTrocaAnimada(lista: RefObject<HTMLUListElement | null>) {
+  const antes = useRef<Flip.FlipState | null>(null)
+
+  useLayoutEffect(() => {
+    const estado = antes.current
+    antes.current = null
+    if (!estado || !lista.current) return
+    Flip.from(estado, {
+      absolute: true,
+      duration: 0.6,
+      ease: "power3.inOut",
+      onEnter: (chegando) =>
+        gsap.fromTo(
+          chegando,
+          { opacity: 0, scale: 0.94, y: 24 },
+          {
+            delay: 0.2,
+            duration: 0.5,
+            opacity: 1,
+            scale: 1,
+            stagger: 0.04,
+            y: 0,
+          },
+        ),
+      targets: lista.current.children,
+    })
+  })
+
+  return () => {
+    const movimento = matchMedia("(prefers-reduced-motion: no-preference)")
+    if (lista.current && movimento.matches) {
+      antes.current = Flip.getState(lista.current.children)
+    }
+  }
+}
+
 export function CertificadosGrade({
   itens,
   rotulos,
@@ -80,6 +126,8 @@ export function CertificadosGrade({
   rotulos: Rotulos
 }) {
   const [filtro, setFiltro] = useState(TODOS)
+  const lista = useRef<HTMLUListElement>(null)
+  const guardarGrade = useTrocaAnimada(lista)
   const visiveis =
     filtro === TODOS ? itens : itens.filter((i) => i.categoria === filtro)
   const categorias = Object.keys(rotulos.categorias)
@@ -89,8 +137,12 @@ export function CertificadosGrade({
       <ToggleGroup
         type="single"
         value={filtro}
-        // Clicar de novo na escolhida não desmarca: sempre há um filtro.
-        onValueChange={(valor) => valor && setFiltro(valor)}
+        onValueChange={(valor) => {
+          // Clicar de novo na escolhida não desmarca: sempre há um filtro.
+          if (!valor) return
+          guardarGrade()
+          setFiltro(valor)
+        }}
         spacing={3}
         aria-label={rotulos.titulo}
         className="mt-8 w-full flex-wrap"
@@ -106,6 +158,7 @@ export function CertificadosGrade({
         ))}
       </ToggleGroup>
       <ul
+        ref={lista}
         data-mov="subir"
         className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
       >
