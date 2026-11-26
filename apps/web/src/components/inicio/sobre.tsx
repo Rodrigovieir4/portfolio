@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 
 import { Comando } from "./comando"
+import { FundoSobre } from "./fundo-sobre"
 
 type Item = [rotulo: string, texto: string]
 
@@ -77,7 +78,7 @@ export async function Sobre() {
           data-sobre-painel
           className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0"
         >
-          <div aria-hidden className="feixe-sobre" />
+          <FundoSobre />
           <div
             data-sobre-conteudo
             className="relative mx-auto flex h-full max-w-7xl flex-col justify-center gap-10 px-6 py-16 lg:px-8 lg:pt-28"

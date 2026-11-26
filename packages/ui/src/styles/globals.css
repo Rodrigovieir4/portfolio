@@ -661,3 +661,13 @@
     animation: none;
   }
 }
+
+/* Fundo minimalista do painel do sobre: uma grade de pontos discreta. */
+@utility fundo-pontos {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--color-foreground) 12%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
+}
