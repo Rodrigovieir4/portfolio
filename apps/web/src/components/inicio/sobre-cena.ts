@@ -47,7 +47,6 @@ interface Partes {
   conteudo: HTMLElement | null
   fundo: HTMLElement | null
   itens: HTMLElement[]
-  mais: HTMLElement | null
   painel: HTMLElement
   palavras: Element[]
 }
@@ -102,7 +101,6 @@ export function cenaSobre({
     conteudo: palco.querySelector<HTMLElement>("[data-sobre-conteudo]"),
     fundo: palco.querySelector<HTMLElement>("[data-sobre-fundo]"),
     itens: gsap.utils.toArray<HTMLElement>("[data-sobre-item]", palco),
-    mais: palco.querySelector<HTMLElement>("[data-sobre-mais]"),
     painel,
     palavras: SplitText.create(titulo, { type: "words" }).words,
   }
@@ -199,7 +197,7 @@ function separarPalavras({
  */
 function cenaFixa({
   palco,
-  partes: { conteudo, fundo, itens, mais, painel, palavras },
+  partes: { conteudo, fundo, itens, painel, palavras },
   revelarTextos,
 }: {
   palco: HTMLElement
@@ -223,7 +221,8 @@ function cenaFixa({
     { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: "power2.inOut" },
     0.1,
   )
-  // O texto só aparece com o painel quase cheio: cortado, ele vira ruído.
+  // O texto só aparece com o painel quase cheio: cortado, ele vira ruído. O
+  // "Mais sobre mim" vem junto, para já poder ser clicado.
   if (conteudo) {
     linha.fromTo(conteudo, { opacity: 0 }, { duration: 0.08, opacity: 1 }, 0.42)
   }
@@ -240,9 +239,6 @@ function cenaFixa({
     { duration: 0.15, opacity: 1, stagger: 0.05, y: 0 },
     0.72,
   )
-  if (mais) {
-    linha.fromTo(mais, { opacity: 0 }, { duration: 0.05, opacity: 1 }, 0.92)
-  }
 }
 
 /** Celular ou máquina fraca: os mesmos efeitos na entrada, sem prender. */

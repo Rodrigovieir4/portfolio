@@ -101,7 +101,6 @@ export async function Sobre() {
             </ol>
             <Link
               href="/sobre"
-              data-sobre-mais
               className="self-end font-mono text-sm underline underline-offset-4"
             >
               {t("mais")} →
