@@ -207,11 +207,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   Mono, a seta em vinho e um cursor em barra fina. Ao aparecer, o nome é
   digitado letra por letra (uma vez por carregamento); o cursor pisca devagar
   quatro vezes e fica parado. Clicar no nome leva ao início; já no início, sobe ao topo.
+  À direita, um botão "Falar comigo" fixo (Button do shadcn, vinho, sem pulsar),
+  no computador e no celular, levando ao contato.
 - **ScrollArea** (25/11, pedido do Rodrigo): o site rola dentro do ScrollArea do
   shadcn (`components/inicio/rolagem.tsx`, seletor ROLAGEM), com a barra no
   visual do portfólio. O Lenis usa a área como wrapper, o GSAP como scroller
   padrão; trocando de página a área volta ao topo. A camada display: table do
-  Radix virou bloco (o carrossel alargava a página).
+  Radix virou bloco (o carrossel alargava a página). A barra fica acima do
+  cabeçalho fixo (z-50), como a barra nativa.
 - **Convite para rolar** (25/11): 5 s depois da abertura, se ninguém rolou, um
   convite aparece centralizado embaixo do hero (só no computador); some ao rolar
   e leva à seção seguinte. Versão minimalista pedida: uma palavra só ("ROLAR"),

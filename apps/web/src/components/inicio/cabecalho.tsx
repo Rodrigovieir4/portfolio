@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server"
 
+import { Button } from "@/components/ui/button"
 import { Link } from "@/i18n/navigation"
 
 import { Idiomas } from "./idiomas"
@@ -20,6 +21,7 @@ const ITEM =
 
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
+  const falar = (await getTranslations("inicio.abertura"))("falar")
   const locale = await getLocale()
   const contato = `/${locale}#contato`
 
@@ -52,18 +54,28 @@ export async function Cabecalho() {
             </a>
           </li>
         </ul>
-        <div className="justify-self-end max-md:hidden">
-          <Idiomas />
+        <div className="flex items-center gap-4 justify-self-end md:gap-6">
+          <div className="max-md:hidden">
+            <Idiomas />
+          </div>
+          {/* Contato sempre à mão, em qualquer ponto da rolagem. */}
+          <Button
+            asChild
+            size="sm"
+            className="rounded-full bg-vinho px-4 text-foreground hover:bg-vinho-claro"
+          >
+            <a href={contato}>{falar}</a>
+          </Button>
+          <MenuCelular
+            contato={{ href: contato, rotulo: t("contato") }}
+            fechar={t("fechar")}
+            menu={t("menu")}
+            paginas={PAGINAS.map(([chave, rota]) => ({
+              rota,
+              rotulo: t(chave),
+            }))}
+          />
         </div>
-        <MenuCelular
-          contato={{ href: contato, rotulo: t("contato") }}
-          fechar={t("fechar")}
-          menu={t("menu")}
-          paginas={PAGINAS.map(([chave, rota]) => ({
-            rota,
-            rotulo: t(chave),
-          }))}
-        />
       </nav>
     </header>
   )

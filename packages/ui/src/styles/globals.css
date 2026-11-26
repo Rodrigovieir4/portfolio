@@ -525,6 +525,11 @@
   scrollbar-gutter: auto;
 }
 
+/* A barra passa por cima do cabeçalho fixo (z-40), como a barra nativa. */
+[data-rolagem] > [data-slot="scroll-area-scrollbar"] {
+  z-index: 50;
+}
+
 /* Convite para rolar: uma luz desce pela linha fina, sem parar. */
 @keyframes linha-rolar {
   from {
