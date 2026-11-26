@@ -2,14 +2,18 @@ import { getTranslations } from "next-intl/server"
 
 import { cn } from "@/lib/utils"
 
+import { Comando } from "./comando"
+
 type Item = [valor: string, legenda: string]
 
 export async function Numeros() {
   const t = await getTranslations("inicio.numeros")
+  const c = await getTranslations("inicio.comandos")
   const itens = t.raw("itens") as Item[]
 
   return (
     <section className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32">
+      <Comando texto={c("numeros")} className="mb-4" />
       <h2 data-mov="subir" className="text-3xl font-semibold tracking-tight">
         {t("titulo")}
       </h2>

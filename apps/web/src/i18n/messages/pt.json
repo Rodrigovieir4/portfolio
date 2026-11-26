@@ -277,7 +277,6 @@
       "rolar": "Rolar"
     },
     "sobre": {
-      "rotulo": "Sobre",
       "texto": "Formado em Análise e Desenvolvimento de Sistemas e pós-graduando em Engenharia de Software na USP. Cuido de produto em produção",
       "destaque": "de ponta a ponta.",
       "mais": "Mais sobre mim",
@@ -330,6 +329,16 @@
       "texto": "Procurando alguém que cuide do sistema até ele rodar em produção?",
       "falar": "Falar comigo",
       "curriculo": "Baixar currículo"
+    },
+    "comandos": {
+      "sobre": "cat sobre.md",
+      "casos": "ls casos/",
+      "numeros": "cat metricas.json",
+      "stack": "cat package.json",
+      "trajetoria": "git log --oneline",
+      "certificados": "ls certificados/",
+      "projetos": "ls projetos/",
+      "contato": "./contato.sh"
     }
   },
   "caso": {

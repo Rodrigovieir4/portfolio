@@ -2,17 +2,18 @@ import { getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
 
+import { Comando } from "./comando"
+
 export async function Sobre() {
   const t = await getTranslations("inicio.sobre")
+  const c = await getTranslations("inicio.comandos")
 
   return (
     <section
       id="sobre"
       className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-40"
     >
-      <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
-        {t("rotulo")}
-      </p>
+      <Comando texto={c("sobre")} />
       <p
         data-mov="leitura"
         className="mt-8 max-w-5xl text-3xl font-medium tracking-tight text-balance md:text-5xl"

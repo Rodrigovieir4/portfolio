@@ -4,8 +4,11 @@ import { getLocale, getTranslations } from "next-intl/server"
 import { CartaoCaso } from "@/components/casos/cartao-caso"
 import { Link } from "@/i18n/navigation"
 
+import { Comando } from "./comando"
+
 export async function Casos() {
   const t = await getTranslations("inicio.casos")
+  const c = await getTranslations("inicio.comandos")
   const locale = (await getLocale()) as Locale
 
   return (
@@ -14,12 +17,15 @@ export async function Casos() {
           direto do <main>, o React não acharia o nó ao trocar de página. */}
       <div data-mov="arco" className="py-24 lg:py-32">
         <div className="mx-auto flex w-full max-w-7xl items-end justify-between gap-6 px-4 lg:px-8">
-          <h2
-            data-mov="subir"
-            className="text-5xl font-semibold tracking-tight md:text-6xl"
-          >
-            {t("titulo")}
-          </h2>
+          <div>
+            <Comando texto={c("casos")} className="mb-4" />
+            <h2
+              data-mov="subir"
+              className="text-5xl font-semibold tracking-tight md:text-6xl"
+            >
+              {t("titulo")}
+            </h2>
+          </div>
           <p className="font-mono text-xs text-muted-foreground">
             {String(cases.length).padStart(2, "0")} ·{" "}
             <span className="lg:hidden">{t("dica")}</span>

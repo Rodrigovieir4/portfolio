@@ -277,7 +277,6 @@
       "rolar": "Desliza"
     },
     "sobre": {
-      "rotulo": "Sobre mí",
       "texto": "Graduado en Análisis y Desarrollo de Sistemas y cursando un posgrado en Ingeniería de Software en la USP. Cuido productos en producción",
       "destaque": "de punta a punta.",
       "mais": "Más sobre mí",
@@ -330,6 +329,16 @@
       "texto": "¿Buscas a alguien que cuide el sistema hasta que funcione en producción?",
       "falar": "Hablemos",
       "curriculo": "Descargar currículum"
+    },
+    "comandos": {
+      "sobre": "cat sobre-mi.md",
+      "casos": "ls casos/",
+      "numeros": "cat metricas.json",
+      "stack": "cat package.json",
+      "trajetoria": "git log --oneline",
+      "certificados": "ls certificados/",
+      "projetos": "ls proyectos/",
+      "contato": "./contacto.sh"
     }
   },
   "caso": {

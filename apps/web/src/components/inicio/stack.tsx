@@ -2,6 +2,8 @@ import { getTranslations } from "next-intl/server"
 
 import { cn } from "@/lib/utils"
 
+import { Comando } from "./comando"
+
 const LINHAS = [
   ["TypeScript", "Node.js", "NestJS", "Next.js", "PostgreSQL", "AWS"],
   [
@@ -44,10 +46,12 @@ function Faixa({ itens, reversa }: { itens: string[]; reversa: boolean }) {
 
 export async function Stack() {
   const t = await getTranslations("inicio.stack")
+  const c = await getTranslations("inicio.comandos")
 
   return (
     <section className="py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-4 text-center lg:px-8">
+        <Comando texto={c("stack")} className="mb-4" />
         <h2 className="text-4xl font-semibold tracking-tight md:text-5xl">
           {t("titulo")}
         </h2>

@@ -2,10 +2,13 @@ import { type Locale, profile, t as traduzir } from "@portfolio/content"
 import { Button } from "@portfolio/ui/components/button"
 import { getLocale, getTranslations } from "next-intl/server"
 
+import { Comando } from "./comando"
+
 const LINKEDIN = profile.socials.find((s) => s.platform === "linkedin")
 
 export async function Contato() {
   const t = await getTranslations("inicio.contato")
+  const c = await getTranslations("inicio.comandos")
   const locale = (await getLocale()) as Locale
 
   return (
@@ -14,6 +17,11 @@ export async function Contato() {
         data-mov="contato"
         className="flex flex-col gap-8 rounded-3xl bloco-vinho px-6 py-16 md:px-12 md:py-24"
       >
+        <Comando
+          texto={c("contato")}
+          sobreVinho
+          className="text-foreground/75"
+        />
         <h2 className="text-6xl font-semibold tracking-tight md:text-8xl">
           {t("titulo")}
         </h2>

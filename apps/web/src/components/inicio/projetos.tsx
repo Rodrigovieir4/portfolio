@@ -5,11 +5,14 @@ import { getLocale, getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
 
+import { Comando } from "./comando"
+
 // Os cinco primeiros no ar, na ordem do arquivo de conteúdo.
 const VITRINE = projects.filter((p) => p.status === "live").slice(0, 5)
 
 export async function Projetos() {
   const t = await getTranslations("inicio.projetos")
+  const c = await getTranslations("inicio.comandos")
   const locale = (await getLocale()) as Locale
 
   return (
@@ -17,6 +20,7 @@ export async function Projetos() {
       id="projetos"
       className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32"
     >
+      <Comando texto={c("projetos")} className="mb-4" />
       <h2
         data-mov="subir"
         className="text-5xl font-semibold tracking-tight md:text-6xl"

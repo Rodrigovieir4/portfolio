@@ -1,8 +1,11 @@
 import { type Locale, experiences, t as traduzir } from "@portfolio/content"
 import { getLocale, getTranslations } from "next-intl/server"
 
+import { Comando } from "./comando"
+
 export async function Trajetoria() {
   const t = await getTranslations("inicio.trajetoria")
+  const c = await getTranslations("inicio.comandos")
   const locale = (await getLocale()) as Locale
   const marcos = experiences
     .filter((item) => item.kind === "work" || item.kind === "education")
@@ -22,6 +25,7 @@ export async function Trajetoria() {
       id="trajetoria"
       className="mx-auto max-w-7xl px-4 py-24 lg:px-8 lg:py-32"
     >
+      <Comando texto={c("trajetoria")} className="mb-4" />
       <h2
         data-mov="subir"
         className="text-5xl font-semibold tracking-tight md:text-6xl"

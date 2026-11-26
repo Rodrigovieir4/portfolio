@@ -7,8 +7,10 @@ import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
 import { maquinaLeve } from "./capacidade"
+import { digitar } from "./digitar"
 import { IMPACTO } from "./laser"
 import { areaDeRolagem } from "./rolagem"
+import { secoes } from "./secoes"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
 // As animações seguem o relógio: em quadro lento elas pulam, mas terminam na
@@ -59,9 +61,11 @@ export function Movimento() {
         }
         entradas()
         linhaDoTempo(Boolean(medio))
+        const soltarSecoes = secoes(contexto)
         if (leve) {
           return () => {
             soltarAbertura?.()
+            soltarSecoes()
           }
         }
 
@@ -71,6 +75,7 @@ export function Movimento() {
         const soltarArco = largo ? arco() : undefined
         return () => {
           soltarAbertura?.()
+          soltarSecoes()
           soltarArco?.()
         }
       },
@@ -289,23 +294,18 @@ function digitarPrompt(atraso = 0) {
   const alvo = document.querySelector<HTMLElement>("[data-prompt]")
   const marcas = document.documentElement.dataset
   if (!alvo || "promptDigitado" in marcas) return
-  const final = alvo.dataset.final ?? ""
-  alvo.textContent = ""
   // Enquanto digita o cursor fica firme; pisca só quando termina.
   document.querySelector("[data-cursor]")?.classList.remove("cursor-terminal")
-  const estado = { letras: 0 }
-  gsap.to(estado, {
-    delay: atraso,
-    duration: final.length * 0.055,
-    ease: "none",
-    letras: final.length,
-    onComplete: () => {
+  digitar({
+    aoTerminar: () => {
       marcas.promptDigitado = ""
       promptCompleto()
     },
-    onUpdate: () => {
-      alvo.textContent = final.slice(0, Math.round(estado.letras))
+    atraso,
+    escrever: (texto) => {
+      alvo.textContent = texto
     },
+    final: alvo.dataset.final ?? "",
   })
 }
 

@@ -277,7 +277,6 @@
       "rolar": "Scroll"
     },
     "sobre": {
-      "rotulo": "About",
       "texto": "Graduated in Systems Analysis and Development and pursuing a graduate degree in Software Engineering at USP. I take care of products in production",
       "destaque": "from end to end.",
       "mais": "More about me",
@@ -330,6 +329,16 @@
       "texto": "Looking for someone who takes the system all the way to production?",
       "falar": "Get in touch",
       "curriculo": "Download résumé"
+    },
+    "comandos": {
+      "sobre": "cat about.md",
+      "casos": "ls cases/",
+      "numeros": "cat metrics.json",
+      "stack": "cat package.json",
+      "trajetoria": "git log --oneline",
+      "certificados": "ls certificates/",
+      "projetos": "ls projects/",
+      "contato": "./contact.sh"
     }
   },
   "caso": {
