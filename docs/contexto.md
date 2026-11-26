@@ -234,8 +234,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       no computador a seção fica presa enquanto rola. Antes de rolar, só
       "Sobre" (creme, cheio) em cima de "Mim" (contorno vinho), gigantes; ao
       rolar, uma linha de laser cruza entre eles, "Sobre" vai para a esquerda e
-      "Mim" para a direita, e o painel grafite (com um feixe vinho) abre a
-      partir da linha até a tela inteira. O cartão no canto, da primeira
+      "Mim" para a direita, e o painel abre a partir da linha até a tela inteira.
+      No computador o painel tem a cor da página (o fundo grafite com feixe
+      vinho saiu a pedido dele). O cartão no canto, da primeira
       versão, saiu a pedido dele ("quadrado esquisito"). Aí o comando é digitado,
       o texto acende palavra por palavra e três itens entram com os rótulos se
       decodificando ("01 / 03 · Formação", "Produção", "IA"). No celular, em
@@ -252,7 +253,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     - casos no Flex Carousel do React Bits (26/11, pedido dele): faixa de capas
       que se dobra num vidro líquido nas pontas; arrastar, setas ou gesto de lado
       no trackpad; clicar no do meio abre o caso. Não anda sozinho nem com a
-      rolagem (a passagem automática saiu a pedido dele). WebGL (`ogl`): só
+      rolagem (a passagem automática saiu a pedido dele).
+      No computador, a seção dá só uma travadinha: fica presa no meio da tela
+      por meia tela de rolagem, sem nada se mexer (`travarCasos`). WebGL (`ogl`): só
       com placa de vídeo e movimento; monta quando a seção chega perto. Sem
       isso, ficam os cartões e o arco fixo de antes, que também seguem na
       página para leitor de tela. As capas são geradas no build por código

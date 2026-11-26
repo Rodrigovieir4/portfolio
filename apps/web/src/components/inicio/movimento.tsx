@@ -459,6 +459,22 @@ function contato() {
 }
 
 /**
+ * Com o Flex Carousel, a rolagem só dá uma travadinha nos casos: a seção fica
+ * presa no meio da tela por meia tela de rolagem, para o carrossel ser visto,
+ * e nada se mexe com a rolagem.
+ */
+function travarCasos() {
+  const secao = um("arco")
+  if (!secao) return
+  ScrollTrigger.create({
+    end: "+=50%",
+    pin: true,
+    start: "center center",
+    trigger: secao,
+  })
+}
+
+/**
  * Carrossel em arco: a seção fica fixa e a rolagem passa os cartões da
  * direita para a esquerda. O cartão do centro fica de frente; os outros giram
  * e afundam conforme se afastam, como numa curva.
@@ -466,7 +482,10 @@ function contato() {
 function arco() {
   // Com placa de vídeo, os casos vão no Flex Carousel (carrossel-casos.tsx),
   // que tem o próprio movimento: o arco fixo fica para quem não tem.
-  if (aguentaShader()) return
+  if (aguentaShader()) {
+    travarCasos()
+    return
+  }
   const secao = um("arco")
   const trilho = um("arco-trilho")
   const cartoes = trilho ? gsap.utils.toArray<HTMLElement>(trilho.children) : []

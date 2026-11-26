@@ -55,8 +55,8 @@ function CapaSobre({ a, b }: { a: string; b: string }) {
 /**
  * Sobre, como uma cena (rodada interativa de 26/11). No computador, com
  * movimento, a seção fica fixa enquanto rola: "Sobre" e "Mim", gigantes, se
- * afastam para os lados enquanto um painel grafite, com um feixe vinho, abre a
- * partir de uma linha de laser até a tela; depois o texto acende e os três
+ * afastam para os lados enquanto o painel abre a partir de uma linha de laser
+ * até a tela; depois o texto acende e os três
  * itens se decodificam (sobre-cena.ts).
  * No celular, em máquina fraca ou sem movimento, é uma seção comum.
  */
@@ -75,9 +75,10 @@ export async function Sobre() {
         <CapaSobre a={t("fundoA")} b={t("fundoB")} />
         <div
           data-sobre-painel
-          className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0"
+          // No computador o painel tem a cor da página: o texto entra direto,
+          // sem caixa. No celular continua um cartão.
+          className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0 lg:bg-background"
         >
-          <div aria-hidden className="feixe-sobre" />
           <div
             data-sobre-conteudo
             className="relative mx-auto flex h-full max-w-7xl flex-col justify-center gap-10 px-6 py-16 lg:px-8 lg:pt-28"
