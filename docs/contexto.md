@@ -235,8 +235,8 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       "Sobre" (creme, cheio) em cima de "Mim" (contorno vinho), gigantes; ao
       rolar, uma linha de laser cruza entre eles, "Sobre" vai para a esquerda e
       "Mim" para a direita, e o painel abre a partir da linha até a tela inteira.
-      No computador o painel tem a cor da página (o fundo grafite com feixe
-      vinho saiu a pedido dele). O cartão no canto, da primeira
+      O painel é grafite com um feixe vinho em diagonal (ele chegou a pedir para
+      tirar e depois pediu de volta, como estava). O cartão no canto, da primeira
       versão, saiu a pedido dele ("quadrado esquisito"). Aí o comando é digitado,
       o texto acende palavra por palavra e três itens entram com os rótulos se
       decodificando ("01 / 03 · Formação", "Produção", "IA"). No celular, em

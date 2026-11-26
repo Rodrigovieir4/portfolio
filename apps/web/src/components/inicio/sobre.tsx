@@ -79,10 +79,9 @@ export async function Sobre() {
         <CapaSobre a={t("fundoA")} b={t("fundoB")} />
         <div
           data-sobre-painel
-          // No computador o painel tem a cor da página: o texto entra direto,
-          // sem caixa. No celular continua um cartão.
-          className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0 lg:bg-background"
+          className="relative overflow-hidden rounded-3xl border border-border bg-card lg:absolute lg:inset-0 lg:rounded-none lg:border-0"
         >
+          <div aria-hidden className="feixe-sobre" />
           <div
             data-sobre-conteudo
             className="relative mx-auto flex h-full max-w-7xl flex-col justify-center gap-10 px-6 py-16 lg:px-8 lg:pt-28"
