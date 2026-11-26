@@ -177,6 +177,14 @@ function separarPalavras({
     palco,
   )
   if (fundo) linha.set(fundo, { display: "flex" }, 0)
+  // A cachoeira de laser apaga logo que as palavras começam a se afastar. Vai
+  // por variável no <html>: o laser mora no hero, fora deste palco.
+  linha.fromTo(
+    document.documentElement,
+    { "--sobre-laser": 1 },
+    { "--sobre-laser": 0, duration: 0.08 },
+    0.01,
+  )
   if (sobre && mim) {
     linha.fromTo(sobre, { xPercent: 0 }, { duration: 0.55, xPercent: -75 }, 0)
     linha.fromTo(mim, { xPercent: 0 }, { duration: 0.55, xPercent: 75 }, 0)

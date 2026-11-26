@@ -626,3 +626,13 @@
   -webkit-text-stroke: 2px var(--color-vinho-claro);
   color: transparent;
 }
+
+/* Tela do laser no computador: o hero e a cena do sobre, uma tela cada. */
+@utility altura-laser {
+  height: 200dvh;
+}
+
+/* A cachoeira de laser do sobre apaga com a rolagem (sobre-cena.ts). */
+[data-sobre-laser] {
+  opacity: var(--sobre-laser, 1);
+}

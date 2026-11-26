@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 
 import { Comando } from "./comando"
-import { LaserSobre } from "./laser-sobre"
 
 type Item = [rotulo: string, texto: string]
 
@@ -39,10 +38,14 @@ function CapaSobre({ a, b }: { a: string; b: string }) {
         data-sobre-fundo
         className="pointer-events-none absolute inset-0 z-10 hidden flex-col items-center justify-center texto-gigante font-semibold whitespace-nowrap uppercase"
       >
-        <span data-sobre-palavra>{a}</span>
-        <span data-sobre-palavra className="texto-contorno-vinho">
-          {b}
-        </span>
+        {/* O bloco das duas palavras: é nele que a cachoeira de laser pousa
+            e escorre pelos lados (laser-sobre.tsx). */}
+        <div data-sobre-palavras className="flex flex-col items-center">
+          <span data-sobre-palavra>{a}</span>
+          <span data-sobre-palavra className="texto-contorno-vinho">
+            {b}
+          </span>
+        </div>
       </div>
       <div
         aria-hidden
@@ -73,7 +76,6 @@ export async function Sobre() {
         data-sobre-palco
         className="relative overflow-hidden px-4 py-24 lg:h-dvh lg:p-0"
       >
-        <LaserSobre />
         <CapaSobre a={t("fundoA")} b={t("fundoB")} />
         <div
           data-sobre-painel

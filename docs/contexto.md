@@ -263,6 +263,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       site, até cada caso ter print ou vídeo.
       Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
       das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
+- **Laser contínuo até o sobre** (26/11, pedido do Rodrigo): no computador,
+  com placa de vídeo e movimento, o feixe da abertura não para no hero. É o
+  mesmo laser que continua descendo (a tela dele tem duas telas de altura,
+  `altura-laser`, e o hero corta só na horizontal) e pousa no bloco "Sobre /
+  Mim", onde a luz escorre pelos dois lados como cachoeira (modo "Twin Falls"
+  do LaserFlow). Ele pediu que fosse a continuação, não um segundo laser. O
+  laser apaga logo que a cena do sobre começa a rolar (`--sobre-laser` no
+  `<html>`). No celular, o feixe continua parando na base da foto.
 - **Máquina sem placa de vídeo** (25/11): o laser e a névoa do mouse só montam
   onde o WebGL roda numa placa de vídeo (`components/inicio/capacidade.ts`:
   `failIfMajorPerformanceCaveat` e o nome do renderizador, que pega SwiftShader
