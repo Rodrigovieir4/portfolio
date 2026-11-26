@@ -23,8 +23,10 @@ function Faixa({ itens, reversa }: { itens: string[]; reversa: boolean }) {
   return (
     <div className="overflow-hidden mask-x-from-85%">
       <ul
+        data-mov="faixa"
+        // Parar no hover deixa ler e apontar a tecnologia.
         className={cn(
-          "flex w-max gap-16 py-4",
+          "flex w-max gap-16 py-4 hover:[animation-play-state:paused]",
           reversa
             ? "motion-safe:animate-faixa-reversa"
             : "motion-safe:animate-faixa",
@@ -34,7 +36,7 @@ function Faixa({ itens, reversa }: { itens: string[]; reversa: boolean }) {
           <li
             key={`${item}-${indice}`}
             aria-hidden={indice >= itens.length}
-            className="text-2xl font-medium whitespace-nowrap text-muted-foreground md:text-3xl"
+            className="text-2xl font-medium whitespace-nowrap text-muted-foreground transition-colors duration-300 hover:text-vinho-claro md:text-3xl"
           >
             {item}
           </li>

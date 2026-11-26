@@ -12,10 +12,12 @@ export function secoes(contexto: gsap.Context) {
   const soltarComandos = comandos(contexto)
   const soltarHolofote = holofote()
   const soltarNumeros = numeros()
+  const soltarFaixas = faixas()
   return () => {
     soltarComandos()
     soltarHolofote()
     soltarNumeros()
+    soltarFaixas()
   }
 }
 
@@ -115,5 +117,54 @@ function numeros() {
 
   return () => {
     for (const { item, texto } of partes) item.textContent = texto
+  }
+}
+
+/**
+ * As faixas da stack aceleram com a velocidade da rolagem e se inclinam para o
+ * lado do movimento; quando a rolagem para, voltam ao passo normal.
+ */
+function faixas() {
+  const linhas = gsap.utils.toArray<HTMLElement>('[data-mov="faixa"]')
+  const secao = linhas[0]?.closest("section")
+  if (!secao) return () => {}
+  const animacoes = linhas.flatMap((linha) => linha.getAnimations())
+  // A inclinação vai na moldura: o transform da faixa é da animação em CSS.
+  const molduras = linhas.flatMap((linha) => linha.parentElement ?? [])
+  const ritmo = { inclinacao: 0, velocidade: 1 }
+  const aplicar = () => {
+    for (const animacao of animacoes) animacao.playbackRate = ritmo.velocidade
+    gsap.set(molduras, { skewX: ritmo.inclinacao })
+  }
+
+  ScrollTrigger.create({
+    end: "bottom top",
+    onUpdate: (gatilho) => {
+      const v = gatilho.getVelocity()
+      gsap.to(ritmo, {
+        duration: 0.25,
+        inclinacao: gsap.utils.clamp(-8, 8, v / -250),
+        onComplete: () => {
+          gsap.to(ritmo, {
+            duration: 1.4,
+            ease: "power3.out",
+            inclinacao: 0,
+            onUpdate: aplicar,
+            velocidade: 1,
+          })
+        },
+        onUpdate: aplicar,
+        overwrite: true,
+        velocidade: 1 + Math.min(Math.abs(v) / 350, 6),
+      })
+    },
+    start: "top bottom",
+    trigger: secao,
+  })
+
+  return () => {
+    gsap.killTweensOf(ritmo)
+    for (const animacao of animacoes) animacao.playbackRate = 1
+    gsap.set(molduras, { clearProps: "transform" })
   }
 }
