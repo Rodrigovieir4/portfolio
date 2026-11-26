@@ -38,14 +38,10 @@ function CapaSobre({ a, b }: { a: string; b: string }) {
         data-sobre-fundo
         className="pointer-events-none absolute inset-0 z-10 hidden flex-col items-center justify-center texto-gigante font-semibold whitespace-nowrap uppercase"
       >
-        {/* O bloco das duas palavras: é nele que a cachoeira de laser pousa
-            e escorre pelos lados (laser-sobre.tsx). */}
-        <div data-sobre-palavras className="flex flex-col items-center">
-          <span data-sobre-palavra>{a}</span>
-          <span data-sobre-palavra className="texto-contorno-vinho">
-            {b}
-          </span>
-        </div>
+        <span data-sobre-palavra>{a}</span>
+        <span data-sobre-palavra className="texto-contorno-vinho">
+          {b}
+        </span>
       </div>
       <div
         aria-hidden
@@ -59,8 +55,8 @@ function CapaSobre({ a, b }: { a: string; b: string }) {
 /**
  * Sobre, como uma cena (rodada interativa de 26/11). No computador, com
  * movimento, a seção fica fixa enquanto rola: "Sobre" e "Mim", gigantes, se
- * afastam para os lados enquanto o painel abre a partir de uma linha de laser
- * até a tela; depois o texto acende e os três
+ * afastam para os lados enquanto um painel grafite, com um feixe vinho, abre a
+ * partir de uma linha de laser até a tela; depois o texto acende e os três
  * itens se decodificam (sobre-cena.ts).
  * No celular, em máquina fraca ou sem movimento, é uma seção comum.
  */

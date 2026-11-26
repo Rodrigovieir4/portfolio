@@ -129,7 +129,7 @@ export async function Abertura() {
   return (
     <section
       aria-labelledby="abertura-titulo"
-      className="relative isolate flex min-h-dvh flex-col overflow-x-clip"
+      className="relative isolate flex min-h-dvh flex-col overflow-hidden"
     >
       <script dangerouslySetInnerHTML={{ __html: ESCONDER_ATE_O_IMPACTO }} />
       <Laser />
