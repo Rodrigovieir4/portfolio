@@ -6,10 +6,15 @@ import { SplitText } from "gsap/SplitText"
 import { usePathname } from "next/navigation"
 import { useEffect } from "react"
 
+import { maquinaLeve } from "./capacidade"
 import { IMPACTO } from "./laser"
 import { areaDeRolagem } from "./rolagem"
 
 gsap.registerPlugin(ScrollTrigger, SplitText)
+// As animações seguem o relógio: em quadro lento elas pulam, mas terminam na
+// hora. Com a suavização padrão, quadros longos viram 33 ms e a abertura
+// levaria minutos para acabar numa máquina sem placa de vídeo.
+gsap.ticker.lagSmoothing(0)
 
 const SAIDA = "expo.out"
 
@@ -75,11 +80,6 @@ export function Movimento() {
   }, [pathname])
 
   return null
-}
-
-function maquinaLeve() {
-  const nav = navigator as Navigator & { deviceMemory?: number }
-  return (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory ?? 8) <= 2
 }
 
 function um(seletor: string) {

@@ -215,6 +215,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   celular. Na página que já tem a seção de contato (início e Sobre), o botão
   rola até ela suavemente, mesmo clicando de novo; nas outras, navega até o
   contato do início sem recarregar.
+- **Máquina sem placa de vídeo** (25/11): o laser e a névoa do mouse só montam
+  onde o WebGL roda numa placa de vídeo (`components/inicio/capacidade.ts`:
+  `failIfMajorPerformanceCaveat` e o nome do renderizador, que pega SwiftShader
+  e llvmpipe). Sem placa, o WebGL é desenhado no processador e a abertura
+  travava: o primeiro CI na `main` pegou isso. Também o GSAP passou a seguir o
+  relógio (`lagSmoothing(0)`): em quadro lento a animação pula, mas termina na
+  hora. O navegador do Playwright sem janela usa SwiftShader, então os testes
+  rodam sem o laser; numa janela com a RTX 3060 ele monta normal.
 - **Sem recarregar** (25/11, pedido do Rodrigo): navegar pelo site nunca
   recarrega a página, e a abertura do início (laser, revelação, convite para
   rolar) roda uma vez por carregamento. Voltando ao início, tudo já está no

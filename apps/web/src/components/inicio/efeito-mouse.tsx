@@ -4,15 +4,14 @@ import { useSyncExternalStore } from "react"
 
 import { GhostCursor } from "@/components/reactbits/ghost-cursor"
 
+import { aguentaShader } from "./capacidade"
+
 // A máquina e o tipo de ponteiro não mudam com a página aberta.
 const semAssinatura = () => () => {}
 
-/** Só com mouse e fora de máquina fraca: é um shader, junto com o do laser. */
+/** Só com mouse e onde o shader roda bem: divide a placa com o laser. */
 function podeLigar() {
-  const nav = navigator as Navigator & { deviceMemory?: number }
-  const leve =
-    (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory ?? 8) <= 2
-  return !leve && window.matchMedia("(pointer: fine)").matches
+  return aguentaShader() && window.matchMedia("(pointer: fine)").matches
 }
 
 /**

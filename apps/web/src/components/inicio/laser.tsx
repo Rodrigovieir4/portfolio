@@ -4,6 +4,8 @@ import { useEffect, useRef, useState, useSyncExternalStore } from "react"
 
 import { LaserFlow } from "@/components/reactbits/laser-flow"
 
+import { aguentaShader } from "./capacidade"
+
 /** Evento que libera o conteúdo da abertura (ver movimento.tsx). */
 export const IMPACTO = "abertura:impacto"
 
@@ -13,11 +15,6 @@ function avisar() {
   window.dispatchEvent(new Event(IMPACTO))
 }
 
-function maquinaLeve() {
-  const nav = navigator as Navigator & { deviceMemory?: number }
-  return (nav.hardwareConcurrency || 8) <= 2 || (nav.deviceMemory ?? 8) <= 2
-}
-
 // A capacidade da máquina não muda na sessão: nada a assinar.
 const semAssinatura = () => () => {}
 
@@ -25,16 +22,13 @@ const semAssinatura = () => () => {}
  * Feixe de laser da abertura: desce do topo, bate no fim do hero e espalha.
  * O impacto dispara o evento que revela o conteúdo.
  *
- * Em máquina com até 2 núcleos ou 2 GB o laser não é montado (é um shader
- * de tela cheia) e o conteúdo aparece logo.
+ * Em máquina com até 2 núcleos ou 2 GB, ou sem placa de vídeo (WebGL desenhado
+ * no processador), o laser não é montado (é um shader de tela cheia) e o
+ * conteúdo aparece logo.
  */
 export function Laser() {
-  // No servidor o laser não existe; no cliente, só fora de máquina fraca.
-  const ligado = useSyncExternalStore(
-    semAssinatura,
-    () => !maquinaLeve(),
-    () => false,
-  )
+  // No servidor o laser não existe; no cliente, só onde o shader roda bem.
+  const ligado = useSyncExternalStore(semAssinatura, aguentaShader, () => false)
   const chao = useRef<HTMLElement | null>(null)
   // A queda roda uma vez por carregamento. Voltando ao início sem recarregar
   // (a marca vale até recarregar), o feixe já nasce pousado.
@@ -46,7 +40,7 @@ export function Laser() {
 
   useEffect(() => {
     chao.current = document.querySelector("[data-chao]")
-    if (maquinaLeve()) avisar()
+    if (!aguentaShader()) avisar()
   }, [])
 
   if (!ligado) return null
