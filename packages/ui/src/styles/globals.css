@@ -657,6 +657,9 @@
 [data-marca="nestjs"] {
   --marca: #e0234e;
 }
+[data-marca="bun"] {
+  --marca: #fbf0df;
+}
 [data-marca="java"] {
   --marca: #f89820;
 }
@@ -672,14 +675,26 @@
 [data-marca="typeorm"] {
   --marca: #fe0803;
 }
+[data-marca="stripe"] {
+  --marca: #7a73ff;
+}
+[data-marca="firebase"] {
+  --marca: #ffca28;
+}
 [data-marca="aws"] {
   --marca: #ff9900;
 }
 [data-marca="docker"] {
   --marca: #2496ed;
 }
+[data-marca="cloudflare"] {
+  --marca: #f38020;
+}
 [data-marca="vercel"] {
   --marca: var(--foreground);
+}
+[data-marca="github-actions"] {
+  --marca: #2088ff;
 }
 [data-marca="react"] {
   --marca: #61dafb;
@@ -705,8 +720,17 @@
 [data-marca="three"] {
   --marca: var(--foreground);
 }
+[data-marca="gsap"] {
+  --marca: #0ae448;
+}
 [data-marca="turborepo"] {
   --marca: #ff1e56;
+}
+[data-marca="playwright"] {
+  --marca: #2ead33;
+}
+[data-marca="vitest"] {
+  --marca: #00ff74;
 }
 [data-marca="git"] {
   --marca: #f03c2e;

@@ -234,13 +234,15 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     calendário do GitHub não serve: mostra só 42 contribuições, porque o
     e-mail dos commits de trabalho não está ligado à conta;
   - faixas da stack aceleram e inclinam com a velocidade da rolagem; o hover
-    pausa a faixa e acende a tecnologia. Desde 27/11 (pedido dele): 22
-    tecnologias, só as que ele domina, isto é, as que os dois currículos dele
-    listam (uma primeira versão com 34, tiradas das dependências dos
-    repositórios, trazia o que outras pessoas instalaram, como Redis, Zod e
-    Jest, e ele pediu para tirar). Em cima linguagens, servidor, dados e
-    entrega; embaixo interface e mobile. Cada uma com o ícone ao lado (Simple
-    Icons; a AWS do Devicon, em `marcas-devicon.json`) e a cor da marca no hover (`[data-marca]` no
+    pausa a faixa e acende a tecnologia. Desde 27/11 (pedido dele): 30
+    tecnologias, só as que ele domina: as que os dois currículos dele listam,
+    mais Bun, Cloudflare, GitHub Actions, Stripe, Firebase, GSAP, Playwright
+    e Vitest, que ele confirmou. Fora: Redis, Zod, Jest, Prisma, Drizzle e
+    Dart (uma primeira versão, tirada das dependências dos repositórios,
+    trazia o que outras pessoas instalaram). Em cima linguagens, servidor,
+    dados e entrega; embaixo interface, mobile e testes. Cada uma com o ícone
+    ao lado (Simple Icons; AWS e Playwright do Devicon, em
+    `marcas-devicon.json`) e a cor da marca no hover (`[data-marca]` no
     globals.css; marcas pretas usam a cor clara do tema). O laço não tem
     emenda: o espaço entre os itens é padding, não gap, e a animação anda
     exatamente uma cópia;
