@@ -252,8 +252,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     dele, 27/11: "nada fora da tela"). Se o grupo não cabe (celular), ele
     encosta na margem esquerda; no celular, durante a busca, os itens ficam
     menores e mais juntos (`data-junta`), e cabem uns dois por faixa. As achadas acendem na cor da marca
-    (`data-achada`), as outras ficam cinza. Paradas enquanto houver busca;
-    vazio ou Esc, as cores somem e voltam a girar. Aceita apelidos (ts, js,
+    (`data-achada`), as outras ficam cinza. O giro espera a pessoa parar de
+    digitar (250 ms) e dura cerca de 1,5 s, para girar uma vez só (pedido
+    dele); as cores acendem na hora. Paradas enquanto houver busca; vazio ou
+    Esc, as cores somem e as faixas seguem girando de onde pararam, na ordem
+    em que estão, sem voltar à original (pedido dele). Aceita apelidos (ts, js,
     rn, ci, postgres), em `busca-stack.tsx`. Antes disso foram testadas e
     descartadas: lista separada de resultados chegando rolando, foco de
     câmera, roleta, moeda, tambor e órbita. O campo tem a largura do texto

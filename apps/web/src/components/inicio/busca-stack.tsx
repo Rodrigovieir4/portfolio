@@ -144,11 +144,41 @@ function alvo(
 }
 
 /**
+ * Sai da busca sem pulo (pedido do Rodrigo, 27/11): a faixa segue girando de
+ * onde parou, na ordem em que está. No celular os itens voltam ao tamanho
+ * normal; a faixa é reposta para o item do centro não sair do lugar.
+ */
+function soltar(faixa: HTMLElement) {
+  const animacao = faixa.getAnimations()[0]
+  const caixa = faixa.parentElement?.getBoundingClientRect()
+  if (animacao && caixa && faixa.hasAttribute("data-junta")) {
+    const meio = caixa.left + caixa.width / 2
+    const centro = (item: Element) => {
+      const r = item.getBoundingClientRect()
+      return r.left + r.width / 2
+    }
+    const itens = [...faixa.children]
+    const ancora = itens.reduce((perto, item) =>
+      Math.abs(centro(item) - meio) < Math.abs(centro(perto) - meio)
+        ? item
+        : perto,
+    )
+    const antes = centro(ancora)
+    faixa.removeAttribute("data-junta")
+    const copia = faixa.scrollWidth / 2
+    const { andou, ir } = posicao(animacao)
+    ir((andou * copia + centro(ancora) - antes) / copia)
+  }
+  faixa.removeAttribute("data-junta")
+  faixa.removeAttribute("data-parada")
+}
+
+/**
  * Ao buscar, as faixas aceleram; no auge, as achadas se juntam (a troca some
  * na velocidade); depois desaceleram e param com o grupo no centro, embaixo
- * da busca (pedido do Rodrigo, 27/11). Ficam paradas enquanto houver busca
- * e voltam a girar, na ordem original, quando ela some. Sem movimento pedido
- * no sistema, as faixas já não andam: só acendem as cores.
+ * da busca (pedido do Rodrigo, 27/11). Um giro curto, de cerca de 1,5 s.
+ * Ficam paradas enquanto houver busca. Sem movimento pedido no sistema, as
+ * faixas já não andam: só acendem as cores.
  */
 function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
   useEffect(() => {
@@ -157,10 +187,7 @@ function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
         []),
     ]
     if (!chaves) {
-      for (const faixa of faixas) {
-        arrumar(faixa, false)
-        faixa.removeAttribute("data-parada")
-      }
+      for (const faixa of faixas) soltar(faixa)
       return
     }
     const giros = faixas.flatMap((faixa) => {
@@ -175,9 +202,9 @@ function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
       const estado = { px: andou * copia }
       const tl = gsap.timeline({ onUpdate: () => ir(estado.px / copia) })
       tl.to(estado, {
-        duration: 0.9,
+        duration: 0.45,
         ease: "power2.in",
-        px: estado.px + (reversa ? -0.7 : 0.7) * copia,
+        px: estado.px + (reversa ? -0.5 : 0.5) * copia,
       })
       tl.call(() => {
         arrumar(faixa, true)
@@ -186,7 +213,7 @@ function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
         estado.px = (estado.px / copia) * nova
         copia = nova
         const fim = alvo(faixa, { agora: estado.px, copia, reversa })
-        tl.to(estado, { duration: 1.8, ease: "power3.out", px: fim })
+        tl.to(estado, { duration: 1.1, ease: "power3.out", px: fim })
       })
       return tl
     })
@@ -206,6 +233,19 @@ function useAcesas(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
       item.dataset.achada = String(nomes.has(item.dataset.marca ?? ""))
     }
   }, [caixa, chaves])
+}
+
+/**
+ * As chaves só depois que a pessoa para de digitar (250 ms): digitando
+ * "python" de uma vez, a faixa gira uma vez só. As cores acendem na hora.
+ */
+function useParouDeDigitar(chaves: string) {
+  const [parado, setParado] = useState("")
+  useEffect(() => {
+    const espera = window.setTimeout(() => setParado(chaves), 250)
+    return () => window.clearTimeout(espera)
+  }, [chaves])
+  return chaves ? parado : ""
 }
 
 /**
@@ -230,9 +270,10 @@ export function BuscaStack({
   const busca = normalizar(termo)
   const achadas = busca ? marcas.filter((marca) => bate(marca, busca)) : []
   const chaves = busca ? achadas.map((marca) => marca.chave).join() || "-" : ""
+  const giro = useParouDeDigitar(chaves)
 
   useAcesas(caixa, chaves)
-  useGiro(caixa, chaves)
+  useGiro(caixa, chaves ? giro : "")
 
   return (
     <>
