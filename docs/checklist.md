@@ -66,8 +66,8 @@ Atualizado em 24/11/2026.
 - [x] Levar o mesmo nível de interação para as outras seções (branch
       `feat/secoes-interativas`)
 - [x] Números reais com 8 métricas da carreira (27/11)
-- [ ] Rodrigo conferir as 8 métricas (e se quer trocar alguma)
-- [ ] Rodrigo aprovar as seções e juntar na `main`
+- [x] Rodrigo aprovou as 8 métricas e a passagem de 3,5 s (27/11)
+- [x] Rodrigo aprovou as seções e elas entraram na `main` (27/11)
 
 ## Publicação
 

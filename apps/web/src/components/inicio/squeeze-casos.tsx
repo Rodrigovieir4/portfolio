@@ -87,7 +87,7 @@ function Painel({
   )
 }
 
-/** Setas de anterior e próximo, em cima, à direita do título. */
+/** Setas de anterior e próximo, embaixo, ao lado de "Ler o caso". */
 function Setas({
   aberto,
   ir,
@@ -123,30 +123,42 @@ function Setas({
   )
 }
 
-/** Embaixo do painel aberto: o resumo e o botão para o caso. */
+/**
+ * Embaixo do painel aberto: o resumo, as setas e o botão para o caso. Só o
+ * resumo renasce a cada troca (o fade); as setas ficam, e o foco nelas também.
+ */
 function Descricao({
   anunciar,
   caso,
   ler,
+  setas,
 }: {
   anunciar: boolean
   caso: CasoVitrine
   ler: string
+  setas: ReactNode
 }) {
   return (
-    <div
-      // Passando sozinho, não anuncia a cada troca; só quando a pessoa mexe.
-      aria-live={anunciar ? "polite" : "off"}
-      className="mt-8 flex animate-in flex-wrap items-start justify-between gap-6 recuo-conteudo duration-500 fade-in"
-    >
-      <p className="max-w-2xl text-lg text-pretty text-foreground/80">
-        {caso.resumo}
-      </p>
-      <Button asChild variant="secondary" size="pilula">
-        <Link href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}>
-          {ler} <ChevronRight />
-        </Link>
-      </Button>
+    <div className="mt-8 flex flex-wrap items-start justify-between gap-6 recuo-conteudo">
+      {/* Passando sozinho, não anuncia a cada troca; só quando mexem. */}
+      <div aria-live={anunciar ? "polite" : "off"} className="max-w-2xl">
+        <p
+          key={caso.slug}
+          className="animate-in text-lg text-pretty text-foreground/80 duration-500 fade-in"
+        >
+          {caso.resumo}
+        </p>
+      </div>
+      <div className="flex items-center gap-2">
+        {setas}
+        <Button asChild variant="secondary" size="pilula">
+          <Link
+            href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}
+          >
+            {ler} <ChevronRight />
+          </Link>
+        </Button>
+      </div>
     </div>
   )
 }
@@ -202,31 +214,39 @@ function usePassagem(total: number) {
     setAberto(indice)
   }
 
-  return { aberto, alvo, escolher, parado, setParado }
+  const pausa = {
+    onBlur: () => setParado(false),
+    onFocus: () => setParado(true),
+    onPointerEnter: () => setParado(true),
+    onPointerLeave: () => setParado(false),
+  }
+
+  return { aberto, alvo, escolher, parado, pausa }
 }
 
 /**
  * Casos como o "Squeeze Carousel" (yura, 21st.dev, pedido do Rodrigo em
  * 26/11): um painel largo aberto e os outros espremidos em faixas, que
  * afinam conforme se afastam. Clicar numa faixa abre o caso; o aberto leva à
- * história completa. Setas em cima, à direita, e as do teclado com o foco num
- * painel. Passa sozinho a cada 3,5 s depois que entra na tela (pedido
- * do Rodrigo), pausa com o mouse ou o foco em cima, para de vez quando a
- * pessoa escolhe um caso e não passa para quem pede menos movimento.
+ * história completa. Setas embaixo, ao lado de "Ler o caso", e as do teclado
+ * com o foco num painel. Passa sozinho a cada 3,5 s depois que entra na tela
+ * (pedido do Rodrigo), pausa com o mouse ou o foco em cima, para de vez
+ * quando a pessoa escolhe um caso e não passa para quem pede menos movimento.
  */
 export function SqueezeCasos({
   cabecalho,
   casos,
   rotulos,
+  todos,
 }: {
-  /** Comando e título da seção, à esquerda das setas. */
+  /** Comando e título da seção, à esquerda. */
   cabecalho: ReactNode
   casos: CasoVitrine[]
   rotulos: Rotulos
+  /** Link para todos os casos, à direita do título. */
+  todos: ReactNode
 }) {
-  const { aberto, alvo, escolher, parado, setParado } = usePassagem(
-    casos.length,
-  )
+  const { aberto, alvo, escolher, parado, pausa } = usePassagem(casos.length)
   const router = useRouter()
   const caso = casos[aberto]
   const ir = (indice: number) =>
@@ -239,16 +259,10 @@ export function SqueezeCasos({
   }
 
   return (
-    <div
-      ref={alvo}
-      onBlur={() => setParado(false)}
-      onFocus={() => setParado(true)}
-      onPointerEnter={() => setParado(true)}
-      onPointerLeave={() => setParado(false)}
-    >
+    <div ref={alvo} {...pausa}>
       <div className="mx-auto mb-12 flex max-w-7xl items-end justify-between gap-6 px-4 lg:px-8">
         {cabecalho}
-        <Setas aberto={aberto} ir={ir} rotulos={rotulos} total={casos.length} />
+        {todos}
       </div>
       <div className="flex h-80 gap-2 recuo-conteudo md:h-112 md:gap-3">
         {casos.map((item, indice) => (
@@ -266,10 +280,17 @@ export function SqueezeCasos({
       </div>
       {caso ? (
         <Descricao
-          key={caso.slug}
           anunciar={parado}
           caso={caso}
           ler={rotulos.ler}
+          setas={
+            <Setas
+              aberto={aberto}
+              ir={ir}
+              rotulos={rotulos}
+              total={casos.length}
+            />
+          }
         />
       ) : null}
     </div>

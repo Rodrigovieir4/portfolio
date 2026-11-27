@@ -44,15 +44,15 @@ export async function Casos() {
             ler: t("ler"),
             proximo: t("proximo"),
           }}
+          todos={
+            <Link
+              href="/casos"
+              className="shrink-0 font-mono text-sm underline underline-offset-4"
+            >
+              {t("verTodos")} →
+            </Link>
+          }
         />
-        <div className="mx-auto mt-10 max-w-7xl px-4 lg:px-8">
-          <Link
-            href="/casos"
-            className="font-mono text-sm underline underline-offset-4"
-          >
-            {t("verTodos")} →
-          </Link>
-        </div>
       </div>
     </section>
   )
