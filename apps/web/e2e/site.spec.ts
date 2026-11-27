@@ -74,10 +74,10 @@ test("o cartão do caso no início abre a história completa", async ({
   page,
 }) => {
   await page.goto("/pt")
-  await page
-    .locator("#casos")
-    .getByRole("link", { name: /Duas pessoas, uma cota/ })
-    .click()
+  const casos = page.locator("#casos")
+  // A faixa do caso abre o painel; o botão embaixo leva à história.
+  await casos.getByRole("button", { name: "Duas pessoas, uma cota" }).click()
+  await casos.getByRole("link", { name: /Ler o caso/ }).click()
   await expect(page).toHaveURL(/\/pt\/casos\/duas-pessoas-uma-cota$/)
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Duas pessoas, uma cota",

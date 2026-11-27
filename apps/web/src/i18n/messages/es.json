@@ -300,10 +300,10 @@
     },
     "casos": {
       "titulo": "Casos",
-      "dica": "desliza hacia el lado",
       "verTodos": "Ver todos los casos",
       "anterior": "Caso anterior",
-      "proximo": "Siguiente caso"
+      "proximo": "Siguiente caso",
+      "ler": "Leer el caso"
     },
     "numeros": {
       "titulo": "Números reales",

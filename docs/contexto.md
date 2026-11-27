@@ -252,16 +252,19 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       aprovados), dois estilos, em `D:/workspace/Claude outputs/portfolio-estetica/sobre/`
       (`folha.png` e `mockups.png` atrás de "Sobre / Mim"): linhas finas em
       fluxo (fluxo-1 a 4) e gravura noturna (gravura-1 a 4). Ele não gostou das gravuras; viu o fluxo e preferiu o sobre sem ilustração.
-    - casos no carrossel de cartões (26/11, pedido dele, a partir do "Apple
-      Card Carousel" da shadcnspace no 21st.dev, cujo código exige login: foi
-      refeito pelo preview em cima do Carousel do shadcn, em `packages/ui`):
-      cartões altos alternando grafite e vinho, rótulo da stack e título no
-      alto, resumo, número e botão redondo de seta; arraste livre e setas
-      embaixo, à direita. A faixa ocupa a largura toda da tela, de ponta a ponta
-      (pedido dele), com o respiro das bordas do site dos dois lados
-      (`recuo-conteudo`); o título e as setas seguem no contêiner do site. No computador, a rolagem dá uma travadinha na seção
-      (`travarCasos`). Antes dele foi testado o Flex Carousel do React Bits
-      (WebGL, com capas geradas por código); saiu junto com o arco fixo.
+    - casos no "Squeeze Carousel" (26/11, pedido dele; da yura no 21st.dev,
+      cujo código exige login, refeito pelo vídeo de prévia em
+      `squeeze-casos.tsx`): um painel largo aberto e os outros espremidos em
+      faixas que afinam ao se afastar (pesos em `[data-squeeze]` no
+      globals.css; no celular o aberto ocupa quase tudo). Clicar numa faixa
+      abre o caso, e o aberto (ou o botão "Ler o caso", embaixo, com o resumo)
+      leva à história. Setas em cima, à direita do título, e as do teclado.
+      Sem passagem automática. Sem imagens ainda: o painel aberto mostra o
+      título grande, e os painéis alternam grafite e vinho. A faixa vai de
+      ponta a ponta com o respiro das bordas (`recuo-conteudo`). No
+      computador, a rolagem dá uma travadinha na seção (`travarCasos`).
+      Antes dele foram testados o Flex Carousel do React Bits e um carrossel
+      de cartões no estilo Apple Card (Carousel do shadcn); saíram.
       Junto, uma correção: o arco fixo dos casos era criado depois dos gatilhos
       das seções de baixo e fazia todos dispararem cedo (`ScrollTrigger.sort()`).
 - **Laser no sobre, testado e descartado** (26/11): foram testados um segundo

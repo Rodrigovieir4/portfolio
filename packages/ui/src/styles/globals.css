@@ -648,3 +648,54 @@
     padding-inline: 2rem;
   }
 }
+
+/*
+ * Squeeze dos casos (squeeze-casos.tsx): a largura de cada painel sai da
+ * distância até o aberto. O aberto é largo e os outros afinam ao se afastar;
+ * no hover, uma faixa cresce um pouco.
+ */
+[data-squeeze] {
+  --peso: 1.2;
+  flex-grow: var(--peso);
+  transition: flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-squeeze="0"] {
+  --peso: 46;
+}
+[data-squeeze="1"] {
+  --peso: 20;
+}
+[data-squeeze="2"] {
+  --peso: 9;
+}
+[data-squeeze="3"] {
+  --peso: 4;
+}
+[data-squeeze="-1"] {
+  --peso: 9;
+}
+[data-squeeze="-2"] {
+  --peso: 2.5;
+}
+[data-squeeze]:not([data-squeeze="0"]):hover {
+  flex-grow: calc(var(--peso) * 1.35 + 1.5);
+}
+/* No celular, o aberto ocupa quase tudo e os outros viram fios. */
+@media (width < 48rem) {
+  [data-squeeze="1"] {
+    --peso: 8;
+  }
+  [data-squeeze="2"],
+  [data-squeeze="-1"] {
+    --peso: 3;
+  }
+  [data-squeeze="3"],
+  [data-squeeze="-2"] {
+    --peso: 1.5;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-squeeze] {
+    transition: none;
+  }
+}
