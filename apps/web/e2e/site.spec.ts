@@ -82,8 +82,16 @@ test.describe("casos parados", () => {
   }) => {
     await page.goto("/pt")
     const casos = page.locator("#casos")
-    // A faixa do caso abre o painel; o botão embaixo leva à história.
-    await casos.getByRole("button", { name: "Duas pessoas, uma cota" }).click()
+    // A faixa do caso abre o painel; o botão embaixo leva à história. Na
+    // máquina lenta do CI o clique pode chegar antes da hidratação: repete até
+    // o painel abrir.
+    const faixa = casos.getByRole("button", { name: "Duas pessoas, uma cota" })
+    await expect(async () => {
+      await faixa.click()
+      await expect(
+        casos.getByRole("button", { name: /Ler o caso: Duas pessoas/ }),
+      ).toBeVisible({ timeout: 1000 })
+    }).toPass()
     await casos.getByRole("link", { name: /Ler o caso/ }).click()
     await expect(page).toHaveURL(/\/pt\/casos\/duas-pessoas-uma-cota$/)
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
