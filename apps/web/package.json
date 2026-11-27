@@ -24,7 +24,8 @@
     "next": "catalog:next",
     "next-intl": "catalog:next",
     "react": "catalog:react",
-    "react-dom": "catalog:react"
+    "react-dom": "catalog:react",
+    "simple-icons": "catalog:styling"
   },
   "devDependencies": {
     "@playwright/test": "catalog:tooling",

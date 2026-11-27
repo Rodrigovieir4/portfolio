@@ -234,7 +234,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     calendário do GitHub não serve: mostra só 42 contribuições, porque o
     e-mail dos commits de trabalho não está ligado à conta;
   - faixas da stack aceleram e inclinam com a velocidade da rolagem; o hover
-    pausa a faixa e acende a tecnologia;
+    pausa a faixa e acende a tecnologia. Desde 27/11 (pedido dele): 34
+    tecnologias em duas faixas (servidor, dados e entrega em cima; interface,
+    mobile e testes embaixo), levantadas nas dependências dos 14 repositórios;
+    cada uma com o ícone ao lado (Simple Icons; AWS e Playwright do Devicon,
+    em `marcas-devicon.json`) e a cor da marca no hover (`[data-marca]` no
+    globals.css; marcas pretas usam a cor clara do tema). O laço não tem
+    emenda: o espaço entre os itens é padding, não gap, e a animação anda
+    exatamente uma cópia;
   - trajetória: uma luz vinho corre na ponta da linha e acende cada marco;
   - certificados: a troca de filtro anima a grade (GSAP Flip);
   - contato: título letra por letra, botões magnéticos e luz clara que segue o

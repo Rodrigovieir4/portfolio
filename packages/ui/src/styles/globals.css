@@ -98,8 +98,8 @@
     monospace;
   --font-numeros: var(--font-anton), "Anton", "Impact", sans-serif;
 
-  --animate-faixa: faixa 45s linear infinite;
-  --animate-faixa-reversa: faixa 45s linear infinite reverse;
+  --animate-faixa: faixa 110s linear infinite;
+  --animate-faixa-reversa: faixa 110s linear infinite reverse;
 
   @keyframes faixa {
     from {
@@ -635,6 +635,117 @@
   );
   background-size: 26px 26px;
   mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
+}
+
+/*
+ * Cor de cada marca no hover das faixas da stack (stack.tsx). As marcas
+ * pretas (Next.js, Vercel...) usam a cor clara do tema, para aparecer no
+ * escuro; as escuras demais ganham um tom mais claro da própria cor.
+ */
+@utility cor-marca {
+  color: var(--marca);
+}
+[data-marca="typescript"] {
+  --marca: #3178c6;
+}
+[data-marca="node"] {
+  --marca: #5fa04e;
+}
+[data-marca="nestjs"] {
+  --marca: #e0234e;
+}
+[data-marca="bun"] {
+  --marca: #fbf0df;
+}
+[data-marca="postgresql"] {
+  --marca: #699eca;
+}
+[data-marca="supabase"] {
+  --marca: #3fcf8e;
+}
+[data-marca="prisma"] {
+  --marca: var(--foreground);
+}
+[data-marca="drizzle"] {
+  --marca: #c5f74f;
+}
+[data-marca="typeorm"] {
+  --marca: #fe0803;
+}
+[data-marca="redis"] {
+  --marca: #ff4438;
+}
+[data-marca="aws"] {
+  --marca: #ff9900;
+}
+[data-marca="docker"] {
+  --marca: #2496ed;
+}
+[data-marca="cloudflare"] {
+  --marca: #f38020;
+}
+[data-marca="vercel"] {
+  --marca: var(--foreground);
+}
+[data-marca="github-actions"] {
+  --marca: #2088ff;
+}
+[data-marca="stripe"] {
+  --marca: #7a73ff;
+}
+[data-marca="firebase"] {
+  --marca: #ffca28;
+}
+[data-marca="react"] {
+  --marca: #61dafb;
+}
+[data-marca="next"] {
+  --marca: var(--foreground);
+}
+[data-marca="react-native"] {
+  --marca: #61dafb;
+}
+[data-marca="expo"] {
+  --marca: var(--foreground);
+}
+[data-marca="flutter"] {
+  --marca: #42a5f5;
+}
+[data-marca="dart"] {
+  --marca: #29b6f6;
+}
+[data-marca="tailwind"] {
+  --marca: #06b6d4;
+}
+[data-marca="shadcn"] {
+  --marca: var(--foreground);
+}
+[data-marca="three"] {
+  --marca: var(--foreground);
+}
+[data-marca="gsap"] {
+  --marca: #0ae448;
+}
+[data-marca="zod"] {
+  --marca: #408aff;
+}
+[data-marca="turborepo"] {
+  --marca: #ff1e56;
+}
+[data-marca="playwright"] {
+  --marca: #2ead33;
+}
+[data-marca="vitest"] {
+  --marca: #00ff74;
+}
+[data-marca="jest"] {
+  --marca: #e33a4a;
+}
+[data-marca="python"] {
+  --marca: #4b8bbe;
+}
+[data-marca="java"] {
+  --marca: #f89820;
 }
 
 /*
