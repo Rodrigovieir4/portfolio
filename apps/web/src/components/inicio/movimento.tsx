@@ -360,6 +360,15 @@ function lote(
   })
 }
 
+/** Altura do centro da bolinha de um marco, dentro da lista da trajetória. */
+function centroDoPonto(marco: HTMLElement) {
+  const bolinha = marco.querySelector("span")
+  return (
+    marco.offsetTop +
+    (bolinha ? bolinha.offsetTop + bolinha.offsetHeight / 2 : 0)
+  )
+}
+
 /**
  * A linha desce com a rolagem, com uma luz vinho correndo na ponta, e cada
  * marco aparece e acende o ponto quando ela chega nele.
@@ -370,22 +379,21 @@ function linhaDoTempo() {
   const marcos = todos("marco")
   if (!linha?.parentElement) return
 
-  // A linha (e a ponta) termina no ponto do último marco, não no fim da caixa:
-  // a caixa vai até o marco mais comprido, que nem sempre é o último.
-  const ponto = (marco: HTMLElement) => {
-    const bolinha = marco.querySelector("span")
-    return (
-      marco.offsetTop +
-      (bolinha ? bolinha.offsetTop + bolinha.offsetHeight / 2 : 0)
-    )
-  }
+  // A linha (e a ponta) vai do ponto do primeiro marco ao do último, não da
+  // caixa inteira: a caixa vai até o marco mais comprido, que nem sempre é o
+  // último, e o ponto fica um pouco abaixo do topo dela.
+  const primeiro = marcos[0]
   const ultimo = marcos.at(-1)
-  const fim = () => (ultimo ? ponto(ultimo) : linha.offsetHeight)
+  const inicio = () => (primeiro ? centroDoPonto(primeiro) : 0)
+  const fim = () => (ultimo ? centroDoPonto(ultimo) : linha.offsetHeight)
   // Onde cada marco fica ao longo da linha, de 0 a 1, pela posição real.
   let posicoes: number[] = []
   const medir = () => {
-    gsap.set(linha, { height: fim() })
-    posicoes = marcos.map((marco) => ponto(marco) / fim())
+    const comprimento = Math.max(fim() - inicio(), 1)
+    gsap.set(linha, { height: comprimento, top: inicio() })
+    posicoes = marcos.map(
+      (marco) => (centroDoPonto(marco) - inicio()) / comprimento,
+    )
   }
   medir()
   const acender = (progresso: number) => {
@@ -412,11 +420,12 @@ function linhaDoTempo() {
     scaleY: 0,
     transformOrigin: "center top",
   })
-  // Cada marco aparece quando a ponta chega na altura dele.
+  // Cada marco acende quando a ponta chega nele; sem deslizar, para a bolinha
+  // ficar sempre em cima da linha.
   for (const [indice, marco] of marcos.entries()) {
     tl.from(
       marco,
-      { duration: 0.06, ease: "none", opacity: 0.15, y: 16 },
+      { duration: 0.06, ease: "none", opacity: 0.15 },
       posicoes[indice] ?? 0,
     )
   }
@@ -424,7 +433,7 @@ function linhaDoTempo() {
     tl.set(ponta, { display: "block" }, 0)
     tl.fromTo(
       ponta,
-      { top: "0%" },
+      { top: () => inicio() },
       { duration: 1, ease: "none", top: () => fim() },
       0,
     )

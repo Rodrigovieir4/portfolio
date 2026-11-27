@@ -257,7 +257,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     eles, pedido dele). A DBC entra como freela ("Freela pela DBC
     Software"), porque não há vínculo contratual (pedido dele, 27/11); a
     `experience.ts` foi junto (employment "freelance"). A linha e a ponta de
-    luz terminam no ponto do último marco, medido no navegador. A ordem veio do git, que desempata os dois currículos:
+    luz vão do ponto do primeiro marco (atleta, 2019) ao do último, medidos
+    no navegador; os marcos só acendem, sem deslizar, para a bolinha ficar
+    sempre em cima da linha. A ordem veio do git, que desempata os dois currículos:
     o e-mail pessoal (freela) vai de out/2025 a jun/2026 (CS2 Cortex,
     DB Connect, Memoreba, a ferramenta de canvas, o começo da DB Store) e o
     primeiro commit com o e-mail da DBC é de 20/07/2026 (Esplêndido). Então a
