@@ -268,9 +268,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       globals.css; no celular o aberto ocupa quase tudo). Clicar numa faixa
       abre o caso, e o aberto (ou o botão "Ler o caso", embaixo, com o resumo)
       leva à história. Setas em cima, à direita do título, e as do teclado.
-      Passa sozinho a cada 5 s (27/11, pedido dele), mas só depois que o
-      carrossel entra na tela; para com o mouse ou o foco em cima e não passa
-      para quem pede menos movimento. Sem imagens ainda: o painel aberto mostra o
+      Passa sozinho a cada 3,5 s (27/11, pedido dele; eram 5 s e ele achou
+      demorado), mas só depois que o carrossel entra na tela. Pausa com o
+      mouse ou o foco em cima; quando a pessoa escolhe um caso (clique, seta ou
+      tecla), para de vez, para ela ler com calma. Não passa para quem pede
+      menos movimento. Sem imagens ainda: o painel aberto mostra o
       título grande, e os painéis alternam grafite e vinho. A faixa vai de
       ponta a ponta com o respiro das bordas (`recuo-conteudo`). No
       computador, a rolagem dá uma travadinha na seção (`travarCasos`).

@@ -162,16 +162,18 @@ function teclado(aberto: number, ir: (indice: number) => void) {
 }
 
 /**
- * O caso aberto e a passagem sozinha: a cada 5 s abre o próximo (e volta ao
- * primeiro no fim). Só passa com o carrossel na tela (pedido do Rodrigo:
+ * O caso aberto e a passagem sozinha: a cada 3,5 s abre o próximo (e volta
+ * ao primeiro no fim). Só passa com o carrossel na tela (pedido do Rodrigo:
  * começa quando a pessoa rola até os casos). Cada troca recomeça a contagem;
- * `parado` (mouse ou foco em cima) e quem pede menos movimento não têm
- * passagem.
+ * `parado` (mouse ou foco em cima) pausa e quem pede menos movimento não tem
+ * passagem. `escolher` é a troca feita pela pessoa (clique, seta ou tecla):
+ * para a passagem de vez, para ela ler o caso com calma (pedido do Rodrigo).
  */
 function usePassagem(total: number) {
   const [aberto, setAberto] = useState(0)
   const [parado, setParado] = useState(false)
   const [naTela, setNaTela] = useState(false)
+  const [escolheu, setEscolheu] = useState(false)
   const alvo = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -186,16 +188,21 @@ function usePassagem(total: number) {
   }, [])
 
   useEffect(() => {
-    if (!naTela || parado) return
+    if (!naTela || parado || escolheu) return
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
     const passo = window.setTimeout(
       () => setAberto((atual) => (atual + 1) % total),
-      5000,
+      3500,
     )
     return () => window.clearTimeout(passo)
-  }, [aberto, naTela, parado, total])
+  }, [aberto, escolheu, naTela, parado, total])
 
-  return { aberto, alvo, parado, setAberto, setParado }
+  const escolher = (indice: number) => {
+    setEscolheu(true)
+    setAberto(indice)
+  }
+
+  return { aberto, alvo, escolher, parado, setParado }
 }
 
 /**
@@ -203,9 +210,9 @@ function usePassagem(total: number) {
  * 26/11): um painel largo aberto e os outros espremidos em faixas, que
  * afinam conforme se afastam. Clicar numa faixa abre o caso; o aberto leva à
  * história completa. Setas em cima, à direita, e as do teclado com o foco num
- * painel. Passa sozinho a cada 5 s depois que entra na tela (pedido do
- * Rodrigo), para com o mouse ou o foco em cima e não passa para quem pede
- * menos movimento.
+ * painel. Passa sozinho a cada 3,5 s depois que entra na tela (pedido
+ * do Rodrigo), pausa com o mouse ou o foco em cima, para de vez quando a
+ * pessoa escolhe um caso e não passa para quem pede menos movimento.
  */
 export function SqueezeCasos({
   cabecalho,
@@ -217,13 +224,13 @@ export function SqueezeCasos({
   casos: CasoVitrine[]
   rotulos: Rotulos
 }) {
-  const { aberto, alvo, parado, setAberto, setParado } = usePassagem(
+  const { aberto, alvo, escolher, parado, setParado } = usePassagem(
     casos.length,
   )
   const router = useRouter()
   const caso = casos[aberto]
   const ir = (indice: number) =>
-    setAberto(Math.min(Math.max(indice, 0), casos.length - 1))
+    escolher(Math.min(Math.max(indice, 0), casos.length - 1))
   const teclas = teclado(aberto, ir)
   const abrir = (indice: number) => {
     const alvo = casos[indice]
