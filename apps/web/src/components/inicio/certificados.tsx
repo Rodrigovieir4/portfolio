@@ -10,6 +10,11 @@ export async function Certificados() {
   const locale = (await getLocale()) as Locale
   const itens = certifications.map((item) => ({
     ano: item.issued?.slice(0, 4) ?? "",
+    // A capa tem o nome do PDF: x.pdf vira capas/x.webp, na mesma pasta.
+    capa:
+      item.file
+        ?.replace("/certificados/", "/certificados/capas/")
+        .replace(/.pdf$/, ".webp") ?? null,
     categoria: item.category,
     emissor: item.issuer,
     id: item.id,

@@ -14,6 +14,13 @@ import {
  * Os PDFs originais estão no repositório antigo, em
  * portfolio/assets/certificados.
  * O comando `bun run assets:importar` baixa todos de uma vez, já renomeados.
+ *
+ * O card mostra a primeira página do PDF como foto, em
+ * apps/web/public/certificados/capas/<mesmo nome>.webp. Para um certificado
+ * novo, gere a capa assim (na pasta public/certificados):
+ *   pdftoppm -f 1 -l 1 -singlefile -scale-to 1000 -png x.pdf /tmp/x
+ *   ffmpeg -i /tmp/x.png -vf scale=800:-1 -quality 80 capas/x.webp
+ * Sem a capa, o card mostra o nome do emissor no lugar.
  */
 const raw = [
   {

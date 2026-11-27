@@ -254,7 +254,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     `experience.ts` foi corrigida junto (DBC de jul/2026, DB Connect no freela,
     Daisy e ELOS na DBC). O nome da ferramenta de canvas não aparece (o dono
     não autorizou). Falta ele confirmar se a DB Store foi freela ou DBC;
-  - certificados: a troca de filtro anima a grade (GSAP Flip);
+  - certificados: a troca de filtro anima a grade (GSAP Flip). Desde 27/11
+    (pedido dele) cada card mostra a foto do certificado, a primeira página do
+    PDF em `public/certificados/capas` (como gerar está em
+    `certifications.ts`). Os PDFs da Rocketseat mostram o RA dele; já eram
+    públicos antes das capas;
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.
     - sobre como cena (26/11, referência: post da echo__builds no Instagram):

@@ -7,6 +7,7 @@ import {
 } from "@portfolio/ui/components/toggle-group"
 import gsap from "gsap"
 import { Flip } from "gsap/Flip"
+import Image from "next/image"
 import { type RefObject, useLayoutEffect, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
@@ -14,6 +15,8 @@ import { cn } from "@/lib/utils"
 export interface Certificado {
   ano: string
   categoria: string
+  /** Primeira página do PDF, em public/certificados/capas. */
+  capa: null | string
   emissor: string
   id: string
   link: null | string
@@ -37,9 +40,23 @@ const FILTRO =
 function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
   const conteudo = (
     <>
-      <div className="flex aspect-video items-center justify-center rounded-xl bg-muted px-2 text-center font-mono text-xs text-muted-foreground">
-        {item.emissor}
-      </div>
+      {item.capa ? (
+        // A foto do certificado (pedido do Rodrigo, 27/11). Decorativa: o nome
+        // vem logo abaixo e o link já diz o que abre.
+        <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted">
+          <Image
+            src={item.capa}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 18rem, 50vw"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <div className="flex aspect-4/3 items-center justify-center rounded-xl bg-muted px-2 text-center font-mono text-xs text-muted-foreground">
+          {item.emissor}
+        </div>
+      )}
       <span className="mt-3 text-sm font-medium text-pretty sm:text-base">
         {item.nome}
       </span>
