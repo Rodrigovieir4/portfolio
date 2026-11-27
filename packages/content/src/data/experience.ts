@@ -27,12 +27,13 @@ const raw = [
     id: "dbc-software",
     kind: "work",
     role: {
-      pt: "Desenvolvedor Full-Stack",
-      en: "Full-Stack Developer",
-      es: "Desarrollador Full-Stack",
+      pt: "Desenvolvedor Full-Stack, freelance",
+      en: "Full-Stack Developer, freelance",
+      es: "Desarrollador Full-Stack, freelance",
     },
     organization: "DBC Software",
-    employment: "pj",
+    // Freela, sem vínculo contratual (o Rodrigo pediu em 27/11).
+    employment: "freelance",
     mode: "remoto",
     // Jul/2026 pelo git: primeiro commit com o e-mail da DBC em 20/07/2026,
     // depois dos freelas (o currículo atualizado dizia out/2025).

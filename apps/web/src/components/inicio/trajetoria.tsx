@@ -44,7 +44,7 @@ function ItemMarco({ indice, marco }: { indice: number; marco: Marco }) {
     <li
       data-mov="marco"
       className={cn(
-        "group relative flex flex-col gap-2 pl-10 md:row-span-2 md:pb-10 md:last:pb-0",
+        "group relative flex flex-col gap-2 pl-10 md:row-span-2 md:pb-24 md:last:pb-0",
         INICIO[indice],
         esquerda
           ? "md:col-start-1 md:pr-12 md:pl-0 md:text-right"
@@ -141,7 +141,7 @@ export async function Trajetoria() {
       </h2>
       <div className="relative mt-16">
         <Linha />
-        <ol className="relative flex flex-col gap-10 md:grid md:grid-cols-2 md:gap-0">
+        <ol className="relative flex flex-col gap-14 md:grid md:grid-cols-2 md:gap-0">
           {todos.map((marco, indice) => (
             <ItemMarco key={marco.id} indice={indice} marco={marco} />
           ))}

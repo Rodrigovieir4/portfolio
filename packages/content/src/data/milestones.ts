@@ -95,14 +95,14 @@ const raw = [
     date: "2026-07",
     kind: "work",
     title: {
-      pt: "DBC Software",
-      en: "DBC Software",
-      es: "DBC Software",
+      pt: "Freela pela DBC Software",
+      en: "Freelancing with DBC Software",
+      es: "Freelance con DBC Software",
     },
     text: {
-      pt: "PJ, remoto. Esplêndido (Portugal e Irlanda, apps nas lojas), Daisy e ELOS.",
-      en: "Contractor, remote. Esplêndido (Portugal and Ireland, apps in the stores), Daisy and ELOS.",
-      es: "PJ, remoto. Esplêndido (Portugal e Irlanda, apps en las tiendas), Daisy y ELOS.",
+      pt: "Remoto, sem vínculo contratual. Esplêndido (Portugal e Irlanda, apps nas lojas), Daisy e ELOS.",
+      en: "Remote, with no employment contract. Esplêndido (Portugal and Ireland, apps in the stores), Daisy and ELOS.",
+      es: "Remoto, sin vínculo contractual. Esplêndido (Portugal e Irlanda, apps en las tiendas), Daisy y ELOS.",
     },
   },
 ]
