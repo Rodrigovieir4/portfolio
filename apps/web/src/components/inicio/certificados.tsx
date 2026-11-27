@@ -4,6 +4,14 @@ import { getLocale, getTranslations } from "next-intl/server"
 import { CertificadosGrade } from "./certificados-grade"
 import { Comando } from "./comando"
 
+/**
+ * Ordem na tela (pedido do Rodrigo, 27/11): o inglês primeiro, depois a São
+ * Judas e a Rocketseat por último. Os filtros seguem a mesma ordem.
+ */
+const ORDEM = ["idioma", "academico", "curso"]
+const lugar = (categoria: string) =>
+  ORDEM.includes(categoria) ? ORDEM.indexOf(categoria) : ORDEM.length
+
 export async function Certificados() {
   const t = await getTranslations("inicio.certificados")
   const c = await getTranslations("inicio.comandos")
@@ -21,6 +29,7 @@ export async function Certificados() {
     link: item.file ?? item.credentialUrl ?? null,
     nome: traduzir(item.name, locale),
   }))
+  itens.sort((a, b) => lugar(a.categoria) - lugar(b.categoria))
   const categorias = [...new Set(itens.map((item) => item.categoria))]
 
   return (
@@ -36,9 +45,13 @@ export async function Certificados() {
         itens={itens}
         rotulos={{
           abrir: t("abrir"),
+          anterior: t("anterior"),
           categorias: Object.fromEntries(
             categorias.map((c) => [c, t(`categorias.${c}`)]),
           ),
+          pagina: t("pagina"),
+          paginacao: t("paginacao"),
+          proxima: t("proxima"),
           titulo: t("titulo"),
           todos: t("todos"),
         }}

@@ -269,7 +269,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     (pedido dele) cada card mostra a foto do certificado, a primeira página do
     PDF em `public/certificados/capas` (como gerar está em
     `certifications.ts`). Os PDFs da Rocketseat mostram o RA dele; já eram
-    públicos antes das capas;
+    públicos antes das capas. Também a pedido dele (27/11): paginação de
+    duas linhas (8 cartões no computador, 4 no celular), com anterior,
+    números e próxima; trocar o filtro volta à página 1. Ordem: o inglês,
+    a São Judas e a Rocketseat por último (ordenado na seção por categoria, sem
+    mexer no conteúdo, que o jogo também usa);
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.
     - sobre como cena (26/11, referência: post da echo__builds no Instagram):

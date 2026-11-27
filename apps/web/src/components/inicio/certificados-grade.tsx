@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@portfolio/ui/components/button"
 import { Card } from "@portfolio/ui/components/card"
 import {
   ToggleGroup,
@@ -7,8 +8,15 @@ import {
 } from "@portfolio/ui/components/toggle-group"
 import gsap from "gsap"
 import { Flip } from "gsap/Flip"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 import Image from "next/image"
-import { type RefObject, useLayoutEffect, useRef, useState } from "react"
+import {
+  type RefObject,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react"
 
 import { cn } from "@/lib/utils"
 
@@ -25,7 +33,11 @@ export interface Certificado {
 
 interface Rotulos {
   abrir: string
+  anterior: string
   categorias: Record<string, string>
+  pagina: string
+  paginacao: string
+  proxima: string
   titulo: string
   todos: string
 }
@@ -135,6 +147,87 @@ function useTrocaAnimada(lista: RefObject<HTMLUListElement | null>) {
   }
 }
 
+/**
+ * Duas linhas por página (pedido do Rodrigo, 27/11): 8 cartões com 4 colunas
+ * (lg) e 4 com 2. No servidor vale 8; o celular ajusta ao hidratar.
+ */
+const LARGO = "(min-width: 64rem)"
+function usePorPagina() {
+  return useSyncExternalStore(
+    (avisar) => {
+      const consulta = matchMedia(LARGO)
+      consulta.addEventListener("change", avisar)
+      return () => consulta.removeEventListener("change", avisar)
+    },
+    () => (matchMedia(LARGO).matches ? 8 : 4),
+    () => 8,
+  )
+}
+
+/** A página atual e o pedaço da lista que cabe nela. */
+function usePaginas(filtrados: Certificado[]) {
+  const [pagina, setPagina] = useState(0)
+  const porPagina = usePorPagina()
+  const paginas = Math.ceil(filtrados.length / porPagina)
+  // Ao passar do computador para o celular, a página pode deixar de existir.
+  const atual = Math.min(pagina, Math.max(paginas - 1, 0))
+  const visiveis = filtrados.slice(atual * porPagina, (atual + 1) * porPagina)
+  return { atual, paginas, setPagina, visiveis }
+}
+
+/** Anterior, os números das páginas e próxima. Some com uma página só. */
+function Paginacao({
+  ir,
+  pagina,
+  paginas,
+  rotulos,
+}: {
+  ir: (pagina: number) => void
+  pagina: number
+  paginas: number
+  rotulos: Rotulos
+}) {
+  if (paginas < 2) return null
+  return (
+    <nav
+      aria-label={rotulos.paginacao}
+      className="mt-8 flex items-center justify-center gap-2"
+    >
+      <Button
+        variant="secondary"
+        size="icon-lg"
+        aria-label={rotulos.anterior}
+        disabled={pagina === 0}
+        onClick={() => ir(pagina - 1)}
+      >
+        <ArrowLeft />
+      </Button>
+      {Array.from({ length: paginas }, (_, indice) => (
+        <Button
+          key={indice}
+          variant={indice === pagina ? "default" : "ghost"}
+          size="icon-lg"
+          aria-label={`${rotulos.pagina} ${indice + 1}`}
+          aria-current={indice === pagina ? "page" : undefined}
+          onClick={() => ir(indice)}
+          className="font-mono"
+        >
+          {indice + 1}
+        </Button>
+      ))}
+      <Button
+        variant="secondary"
+        size="icon-lg"
+        aria-label={rotulos.proxima}
+        disabled={pagina === paginas - 1}
+        onClick={() => ir(pagina + 1)}
+      >
+        <ArrowRight />
+      </Button>
+    </nav>
+  )
+}
+
 export function CertificadosGrade({
   itens,
   rotulos,
@@ -145,8 +238,9 @@ export function CertificadosGrade({
   const [filtro, setFiltro] = useState(TODOS)
   const lista = useRef<HTMLUListElement>(null)
   const guardarGrade = useTrocaAnimada(lista)
-  const visiveis =
+  const filtrados =
     filtro === TODOS ? itens : itens.filter((i) => i.categoria === filtro)
+  const { atual, paginas, setPagina, visiveis } = usePaginas(filtrados)
   const categorias = Object.keys(rotulos.categorias)
 
   return (
@@ -159,6 +253,7 @@ export function CertificadosGrade({
           if (!valor) return
           guardarGrade()
           setFiltro(valor)
+          setPagina(0)
         }}
         spacing={3}
         aria-label={rotulos.titulo}
@@ -183,6 +278,15 @@ export function CertificadosGrade({
           <Cartao key={item.id} item={item} abrir={rotulos.abrir} />
         ))}
       </ul>
+      <Paginacao
+        ir={(nova) => {
+          guardarGrade()
+          setPagina(nova)
+        }}
+        pagina={atual}
+        paginas={paginas}
+        rotulos={rotulos}
+      />
     </>
   )
 }

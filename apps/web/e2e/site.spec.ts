@@ -42,7 +42,8 @@ test("o filtro dos certificados mostra só a categoria escolhida", async ({
   const grade = page
     .getByRole("heading", { name: "Certificados" })
     .locator("..")
-  const filtro = grade.getByRole("radio", { name: /Acadêmico \(\d+\)/ })
+  // Cursos cabe numa página só; a paginação tem teste próprio.
+  const filtro = grade.getByRole("radio", { name: /Cursos \(\d+\)/ })
   const total = Number((await filtro.textContent())?.match(/\d+/)?.[0])
 
   await filtro.click()
@@ -51,6 +52,21 @@ test("o filtro dos certificados mostra só a categoria escolhida", async ({
   await filtro.click()
   await expect(filtro).toHaveAttribute("aria-checked", "true")
   await expect(grade.getByRole("listitem")).toHaveCount(total)
+})
+
+test("os certificados vêm em páginas de duas linhas", async ({ page }) => {
+  await page.goto("/pt")
+  const grade = page
+    .getByRole("heading", { name: "Certificados" })
+    .locator("..")
+  // Computador: 4 colunas, 8 por página; os 12 cabem em duas páginas.
+  await expect(grade.getByRole("listitem")).toHaveCount(8)
+  await grade.getByRole("button", { name: "Próxima página" }).click()
+  await expect(grade.getByRole("listitem")).toHaveCount(4)
+  await expect(grade.getByRole("button", { name: "Página 2" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  )
 })
 
 test("as páginas do site existem nos três idiomas", async ({ page }) => {

@@ -337,7 +337,11 @@
         "cloud": "Cloud",
         "outro": "Otros"
       },
-      "abrir": "Abrir certificado"
+      "abrir": "Abrir certificado",
+      "anterior": "Página anterior",
+      "proxima": "Página siguiente",
+      "pagina": "Página",
+      "paginacao": "Páginas de certificados"
     },
     "projetos": {
       "titulo": "Proyectos",
