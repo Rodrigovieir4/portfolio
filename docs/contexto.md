@@ -246,7 +246,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     linha de terminal, `❯ grep` e um campo só com sublinhado, embaixo do
     título; com texto, as faixas dão lugar às tecnologias achadas, paradas e
     na cor da marca, com a contagem em mono; Esc ou vazio devolve as faixas.
-    Aceita apelidos (ts, js, rn, ci, postgres), em `busca-stack.tsx` e a cor da marca no hover (`[data-marca]` no
+    Aceita apelidos (ts, js, rn, ci, postgres), em `busca-stack.tsx`. As
+    achadas chegam rolando da direita, uma depois da outra (GSAP), quando o
+    conjunto muda; sem movimento pedido, aparecem direto e a cor da marca no hover (`[data-marca]` no
     globals.css; marcas pretas usam a cor clara do tema). O laço não tem
     emenda: o espaço entre os itens é padding, não gap, e a animação anda
     exatamente uma cópia;

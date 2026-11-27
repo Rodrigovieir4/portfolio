@@ -2,7 +2,8 @@
 
 import type { ReactNode } from "react"
 
-import { useId, useState } from "react"
+import gsap from "gsap"
+import { useId, useLayoutEffect, useRef, useState } from "react"
 
 export interface MarcaBusca {
   /** viewBox do ícone: 24 no Simple Icons, 128 no Devicon. */
@@ -55,6 +56,29 @@ function resumo(
     : `${rotulos.nada} "${termo}"`
 }
 
+/**
+ * Cada achada chega rolando da direita, como se viesse da faixa, uma depois
+ * da outra (pedido do Rodrigo, 27/11). Só anima quando o conjunto muda; quem
+ * pede menos movimento vê o resultado direto.
+ */
+function useChegada(chaves: string) {
+  const lista = useRef<HTMLUListElement>(null)
+  useLayoutEffect(() => {
+    const itens = lista.current?.children
+    if (!itens?.length) return
+    if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return
+    const animacao = gsap.fromTo(
+      itens,
+      { opacity: 0, x: 160 },
+      { duration: 0.7, ease: "power3.out", opacity: 1, stagger: 0.07, x: 0 },
+    )
+    return () => {
+      animacao.kill()
+    }
+  }, [chaves])
+  return lista
+}
+
 /** As tecnologias achadas, paradas e já na cor da marca. */
 function Resultados({
   achadas,
@@ -65,17 +89,21 @@ function Resultados({
   rotulos: Rotulos
   termo: string
 }) {
+  const lista = useChegada(achadas.map((marca) => marca.chave).join())
   return (
-    <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 px-4">
+    <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 overflow-hidden px-4">
       <p aria-hidden className="font-mono text-xs text-muted-foreground">
         {resumo(achadas.length, { rotulos, termo })}
       </p>
-      <ul className="flex flex-wrap justify-center gap-x-10 gap-y-4">
+      <ul
+        ref={lista}
+        className="flex flex-wrap justify-center gap-x-10 gap-y-4"
+      >
         {achadas.map((marca) => (
           <li
             key={marca.chave}
             data-marca={marca.chave}
-            className="flex animate-in items-center gap-3 text-2xl font-medium cor-marca duration-300 fade-in md:text-3xl"
+            className="flex items-center gap-3 text-2xl font-medium cor-marca md:text-3xl"
           >
             <svg
               aria-hidden
