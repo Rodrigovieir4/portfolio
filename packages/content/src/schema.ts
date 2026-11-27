@@ -204,6 +204,19 @@ export const ideaSchema = z.object({
   linkedinUrl: z.string().url().optional(),
 })
 
+/**
+ * Um marco da trajetória no início do site: o que aconteceu num mês, em
+ * ordem. É o resumo linear da carreira; a experiência completa fica em
+ * `experienceSchema`.
+ */
+export const milestoneSchema = z.object({
+  id: z.string().min(1),
+  date: yearMonth,
+  kind: z.enum(["work", "education", "athletics", "project"]),
+  title: localizedString,
+  text: localizedString,
+})
+
 export const experienceSchema = z
   .object({
     id: z.string().min(1),
@@ -267,6 +280,7 @@ export type SkillGroup = z.infer<typeof skillGroupSchema>
 export type Metric = z.infer<typeof metricSchema>
 export type Project = z.infer<typeof projectSchema>
 export type Experience = z.infer<typeof experienceSchema>
+export type Milestone = z.infer<typeof milestoneSchema>
 export type Certification = z.infer<typeof certificationSchema>
 export type Language = z.infer<typeof languageSchema>
 export type Case = z.infer<typeof caseSchema>

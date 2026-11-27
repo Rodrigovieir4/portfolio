@@ -242,7 +242,18 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     globals.css; marcas pretas usam a cor clara do tema). O laço não tem
     emenda: o espaço entre os itens é padding, não gap, e a animação anda
     exatamente uma cópia;
-  - trajetória: uma luz vinho corre na ponta da linha e acende cada marco;
+  - trajetória: uma luz vinho corre na ponta da linha e acende cada marco.
+    Desde 27/11 (pedido dele) é vertical em todos os tamanhos: a linha desce
+    com a rolagem e os marcos alternam esquerda e direita (no celular, todos à
+    direita da linha). Os 12 marcos saem de `packages/content/src/data/milestones.ts`,
+    em ordem de data. A ordem veio do git, que desempata os dois currículos:
+    o e-mail pessoal (freela) vai de out/2025 a jun/2026 (CS2 Cortex,
+    DB Connect, Memoreba, a ferramenta de canvas, o começo da DB Store) e o
+    primeiro commit com o e-mail da DBC é de 20/07/2026 (Esplêndido). Então a
+    DBC começou em jul/2026, depois dos freelas, como ele disse; a
+    `experience.ts` foi corrigida junto (DBC de jul/2026, DB Connect no freela,
+    Daisy e ELOS na DBC). O nome da ferramenta de canvas não aparece (o dono
+    não autorizou). Falta ele confirmar se a DB Store foi freela ou DBC;
   - certificados: a troca de filtro anima a grade (GSAP Flip);
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.

@@ -68,6 +68,9 @@ Atualizado em 24/11/2026.
 - [x] Números reais com 8 métricas da carreira (27/11)
 - [x] Rodrigo aprovou as 8 métricas e a passagem de 3,5 s (27/11)
 - [x] Rodrigo aprovou as seções e elas entraram na `main` (27/11)
+- [x] Trajetória vertical, alternando os lados, em ordem do git (27/11)
+- [ ] Rodrigo confirmar se a DB Store foi freela ou já pela DBC, e atualizar o
+      currículo com a DBC desde jul/2026
 
 ## Publicação
 

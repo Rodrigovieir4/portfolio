@@ -46,11 +46,13 @@ export function Movimento() {
     mm.add(
       {
         largo: "(min-width: 1024px)",
+        // Sem uso direto: cruzar 768 px troca o layout da trajetória, e o
+        // GSAP refaz tudo, com as posições dos marcos medidas de novo.
         medio: "(min-width: 768px)",
         movimento: "(prefers-reduced-motion: no-preference)",
       },
       (contexto) => {
-        const { largo, medio, movimento } = contexto.conditions ?? {}
+        const { largo, movimento } = contexto.conditions ?? {}
         if (!movimento) return
 
         const soltarAberturaBruta = abertura(contexto)
@@ -60,7 +62,7 @@ export function Movimento() {
           promptCompleto()
         }
         entradas()
-        linhaDoTempo(Boolean(medio))
+        linhaDoTempo()
         const soltarSecoes = secoes(contexto, {
           fixar: Boolean(largo) && !leve,
         })
@@ -359,10 +361,10 @@ function lote(
 }
 
 /**
- * A linha se desenha com a rolagem, com uma luz vinho correndo na ponta, e
- * cada marco aparece e acende o ponto quando ela passa.
+ * A linha desce com a rolagem, com uma luz vinho correndo na ponta, e cada
+ * marco aparece e acende o ponto quando ela chega nele.
  */
-function linhaDoTempo(horizontal: boolean) {
+function linhaDoTempo() {
   const linha = um("linha")
   const ponta = um("ponta")
   const marcos = todos("marco")
@@ -370,11 +372,7 @@ function linhaDoTempo(horizontal: boolean) {
 
   // Onde cada marco fica ao longo da linha, de 0 a 1, pela posição real.
   const caixa = linha.parentElement
-  const posicoes = marcos.map((marco) =>
-    horizontal
-      ? marco.offsetLeft / caixa.offsetWidth
-      : marco.offsetTop / caixa.offsetHeight,
-  )
+  const posicoes = marcos.map((marco) => marco.offsetTop / caixa.offsetHeight)
   const acender = (progresso: number) => {
     for (const [indice, marco] of marcos.entries()) {
       marco.dataset.passou = String(progresso >= (posicoes[indice] ?? 0))
@@ -385,7 +383,7 @@ function linhaDoTempo(horizontal: boolean) {
   const tl = gsap.timeline({
     onUpdate: () => acender(tl.progress()),
     scrollTrigger: {
-      end: horizontal ? "bottom 55%" : "bottom 70%",
+      end: "bottom 70%",
       scrub: 0.6,
       start: "top 80%",
       trigger: linha.parentElement,
@@ -394,31 +392,23 @@ function linhaDoTempo(horizontal: boolean) {
   tl.from(linha, {
     duration: 1,
     ease: "none",
-    ...(horizontal
-      ? { scaleX: 0, transformOrigin: "left center" }
-      : { scaleY: 0, transformOrigin: "center top" }),
+    scaleY: 0,
+    transformOrigin: "center top",
   })
-  tl.from(
-    marcos,
-    {
-      duration: 0.2,
-      ease: "none",
-      opacity: 0.15,
-      stagger: 0.8 / Math.max(marcos.length - 1, 1),
-      y: 16,
-    },
-    0,
-  )
+  // Cada marco aparece quando a ponta chega na altura dele.
+  for (const [indice, marco] of marcos.entries()) {
+    tl.from(
+      marco,
+      { duration: 0.06, ease: "none", opacity: 0.15, y: 16 },
+      posicoes[indice] ?? 0,
+    )
+  }
   if (ponta) {
     tl.set(ponta, { display: "block" }, 0)
     tl.fromTo(
       ponta,
-      horizontal ? { left: "0%" } : { top: "0%" },
-      {
-        duration: 1,
-        ease: "none",
-        ...(horizontal ? { left: "100%" } : { top: "100%" }),
-      },
+      { top: "0%" },
+      { duration: 1, ease: "none", top: "100%" },
       0,
     )
   }

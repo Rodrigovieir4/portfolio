@@ -20,6 +20,7 @@ export {
 export { caseBySlug, cases } from "./data/cases"
 export { ideaBySlug, ideas } from "./data/ideas"
 export { experiences, workExperiences } from "./data/experience"
+export { milestones } from "./data/milestones"
 export { certifications, certificationsByCategory } from "./data/certifications"
 export { languages } from "./data/languages"
 
