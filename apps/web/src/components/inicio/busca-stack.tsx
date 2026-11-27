@@ -57,23 +57,42 @@ function resumo(
 }
 
 /**
- * Cada achada chega rolando da direita, como se viesse da faixa, uma depois
- * da outra (pedido do Rodrigo, 27/11). Só anima quando o conjunto muda; quem
- * pede menos movimento vê o resultado direto.
+ * Entrada de cinema (pedido do Rodrigo, 27/11): cada achada chega como um
+ * foco de câmera, desfocada e grande, e assenta nítida; o ícone gira de lado
+ * até ficar de frente. Uma depois da outra. Só anima quando o conjunto muda;
+ * quem pede menos movimento vê o resultado direto.
  */
 function useChegada(chaves: string) {
   const lista = useRef<HTMLUListElement>(null)
   useLayoutEffect(() => {
-    const itens = lista.current?.children
-    if (!itens?.length) return
+    const itens = [...(lista.current?.children ?? [])]
+    if (itens.length === 0) return
     if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return
-    const animacao = gsap.fromTo(
-      itens,
-      { opacity: 0, x: 160 },
-      { duration: 0.7, ease: "power3.out", opacity: 1, stagger: 0.07, x: 0 },
-    )
+    const tl = gsap.timeline()
+    for (const [indice, item] of itens.entries()) {
+      const vez = indice * 0.12
+      tl.fromTo(
+        item,
+        { filter: "blur(16px)", opacity: 0, scale: 1.4, y: 12 },
+        {
+          duration: 1.1,
+          ease: "expo.out",
+          filter: "blur(0px)",
+          opacity: 1,
+          scale: 1,
+          y: 0,
+        },
+        vez,
+      )
+      tl.fromTo(
+        item.querySelector("svg"),
+        { rotateY: 90 },
+        { duration: 0.9, ease: "back.out(1.6)", rotateY: 0 },
+        vez + 0.1,
+      )
+    }
     return () => {
-      animacao.kill()
+      tl.kill()
     }
   }, [chaves])
   return lista
@@ -91,7 +110,7 @@ function Resultados({
 }) {
   const lista = useChegada(achadas.map((marca) => marca.chave).join())
   return (
-    <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 overflow-hidden px-4">
+    <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 overflow-hidden px-4 py-4">
       <p aria-hidden className="font-mono text-xs text-muted-foreground">
         {resumo(achadas.length, { rotulos, termo })}
       </p>
@@ -145,7 +164,7 @@ export function BuscaStack({
     <>
       <label
         htmlFor={id}
-        className="mx-auto mt-8 flex w-full max-w-xs items-center gap-2 border-b border-border px-1 pb-1 font-mono text-sm transition-colors focus-within:border-vinho-claro"
+        className="mx-auto mt-8 flex w-fit max-w-full items-center gap-2 border-b border-border px-1 pb-1 font-mono text-sm transition-colors focus-within:border-vinho-claro"
       >
         <span aria-hidden className="text-vinho-claro">
           ❯ grep
@@ -163,7 +182,9 @@ export function BuscaStack({
           aria-label={rotulos.campo}
           autoComplete="off"
           spellCheck={false}
-          className="min-w-0 flex-1 bg-transparent text-foreground outline-none placeholder:text-muted-foreground/60"
+          // Largura do texto (fonte mono): o conjunto fica centrado, sem sobra.
+          size={Math.max(termo.length, rotulos.campo.length)}
+          className="min-w-0 bg-transparent text-foreground outline-none placeholder:text-muted-foreground/35"
         />
       </label>
       {/* Mesma altura com ou sem busca: a página não pula ao digitar. */}
