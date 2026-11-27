@@ -17,11 +17,11 @@ export async function Numeros() {
       <h2 data-mov="subir" className="text-3xl font-semibold tracking-tight">
         {t("titulo")}
       </h2>
-      <dl className="mt-10 grid border-t border-border sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-10 grid border-t border-border sm:grid-cols-2 sm:border-l lg:grid-cols-4">
         {itens.map(([valor, legenda], indice) => (
           <div
             key={valor}
-            className="flex flex-col-reverse justify-end gap-4 border-b border-border py-8 sm:border-r sm:px-6 sm:even:border-r-0 lg:even:border-r lg:nth-[4n]:border-r-0"
+            className="flex flex-col-reverse justify-end gap-4 border-b border-border py-8 sm:border-r sm:px-6"
           >
             <dt className="font-mono text-sm text-pretty text-muted-foreground">
               {legenda}
