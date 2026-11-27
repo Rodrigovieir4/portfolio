@@ -49,36 +49,43 @@ const TODOS = "todos"
 const FILTRO =
   "h-11 rounded-full border border-border px-4 font-normal text-muted-foreground hover:bg-transparent hover:text-foreground data-[state=on]:bg-primary data-[state=on]:text-primary-foreground lg:h-9"
 
+/**
+ * No padrão dos cartões de projeto (pedido do Rodrigo, 27/11): fundo
+ * transparente, borda fina, a foto de ponta a ponta em cima e, embaixo, o
+ * emissor em mono e o nome em destaque. A foto, decorativa (o nome vem logo
+ * abaixo e o link diz o que abre), fica um pouco apagada e acende no hover.
+ */
 function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
   const conteudo = (
     <>
-      {item.capa ? (
-        // A foto do certificado (pedido do Rodrigo, 27/11). Decorativa: o nome
-        // vem logo abaixo e o link já diz o que abre.
-        <div className="relative aspect-4/3 overflow-hidden rounded-xl bg-muted">
+      <div className="relative aspect-4/3 overflow-hidden rounded-t-2xl border-b border-border bg-muted">
+        {item.capa ? (
           <Image
             src={item.capa}
             alt=""
             fill
             sizes="(min-width: 1024px) 18rem, 50vw"
-            className="object-cover"
+            className="object-cover opacity-80 transition duration-500 group-hover/card:scale-105 group-hover/card:opacity-100"
           />
-        </div>
-      ) : (
-        <div className="flex aspect-4/3 items-center justify-center rounded-xl bg-muted px-2 text-center font-mono text-xs text-muted-foreground">
+        ) : (
+          <span className="absolute inset-0 grid place-items-center px-2 text-center font-mono text-xs text-muted-foreground">
+            {item.emissor}
+          </span>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col gap-2 p-4 sm:p-5">
+        <span className="font-mono text-xs text-muted-foreground">
           {item.emissor}
-        </div>
-      )}
-      <span className="mt-3 text-sm font-medium text-pretty sm:text-base">
-        {item.nome}
-      </span>
-      <span className="mt-1 font-mono text-xs text-muted-foreground">
-        {item.emissor}
-        {item.ano ? `, ${item.ano}` : ""}
-      </span>
+          {item.ano ? ` · ${item.ano}` : ""}
+        </span>
+        <span className="text-base font-semibold tracking-tight text-pretty sm:text-lg">
+          {item.nome}
+          {item.link ? " ↗" : ""}
+        </span>
+      </div>
     </>
   )
-  const classe = "gap-0 p-3 sm:p-4"
+  const classe = "gap-0 bg-transparent p-0"
 
   if (!item.link) {
     return (
