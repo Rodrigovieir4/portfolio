@@ -91,7 +91,7 @@ function Painel({
   )
 }
 
-/** Setas de anterior e próximo, embaixo, ao lado de "Ler o caso". */
+/** Setas de anterior e próximo, embaixo, à direita de "Ler o caso". */
 function Setas({
   aberto,
   ir,
@@ -150,7 +150,6 @@ function Descricao({
         {caso.titulo}: {caso.resumo}
       </p>
       <div className="flex items-center gap-2">
-        {setas}
         <Button asChild variant="secondary" size="pilula">
           <Link
             href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}
@@ -158,6 +157,7 @@ function Descricao({
             {ler} <ChevronRight />
           </Link>
         </Button>
+        {setas}
       </div>
     </div>
   )
