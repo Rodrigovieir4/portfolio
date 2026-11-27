@@ -320,7 +320,10 @@
     },
     "stack": {
       "titulo": "Everyday stack",
-      "nota": "what I use in production"
+      "nota": "what I use in production",
+      "busca": "search a technology",
+      "nada": "nothing here for",
+      "resultados": "in the stack"
     },
     "trajetoria": {
       "titulo": "Career",

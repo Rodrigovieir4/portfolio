@@ -320,7 +320,10 @@
     },
     "stack": {
       "titulo": "Stack do dia a dia",
-      "nota": "o que uso em produção"
+      "nota": "o que uso em produção",
+      "busca": "procurar tecnologia",
+      "nada": "nada por aqui com",
+      "resultados": "na stack"
     },
     "trajetoria": {
       "titulo": "Trajetória",

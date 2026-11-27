@@ -242,7 +242,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     trazia o que outras pessoas instalaram). Em cima linguagens, servidor,
     dados e entrega; embaixo interface, mobile e testes. Cada uma com o ícone
     ao lado (Simple Icons; AWS e Playwright do Devicon, em
-    `marcas-devicon.json`) e a cor da marca no hover (`[data-marca]` no
+    `marcas-devicon.json`). Busca (pedido dele, 27/11, "muito clean"): uma
+    linha de terminal, `❯ grep` e um campo só com sublinhado, embaixo do
+    título; com texto, as faixas dão lugar às tecnologias achadas, paradas e
+    na cor da marca, com a contagem em mono; Esc ou vazio devolve as faixas.
+    Aceita apelidos (ts, js, rn, ci, postgres), em `busca-stack.tsx` e a cor da marca no hover (`[data-marca]` no
     globals.css; marcas pretas usam a cor clara do tema). O laço não tem
     emenda: o espaço entre os itens é padding, não gap, e a animação anda
     exatamente uma cópia;

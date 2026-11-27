@@ -31,18 +31,12 @@ import {
 
 import { cn } from "@/lib/utils"
 
+import { type MarcaBusca, BuscaStack } from "./busca-stack"
 import { Comando } from "./comando"
 // O Simple Icons tirou a AWS (marca) e não tem o Playwright: vêm do Devicon.
 import devicon from "./marcas-devicon.json"
 
-interface Marca {
-  /** viewBox do ícone: 24 no Simple Icons, 128 no Devicon. */
-  caixa: number
-  /** Liga a cor da marca no hover (`[data-marca]` no globals.css). */
-  chave: string
-  nome: string
-  path: string
-}
+type Marca = MarcaBusca
 
 /*
  * Só o que ele domina (pedido do Rodrigo, 27/11): o que os dois currículos
@@ -192,11 +186,20 @@ export async function Stack() {
           {t("nota")}
         </p>
       </div>
-      <div className="mt-12 flex flex-col gap-4">
-        {LINHAS.map((itens, indice) => (
-          <Faixa key={itens[0]?.chave} itens={itens} reversa={indice === 1} />
-        ))}
-      </div>
+      <BuscaStack
+        marcas={LINHAS.flat()}
+        rotulos={{
+          campo: t("busca"),
+          nada: t("nada"),
+          resultados: t("resultados"),
+        }}
+      >
+        <div className="flex flex-col gap-4">
+          {LINHAS.map((itens, indice) => (
+            <Faixa key={itens[0]?.chave} itens={itens} reversa={indice === 1} />
+          ))}
+        </div>
+      </BuscaStack>
     </section>
   )
 }
