@@ -267,9 +267,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       faixas que afinam ao se afastar (pesos em `[data-squeeze]` no
       globals.css; no celular o aberto ocupa quase tudo). Clicar numa faixa
       abre o caso, e o aberto (ou o botão "Ler o caso", embaixo, com o resumo)
-      leva à história. "Ver todos os casos" fica à direita do título, e as setas
-      embaixo, à direita de "Ler o caso" (27/11, pedido dele; antes era o
-      contrário). O resumo do caso fica dentro do painel aberto, embaixo do
+      leva à história. "Ver todos os casos" fica à direita do título, e embaixo do
+      carrossel "Ler o caso" fica à esquerda (onde ficava o resumo) e as setas
+      na ponta direita (27/11, pedido dele; antes as setas ficavam em cima). O resumo do caso fica dentro do painel aberto, embaixo do
       título (27/11, pedido dele; antes ficava fora, embaixo do carrossel). As setas do teclado também passam de caso.
       Passa sozinho a cada 3,5 s (27/11, pedido dele; eram 5 s e ele achou
       demorado), mas só depois que o carrossel entra na tela. Pausa com o

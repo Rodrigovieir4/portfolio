@@ -91,7 +91,7 @@ function Painel({
   )
 }
 
-/** Setas de anterior e próximo, embaixo, à direita de "Ler o caso". */
+/** Setas de anterior e próximo, embaixo, na ponta direita. */
 function Setas({
   aberto,
   ir,
@@ -128,7 +128,8 @@ function Setas({
 }
 
 /**
- * Embaixo dos painéis, na largura do título: as setas e o botão para o caso.
+ * Embaixo dos painéis, na largura do título: o botão para o caso à esquerda
+ * (onde ficava o resumo) e as setas à direita.
  * O resumo aparece dentro do painel aberto; aqui ele fica só para o leitor de
  * tela, que não lê o texto do painel.
  */
@@ -144,21 +145,17 @@ function Descricao({
   setas: ReactNode
 }) {
   return (
-    <div className="mx-auto mt-6 flex max-w-7xl justify-end px-4 lg:px-8">
+    <div className="mx-auto mt-6 flex max-w-7xl items-center justify-between gap-6 px-4 lg:px-8">
       {/* Passando sozinho, não anuncia a cada troca; só quando mexem. */}
       <p aria-live={anunciar ? "polite" : "off"} className="sr-only">
         {caso.titulo}: {caso.resumo}
       </p>
-      <div className="flex items-center gap-2">
-        <Button asChild variant="secondary" size="pilula">
-          <Link
-            href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}
-          >
-            {ler} <ChevronRight />
-          </Link>
-        </Button>
-        {setas}
-      </div>
+      <Button asChild variant="secondary" size="pilula">
+        <Link href={{ params: { slug: caso.slug }, pathname: "/casos/[slug]" }}>
+          {ler} <ChevronRight />
+        </Link>
+      </Button>
+      {setas}
     </div>
   )
 }
