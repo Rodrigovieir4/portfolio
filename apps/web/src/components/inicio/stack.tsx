@@ -1,27 +1,18 @@
 import { getTranslations } from "next-intl/server"
 import {
-  siBun,
-  siCloudflare,
-  siDart,
   siDocker,
-  siDrizzle,
   siExpo,
-  siFirebase,
   siFlutter,
-  siGithubactions,
-  siGsap,
-  siJest,
+  siGit,
+  siJavascript,
   siNestjs,
   siNextdotjs,
   siNodedotjs,
   siOpenjdk,
   siPostgresql,
-  siPrisma,
   siPython,
   siReact,
-  siRedis,
   siShadcnui,
-  siStripe,
   siSupabase,
   siTailwindcss,
   siThreedotjs,
@@ -29,14 +20,12 @@ import {
   siTypeorm,
   siTypescript,
   siVercel,
-  siVitest,
-  siZod,
 } from "simple-icons"
 
 import { cn } from "@/lib/utils"
 
 import { Comando } from "./comando"
-// O Simple Icons tirou a AWS (marca) e não tem o Playwright: vêm do Devicon.
+// O Simple Icons tirou a AWS (marca): ela vem do Devicon.
 import devicon from "./marcas-devicon.json"
 
 interface Marca {
@@ -49,9 +38,10 @@ interface Marca {
 }
 
 /*
- * O que ele usa de fato, levantado nas dependências dos 14 repositórios em
- * D:/workspace (27/11): em cima o lado do servidor, dos dados e da entrega;
- * embaixo a interface, o mobile e os testes.
+ * Só o que ele domina (pedido do Rodrigo, 27/11): o que os dois currículos
+ * dele listam como competência. A lista anterior saiu das dependências dos
+ * repositórios e trazia o que outras pessoas instalaram (Redis, Zod, Jest...).
+ * Em cima linguagens, servidor, dados e entrega; embaixo interface e mobile.
  */
 const LINHAS: Marca[][] = [
   [
@@ -61,9 +51,16 @@ const LINHAS: Marca[][] = [
       nome: "TypeScript",
       path: siTypescript.path,
     },
+    {
+      caixa: 24,
+      chave: "javascript",
+      nome: "JavaScript",
+      path: siJavascript.path,
+    },
     { caixa: 24, chave: "node", nome: "Node.js", path: siNodedotjs.path },
     { caixa: 24, chave: "nestjs", nome: "NestJS", path: siNestjs.path },
-    { caixa: 24, chave: "bun", nome: "Bun", path: siBun.path },
+    { caixa: 24, chave: "java", nome: "Java", path: siOpenjdk.path },
+    { caixa: 24, chave: "python", nome: "Python", path: siPython.path },
     {
       caixa: 24,
       chave: "postgresql",
@@ -71,27 +68,10 @@ const LINHAS: Marca[][] = [
       path: siPostgresql.path,
     },
     { caixa: 24, chave: "supabase", nome: "Supabase", path: siSupabase.path },
-    { caixa: 24, chave: "prisma", nome: "Prisma", path: siPrisma.path },
-    { caixa: 24, chave: "drizzle", nome: "Drizzle", path: siDrizzle.path },
     { caixa: 24, chave: "typeorm", nome: "TypeORM", path: siTypeorm.path },
-    { caixa: 24, chave: "redis", nome: "Redis", path: siRedis.path },
     { caixa: 128, chave: "aws", nome: "AWS", path: devicon.aws },
     { caixa: 24, chave: "docker", nome: "Docker", path: siDocker.path },
-    {
-      caixa: 24,
-      chave: "cloudflare",
-      nome: "Cloudflare",
-      path: siCloudflare.path,
-    },
     { caixa: 24, chave: "vercel", nome: "Vercel", path: siVercel.path },
-    {
-      caixa: 24,
-      chave: "github-actions",
-      nome: "GitHub Actions",
-      path: siGithubactions.path,
-    },
-    { caixa: 24, chave: "stripe", nome: "Stripe", path: siStripe.path },
-    { caixa: 24, chave: "firebase", nome: "Firebase", path: siFirebase.path },
   ],
   [
     { caixa: 24, chave: "react", nome: "React", path: siReact.path },
@@ -104,7 +84,6 @@ const LINHAS: Marca[][] = [
     },
     { caixa: 24, chave: "expo", nome: "Expo", path: siExpo.path },
     { caixa: 24, chave: "flutter", nome: "Flutter", path: siFlutter.path },
-    { caixa: 24, chave: "dart", nome: "Dart", path: siDart.path },
     {
       caixa: 24,
       chave: "tailwind",
@@ -113,24 +92,13 @@ const LINHAS: Marca[][] = [
     },
     { caixa: 24, chave: "shadcn", nome: "shadcn/ui", path: siShadcnui.path },
     { caixa: 24, chave: "three", nome: "Three.js", path: siThreedotjs.path },
-    { caixa: 24, chave: "gsap", nome: "GSAP", path: siGsap.path },
-    { caixa: 24, chave: "zod", nome: "Zod", path: siZod.path },
     {
       caixa: 24,
       chave: "turborepo",
       nome: "Turborepo",
       path: siTurborepo.path,
     },
-    {
-      caixa: 128,
-      chave: "playwright",
-      nome: "Playwright",
-      path: devicon.playwright,
-    },
-    { caixa: 24, chave: "vitest", nome: "Vitest", path: siVitest.path },
-    { caixa: 24, chave: "jest", nome: "Jest", path: siJest.path },
-    { caixa: 24, chave: "python", nome: "Python", path: siPython.path },
-    { caixa: 24, chave: "java", nome: "Java", path: siOpenjdk.path },
+    { caixa: 24, chave: "git", nome: "Git", path: siGit.path },
   ],
 ]
 
@@ -138,7 +106,10 @@ function Faixa({ itens, reversa }: { itens: Marca[]; reversa: boolean }) {
   // A lista vai duas vezes e a animação anda metade: a segunda cópia cai no
   // lugar exato da primeira. Por isso o espaço é padding de cada item, não
   // gap (o gap deixaria meio espaço de diferença e a faixa daria um pulo).
-  const dobrada = [...itens, ...itens]
+  // Lista curta repete dentro da cópia: cada cópia precisa ser mais larga
+  // que a tela (até ~2.600 px), senão sobra espaço vazio no fim da volta.
+  const copia = itens.length < 14 ? [...itens, ...itens] : itens
+  const dobrada = [...copia, ...copia]
 
   return (
     <div className="overflow-hidden mask-x-from-85%">
