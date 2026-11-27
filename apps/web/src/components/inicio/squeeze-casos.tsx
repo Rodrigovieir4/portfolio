@@ -124,8 +124,9 @@ function Setas({
 }
 
 /**
- * Embaixo do painel aberto: o resumo, as setas e o botão para o caso. Só o
- * resumo renasce a cada troca (o fade); as setas ficam, e o foco nelas também.
+ * Embaixo do painel aberto, na largura do título: o resumo, as setas e o
+ * botão para o caso. Só o resumo renasce a cada troca (o fade); as setas
+ * ficam, e o foco nelas também.
  */
 function Descricao({
   anunciar,
@@ -139,7 +140,7 @@ function Descricao({
   setas: ReactNode
 }) {
   return (
-    <div className="mt-8 flex flex-wrap items-start justify-between gap-6 recuo-conteudo">
+    <div className="mx-auto mt-8 flex max-w-7xl flex-wrap items-start justify-between gap-6 px-4 lg:px-8">
       {/* Passando sozinho, não anuncia a cada troca; só quando mexem. */}
       <div aria-live={anunciar ? "polite" : "off"} className="max-w-2xl">
         <p
