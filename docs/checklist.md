@@ -70,6 +70,8 @@ Atualizado em 24/11/2026.
 - [x] Rodrigo aprovou as seções e elas entraram na `main` (27/11)
 - [x] Trajetória vertical, alternando os lados, em ordem do git (27/11)
 - [ ] Rodrigo revisar os textos dos certificados (o que aprendi em cada um)
+- [ ] Rodrigo escolher a animação da busca da stack (?anim=roleta, moeda, tambor,
+      orbita ou foco) e apagar as outras de `busca-animacoes.ts`
 - [ ] Rodrigo confirmar se a DB Store foi freela ou já pela DBC, e atualizar o
       currículo com a DBC desde jul/2026
 

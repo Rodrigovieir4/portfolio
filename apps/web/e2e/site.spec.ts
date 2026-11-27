@@ -81,9 +81,15 @@ test("o certificado abre a janela com o que foi aprendido", async ({
     janela.getByRole("heading", { name: "Modelagem de software" }),
   ).toBeVisible()
   await expect(janela.getByText("O que aprendi")).toBeVisible()
-  await expect(
-    janela.getByRole("link", { name: /Abrir o PDF/ }),
-  ).toHaveAttribute("href", "/certificados/usjt-modelagem-de-software.pdf")
+  // A foto e o botão abrem o PDF.
+  const links = janela.getByRole("link", { name: /Abrir o PDF/ })
+  await expect(links).toHaveCount(2)
+  for (const link of await links.all()) {
+    await expect(link).toHaveAttribute(
+      "href",
+      "/certificados/usjt-modelagem-de-software.pdf",
+    )
+  }
   await page.keyboard.press("Escape")
   await expect(janela).toHaveCount(0)
 })

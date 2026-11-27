@@ -10,6 +10,8 @@ import {
 } from "@portfolio/ui/components/dialog"
 import Image from "next/image"
 
+import { cn } from "@/lib/utils"
+
 export interface Certificado {
   ano: string
   /** Primeira página do PDF, em public/certificados/capas. */
@@ -40,15 +42,26 @@ export interface RotulosCartao {
  */
 function Capa({ item }: { item: Certificado }) {
   return (
-    <span className="relative block aspect-3/4 overflow-hidden rounded-2xl bg-muted sm:aspect-4/3">
+    <span
+      className={cn(
+        "relative block aspect-3/4 overflow-hidden rounded-2xl sm:aspect-4/3",
+        // Só sem foto: com ela, o fundo vazava pelas bordas desfocadas e
+        // desenhava uma bordinha clara nos cantos.
+        !item.capa && "bg-muted",
+      )}
+    >
       {item.capa ? (
-        <Image
-          src={item.capa}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 18rem, 50vw"
-          className="scale-110 object-cover blur-sm transition duration-500 group-hover/card:scale-100 group-hover/card:blur-none group-focus-visible/card:scale-100 group-focus-visible/card:blur-none"
-        />
+        // A foto fica 2 px para dentro: na borda do cartão só há o véu, e a
+        // foto não aparece pela borda suavizada dele como um fio claro.
+        <span className="absolute inset-0.5 overflow-hidden rounded-2xl">
+          <Image
+            src={item.capa}
+            alt=""
+            fill
+            sizes="(min-width: 1024px) 18rem, 50vw"
+            className="scale-110 object-cover blur-sm transition duration-500 group-hover/card:scale-100 group-hover/card:blur-none group-focus-visible/card:scale-100 group-focus-visible/card:blur-none"
+          />
+        </span>
       ) : null}
       <span className="absolute inset-0 flex flex-col justify-end gap-2 bg-linear-to-t from-background via-background/70 to-background/30 p-4 transition duration-500 group-hover/card:opacity-0 group-focus-visible/card:opacity-0 sm:p-5">
         <span className="font-mono text-xs text-muted-foreground">
@@ -76,7 +89,9 @@ function Detalhe({
 }) {
   const meta = [item.emissor, item.data, item.horas ? `${item.horas} h` : ""]
   return (
-    <div className="flex flex-col gap-4 p-6 md:p-8">
+    // No computador a foto dita a altura da janela (h-0 + min-h-full: o texto
+    // não estica a linha da grade); se o texto passar, ele rola.
+    <div className="flex flex-col gap-4 p-6 md:col-span-2 md:h-0 md:min-h-full md:overflow-y-auto md:p-8">
       <p className="font-mono text-xs text-muted-foreground">
         {meta.filter(Boolean).join(" · ")}
       </p>
@@ -138,17 +153,25 @@ export function Cartao({
         >
           <Capa item={item} />
         </DialogTrigger>
-        <DialogContent className="max-h-dvh gap-0 overflow-y-auto p-0 sm:max-w-5xl md:grid-cols-2">
+        <DialogContent className="max-h-dvh gap-0 overflow-y-auto p-0 sm:max-w-6xl md:grid-cols-5">
           {item.capa ? (
-            <div className="relative aspect-4/3 bg-muted md:aspect-auto">
+            // A foto na proporção do certificado, sem faixas; abre o PDF.
+            <a
+              href={item.link ?? item.capa}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={rotulos.abrirPdf}
+              className="block md:col-span-3"
+            >
               <Image
                 src={item.capa}
                 alt={item.nome}
-                fill
-                sizes="(min-width: 768px) 32rem, 100vw"
-                className="object-contain"
+                width={800}
+                height={566}
+                sizes="(min-width: 768px) 42rem, 100vw"
+                className="h-auto w-full"
               />
-            </div>
+            </a>
           ) : null}
           <Detalhe item={item} rotulos={rotulos} />
         </DialogContent>

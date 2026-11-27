@@ -3,7 +3,15 @@
 import type { ReactNode } from "react"
 
 import gsap from "gsap"
-import { useId, useLayoutEffect, useRef, useState } from "react"
+import {
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react"
+
+import { type Animacao, animacaoDoEndereco, ENTRADAS } from "./busca-animacoes"
 
 export interface MarcaBusca {
   /** viewBox do ícone: 24 no Simple Icons, 128 no Devicon. */
@@ -57,12 +65,11 @@ function resumo(
 }
 
 /**
- * Entrada de cinema (pedido do Rodrigo, 27/11): cada achada chega como um
- * foco de câmera, desfocada e grande, e assenta nítida; o ícone gira de lado
- * até ficar de frente. Uma depois da outra. Só anima quando o conjunto muda;
- * quem pede menos movimento vê o resultado direto.
+ * A entrada dos resultados, uma depois da outra, na animação escolhida
+ * (busca-animacoes.ts). Só anima quando o conjunto muda; quem pede menos
+ * movimento vê o resultado direto.
  */
-function useChegada(chaves: string) {
+function useChegada(chaves: string, animacao: Animacao) {
   const lista = useRef<HTMLUListElement>(null)
   useLayoutEffect(() => {
     const itens = [...(lista.current?.children ?? [])]
@@ -70,32 +77,50 @@ function useChegada(chaves: string) {
     if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return
     const tl = gsap.timeline()
     for (const [indice, item] of itens.entries()) {
-      const vez = indice * 0.12
-      tl.fromTo(
-        item,
-        { filter: "blur(16px)", opacity: 0, scale: 1.4, y: 12 },
-        {
-          duration: 1.1,
-          ease: "expo.out",
-          filter: "blur(0px)",
-          opacity: 1,
-          scale: 1,
-          y: 0,
-        },
-        vez,
-      )
-      tl.fromTo(
-        item.querySelector("svg"),
-        { rotateY: 90 },
-        { duration: 0.9, ease: "back.out(1.6)", rotateY: 0 },
-        vez + 0.1,
-      )
+      ENTRADAS[animacao]({ indice, item, tl, total: itens.length })
     }
     return () => {
       tl.kill()
     }
-  }, [chaves])
+  }, [chaves, animacao])
   return lista
+}
+
+const semAviso = () => () => {}
+
+/** Rolo da roleta: outras tecnologias passam até parar no nome certo. */
+function Rolo({ nome, outros }: { nome: string; outros: string[] }) {
+  return (
+    <span className="relative inline-block h-lh overflow-hidden">
+      <span className="sr-only">{nome}</span>
+      <span aria-hidden className="invisible">
+        {nome}
+      </span>
+      <span
+        aria-hidden
+        data-rolo
+        className="absolute inset-x-0 top-0 flex flex-col"
+      >
+        {[...outros, nome].map((texto, indice) => (
+          <span key={indice} className="h-lh whitespace-nowrap">
+            {texto}
+          </span>
+        ))}
+      </span>
+    </span>
+  )
+}
+
+/** Oito nomes de outras tecnologias para o rolo, sempre os mesmos por item. */
+function sorteio(
+  todas: string[],
+  { indice, nome }: { indice: number; nome: string },
+) {
+  const outras = todas.filter((outra) => outra !== nome)
+  return Array.from(
+    { length: 8 },
+    (_, k) => outras[(indice * 5 + k * 7) % outras.length] ?? nome,
+  )
 }
 
 /** As tecnologias achadas, paradas e já na cor da marca. */
@@ -103,12 +128,20 @@ function Resultados({
   achadas,
   rotulos,
   termo,
+  todas,
 }: {
   achadas: MarcaBusca[]
   rotulos: Rotulos
   termo: string
+  /** Todos os nomes, para o rolo da roleta. */
+  todas: string[]
 }) {
-  const lista = useChegada(achadas.map((marca) => marca.chave).join())
+  const animacao = useSyncExternalStore(
+    semAviso,
+    animacaoDoEndereco,
+    () => "foco" as const,
+  )
+  const lista = useChegada(achadas.map((marca) => marca.chave).join(), animacao)
   return (
     <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 overflow-hidden px-4 py-4">
       <p aria-hidden className="font-mono text-xs text-muted-foreground">
@@ -118,7 +151,7 @@ function Resultados({
         ref={lista}
         className="flex flex-wrap justify-center gap-x-10 gap-y-4"
       >
-        {achadas.map((marca) => (
+        {achadas.map((marca, indice) => (
           <li
             key={marca.chave}
             data-marca={marca.chave}
@@ -131,7 +164,14 @@ function Resultados({
             >
               <path d={marca.path} />
             </svg>
-            {marca.nome}
+            {animacao === "roleta" ? (
+              <Rolo
+                nome={marca.nome}
+                outros={sorteio(todas, { indice, nome: marca.nome })}
+              />
+            ) : (
+              marca.nome
+            )}
           </li>
         ))}
       </ul>
@@ -195,7 +235,12 @@ export function BuscaStack({
       <div className="mt-10 min-h-40">
         <div hidden={Boolean(busca)}>{children}</div>
         {busca ? (
-          <Resultados achadas={achadas} rotulos={rotulos} termo={termo} />
+          <Resultados
+            achadas={achadas}
+            rotulos={rotulos}
+            termo={termo}
+            todas={marcas.map((marca) => marca.nome)}
+          />
         ) : null}
       </div>
     </>

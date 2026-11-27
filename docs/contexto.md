@@ -246,8 +246,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     linha de terminal, `❯ grep` e um campo só com sublinhado, embaixo do
     título; com texto, as faixas dão lugar às tecnologias achadas, paradas e
     na cor da marca, com a contagem em mono; Esc ou vazio devolve as faixas.
-    Aceita apelidos (ts, js, rn, ci, postgres), em `busca-stack.tsx`. As
-    achadas entram como um foco de câmera (pedido dele: "mais cinema"):
+    Aceita apelidos (ts, js, rn, ci, postgres), em `busca-stack.tsx`. Ele ainda não gostou da
+    entrada (27/11, "mais cinema", "eles girando"): há cinco opções em
+    `busca-animacoes.ts`, trocadas pelo endereço (`?anim=roleta`, `moeda`,
+    `tambor`, `orbita` e `foco`, a padrão), para ele escolher; escolhida
+    uma, as outras saem. A padrão, foco:
     desfocadas e grandes, assentam nítidas, e o ícone gira de lado até ficar
     de frente, uma depois da outra (GSAP), quando o conjunto muda; sem
     movimento pedido, aparecem direto. O campo tem a largura do texto (mono),
@@ -287,8 +290,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     mexer no conteúdo, que o jogo também usa). O cartão é só a foto, sem borda
     (pedido dele, 27/11): embaçada e escurecida, com o emissor, o ano e o nome
     por cima; no hover ou no foco do teclado a foto desembaça e o texto some.
-    No celular o cartão fica em pé (3:4). O clique abre uma janela
-    (`certificado-cartao.tsx`, Dialog do shadcn): a foto inteira de um lado
+    No celular o cartão fica em pé (3:4). A foto fica 2 px para dentro do
+    cartão: a borda suavizada do véu deixava a foto aparecer como um fio claro
+    nos cantos. O clique abre uma janela (`certificado-cartao.tsx`, Dialog do
+    shadcn): a foto inteira, na proporção do certificado e sem faixas (ela
+    dita a altura da janela; o texto ao lado rola se passar), abre o PDF no
+    clique; do outro lado
     e, do outro, emissor, data e carga horária, um resumo, "O que aprendi" e o
     botão para o PDF. Os textos (`about` e `topics` em
     `certifications.ts`, nos três idiomas) foram escritos pelo agente em
