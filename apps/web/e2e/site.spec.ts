@@ -70,35 +70,43 @@ test("as páginas do site existem nos três idiomas", async ({ page }) => {
   }
 })
 
-test("o cartão do caso no início abre a história completa", async ({
-  page,
-}) => {
-  await page.goto("/pt")
-  const casos = page.locator("#casos")
-  // A faixa do caso abre o painel; o botão embaixo leva à história.
-  await casos.getByRole("button", { name: "Duas pessoas, uma cota" }).click()
-  await casos.getByRole("link", { name: /Ler o caso/ }).click()
-  await expect(page).toHaveURL(/\/pt\/casos\/duas-pessoas-uma-cota$/)
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Duas pessoas, uma cota",
-  )
-  for (const parte of ["Problema", "Decisão", "Resultado"]) {
-    await expect(page.getByRole("heading", { name: parte })).toBeVisible()
-  }
+/*
+ * Os casos passam sozinhos a cada 5 s; com movimento reduzido não passam, e o
+ * caso aberto fica o que o teste escolheu.
+ */
+test.describe("casos parados", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } })
 
-  await page.getByRole("link", { name: /Próximo caso/ }).click()
-  await expect(page).toHaveURL(/\/pt\/casos\/o-webhook-que-respondia-ok$/)
-})
+  test("o cartão do caso no início abre a história completa", async ({
+    page,
+  }) => {
+    await page.goto("/pt")
+    const casos = page.locator("#casos")
+    // A faixa do caso abre o painel; o botão embaixo leva à história.
+    await casos.getByRole("button", { name: "Duas pessoas, uma cota" }).click()
+    await casos.getByRole("link", { name: /Ler o caso/ }).click()
+    await expect(page).toHaveURL(/\/pt\/casos\/duas-pessoas-uma-cota$/)
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Duas pessoas, uma cota",
+    )
+    for (const parte of ["Problema", "Decisão", "Resultado"]) {
+      await expect(page.getByRole("heading", { name: parte })).toBeVisible()
+    }
 
-test("o carrossel dos casos passa com as setas", async ({ page }) => {
-  await page.goto("/pt")
-  const casos = page.locator("#casos")
-  const anterior = casos.getByRole("button", { name: "Caso anterior" })
-  await casos.scrollIntoViewIfNeeded()
-  // No começo não há para onde voltar; depois de avançar, há.
-  await expect(anterior).toBeDisabled()
-  await casos.getByRole("button", { name: "Próximo caso" }).click()
-  await expect(anterior).toBeEnabled()
+    await page.getByRole("link", { name: /Próximo caso/ }).click()
+    await expect(page).toHaveURL(/\/pt\/casos\/o-webhook-que-respondia-ok$/)
+  })
+
+  test("o carrossel dos casos passa com as setas", async ({ page }) => {
+    await page.goto("/pt")
+    const casos = page.locator("#casos")
+    const anterior = casos.getByRole("button", { name: "Caso anterior" })
+    await casos.scrollIntoViewIfNeeded()
+    // No começo não há para onde voltar; depois de avançar, há.
+    await expect(anterior).toBeDisabled()
+    await casos.getByRole("button", { name: "Próximo caso" }).click()
+    await expect(anterior).toBeEnabled()
+  })
 })
 
 test("quem pede menos movimento vê tudo parado e visível", async ({

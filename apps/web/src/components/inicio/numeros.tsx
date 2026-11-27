@@ -21,7 +21,7 @@ export async function Numeros() {
         {itens.map(([valor, legenda], indice) => (
           <div
             key={valor}
-            className="flex flex-col-reverse gap-4 border-b border-border py-8 sm:border-r sm:px-6"
+            className="flex flex-col-reverse justify-end gap-4 border-b border-border py-8 sm:border-r sm:px-6"
           >
             <dt className="font-mono text-sm text-pretty text-muted-foreground">
               {legenda}

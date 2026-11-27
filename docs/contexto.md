@@ -223,7 +223,16 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     nos três idiomas (`inicio.comandos`; saiu o rótulo "Sobre");
   - holofote: luz vinho que segue o mouse nos cartões que são link e acende a
     borda perto do cursor (`holofote` no globals.css, ouvinte em `secoes.ts`);
-  - números reais contam do zero (o leitor de tela ouve só o valor final);
+  - números reais contam do zero (o leitor de tela ouve só o valor final).
+    Desde 27/11 são 8 métricas da carreira, não dos casos (pedido dele: os
+    casos já documentam os números de cada projeto). Levantadas pelo agente em
+    27/11 no git dos 14 repositórios em `D:/workspace` (os três e-mails dele,
+    commits sem merge, por hash): 3.843 commits desde out/2025, 231 dias com
+    commit, 328 migrations e 581 arquivos de teste criados por ele; do
+    conteúdo e do perfil: 6 sistemas no ar, 3 países em produção, 2 apps nas
+    lojas e 12 certificações. Recontar antes de cada atualização do site. O
+    calendário do GitHub não serve: mostra só 42 contribuições, porque o
+    e-mail dos commits de trabalho não está ligado à conta;
   - faixas da stack aceleram e inclinam com a velocidade da rolagem; o hover
     pausa a faixa e acende a tecnologia;
   - trajetória: uma luz vinho corre na ponta da linha e acende cada marco;
@@ -259,7 +268,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
       globals.css; no celular o aberto ocupa quase tudo). Clicar numa faixa
       abre o caso, e o aberto (ou o botão "Ler o caso", embaixo, com o resumo)
       leva à história. Setas em cima, à direita do título, e as do teclado.
-      Sem passagem automática. Sem imagens ainda: o painel aberto mostra o
+      Passa sozinho a cada 5 s (27/11, pedido dele), mas só depois que o
+      carrossel entra na tela; para com o mouse ou o foco em cima e não passa
+      para quem pede menos movimento. Sem imagens ainda: o painel aberto mostra o
       título grande, e os painéis alternam grafite e vinho. A faixa vai de
       ponta a ponta com o respiro das bordas (`recuo-conteudo`). No
       computador, a rolagem dá uma travadinha na seção (`travarCasos`).

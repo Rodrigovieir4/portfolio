@@ -308,10 +308,14 @@
     "numeros": {
       "titulo": "Números reales",
       "itens": [
-        ["3,5 ms", "consultas con RLS, antes 90,7 ms"],
-        ["87", "Lighthouse móvil, antes 49"],
-        ["277", "migrations revisadas en la seguridad de PostgreSQL"],
-        ["182", "pruebas automatizadas con Jest"]
+        ["3.843", "commits desde oct/2025, en 14 repositorios"],
+        ["231", "días con commits en los últimos 14 meses"],
+        ["328", "migrations de base de datos escritas por mí"],
+        ["581", "archivos de pruebas automatizadas creados"],
+        ["6", "sistemas míos en línea hoy"],
+        ["3", "países con un sistema mío en producción"],
+        ["2", "apps publicadas en la App Store y en Google Play"],
+        ["12", "certificaciones"]
       ]
     },
     "stack": {

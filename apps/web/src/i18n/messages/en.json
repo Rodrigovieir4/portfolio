@@ -308,10 +308,14 @@
     "numeros": {
       "titulo": "Real numbers",
       "itens": [
-        ["3.5 ms", "RLS queries, down from 90.7 ms"],
-        ["87", "mobile Lighthouse, up from 49"],
-        ["277", "migrations reviewed in the PostgreSQL security work"],
-        ["182", "automated tests with Jest"]
+        ["3,843", "commits since Oct 2025, across 14 repositories"],
+        ["231", "days with commits in the last 14 months"],
+        ["328", "database migrations I wrote"],
+        ["581", "automated test files created"],
+        ["6", "systems of mine live today"],
+        ["3", "countries running a system of mine in production"],
+        ["2", "apps published on the App Store and Google Play"],
+        ["12", "certifications"]
       ]
     },
     "stack": {

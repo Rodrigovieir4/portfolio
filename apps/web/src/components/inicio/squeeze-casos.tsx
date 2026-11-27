@@ -4,7 +4,7 @@ import type { KeyboardEvent, ReactNode } from "react"
 
 import { Button } from "@portfolio/ui/components/button"
 import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { Link, useRouter } from "@/i18n/navigation"
 import { cn } from "@/lib/utils"
@@ -124,10 +124,19 @@ function Setas({
 }
 
 /** Embaixo do painel aberto: o resumo e o botão para o caso. */
-function Descricao({ caso, ler }: { caso: CasoVitrine; ler: string }) {
+function Descricao({
+  anunciar,
+  caso,
+  ler,
+}: {
+  anunciar: boolean
+  caso: CasoVitrine
+  ler: string
+}) {
   return (
     <div
-      aria-live="polite"
+      // Passando sozinho, não anuncia a cada troca; só quando a pessoa mexe.
+      aria-live={anunciar ? "polite" : "off"}
       className="mt-8 flex animate-in flex-wrap items-start justify-between gap-6 recuo-conteudo duration-500 fade-in"
     >
       <p className="max-w-2xl text-lg text-pretty text-foreground/80">
@@ -142,12 +151,61 @@ function Descricao({ caso, ler }: { caso: CasoVitrine; ler: string }) {
   )
 }
 
+/** As setas do teclado, com o foco num painel, passam de caso. */
+function teclado(aberto: number, ir: (indice: number) => void) {
+  return (evento: KeyboardEvent) => {
+    if (evento.key === "ArrowRight") ir(aberto + 1)
+    else if (evento.key === "ArrowLeft") ir(aberto - 1)
+    else return
+    evento.preventDefault()
+  }
+}
+
+/**
+ * O caso aberto e a passagem sozinha: a cada 5 s abre o próximo (e volta ao
+ * primeiro no fim). Só passa com o carrossel na tela (pedido do Rodrigo:
+ * começa quando a pessoa rola até os casos). Cada troca recomeça a contagem;
+ * `parado` (mouse ou foco em cima) e quem pede menos movimento não têm
+ * passagem.
+ */
+function usePassagem(total: number) {
+  const [aberto, setAberto] = useState(0)
+  const [parado, setParado] = useState(false)
+  const [naTela, setNaTela] = useState(false)
+  const alvo = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const no = alvo.current
+    if (!no) return
+    const olho = new IntersectionObserver(
+      ([entrada]) => setNaTela(entrada?.isIntersecting ?? false),
+      { threshold: 0.5 },
+    )
+    olho.observe(no)
+    return () => olho.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!naTela || parado) return
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const passo = window.setTimeout(
+      () => setAberto((atual) => (atual + 1) % total),
+      5000,
+    )
+    return () => window.clearTimeout(passo)
+  }, [aberto, naTela, parado, total])
+
+  return { aberto, alvo, parado, setAberto, setParado }
+}
+
 /**
  * Casos como o "Squeeze Carousel" (yura, 21st.dev, pedido do Rodrigo em
  * 26/11): um painel largo aberto e os outros espremidos em faixas, que
  * afinam conforme se afastam. Clicar numa faixa abre o caso; o aberto leva à
  * história completa. Setas em cima, à direita, e as do teclado com o foco num
- * painel. Não passa sozinho: só se mexe quando a pessoa mexe.
+ * painel. Passa sozinho a cada 5 s depois que entra na tela (pedido do
+ * Rodrigo), para com o mouse ou o foco em cima e não passa para quem pede
+ * menos movimento.
  */
 export function SqueezeCasos({
   cabecalho,
@@ -159,17 +217,14 @@ export function SqueezeCasos({
   casos: CasoVitrine[]
   rotulos: Rotulos
 }) {
-  const [aberto, setAberto] = useState(0)
+  const { aberto, alvo, parado, setAberto, setParado } = usePassagem(
+    casos.length,
+  )
   const router = useRouter()
   const caso = casos[aberto]
   const ir = (indice: number) =>
     setAberto(Math.min(Math.max(indice, 0), casos.length - 1))
-  const teclas = (evento: KeyboardEvent) => {
-    if (evento.key === "ArrowRight") ir(aberto + 1)
-    else if (evento.key === "ArrowLeft") ir(aberto - 1)
-    else return
-    evento.preventDefault()
-  }
+  const teclas = teclado(aberto, ir)
   const abrir = (indice: number) => {
     const alvo = casos[indice]
     if (indice !== aberto || !alvo) return ir(indice)
@@ -177,7 +232,13 @@ export function SqueezeCasos({
   }
 
   return (
-    <div>
+    <div
+      ref={alvo}
+      onBlur={() => setParado(false)}
+      onFocus={() => setParado(true)}
+      onPointerEnter={() => setParado(true)}
+      onPointerLeave={() => setParado(false)}
+    >
       <div className="mx-auto mb-12 flex max-w-7xl items-end justify-between gap-6 px-4 lg:px-8">
         {cabecalho}
         <Setas aberto={aberto} ir={ir} rotulos={rotulos} total={casos.length} />
@@ -197,7 +258,12 @@ export function SqueezeCasos({
         ))}
       </div>
       {caso ? (
-        <Descricao key={caso.slug} caso={caso} ler={rotulos.ler} />
+        <Descricao
+          key={caso.slug}
+          anunciar={parado}
+          caso={caso}
+          ler={rotulos.ler}
+        />
       ) : null}
     </div>
   )
