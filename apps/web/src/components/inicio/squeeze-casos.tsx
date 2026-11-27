@@ -66,8 +66,9 @@ function Painel({
       >
         {String(indice + 1).padStart(2, "0")}
       </span>
-      {/* Sem imagem nos casos ainda: o painel aberto mostra o título grande.
-          Largura fixa: o texto não se rearruma enquanto o painel cresce. */}
+      {/* Sem imagem nos casos ainda: o painel aberto mostra o título grande
+          e o resumo embaixo dele. Largura fixa: o texto não se rearruma
+          enquanto o painel cresce. */}
       <span
         aria-hidden
         className={cn(
@@ -77,6 +78,9 @@ function Painel({
       >
         <span className="text-2xl font-semibold tracking-tight text-balance md:text-5xl">
           {caso.titulo}
+        </span>
+        <span className="text-sm text-pretty text-foreground/80 md:text-lg">
+          {caso.resumo}
         </span>
         <span className="font-mono text-xs text-foreground/70">
           {caso.stack} · {String(indice + 1).padStart(2, "0")}/
@@ -124,9 +128,9 @@ function Setas({
 }
 
 /**
- * Embaixo do painel aberto, na largura do título: o resumo, as setas e o
- * botão para o caso. Só o resumo renasce a cada troca (o fade); as setas
- * ficam, e o foco nelas também.
+ * Embaixo dos painéis, na largura do título: as setas e o botão para o caso.
+ * O resumo aparece dentro do painel aberto; aqui ele fica só para o leitor de
+ * tela, que não lê o texto do painel.
  */
 function Descricao({
   anunciar,
@@ -140,16 +144,11 @@ function Descricao({
   setas: ReactNode
 }) {
   return (
-    <div className="mx-auto mt-8 flex max-w-7xl flex-wrap items-start justify-between gap-6 px-4 lg:px-8">
+    <div className="mx-auto mt-6 flex max-w-7xl justify-end px-4 lg:px-8">
       {/* Passando sozinho, não anuncia a cada troca; só quando mexem. */}
-      <div aria-live={anunciar ? "polite" : "off"} className="max-w-2xl">
-        <p
-          key={caso.slug}
-          className="animate-in text-lg text-pretty text-foreground/80 duration-500 fade-in"
-        >
-          {caso.resumo}
-        </p>
-      </div>
+      <p aria-live={anunciar ? "polite" : "off"} className="sr-only">
+        {caso.titulo}: {caso.resumo}
+      </p>
       <div className="flex items-center gap-2">
         {setas}
         <Button asChild variant="secondary" size="pilula">
