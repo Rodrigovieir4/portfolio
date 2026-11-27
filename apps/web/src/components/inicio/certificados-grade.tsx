@@ -50,30 +50,33 @@ const FILTRO =
   "h-11 rounded-full border border-border px-4 font-normal text-muted-foreground hover:bg-transparent hover:text-foreground data-[state=on]:bg-primary data-[state=on]:text-primary-foreground lg:h-9"
 
 /**
- * No padrão dos cartões de projeto (pedido do Rodrigo, 27/11): fundo
- * transparente, borda fina, a foto de ponta a ponta em cima e, embaixo, o
- * emissor em mono e o nome em destaque. A foto, decorativa (o nome vem logo
- * abaixo e o link diz o que abre), fica um pouco apagada e acende no hover.
+ * O cartão é só a foto do certificado (pedido do Rodrigo, 27/11): embaçada e
+ * escurecida, com o emissor e o nome por cima. No hover, ou com o foco do
+ * teclado, a foto desembaça e o texto some: aparece o certificado inteiro.
+ * Sem hover (celular), fica embaçada com o texto, e o toque abre o PDF; lá o
+ * cartão fica em pé, para o nome caber.
  */
 function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
+  const revela = item.capa
+    ? "transition duration-500 group-hover/card:opacity-0 group-focus-visible/card:opacity-0"
+    : ""
   const conteudo = (
-    <>
-      <div className="relative aspect-4/3 overflow-hidden rounded-t-2xl border-b border-border bg-muted">
-        {item.capa ? (
-          <Image
-            src={item.capa}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 18rem, 50vw"
-            className="object-cover opacity-80 transition duration-500 group-hover/card:scale-105 group-hover/card:opacity-100"
-          />
-        ) : (
-          <span className="absolute inset-0 grid place-items-center px-2 text-center font-mono text-xs text-muted-foreground">
-            {item.emissor}
-          </span>
+    <div className="relative aspect-3/4 overflow-hidden rounded-2xl bg-muted sm:aspect-4/3">
+      {item.capa ? (
+        <Image
+          src={item.capa}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 18rem, 50vw"
+          className="scale-110 object-cover blur-sm transition duration-500 group-hover/card:scale-100 group-hover/card:blur-none group-focus-visible/card:scale-100 group-focus-visible/card:blur-none"
+        />
+      ) : null}
+      <div
+        className={cn(
+          "absolute inset-0 flex flex-col justify-end gap-2 bg-linear-to-t from-background via-background/70 to-background/30 p-4 sm:p-5",
+          revela,
         )}
-      </div>
-      <div className="flex flex-1 flex-col gap-2 p-4 sm:p-5">
+      >
         <span className="font-mono text-xs text-muted-foreground">
           {item.emissor}
           {item.ano ? ` · ${item.ano}` : ""}
@@ -83,7 +86,7 @@ function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
           {item.link ? " ↗" : ""}
         </span>
       </div>
-    </>
+    </div>
   )
   const classe = "gap-0 bg-transparent p-0"
 

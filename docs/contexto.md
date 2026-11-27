@@ -273,10 +273,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     duas linhas (8 cartões no computador, 4 no celular), com anterior,
     números e próxima; trocar o filtro volta à página 1. Ordem: o inglês,
     a São Judas e a Rocketseat por último (ordenado na seção por categoria, sem
-    mexer no conteúdo, que o jogo também usa). O cartão segue o dos projetos
-    (pedido dele): fundo transparente, borda fina, a foto de ponta a ponta em
-    cima, um pouco apagada e acendendo no hover, e embaixo o emissor em mono
-    e o nome em semibold com ↗;
+    mexer no conteúdo, que o jogo também usa). O cartão é só a foto (pedido
+    dele, 27/11): embaçada e escurecida, com o emissor em mono e o nome em
+    semibold com ↗ por cima; no hover ou no foco do teclado a foto desembaça e
+    o texto some, mostrando o certificado inteiro. No celular, sem hover, o
+    cartão fica em pé (3:4) para o nome caber, e o toque abre o PDF;
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.
     - sobre como cena (26/11, referência: post da echo__builds no Instagram):
