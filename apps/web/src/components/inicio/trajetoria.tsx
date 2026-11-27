@@ -15,19 +15,40 @@ interface Marco {
 }
 
 /**
+ * Linha da grade em que cada marco começa, no computador. Cada um ocupa duas
+ * linhas e o seguinte, do outro lado, começa uma abaixo: os marcos se
+ * encaixam sem se sobrepor, seja qual for a altura do texto. Classes
+ * escritas por extenso para o Tailwind achar.
+ */
+const INICIO = [
+  "md:row-start-1",
+  "md:row-start-2",
+  "md:row-start-3",
+  "md:row-start-4",
+  "md:row-start-5",
+  "md:row-start-6",
+  "md:row-start-7",
+  "md:row-start-8",
+  "md:row-start-9",
+  "md:row-start-10",
+]
+
+/**
  * Um marco. No computador alterna os lados da linha (pares à esquerda,
  * alinhados a ela; ímpares à direita); no celular, todos à direita da linha.
  * O ponto acende em vinho quando a linha passa (com movimento).
  */
-function ItemMarco({ esquerda, marco }: { esquerda: boolean; marco: Marco }) {
+function ItemMarco({ indice, marco }: { indice: number; marco: Marco }) {
+  const esquerda = indice % 2 === 0
   return (
     <li
       data-mov="marco"
       className={cn(
-        "group relative flex flex-col gap-2 pl-10 md:w-1/2",
+        "group relative flex flex-col gap-2 pl-10 md:row-span-2 md:pb-10 md:last:pb-0",
+        INICIO[indice],
         esquerda
-          ? "md:self-start md:pr-12 md:pl-0 md:text-right"
-          : "md:self-end md:pl-12",
+          ? "md:col-start-1 md:pr-12 md:pl-0 md:text-right"
+          : "md:col-start-2 md:pl-12",
       )}
     >
       <span
@@ -82,7 +103,8 @@ function Linha() {
 
 /**
  * Trajetória vertical (pedido do Rodrigo, 27/11): a linha desce com a
- * rolagem e os marcos alternam de lado, em ordem de data
+ * rolagem e os marcos alternam de lado, encaixados uns nos outros, em ordem
+ * de data
  * (`packages/content/src/data/milestones.ts`).
  */
 export async function Trajetoria() {
@@ -119,13 +141,9 @@ export async function Trajetoria() {
       </h2>
       <div className="relative mt-16">
         <Linha />
-        <ol className="relative flex flex-col gap-12 md:gap-6">
+        <ol className="relative flex flex-col gap-10 md:grid md:grid-cols-2 md:gap-0">
           {todos.map((marco, indice) => (
-            <ItemMarco
-              key={marco.id}
-              esquerda={indice % 2 === 0}
-              marco={marco}
-            />
+            <ItemMarco key={marco.id} indice={indice} marco={marco} />
           ))}
         </ol>
       </div>

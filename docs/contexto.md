@@ -249,8 +249,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   - trajetória: uma luz vinho corre na ponta da linha e acende cada marco.
     Desde 27/11 (pedido dele) é vertical em todos os tamanhos: a linha desce
     com a rolagem e os marcos alternam esquerda e direita (no celular, todos à
-    direita da linha). Os 12 marcos saem de `packages/content/src/data/milestones.ts`,
-    em ordem de data. A ordem veio do git, que desempata os dois currículos:
+    direita da linha). Os marcos saem de `packages/content/src/data/milestones.ts`,
+    em ordem de data. Eram 12 e ele achou grande demais (27/11): ficaram 6,
+    um por fase (atleta, ADS, freela, MBA, DB Store, DBC) mais "Hoje", e no
+    computador os marcos se encaixam numa grade de duas colunas, cada um
+    começando na metade do anterior, sem sobrepor. A ordem veio do git, que desempata os dois currículos:
     o e-mail pessoal (freela) vai de out/2025 a jun/2026 (CS2 Cortex,
     DB Connect, Memoreba, a ferramenta de canvas, o começo da DB Store) e o
     primeiro commit com o e-mail da DBC é de 20/07/2026 (Esplêndido). Então a
