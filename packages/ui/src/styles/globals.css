@@ -655,6 +655,12 @@
 [data-parada] {
   animation-play-state: paused !important;
 }
+@media (width < 48rem) {
+  [data-junta] > li {
+    padding-right: 1.25rem;
+    font-size: var(--text-xl);
+  }
+}
 [data-marca="typescript"] {
   --marca: #3178c6;
 }

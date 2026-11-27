@@ -246,8 +246,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     linha de terminal, `❯ grep` e um campo só com sublinhado, embaixo do
     título, com a contagem em mono logo abaixo. Ao digitar, as próprias
     faixas aceleram, desaceleram e param (GSAP no currentTime da animação de
-    CSS, com a faixa marcada `data-parada`); a que tem resultado para com a
-    primeira achada no centro. As achadas acendem na cor da marca
+    CSS, com a faixa marcada `data-parada`). No auge do giro, as achadas se
+    juntam no começo de cada bloco da faixa (CSS `order`, igual em todas as
+    cópias) e a faixa para com o grupo no centro, embaixo da busca (pedido
+    dele, 27/11: "nada fora da tela"). Se o grupo não cabe (celular), ele
+    encosta na margem esquerda; no celular, durante a busca, os itens ficam
+    menores e mais juntos (`data-junta`), e cabem uns dois por faixa. As achadas acendem na cor da marca
     (`data-achada`), as outras ficam cinza. Paradas enquanto houver busca;
     vazio ou Esc, as cores somem e voltam a girar. Aceita apelidos (ts, js,
     rn, ci, postgres), em `busca-stack.tsx`. Antes disso foram testadas e

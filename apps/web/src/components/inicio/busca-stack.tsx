@@ -76,9 +76,38 @@ function posicao(animacao: Animation) {
 }
 
 /**
- * Onde a faixa tem de parar (em pixels andados) para a primeira achada ficar
- * no centro, depois de pelo menos uma volta inteira no sentido em que ela
- * anda. Sem achada nessa faixa, para depois de meia volta.
+ * Quantos itens tem uma lista da faixa: as cópias que fazem o laço repetem
+ * esse bloco (só a primeira é lida pelo leitor de tela).
+ */
+function tamanhoDoBloco(faixa: HTMLElement) {
+  return faixa.querySelectorAll(':scope > li:not([aria-hidden="true"])').length
+}
+
+/**
+ * Junta as achadas no começo de cada bloco (CSS `order`), igual em todas as
+ * cópias para o laço seguir sem emenda; sem busca, volta a ordem original.
+ */
+function arrumar(faixa: HTMLElement, buscando: boolean) {
+  const itens = [...faixa.children] as HTMLElement[]
+  const n = tamanhoDoBloco(faixa) || itens.length
+  const bloco = itens.slice(0, n)
+  const acesa = (item: HTMLElement) => item.dataset.achada === "true"
+  const ordem = [...bloco.filter(acesa), ...bloco.filter((i) => !acesa(i))]
+  const lugar = new Map(ordem.map((item, i) => [item.dataset.marca, i]))
+  for (const [i, item] of itens.entries()) {
+    const novo = Math.floor(i / n) * n + (lugar.get(item.dataset.marca) ?? 0)
+    if (buscando) item.style.setProperty("order", String(novo))
+    else item.style.removeProperty("order")
+  }
+  // No celular, itens menores e mais juntos (globals.css), para caber mais.
+  faixa.toggleAttribute("data-junta", buscando)
+}
+
+/**
+ * Onde a faixa tem de parar (em pixels andados) para o grupo de achadas ficar
+ * no centro, embaixo da busca (ou encostado na margem, se não couber),
+ * depois de pelo menos uma volta no sentido em que ela anda. Sem achada
+ * nessa faixa, para depois de meia volta.
  */
 function alvo(
   faixa: HTMLElement,
@@ -86,12 +115,24 @@ function alvo(
 ) {
   const caixa = faixa.getBoundingClientRect()
   const meio = (faixa.parentElement?.clientWidth ?? 0) / 2
-  const centros = [...faixa.querySelectorAll('[data-achada="true"]')].map(
-    (item) => {
-      const r = item.getBoundingClientRect()
-      return r.left - caixa.left + r.width / 2 - meio
-    },
-  )
+  const n = tamanhoDoBloco(faixa) || 1
+  const grupos = new Map<number, DOMRect[]>()
+  for (const [i, item] of [...faixa.children].entries()) {
+    if ((item as HTMLElement).dataset.achada !== "true") continue
+    const bloco = Math.floor(i / n)
+    grupos.set(bloco, [
+      ...(grupos.get(bloco) ?? []),
+      item.getBoundingClientRect(),
+    ])
+  }
+  const centros = [...grupos.values()].map((rs) => {
+    const esquerda = Math.min(...rs.map((r) => r.left)) - caixa.left
+    const direita = Math.max(...rs.map((r) => r.right)) - caixa.left
+    // Grupo mais largo que a tela (celular): o começo dele encosta na
+    // margem, e aparecem inteiras todas as que couberem.
+    if (direita - esquerda > meio * 2 - 32) return esquerda - 16
+    return (esquerda + direita) / 2 - meio
+  })
   if (centros.length === 0) return agora + (reversa ? -0.5 : 0.5) * copia
   const voltas = centros.map((centro) => {
     const k = reversa
@@ -103,10 +144,11 @@ function alvo(
 }
 
 /**
- * Ao buscar, as faixas aceleram, desaceleram e param; a que tem resultado
- * para com a primeira achada no centro (pedido do Rodrigo, 27/11). Ficam
- * paradas enquanto houver busca e voltam a girar quando ela some. Sem
- * movimento pedido no sistema, as faixas já não andam: só acendem as cores.
+ * Ao buscar, as faixas aceleram; no auge, as achadas se juntam (a troca some
+ * na velocidade); depois desaceleram e param com o grupo no centro, embaixo
+ * da busca (pedido do Rodrigo, 27/11). Ficam paradas enquanto houver busca
+ * e voltam a girar, na ordem original, quando ela some. Sem movimento pedido
+ * no sistema, as faixas já não andam: só acendem as cores.
  */
 function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
   useEffect(() => {
@@ -115,23 +157,38 @@ function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
         []),
     ]
     if (!chaves) {
-      for (const faixa of faixas) faixa.removeAttribute("data-parada")
+      for (const faixa of faixas) {
+        arrumar(faixa, false)
+        faixa.removeAttribute("data-parada")
+      }
       return
     }
     const giros = faixas.flatMap((faixa) => {
       const animacao = faixa.getAnimations()[0]
-      if (!animacao) return []
+      if (!animacao) {
+        arrumar(faixa, true)
+        return []
+      }
       faixa.setAttribute("data-parada", "")
-      const copia = faixa.scrollWidth / 2
+      let copia = faixa.scrollWidth / 2
       const { andou, ir, reversa } = posicao(animacao)
       const estado = { px: andou * copia }
-      const fim = alvo(faixa, { agora: estado.px, copia, reversa })
-      return gsap.to(estado, {
-        duration: 2.6,
-        ease: "power3.inOut",
-        onUpdate: () => ir(estado.px / copia),
-        px: fim,
+      const tl = gsap.timeline({ onUpdate: () => ir(estado.px / copia) })
+      tl.to(estado, {
+        duration: 0.9,
+        ease: "power2.in",
+        px: estado.px + (reversa ? -0.7 : 0.7) * copia,
       })
+      tl.call(() => {
+        arrumar(faixa, true)
+        // A faixa pode ter mudado de largura (celular): mede de novo.
+        const nova = faixa.scrollWidth / 2
+        estado.px = (estado.px / copia) * nova
+        copia = nova
+        const fim = alvo(faixa, { agora: estado.px, copia, reversa })
+        tl.to(estado, { duration: 1.8, ease: "power3.out", px: fim })
+      })
+      return tl
     })
     return () => {
       for (const giro of giros) giro.kill()
