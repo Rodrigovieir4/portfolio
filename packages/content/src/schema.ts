@@ -263,6 +263,12 @@ export const certificationSchema = z.object({
   credentialUrl: z.string().url().optional(),
   file: z.string().optional(),
   category: z.enum(["academico", "idioma", "curso", "cloud", "outro"]),
+  /** Carga horária, como está no certificado. */
+  hours: z.number().int().positive().optional(),
+  /** Uma ou duas frases sobre o curso, para a janela do certificado. */
+  about: localizedString.optional(),
+  /** O que foi aprendido, em itens curtos. */
+  topics: localizedList.optional(),
 })
 
 export const languageSchema = z.object({

@@ -344,7 +344,9 @@
       "anterior": "Página anterior",
       "proxima": "Página siguiente",
       "pagina": "Página",
-      "paginacao": "Páginas de certificados"
+      "paginacao": "Páginas de certificados",
+      "abrirPdf": "Abrir el PDF",
+      "aprendi": "Lo que aprendí"
     },
     "projetos": {
       "titulo": "Proyectos",

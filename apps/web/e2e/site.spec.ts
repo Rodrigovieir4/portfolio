@@ -69,6 +69,25 @@ test("a busca da stack acha pelo nome e por apelido", async ({ page }) => {
   await expect(secao.locator('[data-mov="faixa"]').first()).toBeVisible()
 })
 
+test("o certificado abre a janela com o que foi aprendido", async ({
+  page,
+}) => {
+  await page.goto("/pt")
+  await page
+    .getByRole("button", { name: /Abrir certificado: Modelagem de software/ })
+    .click()
+  const janela = page.getByRole("dialog")
+  await expect(
+    janela.getByRole("heading", { name: "Modelagem de software" }),
+  ).toBeVisible()
+  await expect(janela.getByText("O que aprendi")).toBeVisible()
+  await expect(
+    janela.getByRole("link", { name: /Abrir o PDF/ }),
+  ).toHaveAttribute("href", "/certificados/usjt-modelagem-de-software.pdf")
+  await page.keyboard.press("Escape")
+  await expect(janela).toHaveCount(0)
+})
+
 test("os certificados vêm em páginas de duas linhas", async ({ page }) => {
   await page.goto("/pt")
   const grade = page

@@ -344,7 +344,9 @@
       "anterior": "Previous page",
       "proxima": "Next page",
       "pagina": "Page",
-      "paginacao": "Certificate pages"
+      "paginacao": "Certificate pages",
+      "abrirPdf": "Open the PDF",
+      "aprendi": "What I learned"
     },
     "projetos": {
       "titulo": "Projects",

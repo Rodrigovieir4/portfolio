@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@portfolio/ui/components/button"
-import { Card } from "@portfolio/ui/components/card"
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -9,7 +8,6 @@ import {
 import gsap from "gsap"
 import { Flip } from "gsap/Flip"
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import Image from "next/image"
 import {
   type RefObject,
   useLayoutEffect,
@@ -18,21 +16,13 @@ import {
   useSyncExternalStore,
 } from "react"
 
-import { cn } from "@/lib/utils"
+import {
+  type Certificado,
+  type RotulosCartao,
+  Cartao,
+} from "./certificado-cartao"
 
-export interface Certificado {
-  ano: string
-  categoria: string
-  /** Primeira página do PDF, em public/certificados/capas. */
-  capa: null | string
-  emissor: string
-  id: string
-  link: null | string
-  nome: string
-}
-
-interface Rotulos {
-  abrir: string
+interface Rotulos extends RotulosCartao {
   anterior: string
   categorias: Record<string, string>
   pagina: string
@@ -48,70 +38,6 @@ const TODOS = "todos"
 // Pílula do filtro: contorno discreto; a escolhida fica preenchida.
 const FILTRO =
   "h-11 rounded-full border border-border px-4 font-normal text-muted-foreground hover:bg-transparent hover:text-foreground data-[state=on]:bg-primary data-[state=on]:text-primary-foreground lg:h-9"
-
-/**
- * O cartão é só a foto do certificado (pedido do Rodrigo, 27/11): embaçada e
- * escurecida, com o emissor e o nome por cima. No hover, ou com o foco do
- * teclado, a foto desembaça e o texto some: aparece o certificado inteiro.
- * Sem hover (celular), fica embaçada com o texto, e o toque abre o PDF; lá o
- * cartão fica em pé, para o nome caber.
- */
-function Cartao({ item, abrir }: { abrir: string; item: Certificado }) {
-  const revela = item.capa
-    ? "transition duration-500 group-hover/card:opacity-0 group-focus-visible/card:opacity-0"
-    : ""
-  const conteudo = (
-    <div className="relative aspect-3/4 overflow-hidden rounded-2xl bg-muted sm:aspect-4/3">
-      {item.capa ? (
-        <Image
-          src={item.capa}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 18rem, 50vw"
-          className="scale-110 object-cover blur-sm transition duration-500 group-hover/card:scale-100 group-hover/card:blur-none group-focus-visible/card:scale-100 group-focus-visible/card:blur-none"
-        />
-      ) : null}
-      <div
-        className={cn(
-          "absolute inset-0 flex flex-col justify-end gap-2 bg-linear-to-t from-background via-background/70 to-background/30 p-4 sm:p-5",
-          revela,
-        )}
-      >
-        <span className="font-mono text-xs text-muted-foreground">
-          {item.emissor}
-          {item.ano ? ` · ${item.ano}` : ""}
-        </span>
-        <span className="text-base font-semibold tracking-tight text-pretty sm:text-lg">
-          {item.nome}
-          {item.link ? " ↗" : ""}
-        </span>
-      </div>
-    </div>
-  )
-  const classe = "gap-0 bg-transparent p-0"
-
-  if (!item.link) {
-    return (
-      <Card asChild variant="contorno" className={classe}>
-        <li>{conteudo}</li>
-      </Card>
-    )
-  }
-  return (
-    <li>
-      <Card asChild variant="contorno" className={cn(classe, "h-full")}>
-        <a
-          href={item.link}
-          target="_blank"
-          rel="noreferrer"
-          aria-label={`${abrir}: ${item.nome}`}
-        >
-          {conteudo}
-        </a>
-      </Card>
-    </li>
-  )
-}
 
 gsap.registerPlugin(Flip)
 
@@ -285,7 +211,7 @@ export function CertificadosGrade({
         className="mt-8 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
       >
         {visiveis.map((item) => (
-          <Cartao key={item.id} item={item} abrir={rotulos.abrir} />
+          <Cartao key={item.id} item={item} rotulos={rotulos} />
         ))}
       </ul>
       <Paginacao

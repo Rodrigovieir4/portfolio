@@ -16,6 +16,11 @@ export async function Certificados() {
   const t = await getTranslations("inicio.certificados")
   const c = await getTranslations("inicio.comandos")
   const locale = (await getLocale()) as Locale
+  const mes = new Intl.DateTimeFormat(locale, {
+    month: "long",
+    timeZone: "UTC",
+    year: "numeric",
+  })
   const itens = certifications.map((item) => ({
     ano: item.issued?.slice(0, 4) ?? "",
     // A capa tem o nome do PDF: x.pdf vira capas/x.webp, na mesma pasta.
@@ -24,10 +29,14 @@ export async function Certificados() {
         ?.replace("/certificados/", "/certificados/capas/")
         .replace(/.pdf$/, ".webp") ?? null,
     categoria: item.category,
+    data: item.issued ? mes.format(new Date(`${item.issued}-01`)) : "",
     emissor: item.issuer,
+    horas: item.hours ?? null,
     id: item.id,
     link: item.file ?? item.credentialUrl ?? null,
     nome: traduzir(item.name, locale),
+    sobre: item.about ? traduzir(item.about, locale) : null,
+    topicos: item.topics ? traduzir(item.topics, locale) : [],
   }))
   itens.sort((a, b) => lugar(a.categoria) - lugar(b.categoria))
   const categorias = [...new Set(itens.map((item) => item.categoria))]
@@ -45,7 +54,9 @@ export async function Certificados() {
         itens={itens}
         rotulos={{
           abrir: t("abrir"),
+          abrirPdf: t("abrirPdf"),
           anterior: t("anterior"),
+          aprendi: t("aprendi"),
           categorias: Object.fromEntries(
             categorias.map((c) => [c, t(`categorias.${c}`)]),
           ),

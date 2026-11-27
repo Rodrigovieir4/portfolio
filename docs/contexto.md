@@ -284,11 +284,19 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     duas linhas (8 cartões no computador, 4 no celular), com anterior,
     números e próxima; trocar o filtro volta à página 1. Ordem: o inglês,
     a São Judas e a Rocketseat por último (ordenado na seção por categoria, sem
-    mexer no conteúdo, que o jogo também usa). O cartão é só a foto (pedido
-    dele, 27/11): embaçada e escurecida, com o emissor em mono e o nome em
-    semibold com ↗ por cima; no hover ou no foco do teclado a foto desembaça e
-    o texto some, mostrando o certificado inteiro. No celular, sem hover, o
-    cartão fica em pé (3:4) para o nome caber, e o toque abre o PDF;
+    mexer no conteúdo, que o jogo também usa). O cartão é só a foto, sem borda
+    (pedido dele, 27/11): embaçada e escurecida, com o emissor, o ano e o nome
+    por cima; no hover ou no foco do teclado a foto desembaça e o texto some.
+    No celular o cartão fica em pé (3:4). O clique abre uma janela
+    (`certificado-cartao.tsx`, Dialog do shadcn): a foto inteira de um lado
+    e, do outro, emissor, data e carga horária, um resumo, "O que aprendi" e o
+    botão para o PDF. Os textos (`about` e `topics` em
+    `certifications.ts`, nos três idiomas) foram escritos pelo agente em
+    27/11: a Rocketseat lista os conteúdos no certificado; para a São Judas,
+    as ementas não são públicas, então os textos saem do que o certificado diz
+    (unidade, 160 h, parceria Oracle Academy ou AWS, qualificação), do
+    currículo dele e do conteúdo típico de cada unidade. Precisam da revisão
+    dele;
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho.
     - sobre como cena (26/11, referência: post da echo__builds no Instagram):
