@@ -54,19 +54,23 @@ test("o filtro dos certificados mostra só a categoria escolhida", async ({
   await expect(grade.getByRole("listitem")).toHaveCount(total)
 })
 
-test("a busca da stack acha pelo nome e por apelido", async ({ page }) => {
+test("a busca da stack acende o que acha nas faixas", async ({ page }) => {
   await page.goto("/pt")
   const secao = page.locator("section", {
     has: page.getByRole("heading", { name: "Stack do dia a dia" }),
   })
   const campo = secao.getByRole("textbox", { name: "procurar tecnologia" })
+  // Por apelido: "ts" acha TypeScript.
   await campo.fill("ts")
-  // O que o leitor de tela anuncia; o texto visível é o mesmo.
   await expect(secao.locator("p[aria-live]")).toHaveText("1 na stack")
-  await expect(secao.getByRole("listitem")).toHaveText(["TypeScript"])
-  // Esc limpa a busca e as faixas voltam.
+  const acesas = secao.locator('[data-achada="true"]')
+  await expect(acesas.first()).toHaveText("TypeScript")
+  const paradas = secao.locator('[data-mov="faixa"][data-parada]')
+  await expect(paradas).toHaveCount(2)
+  // Esc limpa a busca: as cores somem e as faixas voltam a girar.
   await campo.press("Escape")
-  await expect(secao.locator('[data-mov="faixa"]').first()).toBeVisible()
+  await expect(acesas).toHaveCount(0)
+  await expect(secao.locator("[data-parada]")).toHaveCount(0)
 })
 
 test("o certificado abre a janela com o que foi aprendido", async ({

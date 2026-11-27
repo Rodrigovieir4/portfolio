@@ -244,17 +244,17 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     ao lado (Simple Icons; AWS e Playwright do Devicon, em
     `marcas-devicon.json`). Busca (pedido dele, 27/11, "muito clean"): uma
     linha de terminal, `❯ grep` e um campo só com sublinhado, embaixo do
-    título; com texto, as faixas dão lugar às tecnologias achadas, paradas e
-    na cor da marca, com a contagem em mono; Esc ou vazio devolve as faixas.
-    Aceita apelidos (ts, js, rn, ci, postgres), em `busca-stack.tsx`. Ele ainda não gostou da
-    entrada (27/11, "mais cinema", "eles girando"): há cinco opções em
-    `busca-animacoes.ts`, trocadas pelo endereço (`?anim=roleta`, `moeda`,
-    `tambor`, `orbita` e `foco`, a padrão), para ele escolher; escolhida
-    uma, as outras saem. A padrão, foco:
-    desfocadas e grandes, assentam nítidas, e o ícone gira de lado até ficar
-    de frente, uma depois da outra (GSAP), quando o conjunto muda; sem
-    movimento pedido, aparecem direto. O campo tem a largura do texto (mono),
-    então o conjunto fica centrado, e o placeholder é bem apagado e a cor da marca no hover (`[data-marca]` no
+    título, com a contagem em mono logo abaixo. Ao digitar, as próprias
+    faixas aceleram, desaceleram e param (GSAP no currentTime da animação de
+    CSS, com a faixa marcada `data-parada`); a que tem resultado para com a
+    primeira achada no centro. As achadas acendem na cor da marca
+    (`data-achada`), as outras ficam cinza. Paradas enquanto houver busca;
+    vazio ou Esc, as cores somem e voltam a girar. Aceita apelidos (ts, js,
+    rn, ci, postgres), em `busca-stack.tsx`. Antes disso foram testadas e
+    descartadas: lista separada de resultados chegando rolando, foco de
+    câmera, roleta, moeda, tambor e órbita. O campo tem a largura do texto
+    (mono), então o conjunto fica centrado, e o placeholder é bem apagado.
+    No hover, cada tecnologia acende na cor da marca (`[data-marca]` no
     globals.css; marcas pretas usam a cor clara do tema). O laço não tem
     emenda: o espaço entre os itens é padding, não gap, e a animação anda
     exatamente uma cópia;

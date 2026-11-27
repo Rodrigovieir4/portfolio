@@ -645,6 +645,16 @@
 @utility cor-marca {
   color: var(--marca);
 }
+/*
+ * Busca da stack (busca-stack.tsx): a achada acende na cor da marca, e a
+ * faixa parada deixa o GSAP pôr a animação no ponto (currentTime) sem andar.
+ */
+[data-achada="true"] {
+  color: var(--marca);
+}
+[data-parada] {
+  animation-play-state: paused !important;
+}
 [data-marca="typescript"] {
   --marca: #3178c6;
 }

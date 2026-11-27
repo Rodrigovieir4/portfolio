@@ -1,17 +1,9 @@
 "use client"
 
-import type { ReactNode } from "react"
+import type { ReactNode, RefObject } from "react"
 
 import gsap from "gsap"
-import {
-  useId,
-  useLayoutEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react"
-
-import { type Animacao, animacaoDoEndereco, ENTRADAS } from "./busca-animacoes"
+import { useEffect, useId, useRef, useState } from "react"
 
 export interface MarcaBusca {
   /** viewBox do ícone: 24 no Simple Icons, 128 no Devicon. */
@@ -64,126 +56,106 @@ function resumo(
     : `${rotulos.nada} "${termo}"`
 }
 
+/** Quanto a faixa andou, de 0 a 1 de uma cópia, e como pôr ela num ponto. */
+function posicao(animacao: Animation) {
+  const duracao = Number(animacao.effect?.getTiming().duration) || 1
+  const reversa = animacao.effect?.getTiming().direction === "reverse"
+  const agora = Number(animacao.currentTime) || 0
+  const volta = Math.floor(agora / duracao) * duracao
+  const andou = (agora % duracao) / duracao
+  return {
+    andou: reversa ? 1 - andou : andou,
+    ir: (fracao: number) => {
+      const resto = ((fracao % 1) + 1) % 1
+      Object.assign(animacao, {
+        currentTime: volta + (reversa ? 1 - resto : resto) * duracao,
+      })
+    },
+    reversa,
+  }
+}
+
 /**
- * A entrada dos resultados, uma depois da outra, na animação escolhida
- * (busca-animacoes.ts). Só anima quando o conjunto muda; quem pede menos
- * movimento vê o resultado direto.
+ * Onde a faixa tem de parar (em pixels andados) para a primeira achada ficar
+ * no centro, depois de pelo menos uma volta inteira no sentido em que ela
+ * anda. Sem achada nessa faixa, para depois de meia volta.
  */
-function useChegada(chaves: string, animacao: Animacao) {
-  const lista = useRef<HTMLUListElement>(null)
-  useLayoutEffect(() => {
-    const itens = [...(lista.current?.children ?? [])]
-    if (itens.length === 0) return
-    if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return
-    const tl = gsap.timeline()
-    for (const [indice, item] of itens.entries()) {
-      ENTRADAS[animacao]({ indice, item, tl, total: itens.length })
-    }
-    return () => {
-      tl.kill()
-    }
-  }, [chaves, animacao])
-  return lista
-}
-
-const semAviso = () => () => {}
-
-/** Rolo da roleta: outras tecnologias passam até parar no nome certo. */
-function Rolo({ nome, outros }: { nome: string; outros: string[] }) {
-  return (
-    <span className="relative inline-block h-lh overflow-hidden">
-      <span className="sr-only">{nome}</span>
-      <span aria-hidden className="invisible">
-        {nome}
-      </span>
-      <span
-        aria-hidden
-        data-rolo
-        className="absolute inset-x-0 top-0 flex flex-col"
-      >
-        {[...outros, nome].map((texto, indice) => (
-          <span key={indice} className="h-lh whitespace-nowrap">
-            {texto}
-          </span>
-        ))}
-      </span>
-    </span>
-  )
-}
-
-/** Oito nomes de outras tecnologias para o rolo, sempre os mesmos por item. */
-function sorteio(
-  todas: string[],
-  { indice, nome }: { indice: number; nome: string },
+function alvo(
+  faixa: HTMLElement,
+  { agora, copia, reversa }: { agora: number; copia: number; reversa: boolean },
 ) {
-  const outras = todas.filter((outra) => outra !== nome)
-  return Array.from(
-    { length: 8 },
-    (_, k) => outras[(indice * 5 + k * 7) % outras.length] ?? nome,
+  const caixa = faixa.getBoundingClientRect()
+  const meio = (faixa.parentElement?.clientWidth ?? 0) / 2
+  const centros = [...faixa.querySelectorAll('[data-achada="true"]')].map(
+    (item) => {
+      const r = item.getBoundingClientRect()
+      return r.left - caixa.left + r.width / 2 - meio
+    },
   )
+  if (centros.length === 0) return agora + (reversa ? -0.5 : 0.5) * copia
+  const voltas = centros.map((centro) => {
+    const k = reversa
+      ? Math.floor((agora - copia - centro) / copia)
+      : Math.ceil((agora + copia - centro) / copia)
+    return centro + k * copia
+  })
+  return reversa ? Math.max(...voltas) : Math.min(...voltas)
 }
 
-/** As tecnologias achadas, paradas e já na cor da marca. */
-function Resultados({
-  achadas,
-  rotulos,
-  termo,
-  todas,
-}: {
-  achadas: MarcaBusca[]
-  rotulos: Rotulos
-  termo: string
-  /** Todos os nomes, para o rolo da roleta. */
-  todas: string[]
-}) {
-  const animacao = useSyncExternalStore(
-    semAviso,
-    animacaoDoEndereco,
-    () => "foco" as const,
-  )
-  const lista = useChegada(achadas.map((marca) => marca.chave).join(), animacao)
-  return (
-    <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 overflow-hidden px-4 py-4">
-      <p aria-hidden className="font-mono text-xs text-muted-foreground">
-        {resumo(achadas.length, { rotulos, termo })}
-      </p>
-      <ul
-        ref={lista}
-        className="flex flex-wrap justify-center gap-x-10 gap-y-4"
-      >
-        {achadas.map((marca, indice) => (
-          <li
-            key={marca.chave}
-            data-marca={marca.chave}
-            className="flex items-center gap-3 text-2xl font-medium cor-marca md:text-3xl"
-          >
-            <svg
-              aria-hidden
-              viewBox={`0 0 ${marca.caixa} ${marca.caixa}`}
-              className="size-6 shrink-0 fill-current md:size-8"
-            >
-              <path d={marca.path} />
-            </svg>
-            {animacao === "roleta" ? (
-              <Rolo
-                nome={marca.nome}
-                outros={sorteio(todas, { indice, nome: marca.nome })}
-              />
-            ) : (
-              marca.nome
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+/**
+ * Ao buscar, as faixas aceleram, desaceleram e param; a que tem resultado
+ * para com a primeira achada no centro (pedido do Rodrigo, 27/11). Ficam
+ * paradas enquanto houver busca e voltam a girar quando ela some. Sem
+ * movimento pedido no sistema, as faixas já não andam: só acendem as cores.
+ */
+function useGiro(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
+  useEffect(() => {
+    const faixas = [
+      ...(caixa.current?.querySelectorAll<HTMLElement>('[data-mov="faixa"]') ??
+        []),
+    ]
+    if (!chaves) {
+      for (const faixa of faixas) faixa.removeAttribute("data-parada")
+      return
+    }
+    const giros = faixas.flatMap((faixa) => {
+      const animacao = faixa.getAnimations()[0]
+      if (!animacao) return []
+      faixa.setAttribute("data-parada", "")
+      const copia = faixa.scrollWidth / 2
+      const { andou, ir, reversa } = posicao(animacao)
+      const estado = { px: andou * copia }
+      const fim = alvo(faixa, { agora: estado.px, copia, reversa })
+      return gsap.to(estado, {
+        duration: 2.6,
+        ease: "power3.inOut",
+        onUpdate: () => ir(estado.px / copia),
+        px: fim,
+      })
+    })
+    return () => {
+      for (const giro of giros) giro.kill()
+    }
+  }, [caixa, chaves])
+}
+
+/** Acende as achadas em todas as cópias das faixas, antes do giro medir. */
+function useAcesas(caixa: RefObject<HTMLDivElement | null>, chaves: string) {
+  useEffect(() => {
+    const nomes = new Set(chaves.split(","))
+    for (const item of caixa.current?.querySelectorAll<HTMLElement>(
+      "[data-marca]",
+    ) ?? []) {
+      item.dataset.achada = String(nomes.has(item.dataset.marca ?? ""))
+    }
+  }, [caixa, chaves])
 }
 
 /**
  * Busca da stack (pedido do Rodrigo, 27/11: "muito clean, muito
  * minimalista"): uma linha de terminal, `❯ grep` e um campo só com
- * sublinhado. Com texto, as faixas dão lugar às tecnologias achadas; vazio
- * (ou Esc), as faixas voltam. As faixas seguem montadas, só escondidas.
+ * sublinhado. As achadas acendem na cor da marca nas próprias faixas, que
+ * giram até parar nelas; vazio (ou Esc), as cores somem e as faixas voltam.
  */
 export function BuscaStack({
   children,
@@ -197,8 +169,13 @@ export function BuscaStack({
 }) {
   const [termo, setTermo] = useState("")
   const id = useId()
+  const caixa = useRef<HTMLDivElement>(null)
   const busca = normalizar(termo)
   const achadas = busca ? marcas.filter((marca) => bate(marca, busca)) : []
+  const chaves = busca ? achadas.map((marca) => marca.chave).join() || "-" : ""
+
+  useAcesas(caixa, chaves)
+  useGiro(caixa, chaves)
 
   return (
     <>
@@ -227,21 +204,15 @@ export function BuscaStack({
           className="min-w-0 bg-transparent text-foreground outline-none placeholder:text-muted-foreground/35"
         />
       </label>
-      {/* Mesma altura com ou sem busca: a página não pula ao digitar. */}
-      {/* O leitor de tela ouve só a contagem, não a lista a cada letra. */}
-      <p aria-live="polite" className="sr-only">
+      {/* A contagem, visível e lida pelo leitor de tela, sem a lista. */}
+      <p
+        aria-live="polite"
+        className="mt-3 h-4 text-center font-mono text-xs text-muted-foreground"
+      >
         {busca ? resumo(achadas.length, { rotulos, termo }) : ""}
       </p>
-      <div className="mt-10 min-h-40">
-        <div hidden={Boolean(busca)}>{children}</div>
-        {busca ? (
-          <Resultados
-            achadas={achadas}
-            rotulos={rotulos}
-            termo={termo}
-            todas={marcas.map((marca) => marca.nome)}
-          />
-        ) : null}
+      <div ref={caixa} className="mt-6">
+        {children}
       </div>
     </>
   )
