@@ -370,9 +370,24 @@ function linhaDoTempo() {
   const marcos = todos("marco")
   if (!linha?.parentElement) return
 
+  // A linha (e a ponta) termina no ponto do último marco, não no fim da caixa:
+  // a caixa vai até o marco mais comprido, que nem sempre é o último.
+  const ponto = (marco: HTMLElement) => {
+    const bolinha = marco.querySelector("span")
+    return (
+      marco.offsetTop +
+      (bolinha ? bolinha.offsetTop + bolinha.offsetHeight / 2 : 0)
+    )
+  }
+  const ultimo = marcos.at(-1)
+  const fim = () => (ultimo ? ponto(ultimo) : linha.offsetHeight)
   // Onde cada marco fica ao longo da linha, de 0 a 1, pela posição real.
-  const caixa = linha.parentElement
-  const posicoes = marcos.map((marco) => marco.offsetTop / caixa.offsetHeight)
+  let posicoes: number[] = []
+  const medir = () => {
+    gsap.set(linha, { height: fim() })
+    posicoes = marcos.map((marco) => ponto(marco) / fim())
+  }
+  medir()
   const acender = (progresso: number) => {
     for (const [indice, marco] of marcos.entries()) {
       marco.dataset.passou = String(progresso >= (posicoes[indice] ?? 0))
@@ -384,6 +399,8 @@ function linhaDoTempo() {
     onUpdate: () => acender(tl.progress()),
     scrollTrigger: {
       end: "bottom 70%",
+      invalidateOnRefresh: true,
+      onRefresh: medir,
       scrub: 0.6,
       start: "top 80%",
       trigger: linha.parentElement,
@@ -408,7 +425,7 @@ function linhaDoTempo() {
     tl.fromTo(
       ponta,
       { top: "0%" },
-      { duration: 1, ease: "none", top: "100%" },
+      { duration: 1, ease: "none", top: () => fim() },
       0,
     )
   }
