@@ -90,22 +90,25 @@ function Detalhe({
   const meta = [item.emissor, item.data, item.horas ? `${item.horas} h` : ""]
   return (
     // De 1280 px para cima a foto dita a altura da janela (h-0 + min-h-full:
-    // o texto não estica a linha da grade). Abaixo disso, foto e texto se
-    // empilham: a coluna de texto ficaria estreita e rolaria.
-    <div className="flex flex-col gap-3 p-6 xl:col-span-2 xl:h-0 xl:min-h-full xl:overflow-y-auto">
-      <p className="font-mono text-xs text-muted-foreground">
-        {meta.filter(Boolean).join(" · ")}
-      </p>
-      <DialogTitle className="text-2xl leading-tight font-semibold tracking-tight text-balance">
-        {item.nome}
-      </DialogTitle>
-      {item.sobre ? (
-        <DialogDescription className="text-sm leading-relaxed text-pretty text-muted-foreground">
-          {item.sobre}
-        </DialogDescription>
-      ) : null}
+    // o texto não estica a linha da grade). Três blocos repartem a altura:
+    // o topo, "O que aprendi" e o botão no rodapé, alinhado ao fim da foto.
+    // Abaixo de 1280 px, foto e texto se empilham.
+    <div className="flex flex-col justify-between gap-4 p-6 xl:col-span-2 xl:h-0 xl:min-h-full xl:overflow-y-auto">
+      <div className="flex flex-col gap-3">
+        <p className="font-mono text-xs text-muted-foreground">
+          {meta.filter(Boolean).join(" · ")}
+        </p>
+        <DialogTitle className="text-2xl leading-tight font-semibold tracking-tight text-balance">
+          {item.nome}
+        </DialogTitle>
+        {item.sobre ? (
+          <DialogDescription className="text-sm leading-relaxed text-pretty text-muted-foreground">
+            {item.sobre}
+          </DialogDescription>
+        ) : null}
+      </div>
       {item.topicos.length > 0 ? (
-        <div className="mt-1 flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
           <h3 className="font-mono text-xs text-vinho-claro uppercase">
             {rotulos.aprendi}
           </h3>
@@ -122,12 +125,7 @@ function Detalhe({
         </div>
       ) : null}
       {item.link ? (
-        <Button
-          asChild
-          variant="vinho"
-          size="pilula"
-          className="mt-2 self-start"
-        >
+        <Button asChild variant="vinho" size="pilula" className="self-start">
           <a href={item.link} target="_blank" rel="noreferrer">
             {rotulos.abrirPdf} ↗
           </a>

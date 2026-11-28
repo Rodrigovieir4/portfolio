@@ -303,7 +303,9 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     shadcn): a foto inteira, na proporção do certificado e sem faixas, abre o
     PDF no clique. De 1280 px para cima a foto fica ao lado e dita a altura
     da janela, com o texto compacto para nenhum certificado rolar (medido nos
-    12, de 1280x577 a 1920); abaixo disso, foto e texto se empilham. Do outro
+    12, de 1280x577 a 1920) e repartido em três blocos que preenchem a
+    altura (topo, "O que aprendi" e o botão no rodapé, alinhado ao fim da
+    foto); abaixo disso, foto e texto se empilham. Do outro
     lado
     e, do outro, emissor, data e carga horária, um resumo, "O que aprendi" e o
     botão para o PDF. Os textos (`about` e `topics` em
