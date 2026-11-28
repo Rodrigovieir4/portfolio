@@ -466,6 +466,9 @@
   },
   "rodape": {
     "navegar": "Navegar",
-    "contato": "Contato"
+    "contato": "Contato",
+    "jogar": "Jogar o portfólio",
+    "copiar": "Copiar e-mail",
+    "copiado": "Copiado"
   }
 }

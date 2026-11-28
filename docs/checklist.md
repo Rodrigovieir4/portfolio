@@ -74,6 +74,8 @@ Atualizado em 24/11/2026.
 - [x] Contato em lista e rodapé novo (27/11)
 - [ ] Rodrigo escolher a animação do "Vamos" (?titulo=refletor, troca, holofote, neon
       ou reflexo) e apagar as outras
+- [ ] Rodrigo escolher o canto do rodapé (?rodape=jogo, copiar, comando ou cv)
+      e apagar as outras
 - [ ] Fotos do CS2 Cortex, DB Store, DB Connect e Memoreba para os cartões de
       projeto (o Rodrigo manda as capturas ou autoriza capturar)
 - [ ] Rodrigo confirmar se a DB Store foi freela ou já pela DBC, e atualizar o

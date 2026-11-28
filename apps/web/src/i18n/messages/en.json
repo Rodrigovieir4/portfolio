@@ -466,6 +466,9 @@
   },
   "rodape": {
     "navegar": "Browse",
-    "contato": "Contact"
+    "contato": "Contact",
+    "jogar": "Play the portfolio",
+    "copiar": "Copy email",
+    "copiado": "Copied"
   }
 }
