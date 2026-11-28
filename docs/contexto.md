@@ -319,9 +319,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     mouse no bloco vinho. Refeito em 27/11 (ele achou "fraquinho"): título em
     duas linhas, "Vamos" cheio e "conversar." em contorno claro, como o
     "SOBRE / MIM"; selo "Disponível para vagas e projetos" com o ponto
-    pulsando; fundo de pontos; uma faixa gigante em contorno rolando no pé do
-    bloco; e os canais (e-mail, LinkedIn, GitHub; sem telefone) numa linha
-    embaixo, com seta no hover.
+    pulsando; uma faixa gigante em contorno rolando no pé do bloco. Ajustes
+    de 27/11 (pedido dele): os botões não seguem mais o mouse (ele achou
+    ruim); os canais viraram blocos clicáveis com ícone e a cor do canal no
+    hover: WhatsApp, e-mail, LinkedIn e GitHub. O WhatsApp (com o telefone)
+    entrou porque ele pediu, revendo a regra de não pôr o telefone no site.
+    O fundo do bloco tem cinco opções para ele escolher pelo endereço
+    (`fundo-contato.tsx`: `?fundo=vinho`, a padrão, `grafite`, `aurora`,
+    `grade` e `vidro`); ele achou o vinho cheio "maciço".
   - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
     CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
     cada cartão são fotos do projeto passando em fade (`gallery` no

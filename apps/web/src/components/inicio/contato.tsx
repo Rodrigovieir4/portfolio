@@ -1,20 +1,38 @@
 import { type Locale, profile, t as traduzir } from "@portfolio/content"
-import { Magnetic, StatusDot } from "@portfolio/ui"
+import {
+  GithubIcon,
+  LinkedinIcon,
+  StatusDot,
+  WhatsappIcon,
+} from "@portfolio/ui"
 import { Button } from "@portfolio/ui/components/button"
+import { Mail } from "lucide-react"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { Comando } from "./comando"
+import { FundoContato } from "./fundo-contato"
 
 const LINKEDIN = profile.socials.find((s) => s.platform === "linkedin")
 
-/** Os canais embaixo do bloco. Sem telefone: ele não vai para o site. */
-const CANAIS = profile.socials.filter((s) =>
-  ["email", "linkedin", "github"].includes(s.platform),
+/**
+ * Todos os canais, fáceis de achar (pedido do Rodrigo, 27/11, que pediu
+ * também o WhatsApp no site).
+ */
+const ORDEM_CANAIS = ["whatsapp", "email", "linkedin", "github"]
+const CANAIS = ORDEM_CANAIS.flatMap(
+  (nome) => profile.socials.find((s) => s.platform === nome) ?? [],
 )
 const NOME_CANAL: Record<string, string> = {
   email: "E-mail",
   github: "GitHub",
   linkedin: "LinkedIn",
+  whatsapp: "WhatsApp",
+}
+const ICONE_CANAL: Record<string, React.ReactNode> = {
+  email: <Mail className="size-5" />,
+  github: <GithubIcon className="size-5" />,
+  linkedin: <LinkedinIcon className="size-5" />,
+  whatsapp: <WhatsappIcon className="size-5" />,
 }
 
 /**
@@ -42,28 +60,37 @@ function FaixaFundo({ texto }: { texto: string }) {
   )
 }
 
-/** E-mail, LinkedIn e GitHub, numa linha no pé do bloco. */
+/**
+ * Os canais em blocos clicáveis, cada um com o ícone, o nome e o contato; no
+ * hover, o ícone e a borda ganham a cor do canal.
+ */
 function Canais() {
   return (
-    <ul className="grid gap-4 border-t border-foreground/20 pt-6 sm:grid-cols-3">
+    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
       {CANAIS.map((canal) => (
-        <li key={canal.platform}>
+        <li key={canal.platform} data-marca={canal.platform}>
           <a
             href={canal.url}
             target={canal.platform === "email" ? undefined : "_blank"}
             rel="noreferrer"
-            className="group flex flex-col gap-1"
+            className="group flex h-full items-center gap-3 rounded-2xl border border-foreground/15 bg-background/30 p-4 transition-colors duration-300 hover:border-foreground/40"
           >
-            <span className="font-mono text-xs text-foreground/60 uppercase">
-              {NOME_CANAL[canal.platform]}
+            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-foreground/10 transition-colors duration-300 group-hover:cor-marca">
+              {ICONE_CANAL[canal.platform]}
             </span>
-            <span className="flex items-center gap-2 text-sm break-all md:text-base">
-              {canal.handle}
-              <span
-                aria-hidden
-                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-              >
-                ↗
+            <span className="flex min-w-0 flex-col">
+              <span className="font-mono text-xs text-foreground/60 uppercase">
+                {NOME_CANAL[canal.platform]}
+              </span>
+              <span className="text-sm">
+                {/* O e-mail, se não couber, quebra depois do @. */}
+                {(canal.handle ?? "").split("@").map((parte, i) => (
+                  <span key={parte}>
+                    {i > 0 ? "@" : null}
+                    {parte}
+                    {i === 0 && canal.platform === "email" ? <wbr /> : null}
+                  </span>
+                ))}
               </span>
             </span>
           </a>
@@ -73,7 +100,7 @@ function Canais() {
   )
 }
 
-/** Falar comigo e baixar o currículo, com o ímã do resto do site. */
+/** Falar comigo e baixar o currículo; os botões ficam parados (pedido dele). */
 function Botoes({
   curriculo,
   falar,
@@ -85,31 +112,28 @@ function Botoes({
 }) {
   return (
     <div className="relative flex flex-wrap gap-4">
-      <Magnetic strength={0.2}>
-        <Button asChild size="cta-lg">
-          <a
-            href={LINKEDIN?.url ?? `mailto:${profile.email}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {falar}
-          </a>
-        </Button>
-      </Magnetic>
-      <Magnetic strength={0.2}>
-        <Button asChild variant="contorno" size="cta-lg">
-          <a href={traduzir(profile.resumeUrl, locale)} download>
-            {curriculo}
-          </a>
-        </Button>
-      </Magnetic>
+      <Button asChild size="cta-lg">
+        <a
+          href={LINKEDIN?.url ?? `mailto:${profile.email}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {falar}
+        </a>
+      </Button>
+      <Button asChild variant="contorno" size="cta-lg">
+        <a href={traduzir(profile.resumeUrl, locale)} download>
+          {curriculo}
+        </a>
+      </Button>
     </div>
   )
 }
 
 /**
- * O CTA do fim (pedido do Rodrigo, 27/11: estava "fraquinho"). O bloco vinho
- * cresce com a rolagem (movimento.tsx), a luz clara segue o mouse e, atrás,
+ * O CTA do fim (pedido do Rodrigo, 27/11: estava "fraquinho"). O bloco
+ * cresce com a rolagem (movimento.tsx), o fundo vem de fundo-contato.tsx, a
+ * luz clara segue o mouse e, atrás,
  * corre uma faixa gigante em contorno. O título vem em duas linhas, a
  * primeira cheia e a segunda em contorno, como o "SOBRE / MIM", e sobe letra
  * por letra (secoes.ts).
@@ -125,12 +149,9 @@ export async function Contato() {
       <div
         data-mov="contato"
         data-holofote
-        className="holofote relative flex flex-col gap-8 overflow-hidden rounded-3xl bloco-vinho px-6 py-16 holofote-claro md:px-12 md:py-20"
+        className="holofote relative flex flex-col gap-8 overflow-hidden rounded-3xl px-6 py-16 holofote-claro md:px-12 md:py-20"
       >
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 fundo-pontos opacity-40"
-        />
+        <FundoContato />
         <FaixaFundo texto={t("titulo").replace(/[.!]$/, "")} />
         <div className="relative flex flex-wrap items-center justify-between gap-4">
           <Comando
