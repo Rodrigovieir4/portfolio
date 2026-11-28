@@ -449,6 +449,19 @@
   initial-value: 46%;
 }
 
+/* A luz dentro do "conversar." do contato (titulo-luz.tsx), animável. */
+@property --conversa-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --conversa-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
 @utility texto-nome {
   font-size: 17.5vw;
 
@@ -619,6 +632,84 @@
   -webkit-text-stroke: 1px
     color-mix(in oklch, var(--color-foreground) 24%, transparent);
   color: transparent;
+}
+
+/*
+ * Luz dentro do "conversar." vazado do contato (titulo-luz.tsx): uma cópia
+ * da palavra preenchida só por uma luz radial, que vaza num brilho vinho. Ao
+ * aparecer, acende piscando, como um projetor; depois varre a palavra
+ * devagar. Com o mouse (data-mirando), segue o cursor. Sem movimento pedido,
+ * fica acesa e parada no meio.
+ */
+@keyframes acender-conversa {
+  0% {
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.85;
+  }
+  12% {
+    opacity: 0.1;
+  }
+  22% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.35;
+  }
+  45%,
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes varrer-conversa {
+  from {
+    --conversa-x: 8%;
+    --conversa-y: 35%;
+  }
+  to {
+    --conversa-x: 92%;
+    --conversa-y: 65%;
+  }
+}
+
+@utility luz-conversa {
+  background-image: radial-gradient(
+    circle 22vmax at var(--conversa-x) var(--conversa-y),
+    var(--color-foreground),
+    var(--color-vinho-claro) 30%,
+    transparent 70%
+  );
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(
+      0 0 18px color-mix(in oklch, var(--color-vinho-claro) 70%, transparent)
+    )
+    drop-shadow(
+      0 0 48px color-mix(in oklch, var(--color-vinho) 60%, transparent)
+    );
+  opacity: 0;
+  transition:
+    --conversa-x 0.35s ease-out,
+    --conversa-y 0.35s ease-out;
+
+  [data-aceso] & {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    [data-aceso] & {
+      animation:
+        acender-conversa 1.6s ease-out both,
+        varrer-conversa 7s ease-in-out 1.6s infinite alternate;
+    }
+
+    [data-aceso][data-mirando] & {
+      animation: none;
+      opacity: 1;
+    }
+  }
 }
 
 /* O nome gigante no pé do rodapé, na largura da tela e cortado embaixo. */

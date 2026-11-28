@@ -320,11 +320,13 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     "maciço", botões seguindo o mouse "ruim" e, por fim, sem cartão): agora a
     seção é solta, sem bloco e minimalista, do tamanho de uma tela (pedidos
     dele; ele escolheu a forma "lista" entre cinco mocks). À esquerda,
-    "Vamos conversar." enorme (`texto-chamada`), a segunda linha em
-    contorno, com o efeito Variable Proximity do React Bits
-    (`titulo-proximidade.tsx`: as letras perto do mouse engrossam, a Geist é
-    variável; só com mouse e sem pedido de menos movimento), subindo letra
-    por letra; embaixo, um texto curto e aberto ("Uma ideia, um projeto ou só
+    "Vamos conversar." enorme (`texto-chamada`): "Vamos" cheio e
+    "conversar." vazado, com uma luz de cinema por dentro (`titulo-luz.tsx`,
+    utilitário `luz-conversa`): acende piscando como um projetor quando a
+    seção aparece, varre a palavra devagar e, com o mouse sobre a seção,
+    segue o cursor por dentro das letras, vazando num brilho vinho; sem
+    movimento pedido, fica acesa e parada. Ele trocou o Variable Proximity
+    (letras engrossando) por isto, "mais cinema"; embaixo, um texto curto e aberto ("Uma ideia, um projeto ou só
     uma dúvida. Respondo rápido.") e a disponibilidade como no hero, com a
     bolinha verde. À direita, WhatsApp, e-mail, LinkedIn e GitHub em letras
     grandes, com o ícone solto do tamanho do texto; no hover, a cor do canal
