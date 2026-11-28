@@ -10,7 +10,6 @@ import { Mail } from "lucide-react"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { Comando } from "./comando"
-import { FundoContato } from "./fundo-contato"
 
 const LINKEDIN = profile.socials.find((s) => s.platform === "linkedin")
 
@@ -36,16 +35,13 @@ const ICONE_CANAL: Record<string, React.ReactNode> = {
 }
 
 /**
- * Faixa gigante no pé do bloco, atrás dos canais, só no contorno, rolando
- * devagar como as da stack. Decorativa: o leitor de tela não lê.
+ * Faixa gigante em contorno, de ponta a ponta da tela, fechando a página;
+ * rola devagar como as da stack. Decorativa: o leitor de tela não lê.
  */
 function FaixaFundo({ texto }: { texto: string }) {
   const repetido = Array.from({ length: 4 }, () => `${texto} · `).join("")
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-1/3 overflow-hidden opacity-15"
-    >
+    <div aria-hidden className="pointer-events-none overflow-hidden opacity-15">
       <div className="flex w-max motion-safe:animate-faixa">
         {[0, 1].map((copia) => (
           <span
@@ -61,28 +57,28 @@ function FaixaFundo({ texto }: { texto: string }) {
 }
 
 /**
- * Os canais em blocos clicáveis, cada um com o ícone, o nome e o contato; no
- * hover, o ícone e a borda ganham a cor do canal.
+ * Os canais numa lista limpa, separada por linhas finas: ícone, canal,
+ * contato e seta. No hover, o ícone ganha a cor do canal e a seta anda.
  */
 function Canais() {
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="divide-y divide-border border-y border-border">
       {CANAIS.map((canal) => (
         <li key={canal.platform} data-marca={canal.platform}>
           <a
             href={canal.url}
             target={canal.platform === "email" ? undefined : "_blank"}
             rel="noreferrer"
-            className="group flex h-full items-center gap-3 rounded-2xl border border-foreground/15 bg-background/30 p-4 transition-colors duration-300 hover:border-foreground/40"
+            className="group flex items-center gap-4 py-5"
           >
-            <span className="grid size-10 shrink-0 place-items-center rounded-full bg-foreground/10 transition-colors duration-300 group-hover:cor-marca">
+            <span className="grid size-11 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors duration-300 group-hover:border-current group-hover:cor-marca">
               {ICONE_CANAL[canal.platform]}
             </span>
-            <span className="flex min-w-0 flex-col">
-              <span className="font-mono text-xs text-foreground/60 uppercase">
+            <span className="flex min-w-0 flex-1 flex-col">
+              <span className="font-mono text-xs text-muted-foreground uppercase">
                 {NOME_CANAL[canal.platform]}
               </span>
-              <span className="text-sm">
+              <span className="text-lg md:text-xl">
                 {/* O e-mail, se não couber, quebra depois do @. */}
                 {(canal.handle ?? "").split("@").map((parte, i) => (
                   <span key={parte}>
@@ -92,6 +88,12 @@ function Canais() {
                   </span>
                 ))}
               </span>
+            </span>
+            <span
+              aria-hidden
+              className="text-xl text-muted-foreground transition duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground"
+            >
+              ↗
             </span>
           </a>
         </li>
@@ -111,7 +113,7 @@ function Botoes({
   locale: Locale
 }) {
   return (
-    <div className="relative flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4">
       <Button asChild size="cta-lg">
         <a
           href={LINKEDIN?.url ?? `mailto:${profile.email}`}
@@ -131,12 +133,11 @@ function Botoes({
 }
 
 /**
- * O CTA do fim (pedido do Rodrigo, 27/11: estava "fraquinho"). O bloco
- * cresce com a rolagem (movimento.tsx), o fundo vem de fundo-contato.tsx, a
- * luz clara segue o mouse e, atrás,
- * corre uma faixa gigante em contorno. O título vem em duas linhas, a
- * primeira cheia e a segunda em contorno, como o "SOBRE / MIM", e sobe letra
- * por letra (secoes.ts).
+ * O fim da página, solto, sem cartão (pedido do Rodrigo, 27/11). O título
+ * enorme em duas linhas, a primeira cheia e a segunda em contorno, como o
+ * "SOBRE / MIM", sobe letra por letra (secoes.ts) com um brilho vinho
+ * difuso atrás. Embaixo, o texto e os botões de um lado e os canais do
+ * outro; fecha com uma faixa gigante em contorno de ponta a ponta.
  */
 export async function Contato() {
   const t = await getTranslations("inicio.contato")
@@ -145,28 +146,22 @@ export async function Contato() {
   const [primeira = "", ...resto] = t("titulo").split(" ")
 
   return (
-    <section id="contato" className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
-      <div
-        data-mov="contato"
-        data-holofote
-        className="holofote relative flex flex-col gap-8 overflow-hidden rounded-3xl px-6 py-16 holofote-claro md:px-12 md:py-20"
-      >
-        <FundoContato />
-        <FaixaFundo texto={t("titulo").replace(/[.!]$/, "")} />
-        <div className="relative flex flex-wrap items-center justify-between gap-4">
-          <Comando
-            texto={c("contato")}
-            sobreVinho
-            className="text-foreground/75"
-          />
-          <span className="flex items-center gap-2 rounded-full border border-foreground/25 px-3 py-1 font-mono text-xs">
+    <section id="contato" className="relative overflow-hidden pt-24 lg:pt-32">
+      <span
+        aria-hidden
+        className="pointer-events-none absolute top-24 -left-24 size-112 rounded-full bg-vinho/25 blur-3xl"
+      />
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-12 px-4 lg:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <Comando texto={c("contato")} />
+          <span className="flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-xs">
             <StatusDot />
             {t("disponivel")}
           </span>
         </div>
         <h2
           data-mov="contato-titulo"
-          className="relative text-6xl leading-none font-semibold tracking-tight md:text-9xl"
+          className="texto-chamada font-semibold tracking-tight"
         >
           <span className="block">{primeira}</span>
           {resto.length > 0 ? (
@@ -175,11 +170,22 @@ export async function Contato() {
             </span>
           ) : null}
         </h2>
-        <p className="relative max-w-2xl text-xl text-pretty">{t("texto")}</p>
-        <Botoes falar={t("falar")} curriculo={t("curriculo")} locale={locale} />
-        <div className="relative mt-4">
-          <Canais />
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="flex flex-col gap-8 lg:col-span-5">
+            <p className="max-w-md text-xl text-pretty">{t("texto")}</p>
+            <Botoes
+              falar={t("falar")}
+              curriculo={t("curriculo")}
+              locale={locale}
+            />
+          </div>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <Canais />
+          </div>
         </div>
+      </div>
+      <div className="mt-20 lg:mt-28">
+        <FaixaFundo texto={t("titulo").replace(/[.!]$/, "")} />
       </div>
     </section>
   )

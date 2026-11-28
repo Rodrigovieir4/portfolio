@@ -74,7 +74,6 @@ export function Movimento() {
         }
 
         retrato()
-        contato()
         if (largo) travarCasos()
         // A trava dos casos alonga a página, mas é criada depois dos gatilhos
         // das seções de baixo: sem reordenar, eles disparam cedo.
@@ -453,23 +452,6 @@ function retrato() {
       trigger: foto.closest("section"),
     },
     yPercent: 14,
-  })
-}
-
-/** O bloco de contato cresce até ocupar o espaço dele. */
-function contato() {
-  const bloco = um("contato")
-  if (!bloco) return
-  gsap.from(bloco, {
-    borderRadius: 64,
-    ease: "none",
-    scale: 0.86,
-    scrollTrigger: {
-      end: "top 35%",
-      scrub: true,
-      start: "top bottom",
-      trigger: bloco,
-    },
   })
 }
 

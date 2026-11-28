@@ -316,17 +316,18 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     currículo dele e do conteúdo típico de cada unidade. Precisam da revisão
     dele;
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
-    mouse no bloco vinho. Refeito em 27/11 (ele achou "fraquinho"): título em
-    duas linhas, "Vamos" cheio e "conversar." em contorno claro, como o
-    "SOBRE / MIM"; selo "Disponível para vagas e projetos" com o ponto
-    pulsando; uma faixa gigante em contorno rolando no pé do bloco. Ajustes
-    de 27/11 (pedido dele): os botões não seguem mais o mouse (ele achou
-    ruim); os canais viraram blocos clicáveis com ícone e a cor do canal no
-    hover: WhatsApp, e-mail, LinkedIn e GitHub. O WhatsApp (com o telefone)
-    entrou porque ele pediu, revendo a regra de não pôr o telefone no site.
-    O fundo do bloco tem cinco opções para ele escolher pelo endereço
-    (`fundo-contato.tsx`: `?fundo=vinho`, a padrão, `grafite`, `aurora`,
-    `grade` e `vidro`); ele achou o vinho cheio "maciço".
+    mouse no bloco vinho. Refeito em 27/11 (pedidos dele: "fraquinho", vinho
+    "maciço", botões seguindo o mouse "ruim" e, por fim, sem cartão): agora a
+    seção é solta, sem bloco. Título enorme em duas linhas (`texto-chamada`),
+    "Vamos" cheio e "conversar." em contorno claro, com um brilho vinho
+    difuso atrás, subindo letra por letra; selo "Disponível para vagas e
+    projetos"; texto e botões (parados) à esquerda; os canais à direita numa
+    lista limpa com linhas finas, ícone, canal, contato e seta, e a cor do
+    canal no hover: WhatsApp, e-mail, LinkedIn e GitHub. O WhatsApp (com o
+    telefone) entrou porque ele pediu, revendo a regra de não pôr o telefone
+    no site. Fecha com uma faixa gigante em contorno de ponta a ponta. As
+    opções de fundo do cartão (vinho, grafite, aurora, grade, vidro) saíram
+    junto com o cartão.
   - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
     CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
     cada cartão são fotos do projeto passando em fade (`gallery` no

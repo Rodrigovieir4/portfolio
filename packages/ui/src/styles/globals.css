@@ -98,19 +98,6 @@
     monospace;
   --font-numeros: var(--font-anton), "Anton", "Impact", sans-serif;
 
-  /* Manchas da aurora do contato (fundo-contato.tsx), à deriva. */
-  --animate-deriva: deriva 18s ease-in-out infinite alternate;
-  --animate-deriva-reversa: deriva 22s ease-in-out infinite alternate-reverse;
-
-  @keyframes deriva {
-    from {
-      transform: translate(0, 0) scale(1);
-    }
-    to {
-      transform: translate(18%, 12%) scale(1.15);
-    }
-  }
-
   --animate-faixa: faixa 150s linear infinite;
   --animate-faixa-reversa: faixa 150s linear infinite reverse;
 
@@ -634,21 +621,10 @@
   color: transparent;
 }
 
-/* Grade fina do fundo "grade" do contato, sumindo para as bordas. */
-@utility fundo-grade {
-  background-image:
-    linear-gradient(
-      to right,
-      color-mix(in oklch, var(--color-foreground) 7%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklch, var(--color-foreground) 7%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at 50% 0%, black 30%, transparent 75%);
+/* O título do contato, solto no fim da página: grande, sem estourar a tela. */
+@utility texto-chamada {
+  font-size: clamp(4rem, 12vw, 11rem);
+  line-height: 0.9;
 }
 
 /* Só o contorno, na cor clara: o "conversar." do contato, sobre o vinho. */
