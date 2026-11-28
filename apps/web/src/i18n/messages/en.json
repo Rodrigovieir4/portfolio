@@ -467,6 +467,6 @@
   "rodape": {
     "navegar": "Browse",
     "contato": "Contact",
-    "feito": "built with Next.js, Bun and GSAP"
+    "topo": "Back to top"
   }
 }

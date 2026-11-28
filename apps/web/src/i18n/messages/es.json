@@ -467,6 +467,6 @@
   "rodape": {
     "navegar": "Navegar",
     "contato": "Contacto",
-    "feito": "hecho con Next.js, Bun y GSAP"
+    "topo": "Volver arriba"
   }
 }

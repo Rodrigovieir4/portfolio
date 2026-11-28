@@ -71,7 +71,9 @@ Atualizado em 24/11/2026.
 - [x] Trajetória vertical, alternando os lados, em ordem do git (27/11)
 - [ ] Rodrigo revisar os textos dos certificados (o que aprendi em cada um)
 - [ ] Rodrigo aprovar a busca da stack nas próprias faixas (giram, param e acendem)
-- [x] Contato em lista, com Variable Proximity no título, e rodapé novo (27/11)
+- [x] Contato em lista e rodapé novo (27/11)
+- [ ] Rodrigo escolher a animação do "Vamos" (?titulo=refletor, troca, holofote, neon
+      ou reflexo) e apagar as outras
 - [ ] Fotos do CS2 Cortex, DB Store, DB Connect e Memoreba para os cartões de
       projeto (o Rodrigo manda as capturas ou autoriza capturar)
 - [ ] Rodrigo confirmar se a DB Store foi freela ou já pela DBC, e atualizar o

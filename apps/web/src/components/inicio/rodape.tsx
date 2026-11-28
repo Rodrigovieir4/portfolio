@@ -4,9 +4,9 @@ import { getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
 
-import { ITEM, PAGINAS } from "./cabecalho"
+import { PAGINAS } from "./cabecalho"
 import { alvo, CANAIS } from "./canais"
-import { Idiomas } from "./idiomas"
+import { VoltarTopo } from "./voltar-topo"
 
 /** Rótulo pequeno de cada coluna, em mono, como os comandos do site. */
 function Rotulo({ children }: { children: string }) {
@@ -43,9 +43,8 @@ function Contatos({ rotulo }: { rotulo: string }) {
 /**
  * O rodapé com a cara do site (pedido do Rodrigo, 27/11): a marca de
  * terminal, o cargo e o selo de disponível; a navegação com a barra vinho do
- * cabeçalho; os canais com ícone e a cor de cada um no hover; uma linha com o
- * ano, a stack do site e os idiomas; e o nome gigante em contorno, cortado
- * na borda, como assinatura.
+ * cabeçalho; os canais com ícone e a cor de cada um no hover; e uma linha com
+ * o ano e o "voltar ao topo". Em vidro fosco, como o cabeçalho (pedido dele).
  */
 export async function Rodape() {
   const t = await getTranslations("rodape")
@@ -53,7 +52,7 @@ export async function Rodape() {
   const abertura = await getTranslations("inicio.abertura")
 
   return (
-    <footer className="overflow-hidden border-t border-border">
+    <footer className="overflow-hidden border-t border-border bg-background/60 backdrop-blur-xl backdrop-saturate-150">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 md:grid-cols-12 lg:px-8">
         <div className="flex flex-col gap-4 md:col-span-6">
           <Link
@@ -76,7 +75,11 @@ export async function Rodape() {
           <ul className="flex flex-col gap-3 text-sm">
             {PAGINAS.map(([chave, rota]) => (
               <li key={chave}>
-                <Link href={rota} className={ITEM}>
+                <Link
+                  href={rota}
+                  // Diferente do cabeçalho: a letra só acende no vinho.
+                  className="text-muted-foreground transition duration-300 hover:brilho-vinho hover:text-vinho-claro focus-visible:text-vinho-claro"
+                >
                   {nav(chave)}
                 </Link>
               </li>
@@ -89,16 +92,8 @@ export async function Rodape() {
         <span>
           © {new Date().getFullYear()} {profile.name}
         </span>
-        <span>{t("feito")}</span>
-        <Idiomas />
+        <VoltarTopo rotulo={t("topo")} />
       </div>
-      {/* Assinatura: o nome gigante em contorno, cortado embaixo. */}
-      <p
-        aria-hidden
-        className="pointer-events-none assinatura-rodape text-center font-semibold tracking-tighter whitespace-nowrap texto-contorno select-none"
-      >
-        rodrigo vieira
-      </p>
     </footer>
   )
 }

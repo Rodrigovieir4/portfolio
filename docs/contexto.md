@@ -326,7 +326,10 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     seção aparece, varre a palavra devagar e, com o mouse sobre a seção,
     segue o cursor por dentro das letras, vazando num brilho vinho; sem
     movimento pedido, fica acesa e parada. Ele trocou o Variable Proximity
-    (letras engrossando) por isto, "mais cinema"; embaixo, um texto curto e aberto ("Uma ideia, um projeto ou só
+    (letras engrossando) por isto, "mais cinema". O "Vamos" também anima
+    (pedido dele): cinco versões para escolher pelo endereço (`?titulo=`
+    refletor, a padrão, troca, holofote, neon ou reflexo; utilitários
+    `vamos-*` no globals.css); escolhida uma, as outras saem; embaixo, um texto curto e aberto ("Uma ideia, um projeto ou só
     uma dúvida. Respondo rápido."), a disponibilidade como no hero, com a
     bolinha verde, e o botão "Baixar currículo". No cabeçalho, o hover (ou o
     foco) no "Falar comigo" faz um botão "CV" deslizar para fora ao lado e
@@ -335,11 +338,12 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     e o contato ao lado. Canais em `canais.tsx`, divididos com o rodapé. O
     WhatsApp (com o telefone) entrou porque ele pediu, revendo a regra de não
     pôr o telefone no site.
-  - rodapé (27/11, pedido dele: "com a cara do site"): marca de terminal,
-    cargo, cidade e disponibilidade; navegação com a barra vinho do
-    cabeçalho; os canais com ícone; uma linha com o ano, "feito com
-    Next.js, Bun e GSAP" e os idiomas; e o nome gigante em contorno, cortado
-    na borda, como assinatura (`assinatura-rodape`).
+  - rodapé (27/11, pedidos dele: "com a cara do site", depois enxuto): em
+    vidro fosco como o cabeçalho; marca de terminal, cargo, cidade e
+    disponibilidade; "Navegar" com os links que só acendem no vinho no hover
+    (`brilho-vinho`, diferente da barra do cabeçalho); os canais com ícone; e
+    uma linha com o ano e "Voltar ao topo" (`voltar-topo.tsx`). Saíram o
+    "feito com", o nome gigante em contorno e os idiomas.
   - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
     CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
     cada cartão são fotos do projeto passando em fade (`gallery` no
