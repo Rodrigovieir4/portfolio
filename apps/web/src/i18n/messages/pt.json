@@ -355,21 +355,7 @@
     },
     "contato": {
       "titulo": "Vamos conversar.",
-      "texto": "Procurando alguém que cuide do sistema até ele rodar em produção?",
-      "falar": "Falar comigo",
-      "curriculo": "Baixar currículo",
-      "disponivel": "Disponível para vagas e projetos",
-      "passosTitulo": "Como a gente fecha",
-      "passos": [
-        ["Conversa", "Uma chamada rápida para entender o problema e o prazo."],
-        ["Proposta", "Escopo, prazo e valor por escrito, sem letra miúda."],
-        ["Entrega", "Em produção, com acompanhamento depois do deploy."]
-      ],
-      "garantias": [
-        "Resposta em até um dia útil",
-        "Remoto, para o Brasil e a Europa",
-        "Vagas e projetos sob demanda"
-      ]
+      "texto": "Uma ideia, um projeto ou só uma dúvida. Respondo rápido."
     },
     "comandos": {
       "sobre": "cat sobre.md",
@@ -476,5 +462,10 @@
   "ideia": {
     "voltar": "Todas as ideias",
     "verPost": "Ver o post no LinkedIn"
+  },
+  "rodape": {
+    "navegar": "Navegar",
+    "contato": "Contato",
+    "feito": "feito com Next.js, Bun e GSAP"
   }
 }

@@ -318,19 +318,24 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho. Refeito em 27/11 (pedidos dele: "fraquinho", vinho
     "maciço", botões seguindo o mouse "ruim" e, por fim, sem cartão): agora a
-    seção é solta, sem bloco e minimalista (pedido dele: "só vamos
-    conversar" e os contatos, aberto a negócio ou a uma dúvida; a versão
-    "fechar negócio", com garantias, números e passos, saiu). Há cinco formas
-    para ele escolher pelo endereço (`contato-mocks.tsx`): `?contato=simples`
-    (a padrão: título no centro e quatro ícones redondos), `laser` (o laser
-    do topo cai no título; em máquina fraca vira a simples), `revelar` (o
-    título se decifra, em mono, e os contatos se embaralham no hover),
-    `orbita` (os ícones giram numa elipse em volta do título) e `lista`
-    (título à esquerda e os canais em letras grandes à direita). Canais:
-    WhatsApp, e-mail, LinkedIn e GitHub, com a cor de cada um no hover. O
+    seção é solta, sem bloco e minimalista, do tamanho de uma tela (pedidos
+    dele; ele escolheu a forma "lista" entre cinco mocks). À esquerda,
+    "Vamos conversar." enorme (`texto-chamada`), a segunda linha em
+    contorno, com o efeito Variable Proximity do React Bits
+    (`titulo-proximidade.tsx`: as letras perto do mouse engrossam, a Geist é
+    variável; só com mouse e sem pedido de menos movimento), subindo letra
+    por letra; embaixo, um texto curto e aberto ("Uma ideia, um projeto ou só
+    uma dúvida. Respondo rápido.") e a disponibilidade como no hero, com a
+    bolinha verde. À direita, WhatsApp, e-mail, LinkedIn e GitHub em letras
+    grandes, com o ícone solto do tamanho do texto; no hover, a cor do canal
+    e o contato ao lado. Canais em `canais.tsx`, divididos com o rodapé. O
     WhatsApp (com o telefone) entrou porque ele pediu, revendo a regra de não
-    pôr o telefone no site. Escolhida a forma, as outras saem, e também os
-    textos sem uso em `inicio.contato`.
+    pôr o telefone no site.
+  - rodapé (27/11, pedido dele: "com a cara do site"): marca de terminal,
+    cargo, cidade e disponibilidade; navegação com a barra vinho do
+    cabeçalho; os canais com ícone; uma linha com o ano, "feito com
+    Next.js, Bun e GSAP" e os idiomas; e o nome gigante em contorno, cortado
+    na borda, como assinatura (`assinatura-rodape`).
   - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
     CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
     cada cartão são fotos do projeto passando em fade (`gallery` no

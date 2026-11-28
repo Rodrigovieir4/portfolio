@@ -7,7 +7,7 @@ import { Idiomas } from "./idiomas"
 import { Marca } from "./marca"
 import { MenuCelular } from "./menu-celular"
 
-const PAGINAS = [
+export const PAGINAS = [
   ["casos", "/casos"],
   ["projetos", "/projetos"],
   ["sobre", "/sobre"],
@@ -16,7 +16,7 @@ const PAGINAS = [
 
 // No hover (e no foco do teclado), uma barra vermelha cresce do centro
 // embaixo do link.
-const ITEM =
+export const ITEM =
   "relative text-muted-foreground transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-vinho-claro after:transition-transform after:duration-300 hover:text-foreground hover:after:scale-x-100 focus-visible:after:scale-x-100"
 
 export async function Cabecalho() {

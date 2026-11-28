@@ -98,16 +98,6 @@
     monospace;
   --font-numeros: var(--font-anton), "Anton", "Impact", sans-serif;
 
-  /* Volta dos ícones em volta do título do contato (contato-mocks.tsx). */
-  @keyframes orbita {
-    from {
-      offset-distance: 0%;
-    }
-    to {
-      offset-distance: 100%;
-    }
-  }
-
   --animate-faixa: faixa 150s linear infinite;
   --animate-faixa-reversa: faixa 150s linear infinite reverse;
 
@@ -631,48 +621,16 @@
   color: transparent;
 }
 
-/*
- * Órbita do contato: os ícones andam numa elipse em volta do título, de pé
- * (offset-rotate). Cada um tem a própria posição e o próprio atraso (no
- * mesmo utilitário, para a ordem do CSS não zerar o atraso); sem movimento
- * pedido, ficam parados, espalhados pela elipse.
- */
-@utility orbita {
-  offset-path: ellipse(46% 44% at 50% 50%);
-  offset-rotate: 0deg;
-}
-@utility orbita-1 {
-  offset-distance: 0%;
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: orbita 40s linear 0s infinite;
-  }
-}
-@utility orbita-2 {
-  offset-distance: 25%;
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: orbita 40s linear -10s infinite;
-  }
-}
-@utility orbita-3 {
-  offset-distance: 50%;
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: orbita 40s linear -20s infinite;
-  }
-}
-@utility orbita-4 {
-  offset-distance: 75%;
-
-  @media (prefers-reduced-motion: no-preference) {
-    animation: orbita 40s linear -30s infinite;
-  }
+/* O nome gigante no pé do rodapé, na largura da tela e cortado embaixo. */
+@utility assinatura-rodape {
+  font-size: 17vw;
+  line-height: 1;
+  margin-bottom: -0.18em;
 }
 
 /* O título do contato, solto no fim da página: grande, sem estourar a tela. */
 @utility texto-chamada {
-  font-size: clamp(4rem, 12vw, 11rem);
+  font-size: clamp(4.5rem, 8.5vw, 9rem);
   line-height: 0.9;
 }
 
