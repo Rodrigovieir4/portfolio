@@ -339,11 +339,14 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     WhatsApp (com o telefone) entrou porque ele pediu, revendo a regra de não
     pôr o telefone no site.
   - rodapé (27/11, pedidos dele: "com a cara do site", depois enxuto): em
-    vidro fosco como o cabeçalho; marca de terminal, cargo, cidade e
+    vidro fosco de verdade (utilitário `vidro`: fundo claro translúcido,
+    desfoque forte e uma linha de luz na borda de cima; dois brilhos vinho
+    difusos atrás dão o que desfocar); marca de terminal, cargo, cidade e
     disponibilidade; "Navegar" com os links que só acendem no vinho no hover
     (`brilho-vinho`, diferente da barra do cabeçalho); os canais com ícone; e
-    uma linha com o ano e "Voltar ao topo" (`voltar-topo.tsx`). Saíram o
-    "feito com", o nome gigante em contorno e os idiomas.
+    uma linha com o ano e a hora em São Paulo com o fuso (`hora-local.tsx`).
+    Saíram o "feito com", o nome gigante em contorno, os idiomas e um
+    "Voltar ao topo" que ele não gostou.
   - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
     CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
     cada cartão são fotos do projeto passando em fade (`gallery` no

@@ -610,6 +610,23 @@
   --holofote-cor: var(--color-foreground);
 }
 
+/*
+ * Vidro fosco (rodapé): fundo claro translúcido, desfoque forte do que está
+ * atrás e uma linha de luz na borda de cima, como a quina de um vidro.
+ */
+@utility vidro {
+  background-color: color-mix(
+    in oklch,
+    var(--color-foreground) 4%,
+    transparent
+  );
+  backdrop-filter: blur(28px) saturate(1.6);
+  border-top: 1px solid
+    color-mix(in oklch, var(--color-foreground) 14%, transparent);
+  box-shadow: inset 0 1px 0
+    color-mix(in oklch, var(--color-foreground) 10%, transparent);
+}
+
 /* Letra acesa no vinho, com um brilho em volta (links do rodapé no hover). */
 @utility brilho-vinho {
   text-shadow: 0 0 14px

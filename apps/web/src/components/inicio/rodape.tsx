@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation"
 
 import { PAGINAS } from "./cabecalho"
 import { alvo, CANAIS } from "./canais"
-import { VoltarTopo } from "./voltar-topo"
+import { HoraLocal } from "./hora-local"
 
 /** Rótulo pequeno de cada coluna, em mono, como os comandos do site. */
 function Rotulo({ children }: { children: string }) {
@@ -44,7 +44,8 @@ function Contatos({ rotulo }: { rotulo: string }) {
  * O rodapé com a cara do site (pedido do Rodrigo, 27/11): a marca de
  * terminal, o cargo e o selo de disponível; a navegação com a barra vinho do
  * cabeçalho; os canais com ícone e a cor de cada um no hover; e uma linha com
- * o ano e o "voltar ao topo". Em vidro fosco, como o cabeçalho (pedido dele).
+ * o ano e a hora em São Paulo. Em vidro fosco (pedido dele): dois brilhos
+ * vinho difusos atrás dão ao vidro o que desfocar.
  */
 export async function Rodape() {
   const t = await getTranslations("rodape")
@@ -52,47 +53,57 @@ export async function Rodape() {
   const abertura = await getTranslations("inicio.abertura")
 
   return (
-    <footer className="overflow-hidden border-t border-border bg-background/60 backdrop-blur-xl backdrop-saturate-150">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 md:grid-cols-12 lg:px-8">
-        <div className="flex flex-col gap-4 md:col-span-6">
-          <Link
-            href="/"
-            className="w-fit font-mono text-lg font-semibold transition-opacity hover:opacity-80"
-          >
-            <span className="text-vinho-claro">❯</span> rodrigo-vieira
-          </Link>
-          <p className="text-sm text-muted-foreground">
-            {abertura("rotulo")} · {profile.location.city},{" "}
-            {profile.location.state}
-          </p>
-          <p className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
-            <StatusDot />
-            {abertura("disponivel")}
-          </p>
+    <footer className="relative overflow-hidden">
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-24 left-1/4 size-96 rounded-full bg-vinho/40 blur-3xl"
+      />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-16 -bottom-40 size-112 rounded-full bg-vinho-claro/20 blur-3xl"
+      />
+      <div className="relative vidro">
+        <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 md:grid-cols-12 lg:px-8">
+          <div className="flex flex-col gap-4 md:col-span-6">
+            <Link
+              href="/"
+              className="w-fit font-mono text-lg font-semibold transition-opacity hover:opacity-80"
+            >
+              <span className="text-vinho-claro">❯</span> rodrigo-vieira
+            </Link>
+            <p className="text-sm text-muted-foreground">
+              {abertura("rotulo")} · {profile.location.city},{" "}
+              {profile.location.state}
+            </p>
+            <p className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
+              <StatusDot />
+              {abertura("disponivel")}
+            </p>
+          </div>
+          <nav className="flex flex-col gap-4 md:col-span-3">
+            <Rotulo>{t("navegar")}</Rotulo>
+            <ul className="flex flex-col gap-3 text-sm">
+              {PAGINAS.map(([chave, rota]) => (
+                <li key={chave}>
+                  <Link
+                    href={rota}
+                    // Diferente do cabeçalho: a letra só acende no vinho.
+                    className="text-muted-foreground transition duration-300 hover:brilho-vinho hover:text-vinho-claro focus-visible:text-vinho-claro"
+                  >
+                    {nav(chave)}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Contatos rotulo={t("contato")} />
         </div>
-        <nav className="flex flex-col gap-4 md:col-span-3">
-          <Rotulo>{t("navegar")}</Rotulo>
-          <ul className="flex flex-col gap-3 text-sm">
-            {PAGINAS.map(([chave, rota]) => (
-              <li key={chave}>
-                <Link
-                  href={rota}
-                  // Diferente do cabeçalho: a letra só acende no vinho.
-                  className="text-muted-foreground transition duration-300 hover:brilho-vinho hover:text-vinho-claro focus-visible:text-vinho-claro"
-                >
-                  {nav(chave)}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <Contatos rotulo={t("contato")} />
-      </div>
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 border-t border-border px-4 py-6 font-mono text-xs text-muted-foreground lg:px-8">
-        <span>
-          © {new Date().getFullYear()} {profile.name}
-        </span>
-        <VoltarTopo rotulo={t("topo")} />
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 border-t border-border px-4 py-6 font-mono text-xs text-muted-foreground lg:px-8">
+          <span>
+            © {new Date().getFullYear()} {profile.name}
+          </span>
+          <HoraLocal cidade={profile.location.city} />
+        </div>
       </div>
     </footer>
   )
