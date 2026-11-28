@@ -89,9 +89,10 @@ function Detalhe({
 }) {
   const meta = [item.emissor, item.data, item.horas ? `${item.horas} h` : ""]
   return (
-    // No computador a foto dita a altura da janela (h-0 + min-h-full: o texto
-    // não estica a linha da grade); se o texto passar, ele rola.
-    <div className="flex flex-col gap-4 p-6 md:col-span-2 md:h-0 md:min-h-full md:overflow-y-auto md:p-8">
+    // De 1280 px para cima a foto dita a altura da janela (h-0 + min-h-full:
+    // o texto não estica a linha da grade). Abaixo disso, foto e texto se
+    // empilham: a coluna de texto ficaria estreita e rolaria.
+    <div className="flex flex-col gap-3 p-6 xl:col-span-2 xl:h-0 xl:min-h-full xl:overflow-y-auto">
       <p className="font-mono text-xs text-muted-foreground">
         {meta.filter(Boolean).join(" · ")}
       </p>
@@ -104,11 +105,11 @@ function Detalhe({
         </DialogDescription>
       ) : null}
       {item.topicos.length > 0 ? (
-        <div className="mt-2 flex flex-col gap-3">
+        <div className="mt-1 flex flex-col gap-2">
           <h3 className="font-mono text-xs text-vinho-claro uppercase">
             {rotulos.aprendi}
           </h3>
-          <ul className="flex flex-col gap-2 text-sm">
+          <ul className="flex flex-col gap-1.5 text-sm">
             {item.topicos.map((topico) => (
               <li key={topico} className="flex gap-3">
                 <span aria-hidden className="text-vinho-claro">
@@ -125,7 +126,7 @@ function Detalhe({
           asChild
           variant="vinho"
           size="pilula"
-          className="mt-4 self-start"
+          className="mt-2 self-start"
         >
           <a href={item.link} target="_blank" rel="noreferrer">
             {rotulos.abrirPdf} ↗
@@ -153,7 +154,7 @@ export function Cartao({
         >
           <Capa item={item} />
         </DialogTrigger>
-        <DialogContent className="max-h-dvh gap-0 overflow-y-auto p-0 sm:max-w-6xl md:grid-cols-5">
+        <DialogContent className="max-h-dvh gap-0 overflow-y-auto p-0 sm:max-w-3xl xl:max-w-6xl xl:grid-cols-5">
           {item.capa ? (
             // A foto na proporção do certificado, sem faixas; abre o PDF.
             <a
@@ -161,14 +162,14 @@ export function Cartao({
               target="_blank"
               rel="noreferrer"
               aria-label={rotulos.abrirPdf}
-              className="block md:col-span-3"
+              className="block xl:col-span-3"
             >
               <Image
                 src={item.capa}
                 alt={item.nome}
                 width={800}
                 height={566}
-                sizes="(min-width: 768px) 42rem, 100vw"
+                sizes="(min-width: 1280px) 42rem, 48rem"
                 className="h-auto w-full"
               />
             </a>

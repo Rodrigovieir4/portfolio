@@ -300,9 +300,11 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     No celular o cartão fica em pé (3:4). A foto fica 2 px para dentro do
     cartão: a borda suavizada do véu deixava a foto aparecer como um fio claro
     nos cantos. O clique abre uma janela (`certificado-cartao.tsx`, Dialog do
-    shadcn): a foto inteira, na proporção do certificado e sem faixas (ela
-    dita a altura da janela; o texto ao lado rola se passar), abre o PDF no
-    clique; do outro lado
+    shadcn): a foto inteira, na proporção do certificado e sem faixas, abre o
+    PDF no clique. De 1280 px para cima a foto fica ao lado e dita a altura
+    da janela, com o texto compacto para nenhum certificado rolar (medido nos
+    12, de 1280x577 a 1920); abaixo disso, foto e texto se empilham. Do outro
+    lado
     e, do outro, emissor, data e carga horária, um resumo, "O que aprendi" e o
     botão para o PDF. Os textos (`about` e `topics` em
     `certifications.ts`, nos três idiomas) foram escritos pelo agente em
