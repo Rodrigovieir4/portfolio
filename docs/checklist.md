@@ -71,7 +71,8 @@ Atualizado em 24/11/2026.
 - [x] Trajetória vertical, alternando os lados, em ordem do git (27/11)
 - [ ] Rodrigo revisar os textos dos certificados (o que aprendi em cada um)
 - [ ] Rodrigo aprovar a busca da stack nas próprias faixas (giram, param e acendem)
-- [ ] Rodrigo aprovar o contato solto, com cara de fechar negócio
+- [ ] Rodrigo escolher a forma do contato (?contato=simples, laser, revelar, orbita
+      ou lista) e apagar as outras de `contato-mocks.tsx`
 - [ ] Fotos do CS2 Cortex, DB Store, DB Connect e Memoreba para os cartões de
       projeto (o Rodrigo manda as capturas ou autoriza capturar)
 - [ ] Rodrigo confirmar se a DB Store foi freela ou já pela DBC, e atualizar o

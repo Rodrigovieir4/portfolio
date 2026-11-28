@@ -318,19 +318,19 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
     mouse no bloco vinho. Refeito em 27/11 (pedidos dele: "fraquinho", vinho
     "maciço", botões seguindo o mouse "ruim" e, por fim, sem cartão): agora a
-    seção é solta, sem bloco, com cara de "vamos fechar negócio" (pedido
-    dele, os textos principais mantidos). Título enorme em duas linhas
-    (`texto-chamada`), "Vamos" cheio e "conversar." em contorno claro, com
-    um brilho vinho difuso atrás, subindo letra por letra; selo "Disponível
-    para vagas e projetos". Embaixo, à esquerda, a credibilidade: o texto,
-    três garantias com check e três números da carreira (os itens 5 a 7 de
-    `inicio.numeros`: sistemas no ar, países, apps nas lojas; se a ordem
-    lá mudar, muda aqui). À direita, o fechamento: "Como a gente fecha" em
-    três passos (Conversa, Proposta, Entrega), o botão grande "Falar comigo"
-    abrindo o WhatsApp e, embaixo, e-mail, LinkedIn, GitHub e o currículo.
-    O WhatsApp (com o telefone) entrou porque ele pediu, revendo a regra de
-    não pôr o telefone no site. Os botões não seguem mais o mouse. Fecha
-    com uma faixa gigante em contorno de ponta a ponta.
+    seção é solta, sem bloco e minimalista (pedido dele: "só vamos
+    conversar" e os contatos, aberto a negócio ou a uma dúvida; a versão
+    "fechar negócio", com garantias, números e passos, saiu). Há cinco formas
+    para ele escolher pelo endereço (`contato-mocks.tsx`): `?contato=simples`
+    (a padrão: título no centro e quatro ícones redondos), `laser` (o laser
+    do topo cai no título; em máquina fraca vira a simples), `revelar` (o
+    título se decifra, em mono, e os contatos se embaralham no hover),
+    `orbita` (os ícones giram numa elipse em volta do título) e `lista`
+    (título à esquerda e os canais em letras grandes à direita). Canais:
+    WhatsApp, e-mail, LinkedIn e GitHub, com a cor de cada um no hover. O
+    WhatsApp (com o telefone) entrou porque ele pediu, revendo a regra de não
+    pôr o telefone no site. Escolhida a forma, as outras saem, e também os
+    textos sem uso em `inicio.contato`.
   - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
     CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
     cada cartão são fotos do projeto passando em fade (`gallery` no
