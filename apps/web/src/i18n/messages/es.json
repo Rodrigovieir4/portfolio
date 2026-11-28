@@ -358,7 +358,24 @@
       "texto": "¿Buscas a alguien que cuide el sistema hasta que funcione en producción?",
       "falar": "Hablemos",
       "curriculo": "Descargar currículum",
-      "disponivel": "Disponible para empleos y proyectos"
+      "disponivel": "Disponible para empleos y proyectos",
+      "passosTitulo": "Cómo cerramos",
+      "passos": [
+        [
+          "Conversación",
+          "Una llamada rápida para entender el problema y el plazo."
+        ],
+        [
+          "Propuesta",
+          "Alcance, plazo y precio por escrito, sin letra pequeña."
+        ],
+        ["Entrega", "En producción, con seguimiento después del deploy."]
+      ],
+      "garantias": [
+        "Respuesta en hasta un día hábil",
+        "Remoto, para Brasil y Europa",
+        "Empleos y proyectos a medida"
+      ]
     },
     "comandos": {
       "sobre": "cat sobre-mi.md",

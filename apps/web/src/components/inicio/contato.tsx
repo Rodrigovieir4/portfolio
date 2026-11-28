@@ -6,33 +6,30 @@ import {
   WhatsappIcon,
 } from "@portfolio/ui"
 import { Button } from "@portfolio/ui/components/button"
-import { Mail } from "lucide-react"
+import { Check, Download, Mail } from "lucide-react"
 import { getLocale, getTranslations } from "next-intl/server"
 
 import { Comando } from "./comando"
 
-const LINKEDIN = profile.socials.find((s) => s.platform === "linkedin")
+const canal = (nome: string) => profile.socials.find((s) => s.platform === nome)
+const WHATSAPP = canal("whatsapp")
 
-/**
- * Todos os canais, fáceis de achar (pedido do Rodrigo, 27/11, que pediu
- * também o WhatsApp no site).
- */
-const ORDEM_CANAIS = ["whatsapp", "email", "linkedin", "github"]
-const CANAIS = ORDEM_CANAIS.flatMap(
-  (nome) => profile.socials.find((s) => s.platform === nome) ?? [],
-)
-const NOME_CANAL: Record<string, string> = {
-  email: "E-mail",
-  github: "GitHub",
-  linkedin: "LinkedIn",
-  whatsapp: "WhatsApp",
-}
-const ICONE_CANAL: Record<string, React.ReactNode> = {
-  email: <Mail className="size-5" />,
-  github: <GithubIcon className="size-5" />,
-  linkedin: <LinkedinIcon className="size-5" />,
-  whatsapp: <WhatsappIcon className="size-5" />,
-}
+/** Os outros canais, compactos, embaixo do botão principal. */
+const SECUNDARIOS = [
+  { icone: <Mail className="size-4" />, nome: "E-mail", rede: canal("email") },
+  {
+    icone: <LinkedinIcon className="size-4" />,
+    nome: "LinkedIn",
+    rede: canal("linkedin"),
+  },
+  {
+    icone: <GithubIcon className="size-4" />,
+    nome: "GitHub",
+    rede: canal("github"),
+  },
+]
+
+type Item = [titulo: string, texto: string]
 
 /**
  * Faixa gigante em contorno, de ponta a ponta da tela, fechando a página;
@@ -57,90 +54,148 @@ function FaixaFundo({ texto }: { texto: string }) {
 }
 
 /**
- * Os canais numa lista limpa, separada por linhas finas: ícone, canal,
- * contato e seta. No hover, o ícone ganha a cor do canal e a seta anda.
+ * Credibilidade, à esquerda: o texto, as garantias com check e três números
+ * da carreira (os mesmos da seção de números).
  */
-function Canais() {
+function Credibilidade({
+  garantias,
+  numeros,
+  texto,
+}: {
+  garantias: string[]
+  numeros: Item[]
+  texto: string
+}) {
   return (
-    <ul className="divide-y divide-border border-y border-border">
-      {CANAIS.map((canal) => (
-        <li key={canal.platform} data-marca={canal.platform}>
-          <a
-            href={canal.url}
-            target={canal.platform === "email" ? undefined : "_blank"}
-            rel="noreferrer"
-            className="group flex items-center gap-4 py-5"
+    <div className="flex flex-col gap-10 lg:col-span-6">
+      <p className="max-w-lg text-xl text-pretty">{texto}</p>
+      <ul className="flex flex-col gap-3">
+        {garantias.map((garantia) => (
+          <li key={garantia} className="flex items-center gap-3">
+            <span className="grid size-6 place-items-center rounded-full bg-vinho/30 text-vinho-claro">
+              <Check className="size-3.5" />
+            </span>
+            {garantia}
+          </li>
+        ))}
+      </ul>
+      <dl className="grid grid-cols-3 gap-6 border-t border-border pt-8">
+        {numeros.map(([valor, legenda]) => (
+          <div
+            key={legenda}
+            className="flex flex-col-reverse justify-end gap-2"
           >
-            <span className="grid size-11 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors duration-300 group-hover:border-current group-hover:cor-marca">
-              {ICONE_CANAL[canal.platform]}
-            </span>
-            <span className="flex min-w-0 flex-1 flex-col">
-              <span className="font-mono text-xs text-muted-foreground uppercase">
-                {NOME_CANAL[canal.platform]}
-              </span>
-              <span className="text-lg md:text-xl">
-                {/* O e-mail, se não couber, quebra depois do @. */}
-                {(canal.handle ?? "").split("@").map((parte, i) => (
-                  <span key={parte}>
-                    {i > 0 ? "@" : null}
-                    {parte}
-                    {i === 0 && canal.platform === "email" ? <wbr /> : null}
-                  </span>
-                ))}
-              </span>
-            </span>
-            <span
-              aria-hidden
-              className="text-xl text-muted-foreground transition duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground"
-            >
-              ↗
-            </span>
-          </a>
-        </li>
-      ))}
-    </ul>
+            <dt className="font-mono text-xs text-pretty text-muted-foreground">
+              {legenda}
+            </dt>
+            <dd className="font-numeros text-5xl leading-none">{valor}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   )
 }
 
-/** Falar comigo e baixar o currículo; os botões ficam parados (pedido dele). */
-function Botoes({
+const PILULA =
+  "flex items-center justify-center gap-2 rounded-full border border-border px-3 py-2 text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground"
+
+/** E-mail, LinkedIn e GitHub numa linha, e o currículo logo embaixo. */
+function OutrosCanais({
   curriculo,
-  falar,
   locale,
 }: {
   curriculo: string
-  falar: string
   locale: Locale
 }) {
   return (
-    <div className="flex flex-wrap gap-4">
-      <Button asChild size="cta-lg">
-        <a
-          href={LINKEDIN?.url ?? `mailto:${profile.email}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          {falar}
-        </a>
-      </Button>
-      <Button asChild variant="contorno" size="cta-lg">
-        <a href={traduzir(profile.resumeUrl, locale)} download>
-          {curriculo}
-        </a>
-      </Button>
+    <div className="flex flex-col gap-4">
+      <ul className="grid grid-cols-3 gap-2 text-sm">
+        {SECUNDARIOS.map(({ icone, nome, rede }) => (
+          <li key={nome}>
+            <a
+              href={rede?.url}
+              target={nome === "E-mail" ? undefined : "_blank"}
+              rel="noreferrer"
+              className={PILULA}
+            >
+              {icone}
+              {nome}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        href={traduzir(profile.resumeUrl, locale)}
+        download
+        className="flex items-center gap-2 self-center font-mono text-xs text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+      >
+        <Download className="size-3.5" />
+        {curriculo}
+      </a>
     </div>
   )
 }
 
 /**
- * O fim da página, solto, sem cartão (pedido do Rodrigo, 27/11). O título
- * enorme em duas linhas, a primeira cheia e a segunda em contorno, como o
- * "SOBRE / MIM", sobe letra por letra (secoes.ts) com um brilho vinho
- * difuso atrás. Embaixo, o texto e os botões de um lado e os canais do
- * outro; fecha com uma faixa gigante em contorno de ponta a ponta.
+ * Fechamento, à direita: os três passos de como a gente fecha, o botão
+ * principal (WhatsApp, o caminho mais curto) e os outros canais.
+ */
+function Fechamento({
+  curriculo,
+  falar,
+  locale,
+  passos,
+  titulo,
+}: {
+  curriculo: string
+  falar: string
+  locale: Locale
+  passos: Item[]
+  titulo: string
+}) {
+  return (
+    <div className="flex flex-col gap-8 lg:col-span-5 lg:col-start-8 lg:border-l lg:border-border lg:pl-10">
+      <h3 className="font-mono text-xs text-vinho-claro uppercase">{titulo}</h3>
+      <ol className="flex flex-col gap-6">
+        {passos.map(([nome, texto], indice) => (
+          <li key={nome} className="flex gap-4">
+            <span className="font-mono text-sm text-muted-foreground">
+              {String(indice + 1).padStart(2, "0")}
+            </span>
+            <span className="flex flex-col gap-1">
+              <span className="font-semibold">{nome}</span>
+              <span className="text-sm text-pretty text-muted-foreground">
+                {texto}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ol>
+      <Button asChild size="cta-lg" className="w-full">
+        <a
+          href={WHATSAPP?.url ?? `mailto:${profile.email}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <WhatsappIcon className="size-5" />
+          {falar}
+        </a>
+      </Button>
+      <OutrosCanais curriculo={curriculo} locale={locale} />
+    </div>
+  )
+}
+
+/**
+ * O fim da página, solto e com cara de "vamos fechar negócio" (pedido do
+ * Rodrigo, 27/11). O título enorme em duas linhas, a primeira cheia e a
+ * segunda em contorno, sobe letra por letra (secoes.ts) com um brilho vinho
+ * difuso atrás. Embaixo, a credibilidade de um lado e o fechamento do outro;
+ * fecha com uma faixa gigante em contorno de ponta a ponta.
  */
 export async function Contato() {
   const t = await getTranslations("inicio.contato")
+  const n = await getTranslations("inicio.numeros")
   const c = await getTranslations("inicio.comandos")
   const locale = (await getLocale()) as Locale
   const [primeira = "", ...resto] = t("titulo").split(" ")
@@ -170,18 +225,19 @@ export async function Contato() {
             </span>
           ) : null}
         </h2>
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="flex flex-col gap-8 lg:col-span-5">
-            <p className="max-w-md text-xl text-pretty">{t("texto")}</p>
-            <Botoes
-              falar={t("falar")}
-              curriculo={t("curriculo")}
-              locale={locale}
-            />
-          </div>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <Canais />
-          </div>
+        <div className="grid gap-14 lg:grid-cols-12">
+          <Credibilidade
+            garantias={t.raw("garantias") as string[]}
+            numeros={(n.raw("itens") as Item[]).slice(4, 7)}
+            texto={t("texto")}
+          />
+          <Fechamento
+            curriculo={t("curriculo")}
+            falar={t("falar")}
+            locale={locale}
+            passos={t.raw("passos") as Item[]}
+            titulo={t("passosTitulo")}
+          />
         </div>
       </div>
       <div className="mt-20 lg:mt-28">

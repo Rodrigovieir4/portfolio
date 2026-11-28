@@ -358,7 +358,18 @@
       "texto": "Looking for someone who takes the system all the way to production?",
       "falar": "Get in touch",
       "curriculo": "Download résumé",
-      "disponivel": "Open to roles and projects"
+      "disponivel": "Open to roles and projects",
+      "passosTitulo": "How we close",
+      "passos": [
+        ["Call", "A quick call to understand the problem and the deadline."],
+        ["Proposal", "Scope, timeline and price in writing, no fine print."],
+        ["Delivery", "Live in production, with follow-up after the deploy."]
+      ],
+      "garantias": [
+        "Reply within one business day",
+        "Remote, for Brazil and Europe",
+        "Open to roles and projects"
+      ]
     },
     "comandos": {
       "sobre": "cat about.md",
