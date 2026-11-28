@@ -355,7 +355,8 @@
     },
     "contato": {
       "titulo": "Vamos conversar.",
-      "texto": "Uma ideia, um projeto ou só uma dúvida. Respondo rápido."
+      "texto": "Uma ideia, um projeto ou só uma dúvida. Respondo rápido.",
+      "curriculo": "Baixar currículo"
     },
     "comandos": {
       "sobre": "cat sobre.md",

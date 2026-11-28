@@ -1,5 +1,8 @@
+import { type Locale, profile, t as traduzir } from "@portfolio/content"
 import { StatusDot } from "@portfolio/ui"
-import { getTranslations } from "next-intl/server"
+import { Button } from "@portfolio/ui/components/button"
+import { Download } from "lucide-react"
+import { getLocale, getTranslations } from "next-intl/server"
 
 import { alvo, CANAIS } from "./canais"
 import { Comando } from "./comando"
@@ -17,6 +20,7 @@ export async function Contato() {
   const t = await getTranslations("inicio.contato")
   const c = await getTranslations("inicio.comandos")
   const abertura = await getTranslations("inicio.abertura")
+  const locale = (await getLocale()) as Locale
 
   return (
     <section
@@ -38,6 +42,12 @@ export async function Contato() {
             <StatusDot />
             {abertura("disponivel")}
           </p>
+          <Button asChild variant="contorno" size="cta" className="self-start">
+            <a href={traduzir(profile.resumeUrl, locale)} download>
+              <Download />
+              {t("curriculo")}
+            </a>
+          </Button>
         </div>
         <ul className="flex flex-col border-t border-border lg:col-span-5">
           {CANAIS.map((canal) => (

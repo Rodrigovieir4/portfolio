@@ -355,7 +355,8 @@
     },
     "contato": {
       "titulo": "Let's talk.",
-      "texto": "An idea, a project or just a question. I reply fast."
+      "texto": "An idea, a project or just a question. I reply fast.",
+      "curriculo": "Download résumé"
     },
     "comandos": {
       "sobre": "cat about.md",

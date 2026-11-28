@@ -327,8 +327,10 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     segue o cursor por dentro das letras, vazando num brilho vinho; sem
     movimento pedido, fica acesa e parada. Ele trocou o Variable Proximity
     (letras engrossando) por isto, "mais cinema"; embaixo, um texto curto e aberto ("Uma ideia, um projeto ou só
-    uma dúvida. Respondo rápido.") e a disponibilidade como no hero, com a
-    bolinha verde. À direita, WhatsApp, e-mail, LinkedIn e GitHub em letras
+    uma dúvida. Respondo rápido."), a disponibilidade como no hero, com a
+    bolinha verde, e o botão "Baixar currículo". No cabeçalho, o hover (ou o
+    foco) no "Falar comigo" faz um botão "CV" deslizar para fora ao lado e
+    baixar o currículo (pedido dele, 27/11; no celular não aparece). À direita, WhatsApp, e-mail, LinkedIn e GitHub em letras
     grandes, com o ícone solto do tamanho do texto; no hover, a cor do canal
     e o contato ao lado. Canais em `canais.tsx`, divididos com o rodapé. O
     WhatsApp (com o telefone) entrou porque ele pediu, revendo a regra de não

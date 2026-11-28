@@ -1,4 +1,5 @@
-import { getTranslations } from "next-intl/server"
+import { type Locale, profile, t as traduzir } from "@portfolio/content"
+import { getLocale, getTranslations } from "next-intl/server"
 
 import { Link } from "@/i18n/navigation"
 
@@ -22,6 +23,8 @@ export const ITEM =
 export async function Cabecalho() {
   const t = await getTranslations("inicio.nav")
   const falar = (await getTranslations("inicio.abertura"))("falar")
+  const curriculo = (await getTranslations("inicio.contato"))("curriculo")
+  const locale = (await getLocale()) as Locale
 
   return (
     <header
@@ -52,7 +55,13 @@ export async function Cabecalho() {
           </div>
           {/* O único caminho para o contato no cabeçalho, sempre à mão: leva
               ao fim do início, de qualquer página. */}
-          <FalarComigo rotulo={falar} />
+          <FalarComigo
+            rotulo={falar}
+            cv={{
+              href: traduzir(profile.resumeUrl, locale),
+              rotulo: curriculo,
+            }}
+          />
           <MenuCelular
             fechar={t("fechar")}
             menu={t("menu")}
