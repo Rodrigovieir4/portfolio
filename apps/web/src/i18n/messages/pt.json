@@ -357,7 +357,8 @@
       "titulo": "Vamos conversar.",
       "texto": "Procurando alguém que cuide do sistema até ele rodar em produção?",
       "falar": "Falar comigo",
-      "curriculo": "Baixar currículo"
+      "curriculo": "Baixar currículo",
+      "disponivel": "Disponível para vagas e projetos"
     },
     "comandos": {
       "sobre": "cat sobre.md",

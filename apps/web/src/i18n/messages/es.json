@@ -357,7 +357,8 @@
       "titulo": "Hablemos.",
       "texto": "¿Buscas a alguien que cuide el sistema hasta que funcione en producción?",
       "falar": "Hablemos",
-      "curriculo": "Descargar currículum"
+      "curriculo": "Descargar currículum",
+      "disponivel": "Disponible para empleos y proyectos"
     },
     "comandos": {
       "sobre": "cat sobre-mi.md",

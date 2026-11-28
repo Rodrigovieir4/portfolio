@@ -316,7 +316,20 @@ O navegador embutido do Orca abre as abas deste repositório no perfil isolado
     currículo dele e do conteúdo típico de cada unidade. Precisam da revisão
     dele;
   - contato: título letra por letra, botões magnéticos e luz clara que segue o
-    mouse no bloco vinho.
+    mouse no bloco vinho. Refeito em 27/11 (ele achou "fraquinho"): título em
+    duas linhas, "Vamos" cheio e "conversar." em contorno claro, como o
+    "SOBRE / MIM"; selo "Disponível para vagas e projetos" com o ponto
+    pulsando; fundo de pontos; uma faixa gigante em contorno rolando no pé do
+    bloco; e os canais (e-mail, LinkedIn, GitHub; sem telefone) numa linha
+    embaixo, com seta no hover.
+  - projetos (27/11, pedido dele): seis na vitrine para fechar a grade, com o
+    CS2 Cortex em destaque (o grande); ordem em `projetos.tsx`. O fundo de
+    cada cartão são fotos do projeto passando em fade (`gallery` no
+    conteúdo, `fotos-projeto.tsx`), com véu escuro para o texto. Têm fotos:
+    Esplêndido (capturas da pasta de apresentação, com dados de
+    demonstração; o e-mail da conta de demonstração foi recortado) e Daisy
+    (site público). Sem fotos ainda: CS2 Cortex, DB Store, DB Connect e
+    Memoreba (ficam com pontos; o DB Store, com o vinho).
     - sobre como cena (26/11, referência: post da echo__builds no Instagram):
       no computador a seção fica presa enquanto rola. Antes de rolar, só
       "Sobre" (creme, cheio) em cima de "Mim" (contorno vinho), gigantes; ao

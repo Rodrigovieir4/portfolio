@@ -621,6 +621,12 @@
   color: transparent;
 }
 
+/* Só o contorno, na cor clara: o "conversar." do contato, sobre o vinho. */
+@utility texto-contorno-claro {
+  -webkit-text-stroke: 2px var(--color-foreground);
+  color: transparent;
+}
+
 /* Só o contorno, em vinho (o "Mim" do sobre). */
 @utility texto-contorno-vinho {
   -webkit-text-stroke: 2px var(--color-vinho-claro);
@@ -635,6 +641,16 @@
   );
   background-size: 26px 26px;
   mask-image: radial-gradient(ellipse at center, #000 40%, transparent 85%);
+}
+
+/*
+ * Fotos do cartão de projeto (fotos-projeto.tsx): troca em fade de 1,2 s e
+ * um zoom lento de 6 s na que está à mostra.
+ */
+@utility troca-foto {
+  transition:
+    opacity 1.2s ease-out,
+    scale 6s ease-out;
 }
 
 /*

@@ -357,7 +357,8 @@
       "titulo": "Let's talk.",
       "texto": "Looking for someone who takes the system all the way to production?",
       "falar": "Get in touch",
-      "curriculo": "Download résumé"
+      "curriculo": "Download résumé",
+      "disponivel": "Open to roles and projects"
     },
     "comandos": {
       "sobre": "cat about.md",

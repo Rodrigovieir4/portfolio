@@ -145,6 +145,11 @@ export const projectSchema = z.object({
     article: z.string().url().optional(),
   }),
   cover: z.string().optional(),
+  /**
+   * Fotos do projeto para o fundo do cartão no início, em ordem (passam como
+   * slide). Caminhos em apps/web/public. Só capturas sem dado de cliente.
+   */
+  gallery: z.array(z.string()).default([]),
   /** Cor de acento usada no brilho do card. */
   accent: z.enum(["signal", "plasma", "ember", "cyan"]).default("signal"),
 })
