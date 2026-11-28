@@ -77,13 +77,18 @@ test("o certificado abre a janela com o que foi aprendido", async ({
   page,
 }) => {
   await page.goto("/pt")
-  await page
-    .getByRole("button", { name: /Abrir certificado: Modelagem de software/ })
-    .click()
+  const cartao = page.getByRole("button", {
+    name: /Abrir certificado: Modelagem de software/,
+  })
   const janela = page.getByRole("dialog")
-  await expect(
-    janela.getByRole("heading", { name: "Modelagem de software" }),
-  ).toBeVisible()
+  // Na máquina lenta do CI o clique pode chegar antes da hidratação: repete
+  // até a janela abrir.
+  await expect(async () => {
+    await cartao.click()
+    await expect(
+      janela.getByRole("heading", { name: "Modelagem de software" }),
+    ).toBeVisible({ timeout: 1000 })
+  }).toPass()
   await expect(janela.getByText("O que aprendi")).toBeVisible()
   // A foto e o botão abrem o PDF.
   const links = janela.getByRole("link", { name: /Abrir o PDF/ })
